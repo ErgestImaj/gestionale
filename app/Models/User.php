@@ -9,7 +9,10 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable;
+
+    const CREATED_AT = 'created';
+    const UPDATED_AT = 'updated';
 
     /**
      * The attributes that are mass assignable.
@@ -60,6 +63,13 @@ class User extends Authenticatable
             $item->username = $uid;
             $item->slug = strtolower($uid);
         });
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userInfo(){
+        return $this->hasOne(UsersInfo::class);
     }
 
 }
