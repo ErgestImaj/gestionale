@@ -11,12 +11,12 @@
                 @csrf
                 <div class="form-group">
 
-                    <input id="email" type="email"  placeholder="Username" class="form-control  form-control-lg @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    @error('email')
+                    <input id="login" type="login"  placeholder="Username" class="form-control  form-control-lg {{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}" name="login" value="{{ old('username') ?: old('email') }}" required autocomplete="email" autofocus>
+                    @if ($errors->has('username') || $errors->has('email'))
                     <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong>{{ $errors->first('username') ?: $errors->first('email') }}</strong>
                             </span>
-                    @enderror
+                    @endif
                 </div>
                 <div class="form-group">
                     <input id="password" type="password" placeholder="Password" class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
