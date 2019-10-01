@@ -14,16 +14,18 @@ class UsersSeeder extends Seeder
     {
         factory(User::class)->create([
             'username'             => 'admin',
-            'slug'                 =>'admin',
-            'firstname'            =>'Presidente',
-            'lastname'             =>'Gennaro',
+            'slug'                 => 'admin',
+            'firstname'            => 'Presidente',
+            'lastname'             => 'Gennaro',
             'email'                => 'admin@admin.com',
             'email_verified_at'    => now(),
             'password'             => bcrypt('secret'),
             'remember_token'       => Str::random(10),
-            'activation'           =>now(),
-            'created_by'           =>1,
-            'state'           =>1,
+            'activation'           => now(),
+            'created_by'           => 1,
+            'state'                => 1,
         ]);
+
+        factory(User::class,10)->create();
     }
 }

@@ -19,8 +19,6 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     return [
-        'username' => $faker->userName,
-        'slug'=>strtolower($faker->userName),
         'firstname'=>$faker->firstName,
         'lastname'=>$faker->lastName,
         'email' => $faker->unique()->safeEmail,
