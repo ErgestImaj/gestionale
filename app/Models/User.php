@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -70,6 +72,54 @@ class User extends Authenticatable
      */
     public function userInfo(){
         return $this->hasOne(UsersInfo::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function userGroups(){
+        return $this->belongsToMany(UserGroups::class,'user_user_groups','user_id','group_id');
+    }
+
+    /**
+     *
+     * @param string|array $roles
+     */
+    public function authorizeRoles($roles)
+    {
+        if(!$this->state){
+            Auth::logout();
+            abort(401, 'Your account is disabled.');
+        }
+        if (is_array($roles)) {
+
+            return $this->hasAnyRole($roles) ||
+                abort(401, 'This action is unauthorized.');
+        }
+        return $this->hasRole($roles) ||
+            abort(401, 'This action is unauthorized.');
+    }
+    /**
+     * Check multiple roles
+     * @param array $roles
+     */
+    public function hasAnyRole($roles)
+    {
+
+        return null !== $this->userGroups()->whereIn('name', Arr::flatten($roles))->first();
+    }
+    /**
+     * Check one role
+     * @param string $role
+     */
+    public function hasRole($role)
+    {
+
+        return null !== $this->userGroups()->where('name', strtolower($role))->first();
+    }
+
+    public function getUserRole(){
+        return $this->userGroups()->firstOrFail()->name;
     }
 
 }

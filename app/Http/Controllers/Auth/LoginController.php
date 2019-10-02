@@ -28,7 +28,53 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+   // protected $redirectTo = '/home';
+    public function redirectTo(){
+
+        $role = auth()->user()->getUserRole();
+
+        switch (strtolower($role)) {
+            case 'amministrazione':
+                return 'amministrazione/dashboard';
+                break;
+            case 'partner':
+                return 'partner/dashboard';
+                break;
+            case 'master':
+                return 'master/dashboard';
+                break;
+            case 'affiliati':
+                return 'affiliati/dashboard';
+                break;
+            case 'partecipante':
+                return 'partecipante/dashboard';
+                break;
+            case 'esaminatore':
+                return 'esaminatore/dashboard';
+                break;
+            case 'docente':
+                return 'docente/dashboard';
+                break;
+            case 'formatore':
+                return 'formatore/dashboard';
+                break;
+            case 'supervisore':
+                return 'supervisore/dashboard';
+                break;
+            case 'rappresentante legale':
+                return 'rappresentante-legale/dashboard';
+                break;
+            case 'invigilator':
+                return 'invigilator/dashboard';
+                break;
+            case 'manager':
+                return 'manager/dashboard';
+                break;
+            default:
+                return '/login';
+                break;
+        }
+    }
 
     /**
      * Create a new controller instance.
@@ -85,7 +131,7 @@ class LoginController extends Controller
 
         $user = User::where('email', $request->input('login'))->orWhere('username', $request->input('login'))->first();
 
-        if (!$user->change_password) {
+        if ($user && !$user->change_password) {
             if (md5($request->input('password')) === $user->password) {
                 $user->password = Hash::make($request->input('password'));
                 $user->change_password = 1;

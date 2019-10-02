@@ -1,7 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 8300
- * Date: 9/30/2019
- * Time: 9:43 AM
+ * Here are listed or the routes for superadmin and admin
+ *
  */
+
+Route::group([
+              'middleware' => ['auth','check_user_role:Amministrazione' ],
+              'prefix'=>'amministrazione','as'=>'superadmin.',
+              'namespace'=>'Admin'
+             ],function() {
+
+        Route::get('/dashboard', 'DashboardController@index')->name('home');
+
+
+});

@@ -16,7 +16,7 @@
             </div>
         </li>
         <li class="nav-item @if(Request::is('home'))active @endif">
-            <a class="nav-link" href="{{route('home')}}">
+            <a class="nav-link" href="{{route('superadmin.home')}}">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
