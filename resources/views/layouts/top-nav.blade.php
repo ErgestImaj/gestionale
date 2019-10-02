@@ -155,14 +155,15 @@
                     </a>
                 </div>
             </li>
+
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="images/faces/face5.jpg" alt="profile"/>
+                    <img src="{{auth()->user()->avatar_url}}" alt="profile"/>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
-                        <i class="fas fa-cog text-primary"></i>
-                        Settings
+                    <a class="dropdown-item" href="/profile">
+                        <i class="fas fa-user text-primary"></i>
+                        Profile
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}"

@@ -1,20 +1,5 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item nav-profile">
-            <div class="nav-link">
-                <div class="profile-image">
-                    <img src="images/faces/face5.jpg" alt="image"/>
-                </div>
-                <div class="profile-name">
-                    <p class="name">
-                        Welcome  {{ Auth::user()->name }}
-                    </p>
-                    <p class="designation">
-                        Super Admin
-                    </p>
-                </div>
-            </div>
-        </li>
         <li class="nav-item @if(Request::is('home'))active @endif">
             <a class="nav-link" href="{{route('superadmin.home')}}">
                 <i class="fa fa-home menu-icon"></i>

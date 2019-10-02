@@ -14,6 +14,20 @@
             $('.mobile-menu').on('click',function () {
                $('#sidebar').toggleClass('active')
            })
+
+            //file upload
+
+            $('.file-upload-browse').on('click', function() {
+                var file = $(this).parent().parent().parent().find('.file-upload-default');
+                file.trigger('click');
+            });
+            $('.file-upload-default').on('change', function() {
+                $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+            });
         })
+
     </script>
+    @jquery
+    @toastr_js
+    @toastr_render
 </footer>

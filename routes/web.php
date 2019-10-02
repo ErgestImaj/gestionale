@@ -33,3 +33,7 @@ require_once __DIR__ .'/agencies/agencies.php';
 require_once  __DIR__ . '/users/usergrups.php';
 
 
+/**
+ * Common routes
+*/
+require __DIR__ . '/profile/profile.php';

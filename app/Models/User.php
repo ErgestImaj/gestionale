@@ -8,10 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Mtvs\EloquentHashids\HasHashid;
+use Mtvs\EloquentHashids\HashidRouting;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasHashid, HashidRouting;
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
@@ -24,6 +27,7 @@ class User extends Authenticatable
     protected $fillable = [
         'slug','username','firstname','lastname', 'email', 'password',
         'state','activation','created_by','updated_by','locked',
+        'avatar'
     ];
 
     /**
@@ -44,9 +48,11 @@ class User extends Authenticatable
         'email_verified_at'  => 'datetime',
         'activation'         => 'datetime',
         'locked'             => 'datetime',
+        'deleted_at'         => 'datetime',
         'state'              => 'boolean'
 
     ];
+    protected $appends = ['avatar_url'];
 
     /**
      * Bootstrap any application services.
@@ -121,5 +127,38 @@ class User extends Authenticatable
     public function getUserRole(){
         return $this->userGroups()->firstOrFail()->name;
     }
+
+    /**
+     * Display admin name: firstname lastname.
+     *
+     * @var string
+     */
+    public function getFullNameAttribute()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
+
+    /**
+     * @return avatar url
+     */
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar)
+            return Storage::url('avatars/'.$this->id.'/'.$this->avatar);
+        return Storage::url('user-avatar.png');
+    }
+    /**
+     * Get image thumb path.
+     *
+     * @var string
+     */
+    public function removeAvatar()
+    {
+        if (!empty($this->avatar) ) {
+            Storage::delete('public/avatars/'.$this->id.'/'.$this->avatar);
+        }
+    }
+
+
 
 }
