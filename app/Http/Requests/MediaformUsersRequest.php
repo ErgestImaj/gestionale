@@ -24,12 +24,39 @@ class MediaformUsersRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $userId =  $this->user->id ??  null;
+       $rules =  [
             'first_name'=>'required|string|max:191',
             'last_name'=>'required|string|max:191',
-            'email'=>'required|email|unique:users,email,'.Auth::id(),
-            'password'=>'nullable|sometimes|string|min:6',
+            'email'=>'required|email|unique:users,email,'.$userId,
             'image'=>'nullable|sometimes|mimes:jpg,png,jpeg'
+        ];
+        $userId ? $rules['password']='nullable|sometimes|min:6' : $rules['password']='required|min:6';
+
+        return $rules;
+    }
+    /**
+     * Get attributes that apply to the request.
+     *
+     * @return array
+     */
+    public function attributes(){
+        return [
+            'first_name' => 'nome',
+            'last_name'  => 'cognome',
+            'image'      => 'immagine profilo'
+        ];
+    }
+    /**
+     * Get the validation messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'required' => 'Il campo :attribute è obbligatorio.',
+            'mimes'=>'L\':attribute deve essere un file di tipo:jpg,png,jpeg ',
         ];
     }
 }

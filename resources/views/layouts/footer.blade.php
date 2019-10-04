@@ -5,15 +5,26 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
-    @stack('scripts')
+@stack('scripts')
     <script>
         jQuery(function () {
+
            $('.toggleefect').on('click',function () {
                $('body').toggleClass('sidebar-icon-only')
            })
             $('.mobile-menu').on('click',function () {
                $('#sidebar').toggleClass('active')
            })
+
+            //right dashboard
+
+            $('#settings-trigger').on('click',function () {
+                $('#theme-settings').toggleClass('open')
+            })
+            $('#theme-settings .settings-close').on('click',function () {
+                $('#theme-settings').removeClass('open')
+            })
+
 
             //file upload
 

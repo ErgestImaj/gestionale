@@ -33,7 +33,7 @@
                 <div class="my-2 d-flex justify-content-between align-items-center">
                         <div class="form-check form-check-flat form-check-primary">
                             <label class="form-check-label">
-                                <input type="checkbox" {{ old('remember') ? 'checked' : '' }} class="form-check-input">
+                                <input name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} class="form-check-input">
                                  Salva credenziali
                                 <i class="input-helper">
 

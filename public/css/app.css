@@ -3048,3 +3048,52 @@
   clip: auto;
 }
 
+.btn .caret {
+  line-height: 35px;
+}
+
+.dropdown-menu > li > a {
+  padding: 10px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #333333;
+  white-space: nowrap;
+}
+
+.btn-group.show .dropdown-toggle {
+  box-shadow: 0 0 0 100px rgba(0, 0, 0, 0.1) inset;
+}
+
+.show > .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  border-radius: 3px;
+  overflow: inherit;
+  padding: 0;
+  overflow: hidden;
+  border-width: 2px;
+  min-width: 180px;
+  color: #333333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu li:hover > a {
+  background: #c8e9e6;
+}
+
+.dropdown-menu > li > a > i,
+.dropdown-menu > li > a > img {
+  margin-right: 10px;
+}
+
+.text-semibold {
+  font-weight: 500;
+}
+
+.page-title i {
+  margin-right: 5px;
+}
+

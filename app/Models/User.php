@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\InvitationEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,10 +15,17 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasHashid, HashidRouting;
+    use Notifiable, HasHashid, HashidRouting,SoftDeletes;
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
+
+    const  IS_ACTIVE = 1;
+    const  NOT_ACTIVE = 0;
+
+    const SUPERADMIN = 'superadmin';
+    const ADMIN = 'admin';
+
 
     /**
      * The attributes that are mass assignable.
@@ -44,34 +52,20 @@ class User extends Authenticatable
      *
      * @var array
      */
+
+
     protected $casts = [
         'email_verified_at'  => 'datetime',
         'activation'         => 'datetime',
         'locked'             => 'datetime',
         'deleted_at'         => 'datetime',
+        'last_login'         => 'datetime',
+        'created'            => 'datetime',
         'state'              => 'boolean'
 
     ];
     protected $appends = ['avatar_url'];
 
-    /**
-     * Bootstrap any application services.
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        // Create username and slug when creating list.
-        static::creating(function ($item) {
-            // Create new uid
-            $uid = uniqid();
-            while (User::where('username', '=', $uid)->count() > 0) {
-                $uid = uniqid();
-            }
-            $item->username = $uid;
-            $item->slug = strtolower($uid);
-        });
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -83,8 +77,12 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function userGroups(){
+    public function roles(){
         return $this->belongsToMany(UserGroups::class,'user_user_groups','user_id','group_id');
+    }
+
+    public function userRole(){
+        return $this->roles()->firstOrFail()->name;
     }
 
     /**
@@ -93,12 +91,11 @@ class User extends Authenticatable
      */
     public function authorizeRoles($roles)
     {
-        if(!$this->state){
+        if(!$this->isActive()){
             Auth::logout();
             abort(401, 'Your account is disabled.');
         }
         if (is_array($roles)) {
-
             return $this->hasAnyRole($roles) ||
                 abort(401, 'This action is unauthorized.');
         }
@@ -112,7 +109,7 @@ class User extends Authenticatable
     public function hasAnyRole($roles)
     {
 
-        return null !== $this->userGroups()->whereIn('name', Arr::flatten($roles))->first();
+        return null !== $this->roles()->whereIn('name', Arr::flatten($roles))->first();
     }
     /**
      * Check one role
@@ -121,11 +118,22 @@ class User extends Authenticatable
     public function hasRole($role)
     {
 
-        return null !== $this->userGroups()->where('name', strtolower($role))->first();
+        return null !== $this->roles()->where('name', strtolower($role))->first();
     }
 
+    /**
+     * @return first user role
+     */
     public function getUserRole(){
-        return $this->userGroups()->firstOrFail()->name;
+        return $this->roles()->firstOrFail()->name;
+    }
+
+    /**
+     * Check if user is superadmin
+     * @return bool
+     */
+    public function isSuperAdmin(){
+        return $this->hasRole(self::SUPERADMIN);
     }
 
     /**
@@ -144,8 +152,29 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute()
     {
         if ($this->avatar)
-            return Storage::url('avatars/'.$this->id.'/'.$this->avatar);
+            return Storage::url('avatars/'.$this->avatar);
         return Storage::url('user-avatar.png');
+    }
+
+    /**
+     * get user status
+     * @return bool
+     */
+    public function isActive(){
+        return $this->state == 1;
+    }
+    /**
+     * @return int
+     */
+    public function disableUser(){
+        return $this->state = self::NOT_ACTIVE;
+    }
+
+    /**
+     * @return int
+     */
+    public function activeUser(){
+        return $this->state = self::IS_ACTIVE;
     }
     /**
      * Get image thumb path.
@@ -155,8 +184,13 @@ class User extends Authenticatable
     public function removeAvatar()
     {
         if (!empty($this->avatar) ) {
-            Storage::delete('public/avatars/'.$this->id.'/'.$this->avatar);
+            Storage::delete('public/avatars/'.$this->avatar);
         }
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new InvitationEmailNotification($token));
     }
 
 

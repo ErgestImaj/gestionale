@@ -9,6 +9,7 @@
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
 
+            @include('layouts.right-panel')
             <!-- partial:partials/_sidebar.html -->
             @include('layouts.left-nav')
             <!-- partial -->

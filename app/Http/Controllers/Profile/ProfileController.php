@@ -22,7 +22,20 @@ class ProfileController extends Controller
         return view('profile.profile',compact('user'));
     }
 
-     public function update(MediaformUsersRequest $request,User $user){
+    /**
+     * @param MediaformUsersRequest $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(MediaformUsersRequest $request, User $user){
+
+
+        if (!auth()->user()->can('update',$user)) {
+            toastr()->error('Non sei autorizzato per questa azione!');
+            return back();
+        }
+
+
 
          $user->firstname = $request->first_name;
          $user->lastname  = $request->last_name;
@@ -32,7 +45,7 @@ class ProfileController extends Controller
              if ($request->file('image')->isValid()) {
                  $user->removeAvatar();
                  $upload = new Upload();
-                 $avatar = $upload->upload($request->file('image'), 'public/avatars/'.$user->id)->resize(100, 100)->getData();
+                 $avatar = $upload->upload($request->file('image'), 'public/avatars')->resize(100, 100)->getData();
                  $user->avatar = $avatar['basename'];
             }
          }
@@ -40,11 +53,11 @@ class ProfileController extends Controller
              $user->password = Hash::make($request->password);
 
         if($user->update()){
-            toastr()->success('Data has been saved successfully!');
+            toastr()->success('I dati sono stati salvati correttamente!');
             return back();
         }
 
-         toastr()->error('An error has occurred please try again later.');
+         toastr()->error('Si è verificato un errore, riprova più tardi.');
 
          return back();
 

@@ -7,20 +7,7 @@
         <button class="navbar-toggler toggleefect align-self-center" type="button" data-toggle="minimize">
             <span class="fas fa-bars"></span>
         </button>
-        <ul class="navbar-nav">
-            <li class="nav-item nav-search d-none d-md-flex">
-                <div class="nav-link">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fas fa-search"></i>
-                  </span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-                    </div>
-                </div>
-            </li>
-        </ul>
+
         <ul class="navbar-nav navbar-nav-right">
 
             <li class="nav-item dropdown d-none d-lg-flex">

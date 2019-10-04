@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -34,8 +35,11 @@ class LoginController extends Controller
         $role = auth()->user()->getUserRole();
 
         switch (strtolower($role)) {
-            case 'amministrazione':
+            case User::SUPERADMIN:
                 return 'amministrazione/dashboard';
+                break;
+            case User::ADMIN:
+                return 'admin/dashboard';
                 break;
             case 'partner':
                 return 'partner/dashboard';
@@ -153,5 +157,18 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+    /**
+     * The user has been authenticated.
+     * @param  mixed  $user
+     * @return mixed
+     */
+
+   public function authenticated(Request $request, $user)
+    {
+
+        $user->last_login = Carbon::now();
+        $user->last_login_ip = $request->getClientIp();
+        $user->save();
     }
 }

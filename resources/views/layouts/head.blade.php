@@ -11,8 +11,9 @@
     <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" />
     <!-- Styles -->
     @toastr_css
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('pagestyle')
 
 </head>
 
