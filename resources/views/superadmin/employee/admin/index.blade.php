@@ -3,6 +3,7 @@
 
 @section('pagestyle')
     <link rel="stylesheet" href="{{asset('css/addons.css')}}">
+    <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
 @endsection
 @section('content')
 
@@ -53,4 +54,5 @@
 @push('scripts')
     <script src="{{asset('js/addons.js')}}"></script>
     <script src="{{asset('js/admin.js')}}"></script>
+    <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
 @endpush

@@ -25600,9 +25600,9 @@ dl li {
     display: block;
     position: fixed;
     top: 70px;
-    right: -300px;
+    right: -50vw;
     bottom: 0;
-    width: 300px;
+    width: 50vw;
     height: 100vh;
     min-height: 100%;
     background: #ffffff;

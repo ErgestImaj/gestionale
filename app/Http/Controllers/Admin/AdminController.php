@@ -57,16 +57,17 @@ class AdminController extends Controller
             } )
             ->addColumn( 'actions', function ( $row )
             {
-                $html = '
-                          <div class="btn-group">
+                $html =' <a class="action btn block-btn btn-success mb-1" data-tooltip="Accedi come questo utente." href="'.route('admin.loginasuser',['user'=>$row->hashid()]).' ">
+                                <i class="fas fa-random"></i> 
+                          </a>
+                          <a class=" action btn block-btn btn-dark mb-1" data-tooltip="Modifica utente." href="'.route('superadmin.admins.edit',['user'=>$row->hashid()]).'">
+                               <i class="fas fa-pencil-alt"></i>
+                          </a>';
+                $html .= '
+                          <div class="btn-group mb-1">
                             <button type="button" class="btn block-btn dropdown-toggle" data-toggle="dropdown"><span class="caret ml-0"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                        
-                                    <li>
-                                        <a class="d-block  btn-link page-link" href="'.route('superadmin.admins.edit',['user'=>$row->hashid()]).'">
-                                           <i class="fas fa-pencil-alt"></i> Modifica
-                                        </a>
-                                    </li>
+          
                                     <li>
                                       <a class="d-block update-btn btn-link page-link" href="#" data-action="'.route('superadmin.admins.status',['user'=>$row->hashid()]).'">';
                                          if ($row->isActive()):
@@ -77,23 +78,24 @@ class AdminController extends Controller
 
                                        $html .=' </a>
                                                 </li>
-                                    <li>
-                                        <a class="d-block btn-link page-link" href="#">
-                                           <i class="fas fa-sign-in-alt"></i> Login
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="d-block post-action btn-link page-link" data-content="Sei sicuro di voler inviare il link di accesso?"  data-action="'.route('admin.invitation',['user'=>$row->hashid()]).'" href="#">
-                                           <i class="fas fa-paper-plane"></i> Invia link di accesso
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="d-block delete-btn btn-link page-link" data-content="Sei sicuro di voler eliminare questo utente?" data-action="'.route('superadmin.admins.destroy',['user'=>$row->hashid()]).'" href="#">
-                                           <i class="fas fa-trash-alt"></i> Elimina
-                                        </a>
-                                    </li>
-                            </ul>
-                        </div>';
+                                 
+                                                <li>
+                                                    <a class="d-block post-action btn-link page-link" data-content="Sei sicuro di voler inviare il link di accesso?"  data-action="'.route('admin.invitation',['user'=>$row->hashid()]).'" href="#">
+                                                       <i class="fas fa-paper-plane"></i> Invia link di accesso
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="d-block sender-email btn-link page-link"  data-action="'.route('admin.emailtosingleuser',['user'=>$row->hashid()]).'" href="#">
+                                                       <i class="fas fa-envelope"></i> Invia Email
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="d-block delete-btn btn-link page-link" data-content="Sei sicuro di voler eliminare questo utente?" data-action="'.route('superadmin.admins.destroy',['user'=>$row->hashid()]).'" href="#">
+                                                       <i class="fas fa-trash-alt"></i> Elimina
+                                                    </a>
+                                                </li>
+                                        </ul>
+                                    </div>';
 
 
                 return $html;
@@ -133,7 +135,8 @@ class AdminController extends Controller
 
         if($user){
 
-            $user->roles()->attach(UserGroups::where('name', User::ADMIN)->firstOrFail()->id);
+
+            $user->roles()->sync(UserGroups::where('name', User::ADMIN)->firstOrFail()->id);
             toastr()->success('I dati sono stati salvati correttamente!');
             return redirect()->route('superadmin.admins.index');
         }
@@ -188,16 +191,13 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(User $user)
     {
-        if ($request->has('user')){
-            $user = User::findOrFail($request->user);
-             $user->delete();
+            $user->delete();
             return response( [
                 'status' => 'success',
                 'msg'    => 'Utente eliminato con successo'
             ] );
-        }
 
     }
 }

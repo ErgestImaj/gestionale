@@ -24,6 +24,9 @@
             $('#theme-settings .settings-close').on('click',function () {
                 $('#theme-settings').removeClass('open')
             })
+            $('#email-settings .settings-close').on('click',function () {
+                $('#email-settings').removeClass('open')
+            })
 
 
             //file upload
@@ -35,6 +38,7 @@
             $('.file-upload-default').on('change', function() {
                 $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
             });
+
         })
 
     </script>

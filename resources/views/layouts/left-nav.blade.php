@@ -16,7 +16,7 @@
             </div>
         </li>
         <li class="nav-item @if(Request::is('amministrazione/dashboard'))active @endif">
-            <a class="nav-link" href="{{route('superadmin.home')}}">
+            <a class="nav-link" href="{{route('admin.home')}}">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -29,7 +29,9 @@
             </a>
             <div class="collapse" id="employers">
                 <ul class="nav flex-column sub-menu">
+                    @hasrole('superadmin')
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">Admin</a></li>
+                    @endhasrole
                     <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">RTL</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/horizontal-menu.html">Horizontal Menu</a></li>
                 </ul>

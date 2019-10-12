@@ -26,4 +26,12 @@ if (!function_exists('diffForHumans')){
     }
 }
 
+if (!function_exists('redirect_users_to_dashboard')){
+
+    function redirect_users_to_dashboard( $role){
+
+
+    }
+}
+
 

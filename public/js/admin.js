@@ -51,15 +51,14 @@ $(document).on('click', '.delete-btn', function (e) {
         if (willDelete){
             axios.delete(actionurl)
                 .then(response => {
-                    console.log(response.data);
                   if (response.data.status == 'success'){
                       table.ajax.reload();
                       swal("Good job!", response.data.msg, "success");
                   }
                 })
                 .catch(err => {
-                    if (err.status==200) {
-                        swal("Good job!", err.data.msg, "success");
+                    if (err.response.status==200) {
+                        swal("Good job!", err.response.data.msg, "success");
                         table.ajax.reload();
                     } else {
                         swal("Woops!", "Qualcosa è andato storto!", "error");
@@ -84,8 +83,8 @@ $(document).on('click', '.update-btn', function (e) {
               }
             })
             .catch(err => {
-                if (err.status==200) {
-                    swal("Good job!", err.data.msg, "success");
+                if (err.response.status==200) {
+                    swal("Good job!", err.response.data.msg, "success");
                     table.ajax.reload();
                 } else {
                     swal("Woops!", "Qualcosa è andato storto!", "error");
@@ -99,7 +98,7 @@ $(document).on('click', '.update-btn', function (e) {
 $(document).on('click', '.post-action', function (e) {
     e.preventDefault();
      let actionurl = $(this).data('action');
-    let msg = $(this).data('content');
+     let msg = $(this).data('content');
     swal({
         title: "Sei sicuro?",
         text: msg,
@@ -117,8 +116,8 @@ $(document).on('click', '.post-action', function (e) {
                    }
                })
                .catch(err => {
-                   if (err.status==200) {
-                       swal("Good job!", err.data.msg, "success");
+                   if (err.response.status==200) {
+                       swal("Good job!", err.response.data.msg, "success");
                        table.ajax.reload();
                    } else {
                        swal("Woops!", "Qualcosa è andato storto!", "error");
@@ -129,7 +128,12 @@ $(document).on('click', '.post-action', function (e) {
        }
 
     })
+});
 
-
+$(document).on('click', '.sender-email', function (e) {
+    e.preventDefault();
+    let actionurl = $(this).data('action');
+    $('#email-settings').toggleClass('open')
+    $('#sendemailform').attr('action',actionurl);
 });
 

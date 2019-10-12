@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Traits\RedirectUsersToDashboard;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers, RedirectUsersToDashboard;
 
     /**
      * Where to redirect users after login.
@@ -32,52 +33,10 @@ class LoginController extends Controller
    // protected $redirectTo = '/home';
     public function redirectTo(){
 
-        $role = auth()->user()->getUserRole();
 
-        switch (strtolower($role)) {
-            case User::SUPERADMIN:
-                return 'amministrazione/dashboard';
-                break;
-            case User::ADMIN:
-                return 'admin/dashboard';
-                break;
-            case 'partner':
-                return 'partner/dashboard';
-                break;
-            case 'master':
-                return 'master/dashboard';
-                break;
-            case 'affiliati':
-                return 'affiliati/dashboard';
-                break;
-            case 'partecipante':
-                return 'partecipante/dashboard';
-                break;
-            case 'esaminatore':
-                return 'esaminatore/dashboard';
-                break;
-            case 'docente':
-                return 'docente/dashboard';
-                break;
-            case 'formatore':
-                return 'formatore/dashboard';
-                break;
-            case 'supervisore':
-                return 'supervisore/dashboard';
-                break;
-            case 'rappresentante legale':
-                return 'rappresentante-legale/dashboard';
-                break;
-            case 'invigilator':
-                return 'invigilator/dashboard';
-                break;
-            case 'manager':
-                return 'manager/dashboard';
-                break;
-            default:
-                return '/login';
-                break;
-        }
+     return  $this->redirect_user_to_specific_dashboard(
+           auth()->user()->getUserRole()
+       );
     }
 
     /**
