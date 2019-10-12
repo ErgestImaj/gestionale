@@ -18,19 +18,19 @@
         <li class="nav-item @if(Request::is('amministrazione/dashboard'))active @endif">
             <a class="nav-link" href="{{route('admin.home')}}">
                 <i class="fa fa-home menu-icon"></i>
-                <span class="menu-title">Dashboard</span>
+                <span class="menu-title">{{trans('menu.dashboard')}}</span>
             </a>
         </li>
         <li class="nav-item @if(Request::is('amministrazione/admins*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#employers" aria-expanded="false" aria-controls="employers">
                 <i class="fas fa-user-tie menu-icon menu-icon"></i>
-                <span class="menu-title">Employers</span>
+                <span class="menu-title">{{trans('menu.mf_users')}}</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="employers">
                 <ul class="nav flex-column sub-menu">
                     @hasrole('superadmin')
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">Admin</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
                     <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">RTL</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/horizontal-menu.html">Horizontal Menu</a></li>

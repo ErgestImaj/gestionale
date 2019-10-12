@@ -23,11 +23,11 @@
                     <span class="float-right text-muted">{{$user->email}}</span>
                 </p>
                 <p class="clearfix">
-                    <span class="float-left">Last Login</span>
+                    <span class="float-left">{{trans('profile.last_login')}}</span>
                     <span class="float-right text-muted">{{diffForHumans($user->last_login)}}</span>
                 </p>
                 <p class="clearfix">
-                    <span class="float-left">Status</span>
+                    <span class="float-left">{{trans('profile.status')}}</span>
                     <span class="float-right text-muted">
                                        @if($user->state)
                             <span class="badge badge-pill badge-success ml-auto px-1 py-1"><i class="fas fa-check font-weight-bold"></i></span>
@@ -37,7 +37,7 @@
                                     </span>
                 </p>
                 <p class="clearfix">
-                    <span class="float-left">Last Login IP</span>
+                    <span class="float-left">{{trans('profile.last_login_ip')}}</span>
                     <span class="float-right text-muted"> {{$user->last_login_ip}}</span>
                 </p>
             </div>

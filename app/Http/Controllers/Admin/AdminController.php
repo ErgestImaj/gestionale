@@ -44,8 +44,8 @@ class AdminController extends Controller
             } )
             ->addColumn( 'status', function ( $row )
             {
-                return $row->state ? '<span class="badge badge-success">Attivo</span>'
-                    : '<span class="badge badge-secondary">Non Attivo</span>';
+                return $row->state ? '<span class="badge badge-success">'.trans('form.active').'</span>'
+                    : '<span class="badge badge-secondary">'.trans('form.disabled').'</span>';
             } )
             ->addColumn( 'last_login', function ( $row )
             {
@@ -57,10 +57,10 @@ class AdminController extends Controller
             } )
             ->addColumn( 'actions', function ( $row )
             {
-                $html =' <a class="action btn block-btn btn-success mb-1" data-tooltip="Accedi come questo utente." href="'.route('admin.loginasuser',['user'=>$row->hashid()]).' ">
+                $html =' <a class="action btn block-btn btn-success mb-1" data-tooltip="'.trans('messages.login_as').'" href="'.route('admin.loginasuser',['user'=>$row->hashid()]).' ">
                                 <i class="fas fa-random"></i> 
                           </a>
-                          <a class=" action btn block-btn btn-dark mb-1" data-tooltip="Modifica utente." href="'.route('superadmin.admins.edit',['user'=>$row->hashid()]).'">
+                          <a class=" action btn block-btn btn-dark mb-1" data-tooltip="'.trans('headers.edit_user').'" href="'.route('superadmin.admins.edit',['user'=>$row->hashid()]).'">
                                <i class="fas fa-pencil-alt"></i>
                           </a>';
                 $html .= '
@@ -71,27 +71,27 @@ class AdminController extends Controller
                                     <li>
                                       <a class="d-block update-btn btn-link page-link" href="#" data-action="'.route('superadmin.admins.status',['user'=>$row->hashid()]).'">';
                                          if ($row->isActive()):
-                                             $html .='  <i class="fas fa-times"></i> Disattiva';
+                                             $html .='  <i class="fas fa-times"></i>'.trans('messages.active');
                                          else:
-                                             $html .='  <i class="fas fa-ticket-alt"></i> Attiva';
+                                             $html .='  <i class="fas fa-ticket-alt"></i>'.trans('messages.disable');
                                         endif;
 
                                        $html .=' </a>
                                                 </li>
                                  
                                                 <li>
-                                                    <a class="d-block post-action btn-link page-link" data-content="Sei sicuro di voler inviare il link di accesso?"  data-action="'.route('admin.invitation',['user'=>$row->hashid()]).'" href="#">
-                                                       <i class="fas fa-paper-plane"></i> Invia link di accesso
+                                                    <a class="d-block post-action btn-link page-link" data-content="'.trans('messages.send_reset_link_confirm').'"  data-action="'.route('admin.invitation',['user'=>$row->hashid()]).'" href="#">
+                                                       <i class="fas fa-paper-plane"></i>'.trans('messages.send_reset_link').'
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a class="d-block sender-email btn-link page-link"  data-action="'.route('admin.emailtosingleuser',['user'=>$row->hashid()]).'" href="#">
-                                                       <i class="fas fa-envelope"></i> Invia Email
+                                                       <i class="fas fa-envelope"></i>'.trans('messages.send_email').'
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="d-block delete-btn btn-link page-link" data-content="Sei sicuro di voler eliminare questo utente?" data-action="'.route('superadmin.admins.destroy',['user'=>$row->hashid()]).'" href="#">
-                                                       <i class="fas fa-trash-alt"></i> Elimina
+                                                    <a class="d-block delete-btn btn-link page-link" data-content="'.trans('messages.delete_confirm',['record'=>trans('menu.user')]).'" data-action="'.route('superadmin.admins.destroy',['user'=>$row->hashid()]).'" href="#">
+                                                       <i class="fas fa-trash-alt"></i>'.trans('form.delete').'
                                                     </a>
                                                 </li>
                                         </ul>
@@ -137,11 +137,11 @@ class AdminController extends Controller
 
 
             $user->roles()->sync(UserGroups::where('name', User::ADMIN)->firstOrFail()->id);
-            toastr()->success('I dati sono stati salvati correttamente!');
+            toastr()->success(trans('messages.success'));
             return redirect()->route('superadmin.admins.index');
         }
 
-        toastr()->error('Si è verificato un errore, riprova più tardi.');
+        toastr()->error(trans('messages.error'));
 
         return back();
 
@@ -177,7 +177,7 @@ class AdminController extends Controller
         if ($user->update()){
             return response( [
                 'status' => 'success',
-                'msg'    => 'Lo stato è cambiato con successo'
+                'msg'    => trans('messages.change_status')
             ] );
 
         }
@@ -196,7 +196,7 @@ class AdminController extends Controller
             $user->delete();
             return response( [
                 'status' => 'success',
-                'msg'    => 'Utente eliminato con successo'
+                'msg'    => trans('messages.delete_user')
             ] );
 
     }

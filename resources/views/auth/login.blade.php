@@ -5,8 +5,8 @@
             <div class="brand-logo">
                 <img src="{{asset('images/logo.jpg')}}" alt="logo">
             </div>
-            <h4>Elearning, Corsi di Formazione</h4>
-            <h6 class="font-weight-light">Inserisci le credenziali di accesso.</h6>
+            <h4>{{trans('headers.login_info')}}</h4>
+            <h6 class="font-weight-light">{{trans('headers.login_msg')}}</h6>
             <form class="pt-3" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">
@@ -28,19 +28,19 @@
                     @enderror
                 </div>
                 <div class="mt-3">
-                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Accedi</button>
+                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">{{trans('form.login')}}</button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
                         <div class="form-check form-check-flat form-check-primary">
                             <label class="form-check-label">
                                 <input name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }} class="form-check-input">
-                                 Salva credenziali
+                                {{trans('form.remember_me')}}
                                 <i class="input-helper">
 
                                 </i></label>
                         </div>
                     @if (Route::has('password.request'))
-                         <a href="{{ route('password.request') }}" class="auth-link text-black">Hai dimenticato la password?</a>
+                         <a href="{{ route('password.request') }}" class="auth-link text-black"> {{trans('form.forgot_password')}}</a>
                     @endif
                 </div>
             </form>

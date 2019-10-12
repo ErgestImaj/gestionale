@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
-            <span class="text-semibold"><i class="fas fa-list"></i>Edit User: {{$user->full_name}}</span>
+            <span class="text-semibold"><i class="fas fa-list"></i>Modifica utente: {{$user->full_name}}</span>
         </h3>
     </div>
     <div class="row">

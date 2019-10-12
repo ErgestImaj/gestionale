@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
-            <span class="text-semibold"><i class="fas fa-list"></i> New User</span>
+            <span class="text-semibold"><i class="fas fa-list"></i> {{trans('form.new_record',['record'=>trans('menu.user')])}}</span>
         </h3>
     </div>
     <div class="row">

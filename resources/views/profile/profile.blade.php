@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title','Profile')
+@section('title',trans('menu.profile'))
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
-            <span class="text-semibold"><i class="fas fa-list"></i> Profile</span>
+            <span class="text-semibold"><i class="fas fa-list"></i>{{trans('menu.profile')}}</span>
         </h3>
     </div>
     <div class="row">

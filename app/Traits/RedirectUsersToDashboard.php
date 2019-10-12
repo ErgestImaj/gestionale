@@ -20,6 +20,9 @@ trait  RedirectUsersToDashboard{
             case User::ADMIN:
                 return 'amministrazione/dashboard';
                 break;
+            case User::SEGRETERIA:
+                return 'segreteria/dashboard';
+                break;
             case 'partner':
                 return 'partner/dashboard';
                 break;

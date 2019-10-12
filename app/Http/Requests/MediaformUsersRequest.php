@@ -47,16 +47,5 @@ class MediaformUsersRequest extends FormRequest
             'image'      => 'immagine profilo'
         ];
     }
-    /**
-     * Get the validation messages that apply to the request.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'required' => 'Il campo :attribute è obbligatorio.',
-            'mimes'=>'L\':attribute deve essere un file di tipo:jpg,png,jpeg ',
-        ];
-    }
+
 }
