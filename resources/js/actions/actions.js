@@ -70,7 +70,6 @@ $(document).on('click', '.post-action', function (e) {
         buttons: true,
         dangerMode: true,
     }).then((val)=>{
-
         if (val){
             axios.post(actionurl)
                 .then(response => {

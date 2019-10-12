@@ -16,13 +16,9 @@ class AdminPolicy
      */
     public function edit(User $auth, User $user){
 
-        if($user->id === $auth->id){
-            return true;
-        }elseif ($user->hasRole(User::ADMIN)){
-            return false;
-        }elseif ($auth->hasRole(User::ADMIN) && !$user->hasRole(User::ADMIN)){
-            return true;
-        };
+        if ($user->id === $auth->id) return true;
+        if ($user->hasRole(User::ADMIN)) return false;
+        if ($auth->hasRole(User::ADMIN) && !$user->hasRole(User::ADMIN)) return true;
         return false;
     }
     /**

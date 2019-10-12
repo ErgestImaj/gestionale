@@ -12,10 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/actions/actions.js','public/js/actions.js')
-    .js('resources/js/datatables/admin.js','public/js/admin.js')
-    .js('resources/js/datatables/segreteria.js','public/js/segreteria.js')
-    .js('resources/js/dashboard/dashboard.js','public/js/dashboard.js')
+    .copy('resources/js/actions/actions.js','public/js/actions.js')
+    .copy('resources/js/datatables/admin.js','public/js/admin.js')
+    .copy('resources/js/datatables/segreteria.js','public/js/segreteria.js')
+    .copy('resources/js/dashboard/dashboard.js','public/js/dashboard.js')
    .sass('resources/sass/app.scss', 'public/css')
    .copy('resources/sass/style.css','public/css/style.css')
    .copy('resources/sass/addons.css','public/css/addons.css')
