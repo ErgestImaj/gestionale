@@ -81,15 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/datatables/admin.js":
-/*!******************************************!*\
-  !*** ./resources/js/datatables/admin.js ***!
-  \******************************************/
+/***/ "./resources/js/datatables/segreteria.js":
+/*!***********************************************!*\
+  !*** ./resources/js/datatables/segreteria.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -107,7 +107,7 @@ var table = $('#order-listing').on('preXhr.dt', function (e, settings, data) {
   },
   "processing": true,
   "serverSide": true,
-  "ajax": window.Laravel.baseURL + '/amministrazione/admins/index',
+  "ajax": window.Laravel.baseURL + '/amministrazione/segreteria/index',
   "columns": [{
     "data": "DT_RowIndex",
     "orderable": false
@@ -147,14 +147,14 @@ $('#order-listing').each(function () {
 
 /***/ }),
 
-/***/ 2:
-/*!************************************************!*\
-  !*** multi ./resources/js/datatables/admin.js ***!
-  \************************************************/
+/***/ 3:
+/*!*****************************************************!*\
+  !*** multi ./resources/js/datatables/segreteria.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\gestionale\resources\js\datatables\admin.js */"./resources/js/datatables/admin.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\gestionale\resources\js\datatables\segreteria.js */"./resources/js/datatables/segreteria.js");
 
 
 /***/ })

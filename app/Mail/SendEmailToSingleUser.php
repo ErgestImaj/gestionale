@@ -46,7 +46,7 @@ class SendEmailToSingleUser extends Mailable implements ShouldQueue
                      ->from($this->logged_user)
                      ->to($this->user)
                      ->replyTo($this->logged_user)
-                     ->subject($this->subject)
+                     ->subject($this->soggetto)
                      ->cc($this->cc_email)
                      ->bcc($this->bcc_emial);
 

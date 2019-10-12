@@ -11,5 +11,6 @@ return [
     'change_status'               => 'Lo stato è cambiato con successo',
     'delete_user'                 => 'Utente eliminato con successo',
     'delete_confirm'              => 'Sei sicuro di voler eliminare questo :record?',
+    'unauthorized'              => 'Non sei autorizzato per questa azione!',
 
 ];

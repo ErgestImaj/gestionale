@@ -32,8 +32,7 @@
                     @hasrole('superadmin')
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
-                    <li class="nav-item"> <a class="nav-link" href="pages/layout/rtl-layout.html">RTL</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="pages/layout/horizontal-menu.html">Horizontal Menu</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.segreteria.index')}}">{{trans('menu.segreteria')}}</a></li>
                 </ul>
             </div>
         </li>

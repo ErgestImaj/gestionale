@@ -3,6 +3,11 @@
         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © {{\Carbon\Carbon::now()->format('Y')}} <a href="#" target="_blank">Mediaform Srl.</a> Tutti i diritti riservati.</span>
     </div>
     <!-- Scripts -->
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'baseURL' => url('/'),
+        ]); ?>
+    </script>
     <script src="{{ asset('js/app.js') }}"></script>
 
 @stack('scripts')

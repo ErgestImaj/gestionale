@@ -8,7 +8,23 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class AdminPolicy
 {
     use HandlesAuthorization;
+    /**
+     * Determine if the given user can edit the user.
+     *
+     * @param  \App\Model\User  $user
+     * @return bool
+     */
+    public function edit(User $auth, User $user){
 
+        if($user->id === $auth->id){
+            return true;
+        }elseif ($user->hasRole(User::ADMIN)){
+            return false;
+        }elseif ($auth->hasRole(User::ADMIN) && !$user->hasRole(User::ADMIN)){
+            return true;
+        };
+        return false;
+    }
     /**
      * Determine if the given user can be updated by the user.
      *
@@ -18,7 +34,14 @@ class AdminPolicy
     public function update(User $auth ,User $user)
     {
 
-      return $user->id === $auth->id;
+      if($user->id === $auth->id){
+          return true;
+      }elseif ($user->hasRole(User::ADMIN)){
+          return false;
+      }elseif ($auth->hasRole(User::ADMIN) && !$user->hasRole(User::ADMIN)){
+          return true;
+      };
+      return false;
 
 
     }

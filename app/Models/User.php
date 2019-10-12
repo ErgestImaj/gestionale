@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\InvitationEmailNotification;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -169,7 +170,9 @@ class User extends Authenticatable
      * @return int
      */
     public function disableUser(){
-        return $this->state = self::NOT_ACTIVE;
+        $this->locked = Carbon::now()->toDateTimeString();
+        $this->locked_by = Auth::id();
+        $this->state = self::NOT_ACTIVE;
     }
 
     /**

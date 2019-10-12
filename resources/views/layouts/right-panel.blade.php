@@ -1,8 +1,8 @@
 <div class="theme-setting-wrapper">
-    @hasrole('superadmin')
+    @hasanyrole('superadmin|admin')
     @else
         <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
-    @endhasrole
+    @endhasanyrole
     <div id="theme-settings" class="settings-panel">
         <i class="settings-close fa fa-times"></i>
         <p class="settings-heading">SIDEBAR SKINS</p>

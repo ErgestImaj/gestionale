@@ -2,6 +2,7 @@
 
 return [
     'admin_users'                       => 'Utenti amministratori',
+    'segreteria_users'                  => 'Utenti segreteria',
     'edit_user'                         => 'Modifica utente',
     'last_login_ip'                     => 'Ultimo accesso IP',
     'user_info'                         => 'Informazioni Utente',

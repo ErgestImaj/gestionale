@@ -29,13 +29,10 @@ class ProfileController extends Controller
      */
     public function update(MediaformUsersRequest $request, User $user){
 
-
         if (!auth()->user()->can('update',$user)) {
-            toastr()->error('Non sei autorizzato per questa azione!');
+            toastr()->error(trans('messages.unauthorized'));
             return back();
         }
-
-
 
          $user->firstname = $request->first_name;
          $user->lastname  = $request->last_name;
@@ -53,11 +50,11 @@ class ProfileController extends Controller
              $user->password = Hash::make($request->password);
 
         if($user->update()){
-            toastr()->success('I dati sono stati salvati correttamente!');
+            toastr()->success(trans('messages.success'));
             return back();
         }
 
-         toastr()->error('Si è verificato un errore, riprova più tardi.');
+        toastr()->error(trans('messages.error'));
 
          return back();
 

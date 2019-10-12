@@ -18,10 +18,10 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($role = User::ADMIN)
     {
-        $admins = User::whereHas('roles',function ($query){
-            $query->where('name',User::ADMIN);
+        $admins = User::whereHas('roles',function ($query) use ($role){
+            $query->where('name',$role);
         })->get();
 
         $datatable = DataTables::of( $admins )
@@ -60,7 +60,7 @@ class AdminController extends Controller
                 $html =' <a class="action btn block-btn btn-success mb-1" data-tooltip="'.trans('messages.login_as').'" href="'.route('admin.loginasuser',['user'=>$row->hashid()]).' ">
                                 <i class="fas fa-random"></i> 
                           </a>
-                          <a class=" action btn block-btn btn-dark mb-1" data-tooltip="'.trans('headers.edit_user').'" href="'.route('superadmin.admins.edit',['user'=>$row->hashid()]).'">
+                          <a class=" action btn block-btn btn-dark mb-1" data-tooltip="'.trans('headers.edit_user').'" href="'.route('admin.admins.edit',['user'=>$row->hashid()]).'">
                                <i class="fas fa-pencil-alt"></i>
                           </a>';
                 $html .= '
@@ -69,11 +69,11 @@ class AdminController extends Controller
                             <ul class="dropdown-menu dropdown-menu-right">
           
                                     <li>
-                                      <a class="d-block update-btn btn-link page-link" href="#" data-action="'.route('superadmin.admins.status',['user'=>$row->hashid()]).'">';
+                                      <a class="d-block update-btn btn-link page-link" href="#" data-action="'.route('admin.users.status',['user'=>$row->hashid()]).'">';
                                          if ($row->isActive()):
-                                             $html .='  <i class="fas fa-times"></i>'.trans('messages.active');
+                                             $html .='  <i class="fas fa-times"></i>'.trans('messages.disable');
                                          else:
-                                             $html .='  <i class="fas fa-ticket-alt"></i>'.trans('messages.disable');
+                                             $html .='  <i class="fas fa-ticket-alt"></i>'.trans('messages.active');
                                         endif;
 
                                        $html .=' </a>
@@ -114,7 +114,7 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MediaformUsersRequest $request)
+    public function store(MediaformUsersRequest $request, $role = User::ADMIN, $redirect = 'superadmin.admins.index')
     {
         $avatar='';
         if ($request->hasFile('image')) {
@@ -134,11 +134,9 @@ class AdminController extends Controller
         ]);
 
         if($user){
-
-
-            $user->roles()->sync(UserGroups::where('name', User::ADMIN)->firstOrFail()->id);
+            $user->roles()->sync(UserGroups::where('name', $role)->firstOrFail()->id);
             toastr()->success(trans('messages.success'));
-            return redirect()->route('superadmin.admins.index');
+            return redirect()->route($redirect);
         }
 
         toastr()->error(trans('messages.error'));
@@ -166,13 +164,25 @@ class AdminController extends Controller
      */
     public function edit(User $user)
     {
-          //update is done in Profile controller
+        if (!auth()->user()->can('edit',$user)) {
+            toastr()->error(trans('messages.unauthorized'));
+            return back();
+        }
+
+        //update is done in Profile controller
           return view('superadmin.employee.admin.edit',compact('user'));
     }
 
 
     public function updateStatus(User $user){
 
+        if (!auth()->user()->can('update',$user)) {
+            return response( [
+                'status' => 'unauthorized',
+                'msg'    => trans('messages.unauthorized')
+            ] );
+
+        }
         $user->isActive() ? $user->disableUser() : $user->activeUser();
         if ($user->update()){
             return response( [
@@ -199,5 +209,20 @@ class AdminController extends Controller
                 'msg'    => trans('messages.delete_user')
             ] );
 
+    }
+
+    /**
+     * List all segreteria users
+     * @return \Illuminate\Http\Response
+     */
+    public function segreteria(){
+        return $this->index(User::SEGRETERIA);
+    }
+    /**
+     * Store segreteria users
+     * @return \Illuminate\Http\Response
+     */
+    public function storeSegreteria(MediaformUsersRequest $request){
+        return $this->store($request,User::SEGRETERIA,'admin.segreteria.index');
     }
 }

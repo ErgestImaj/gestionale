@@ -19,9 +19,7 @@ class LoginController extends Controller
      */
     public function loginAsUser(User $user){
         Session::put( 'superadmin_user', Auth::id() );
-
         Auth::login( $user );
-
         return redirect(
             $this->redirect_user_to_specific_dashboard(
                 $user->getUserRole()
