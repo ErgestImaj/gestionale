@@ -11,13 +11,21 @@ Route::group([
              ],function() {
 
 
-
+        // Admin
         Route::view('/admins','superadmin.employee.admin.index')->name('admins.index');
         Route::get('/admins/index','AdminController@index');
         Route::view('admins/create','superadmin.employee.admin.create')->name('admins.create');
         Route::post('/admins/store','AdminController@store')->name('admins.store');
         Route::patch('/admin/{user}','AdminController@update')->name('admins.update');
         Route::delete('/admin/delete/{user?}','AdminController@destroy')->name('admins.destroy');
+
+        //Settings
+
+       Route::get('/settings/permission','SettingsController@permissionSettings')->name('permission');
+       Route::patch('/settings/permission/{userGroups}','SettingsController@changeGroupStatus')->name('permission.update');
+       Route::get('/settings/maintenance/','SettingsController@maintenance')->name('maintenance');
+       Route::patch('/settings/maintenance/','SettingsController@setMaintenaceMode')->name('maintenance.update');
+
 
 });
 

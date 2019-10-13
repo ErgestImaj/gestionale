@@ -12,7 +12,7 @@
 
             <li class="nav-item dropdown d-none d-lg-flex">
                 <div class="nav-link">
-                    <span class="dropdown-toggle btn btn-outline-dark" id="languageDropdown" data-toggle="dropdown">Create new</span>
+                    <span class="dropdown-toggle btn btn-outline-dark" id="languageDropdown" data-toggle="dropdown">Nuovo Sessione</span>
                     <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
                         <a class="dropdown-item font-weight-medium" href="#">
                             French
@@ -20,6 +20,28 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item font-weight-medium" href="#">
                             Espanol
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-medium" href="#">
+                            Latin
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-medium" href="#">
+                            Arabic
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item dropdown d-none d-lg-flex">
+                <div class="nav-link">
+                    <span class="dropdown-toggle btn btn-outline-dark" id="languageDropdown" data-toggle="dropdown">Nuovo Utente</span>
+                    <div class="dropdown-menu navbar-dropdown" aria-labelledby="languageDropdown">
+                        <a class="dropdown-item font-weight-medium" href="#">
+                            Admin
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item font-weight-medium" href="#">
+                           Studente
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item font-weight-medium" href="#">

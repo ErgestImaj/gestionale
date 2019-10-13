@@ -8,6 +8,9 @@
             <h4>{{trans('headers.login_info')}}</h4>
             <h6 class="font-weight-light">{{trans('headers.login_msg')}}</h6>
             <form class="pt-3" method="POST" action="{{ route('login') }}">
+                @if (session('message'))
+                    <div class="alert alert-danger">{{ session('message') }}</div>
+                @endif
                 @csrf
                 <div class="form-group">
 

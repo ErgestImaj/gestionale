@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item @if(Request::is('amministrazione/admins*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#employers" aria-expanded="false" aria-controls="employers">
-                <i class="fas fa-user-tie menu-icon menu-icon"></i>
+                <i class="fas fa-user-tie menu-icon"></i>
                 <span class="menu-title">{{trans('menu.mf_users')}}</span>
                 <i class="menu-arrow"></i>
             </a>
@@ -36,5 +36,22 @@
                 </ul>
             </div>
         </li>
+        @hasrole('superadmin')
+        <li class="nav-item @if(Request::is('amministrazione/settings*'))active @endif">
+            <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
+                <i class="fas fa-tools  menu-icon"></i>
+                <span class="menu-title">{{trans('menu.settings')}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="settings">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.permission')}}">{{trans('menu.permission')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.segreteria.index')}}">{{trans('menu.email_settings')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('menu.payment_settings')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.maintenance')}}">{{trans('menu.maintenance')}}</a></li>
+                </ul>
+            </div>
+        </li>
+        @endhasrole
     </ul>
 </nav>

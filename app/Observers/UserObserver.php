@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserObserver
 {
@@ -20,7 +21,7 @@ class UserObserver
             $uid = uniqid();
         }
         $user->username = $uid;
-        $user->created_by = \auth()->user()->id;
+        $user->created_by = Auth::id();
         $user->change_password = 1;
         $user->state = 1;
         $user->slug = strtolower($uid);
@@ -34,7 +35,7 @@ class UserObserver
      */
     public function saving(User $user)
     {
-        $user->updated_by = \auth()->user()->id;
+        $user->updated_by = Auth::id();
     }
 
     /**

@@ -17,6 +17,7 @@ return [
     'remember_me'                       => 'Salva credenziali',
     'forgot_password'                   => 'Hai dimenticato la password?',
     'edit_user'                         => 'Modifica utente:',
+    'locked'                            => 'Bloccato a',
 
 ];
 

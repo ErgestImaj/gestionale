@@ -94,10 +94,6 @@ class User extends Authenticatable
      */
     public function authorizeRoles($roles)
     {
-        if(!$this->isActive()){
-            Auth::logout();
-            abort(401, 'Your account is disabled.');
-        }
         if (is_array($roles)) {
             return $this->hasAnyRole($roles) ||
                 abort(401, 'This action is unauthorized.');
