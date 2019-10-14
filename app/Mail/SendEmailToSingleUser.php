@@ -16,7 +16,7 @@ class SendEmailToSingleUser extends Mailable implements ShouldQueue
      protected $soggetto;
      protected $descrizione;
      protected $cc_email;
-     protected $bcc_emial;
+     protected $bcc_email;
 
 
     /**
@@ -24,7 +24,7 @@ class SendEmailToSingleUser extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($logged_user,$user,$soggetto,$descrizione,$cc_email=null,$bcc_emial=null)
+    public function __construct($logged_user,$user,$soggetto,$descrizione,$cc_email=null,$bcc_email=null)
     {
         //
         $this->logged_user = $logged_user;
@@ -32,7 +32,7 @@ class SendEmailToSingleUser extends Mailable implements ShouldQueue
         $this->soggetto = $soggetto;
         $this->descrizione = $descrizione;
         $this->cc_email =$cc_email;
-        $this->bcc_emial = $bcc_emial;
+        $this->bcc_email = $bcc_email;
     }
 
     /**
@@ -42,13 +42,13 @@ class SendEmailToSingleUser extends Mailable implements ShouldQueue
      */
     public function build()
     {
+        if ($this->cc_email !=null) $this->cc($this->cc_email);
+        if ($this->bcc_email !=null) $this->bcc($this->bcc_email);
         return $this->view('emails.single.single',['descrizione'=>$this->descrizione])
                      ->from($this->logged_user)
                      ->to($this->user)
                      ->replyTo($this->logged_user)
-                     ->subject($this->soggetto)
-                     ->cc($this->cc_email)
-                     ->bcc($this->bcc_emial);
+                     ->subject($this->soggetto);
 
     }
 }
