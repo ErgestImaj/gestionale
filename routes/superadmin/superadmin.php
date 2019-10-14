@@ -23,6 +23,8 @@ Route::group([
 
        Route::get('/settings/permission','SettingsController@permissionSettings')->name('permission');
        Route::patch('/settings/permission/{userGroups}','SettingsController@changeGroupStatus')->name('permission.update');
+       Route::get('/settings/emails','SettingsController@emailSettings')->name('email');
+       Route::patch('/settings/email/{key}','SettingsController@updateEmailSettings')->name('emails.update');
        Route::get('/settings/maintenance/','SettingsController@maintenance')->name('maintenance');
        Route::patch('/settings/maintenance/','SettingsController@setMaintenaceMode')->name('maintenance.update');
 

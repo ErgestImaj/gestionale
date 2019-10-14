@@ -1,37 +1,37 @@
 <div class="theme-setting-wrapper">
         <div id="email-settings" class="settings-panel">
             <i class="settings-close fa fa-times"></i>
-            <p class="settings-heading">SEND EMAIL</p>
+            <p class="settings-heading text-uppercase">{{trans('form.send_email')}}</p>
             <form action="" method="POST" id="sendemailform">
                 @csrf
                 <div class="mx-0 px-4 mt-2">
                     <div class="form-group py-3">
-                        <label class="form-control-label" for="input-email"> Aggiungi CC email</label>
+                        <label class="form-control-label" for="input-email">{{trans('form.add_cc_email')}} </label>
                         <input type="email" name="cc_email" id="input-email" class="form-control"  placeholder="jesse@example.com">
                             <span class="invalid-feedback" role="alert"></span>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" for="binput-email"> Aggiungi BCC email</label>
+                        <label class="form-control-label" for="binput-email">{{trans('form.add_bcc_email')}}</label>
                         <input type="email" name="bcc_email" id="binput-email" class="form-control " placeholder="jesse@example.com">
                             <span class="invalid-feedback" role="alert"></span>
 
                     </div>
                 </div>
-                <p class="settings-heading mt-2">Dati email</p>
+                <p class="settings-heading mt-2">{{trans('form.dati_email')}}</p>
                 <div class=" mx-0 px-4 mt-2">
                     <div class="form-group pt-2">
-                        <label class="form-control-label" for="input-last-name">Soggetto</label>
-                        <input type="text" name="soggetto" id="input-last-name" class="form-control " placeholder="Soggetto">
+                        <label class="form-control-label" for="input-last-name">{{trans('form.subject')}}</label>
+                        <input type="text" name="soggetto" id="input-last-name" class="form-control " placeholder="{{trans('form.subject')}}">
                                  <span class="invalid-feedback" role="alert"></span>
                     </div>
                     <div class="form-group">
-                        <label for="descrizione">Descrizione</label>
+                        <label for="descrizione">{{trans('form.description')}}</label>
                         <textarea class="form-control summernote" name="descrizione" id="descrizione" rows="4"></textarea>
                     </div>
                     <span class="invalid-feedback d-block mb-3 " id="descrizione" role="alert"></span>
 
                     <div class="form-group mb-5 pb-5">
-                        <button class="btn-info sender-email-to btn" type="submit">Invia</button>
+                        <button class="btn-info sender-email-to btn" type="submit">{{trans('form.send')}}</button>
                     </div>
                 </div>
             </form>

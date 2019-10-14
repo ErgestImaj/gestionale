@@ -7,7 +7,7 @@
                 <input type="text" name="first_name" id="input-first-name" class="form-control @error('first_name') is-invalid @enderror"  placeholder="Nome" value="{{ $user->firstname ?? '' }}">
                 @error('first_name')
                 <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                     <strong>{{ $message }}</strong>
                </span>
                 @enderror
             </div>
@@ -18,7 +18,7 @@
                 <input type="text" name="last_name" id="input-last-name" class="form-control @error('last_name') is-invalid @enderror" placeholder="Cognome" value="{{$user->lastname ?? '' }}">
                 @error('last_name')
                 <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                     <strong>{{ $message }}</strong>
                  </span>
                 @enderror
             </div>
@@ -43,8 +43,8 @@
                 <input type="password" name="password" id="input-password" class="form-control  @error('password') is-invalid @enderror">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                     <strong>{{ $message }}</strong>
+                 </span>
                 @enderror
             </div>
         </div>
@@ -55,13 +55,13 @@
                 <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info @error('image') is-invalid @enderror" disabled placeholder="Upload Image">
                     <span class="input-group-append">
-                                              <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                                            </span>
+                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                     </span>
                 </div>
                 @error('image')
                 <span class="invalid-feedback d-block" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                      <strong>{{ $message }}</strong>
+                  </span>
                 @enderror
             </div>
         </div>

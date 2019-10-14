@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title',trans('menu.permission'))
+@section('title',trans('menu.maintenance'))
 
 @section('content')
 
     <div class="content-single">
         <div class="page-header">
             <h3 class="page-title">
-                <span class="text-semibold"><i class="fas fa-list"></i>{{trans('menu.permission')}}</span>
+                <span class="text-semibold"><i class="fas fa-list"></i>{{trans('menu.maintenance')}}</span>
 
             </h3>
         </div>

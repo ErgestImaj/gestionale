@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title',trans('menu.admin'))
+@section('title',trans('menu.segreteria'))
 
 @section('pagestyle')
     <link rel="stylesheet" href="{{asset('css/addons.css')}}">

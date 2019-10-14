@@ -18,6 +18,17 @@ return [
     'forgot_password'                   => 'Hai dimenticato la password?',
     'edit_user'                         => 'Modifica utente:',
     'locked'                            => 'Bloccato a',
+    'lrn_email'                         => 'Email LRN Londra',
+    'lrn_email_cc'                      => 'Email LRN in copia',
+    'support_email'                     => 'Supporto email',
+    'add'                               => 'Aggiungi',
+    'send_email'                        => 'Invia Email',
+    'add_cc_email'                      => 'Aggiungi CC email',
+    'add_bcc_email'                     => 'Aggiungi BCC email',
+    'dati_email'                        => 'Dati email',
+    'subject'                           => 'Soggetto',
+    'description'                       => 'Descrizione',
+    'send'                              => 'Invia',
 
 ];
 
