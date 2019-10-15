@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/superadmin/settings/payment.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Notifications/InvitationEmailNotification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Notifications/InvitationEmailNotification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/mail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/addons.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/addons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/form.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/headers.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/headers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/_styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/emails-panel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/emails-panel.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/superadmin/settings/emails.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/superadmin/settings/emails.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/addons.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/addons.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -270,11 +256,20 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/Notifications/InvitationEmailNotification.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="388">
-                  <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+                <state relative-caret-position="408">
+                  <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/resources/sass/addons.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="500">
+                  <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
                 </state>
               </provider>
             </entry>
@@ -381,7 +376,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Profile/ProfileController.php" />
         <option value="$PROJECT_DIR$/public/js/actions.js" />
         <option value="$PROJECT_DIR$/resources/views/layouts/right-panel.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/errors/404.blade.php" />
@@ -432,6 +426,7 @@
         <option value="$PROJECT_DIR$/resources/sass/_styles.scss" />
         <option value="$PROJECT_DIR$/app/Mail/SendEmailToSingleUser.php" />
         <option value="$PROJECT_DIR$/app/Notifications/InvitationEmailNotification.php" />
+        <option value="$PROJECT_DIR$/resources/sass/addons.css" />
       </list>
     </option>
   </component>
@@ -593,32 +588,6 @@
               <item name="gestionale" type="b2602c69:ProjectViewProjectNode" />
               <item name="gestionale" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gestionale" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gestionale" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gestionale" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gestionale" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gestionale" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gestionale" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="lang" type="462c0819:PsiDirectoryNode" />
-              <item name="it" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gestionale" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gestionale" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="sass" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -766,18 +735,18 @@
       <workItem from="1570879203938" duration="929000" />
       <workItem from="1570951901924" duration="15214000" />
       <workItem from="1571045255621" duration="16957000" />
-      <workItem from="1571124321788" duration="16967000" />
+      <workItem from="1571124321788" duration="17400000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202412000" />
+    <option name="totallyTimeSpent" value="202845000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5712121" visible="true" weight="0.15191898" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5712121" visible="true" weight="0.15191898" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.4287879" side_tool="true" weight="0.16044776" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -790,7 +759,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.27410617" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.27410617" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.32936078" />
@@ -827,13 +796,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Providers/BladeServiceProvider.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="31" column="29" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/LoginController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -1200,8 +1162,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Notifications/InvitationEmailNotification.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+        <state relative-caret-position="408">
+          <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/sass/addons.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
         </state>
       </provider>
     </entry>
