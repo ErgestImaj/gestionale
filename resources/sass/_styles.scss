@@ -140,3 +140,54 @@
 
     }
 }
+@keyframes stretch {
+    0% {
+        transform: scale(0.5);
+        background-color: #B5DDF0;
+    }
+    50% {
+        background-color: #CFE9F6;
+    }
+    100% {
+        transform: scale(1);
+        background-color: #FFFFFF;
+    }
+}
+
+.evolve_btn.evolve_btn--loading {
+    font-size: 0;
+    padding: 13px 16px;
+}
+.evolve_btn.evolve_btn--loading span {
+    display: flex;
+}
+.evolve_btn.evolve_btn--loading span b {
+    animation-direction: alternate;
+    animation-duration: .5s;
+    animation-fill-mode: none;
+    animation-iteration-count: infinite;
+    animation-name: stretch;
+    animation-play-state: running;
+    animation-timing-function: ease-out;
+    border-radius: 100%;
+    display: block;
+    height: 10px;
+    margin: 0 1px;
+    width: 10px;
+    animation-delay: .1s;
+    margin: 0 5px;
+}
+.evolve_btn.evolve_btn--loading span b:first-child {
+    animation-delay: 0s;
+    margin: 0;
+}
+.evolve_btn.evolve_btn--loading span b:last-child {
+    animation-delay: .2s;
+    margin: 0;
+}
+.evolve_btn b {
+    font-weight: normal;
+}
+.evolve_btn span {
+    display: none;
+}

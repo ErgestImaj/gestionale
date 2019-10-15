@@ -27,6 +27,13 @@ Route::group([
        Route::patch('/settings/email/{key}','SettingsController@updateEmailSettings')->name('emails.update');
        Route::get('/settings/maintenance/','SettingsController@maintenance')->name('maintenance');
        Route::patch('/settings/maintenance/','SettingsController@setMaintenaceMode')->name('maintenance.update');
+       Route::get('/settings/payment/','SettingsController@paymentSettings')->name('payment');
+       Route::patch('/settings/payment/iban/{key}','SettingsController@updateIBANSettings')->name('iban.update');
+       Route::patch('/settings/payment/paypal/{key}','SettingsController@updatePayPalSettings')->name('paypal.update');
+       Route::patch('/settings/payment/stripe/{key}','SettingsController@updateStripeSettings')->name('stripe.update');
+       Route::patch('/settings/payment/price/{key}','SettingsController@updatePriceSettings')->name('price.update');
+       Route::patch('/settings/payment/bills/{key}','SettingsController@updateBillsSettings')->name('bills.update');
+       Route::patch('/settings/payment/emailconfiguration','SettingsController@updateEmailSMTPSettings')->name('emailsmtp.update');
 
 
 });

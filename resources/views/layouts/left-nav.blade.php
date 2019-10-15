@@ -47,7 +47,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.permission')}}">{{trans('menu.permission')}}</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.email')}}">{{trans('menu.email_settings')}}</a></li>
-                    {{--<li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('menu.payment_settings')}}</a></li>--}}
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.payment')}}">{{trans('menu.payment_settings')}}</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.maintenance')}}">{{trans('menu.maintenance')}}</a></li>
                 </ul>
             </div>

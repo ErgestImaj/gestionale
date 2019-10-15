@@ -31,7 +31,13 @@
                     <span class="invalid-feedback d-block mb-3 " id="descrizione" role="alert"></span>
 
                     <div class="form-group mb-5 pb-5">
-                        <button class="btn-info sender-email-to btn" type="submit">{{trans('form.send')}}</button>
+                        <button class="btn-info evolve_btn sender-email-to btn" type="submit">{{trans('form.send')}}
+                            <span>
+                                <b></b>
+                                <b></b>
+                                <b></b>
+                           </span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -57,6 +63,8 @@
     <script>
         $('.sender-email-to').on('click',function (e) {
             e.preventDefault();
+            var btn = $(this);
+            btn.addClass('evolve_btn--loading').attr("disabled", true);
             $('#sendemailform input').removeClass('is-invalid')
             let actionurl = $('#sendemailform').attr('action');
             let data = getFormData(
@@ -65,6 +73,7 @@
 
            axios.post(actionurl,data)
                 .then(response => {
+                    btn.removeClass('evolve_btn--loading').removeAttr("disabled")
                        if (response.data.status == 'success'){
                            swal("Good job!", response.data.msg, "success");
                            table.ajax.reload();
@@ -75,6 +84,7 @@
                        }
                 })
                 .catch(err => {
+                    btn.removeClass('evolve_btn--loading').removeAttr("disabled")
                     if( err.response.status === 422 ) {
                         var errors = (err.response.data.errors);
                         $.each(errors, function (key, val) {

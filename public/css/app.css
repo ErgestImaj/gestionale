@@ -3206,3 +3206,89 @@
   }
 }
 
+@-webkit-keyframes stretch {
+  0% {
+    transform: scale(0.5);
+    background-color: #B5DDF0;
+  }
+
+  50% {
+    background-color: #CFE9F6;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #FFFFFF;
+  }
+}
+
+@keyframes stretch {
+  0% {
+    transform: scale(0.5);
+    background-color: #B5DDF0;
+  }
+
+  50% {
+    background-color: #CFE9F6;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #FFFFFF;
+  }
+}
+
+.evolve_btn.evolve_btn--loading {
+  font-size: 0;
+  padding: 13px 16px;
+}
+
+.evolve_btn.evolve_btn--loading span {
+  display: flex;
+}
+
+.evolve_btn.evolve_btn--loading span b {
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-fill-mode: none;
+          animation-fill-mode: none;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -webkit-animation-name: stretch;
+          animation-name: stretch;
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  border-radius: 100%;
+  display: block;
+  height: 10px;
+  margin: 0 1px;
+  width: 10px;
+  -webkit-animation-delay: 0.1s;
+          animation-delay: 0.1s;
+  margin: 0 5px;
+}
+
+.evolve_btn.evolve_btn--loading span b:first-child {
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  margin: 0;
+}
+
+.evolve_btn.evolve_btn--loading span b:last-child {
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+  margin: 0;
+}
+
+.evolve_btn b {
+  font-weight: normal;
+}
+
+.evolve_btn span {
+  display: none;
+}
+
