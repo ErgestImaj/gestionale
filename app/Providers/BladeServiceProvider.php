@@ -34,5 +34,9 @@ class BladeServiceProvider extends ServiceProvider
             return  auth()->check() && auth()->user()->hasAnyRole($roles);
         });
 
+        Blade::directive('convert_to_percent', function ($value) {
+            return "<?php echo $value . '%'; ?>";
+        });
+
     }
 }

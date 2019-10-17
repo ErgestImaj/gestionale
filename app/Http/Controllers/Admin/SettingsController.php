@@ -10,8 +10,10 @@ use App\Http\Requests\PayPalRequest;
 use App\Http\Requests\PriceRequest;
 use App\Http\Requests\StripeRequest;
 use App\Http\Requests\UtilitiesRequest;
+use App\Http\Requests\VatRequest;
 use App\Models\Config;
 use App\Models\UserGroups;
+use App\Models\VatRate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -239,5 +241,44 @@ class SettingsController extends Controller
         toastr()->error(trans('messages.error'));
         return back();
 
+    }
+
+    public function ivaSettings(){
+        $vats = VatRate::cursor();
+        return view('superadmin.settings.iva',[
+            'vats'=>$vats
+        ]);
+    }
+
+    public function addIvaSettings(VatRequest $request){
+        $vat = VatRate::create([
+           'name'=> $request->input('vat_name'),
+           'value'=> convert_to_price($request->input('vat_value'))
+        ]);
+
+        if ( $vat){
+            toastr()->success(trans('messages.success'));
+            return back();
+        }
+        toastr()->error(trans('messages.error'));
+        return back();
+    }
+    public function updateIvaSettings(VatRequest $request,VatRate $rate){
+
+        $rate->name = $request->input('vat_name');
+        $rate->value = convert_to_price($request->input('vat_value'));
+        if ( $rate->update()){
+            toastr()->success(trans('messages.success'));
+            return back();
+        }
+        toastr()->error(trans('messages.error'));
+        return back();
+    }
+    public function destroyIvaSettings(VatRate $rate){
+        $rate->delete();
+        return response( [
+            'status' => 'success',
+            'msg'    => trans('messages.delete')
+        ] );
     }
 }

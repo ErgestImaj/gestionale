@@ -7,6 +7,7 @@ return [
     'send_reset_link'             => 'Invia link di accesso',
     'send_email'                  => 'Invia Email',
     'success'                     => 'I dati sono stati salvati correttamente!',
+    'delete'                      => 'I dati sono stati cancelati correttamente!',
     'error'                       => 'Si è verificato un errore, riprova più tardi.',
     'change_status'               => 'Lo stato è cambiato con successo',
     'delete_user'                 => 'Utente eliminato con successo',

@@ -44,6 +44,7 @@
         </div>
 </div>
 @push('scripts')
+    <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
     <script>
         $('.summernote').summernote({
             height: 150,

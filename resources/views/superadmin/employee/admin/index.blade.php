@@ -55,5 +55,4 @@
     <script src="{{asset('js/addons.js')}}"></script>
     <script src="{{asset('js/admin.js')}}"></script>
     <script src="{{asset('js/actions.js')}}"></script>
-    <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
 @endpush

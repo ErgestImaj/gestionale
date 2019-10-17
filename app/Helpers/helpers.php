@@ -25,6 +25,11 @@ if (!function_exists('diffForHumans')){
         return 'non disponibile';
     }
 }
+/**
+ * Set key=value to .env file
+ * @param array $values
+ * @return bool
+ */
 if (!function_exists('setEnvironmentValue')) {
 
     function setEnvironmentValue(array $values)
@@ -54,6 +59,13 @@ if (!function_exists('setEnvironmentValue')) {
         $str = substr($str, 0, -1);
         if (!file_put_contents($envFile, $str)) return false;
         return true;
+
+    }
+}
+if (!function_exists('convert_to_price')){
+    function convert_to_price($number){
+
+        return number_format($number, 2);
 
     }
 }

@@ -13,14 +13,22 @@ $(document).on('click', '.delete-btn', function (e) {
             axios.delete(actionurl)
                 .then(response => {
                     if (response.data.status == 'success'){
-                        table.ajax.reload();
+                        if (typeof table !== 'undefined') {
+                            table.ajax.reload();
+                        }
                         swal("Good job!", response.data.msg, "success");
+                        if (typeof table == 'undefined') {
+                          setTimeout(function () {
+                              location.reload();
+                          },1500)
+                        }
                     }
                 })
                 .catch(err => {
                     if (err.response.status==200) {
                         swal("Good job!", err.response.data.msg, "success");
                         table.ajax.reload();
+                        location.reload();
                     } else {
                         swal("Woops!", "Qualcosa è andato storto!", "error");
                         swal.stopLoading();

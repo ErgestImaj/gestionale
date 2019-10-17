@@ -12,6 +12,7 @@ return [
     'payment_settings'                  => 'Gestione di pagamento',
     'email_settings'                    => 'Gestione dell \'email',
     'permission'                        => 'Gestione permessi',
+    'iva'                               => 'Aliquota',
     'maintenance'                       => 'In manutenzione',
 
 ];
