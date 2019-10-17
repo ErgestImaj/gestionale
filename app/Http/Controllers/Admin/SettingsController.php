@@ -275,6 +275,12 @@ class SettingsController extends Controller
         return back();
     }
     public function destroyIvaSettings(VatRate $rate){
+        if ($rate->courses()->exists()){
+            return response( [
+                'status' => 'warning',
+                'msg'    => trans('messages.cant_delete_rate')
+            ] );
+        }
         $rate->delete();
         return response( [
             'status' => 'success',

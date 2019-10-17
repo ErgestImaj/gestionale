@@ -13,4 +13,8 @@ class VatRate extends Model
     public $timestamps = false;
     protected $fillable =['name','value'];
 
+    public function courses(){
+        return $this->hasMany(Course::class,'vat_rate');
+    }
+
 }
