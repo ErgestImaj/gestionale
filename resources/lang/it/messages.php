@@ -12,6 +12,8 @@ return [
     'change_status'               => 'Lo stato è cambiato con successo',
     'delete_user'                 => 'Utente eliminato con successo',
     'delete_confirm'              => 'Sei sicuro di voler eliminare questo :record?',
+    'delete_confirm_pl'           => 'Sei sicuro di voler eliminare questa :record?',
+    'cant_delete_category'        => 'Questa categoria non può essere cancellata, abbiamo trovato corsi relativi a questa categoria',
     'unauthorized'                => 'Non sei autorizzato per questa azione!',
     'permission'                  => 'In questa sezione è possibile abilitare e disabilitare gli utenti di un gruppo. Se un gruppo è disabilitato, gli utenti di questo gruppo non possono accedere al sistema.',
     'users'                       => '{0} utenti |{1} utente|[2,*] utenti',

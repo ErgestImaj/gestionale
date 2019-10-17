@@ -29,7 +29,7 @@
                                    </div>
                                    <input type="text" name="vat_value" class="form-control  @error('vat_value') is-invalid @enderror" id="vat_value" placeholder="{{trans('form.value')}}">
                                </div>
-                               <button type="submit" class="btn btn-primary mb-2">{{trans('form.add')}}</button>
+                               <button type="submit" class="btn btn-info mb-2">{{trans('form.add')}}</button>
 
                             </form>
                         <div class="row">

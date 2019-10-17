@@ -14,5 +14,7 @@ return [
     'permission'                        => 'Gestione permessi',
     'iva'                               => 'Aliquota',
     'maintenance'                       => 'In manutenzione',
+    'course'                            => 'Corsi',
+    'category'                          => 'Categorie',
 
 ];

@@ -12,6 +12,7 @@ $(document).on('click', '.delete-btn', function (e) {
         if (willDelete){
             axios.delete(actionurl)
                 .then(response => {
+
                     if (response.data.status == 'success'){
                         if (typeof table !== 'undefined') {
                             table.ajax.reload();
@@ -22,6 +23,14 @@ $(document).on('click', '.delete-btn', function (e) {
                               location.reload();
                           },1500)
                         }
+                    }
+                    else if(response.data.status == 'warning'){
+                        swal({
+                            title: "Whoops!",
+                            text: response.data.msg,
+                            icon: "warning",
+                            dangerMode: true,
+                        })
                     }
                 })
                 .catch(err => {

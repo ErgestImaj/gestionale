@@ -67,5 +67,14 @@ Route::group([
     Route::post('/segretaria/store','AdminController@storeSegreteria')->name('segreteria.store');
 
 
+    /*
+     * Course and categorie routes
+     */
+
+    Route::get('/categories','CategoryController@index')->name('categories');
+    Route::post('/categories','CategoryController@store')->name('category.new');
+    Route::get('/category/{category}','CategoryController@edit')->name('category.edit');
+    Route::patch('/categories/{category}','CategoryController@update')->name('category.update');
+    Route::delete('/categories/{category}','CategoryController@destroy')->name('category.destroy');
 
 });

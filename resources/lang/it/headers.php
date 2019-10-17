@@ -16,6 +16,7 @@ return [
     'price'                             => 'Prezzi',
     'billing_info'                      => 'Dati fatturazione',
     'email_smtp'                        => 'Configurazione dei dati di posta',
+    'new_category'                      => 'Aggiungi nuova categoria',
 
 
 

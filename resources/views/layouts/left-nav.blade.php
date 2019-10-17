@@ -36,6 +36,20 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item @if(Request::is('amministrazione/course*'))active @endif">
+            <a class="nav-link" data-toggle="collapse" href="#course" aria-expanded="false" aria-controls="course">
+                <i class="fas fa-book-open menu-icon"></i>
+                <span class="menu-title">{{trans('menu.course')}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="course">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('form.add_course')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.segreteria.index')}}">{{trans('menu.course')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.categories')}}">{{trans('menu.category')}}</a></li>
+                </ul>
+            </div>
+        </li>
         @hasrole('superadmin')
         <li class="nav-item @if(Request::is('amministrazione/settings*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
