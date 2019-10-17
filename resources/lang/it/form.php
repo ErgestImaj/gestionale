@@ -40,6 +40,7 @@ return [
     'cart_intestazione'                 => 'Intestazione',
     'api_signature'                     => 'Api signature',
     'api_password'                      => 'Api key',
+    'api_currency'                      => 'Valuta',
     'stripe_key'                        => 'Stripe key',
     'stripe_secret'                     => 'Stripe secret',
     'fast_track_price'                  => 'Costo per il servizio Fast Track',

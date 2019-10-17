@@ -58,25 +58,18 @@ class SettingsController extends Controller
     }
 
     public function emailSettings(){
-        $host = config('mail.host');
-        $port = config('mail.port');
-        $address = config('mail.from.address');
-        $name = config('mail.from.name');
-        $encryption = config('mail.encryption');
-        $username = config('mail.username');
-        $password = config('mail.password');
 
         $config = Config::where('name', 'utilities')->pluck('config_values')->first();
 
         return view('superadmin.settings.emails',[
             'config'=>$config,
-            'host'=>$host,
-            'port'=>$port,
-            'address'=>$address,
-            'name'=>$name,
-            'encryption'=>$encryption,
-            'username'=>$username,
-            'password'=>$password,
+            'host'=>config('mail.host'),
+            'port'=>config('mail.port'),
+            'address'=>config('mail.from.address'),
+            'name'=>config('mail.from.name'),
+            'encryption'=>config('mail.encryption'),
+            'username'=>config('mail.username'),
+            'password'=>config('mail.password'),
         ]);
     }
     public function updateEmailSettings(UtilitiesRequest $request,$key){
@@ -161,6 +154,7 @@ class SettingsController extends Controller
         $filtered = Arr::set(  $data_array, 'api_username',  $request->input('api_username'));
         $filtered = Arr::set(  $filtered, 'api_signature',  $request->input('api_signature'));
         $filtered = Arr::set(  $filtered, 'api_password',  $request->input('api_password'));
+        $filtered = Arr::set(  $filtered, 'api_currency',  strtoupper($request->input('api_currency')));
 
         $utilities->config_values = $filtered;
         if ( $utilities->push()){

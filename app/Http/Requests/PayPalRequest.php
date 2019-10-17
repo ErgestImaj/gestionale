@@ -27,6 +27,7 @@ class PayPalRequest extends FormRequest
             'api_username'=>'required|string',
             'api_signature'=>'required|string',
             'api_password'=>'required|string',
+            'api_currency'=>'required|string|max:3',
         ];
     }
     public function attributes()
@@ -35,6 +36,7 @@ class PayPalRequest extends FormRequest
             'api_username'=>trans('form.username'),
             'api_signature'=>trans('form.api_signature'),
             'api_password'=>trans('form.api_password'),
+            'api_currency'=>trans('form.api_currency'),
         ];
     }
 }

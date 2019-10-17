@@ -93,7 +93,7 @@
                                     </a>
                                 </h6>
                             </div>
-                            <div id="collapse-2" class="collapse @if($errors->has('api_username') || $errors->has('api_signature') || $errors->has('api_password')) show @endif"
+                            <div id="collapse-2" class="collapse @if($errors->has('api_username') || $errors->has('api_signature') || $errors->has('api_password')|| $errors->has('api_currency')) show @endif"
                                  role="tabpanel" aria-labelledby="heading-2" data-parent="#accordion">
                                 <div class="card-body">
                                     <div class="row">
@@ -131,6 +131,17 @@
                                                                 <label class="form-control-label" for="api_password">{{trans('form.api_password')}}</label>
                                                                 <input type="text" name="api_password" id="api_password" class="tags form-control @error('api_password') is-invalid @enderror" value="{{@$config['api_password'] ?? ''}}">
                                                                 @error('api_password')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label class="form-control-label" for="api_currency">{{trans('form.api_currency')}}</label>
+                                                                <input type="text" name="api_currency" id="api_currency" class="tags form-control @error('api_currency') is-invalid @enderror" value="{{@$config['api_currency'] ?? ''}}">
+                                                                @error('api_currency')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
