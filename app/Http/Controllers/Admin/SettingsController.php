@@ -265,6 +265,7 @@ class SettingsController extends Controller
     }
     public function updateIvaSettings(VatRequest $request,VatRate $rate){
 
+
         $rate->name = $request->input('vat_name');
         $rate->value = convert_to_price($request->input('vat_value'));
         if ( $rate->update()){

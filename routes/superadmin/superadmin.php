@@ -36,7 +36,7 @@ Route::group([
        Route::patch('/settings/payment/emailconfiguration','SettingsController@updateEmailSMTPSettings')->name('emailsmtp.update');
        Route::get('/settings/iva/','SettingsController@ivaSettings')->name('iva');
        Route::post('/settings/iva/','SettingsController@addIvaSettings')->name('iva.add');
-       Route::patch('/settings/iva/{rate}','SettingsController@addIvaSettings')->name('iva.update');
+       Route::patch('/settings/iva/{rate}','SettingsController@updateIvaSettings')->name('iva.update');
        Route::delete('/settings/iva/{rate}','SettingsController@destroyIvaSettings')->name('iva.destroy');
 
 

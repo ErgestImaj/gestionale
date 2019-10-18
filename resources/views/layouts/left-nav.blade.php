@@ -44,8 +44,8 @@
             </a>
             <div class="collapse" id="course">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('form.add_course')}}</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.segreteria.index')}}">{{trans('menu.course')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('form.add_course')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('menu.course')}}</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.categories')}}">{{trans('menu.category')}}</a></li>
                 </ul>
             </div>
