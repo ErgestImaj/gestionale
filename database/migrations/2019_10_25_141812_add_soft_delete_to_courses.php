@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCategoryIdToCoursesCourses extends Migration
+class AddSoftDeleteToCourses extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AddCategoryIdToCoursesCourses extends Migration
     public function up()
     {
         Schema::table('courses_courses', function (Blueprint $table) {
-            //
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->softDeletes();
         });
     }
 
@@ -28,7 +26,7 @@ class AddCategoryIdToCoursesCourses extends Migration
     public function down()
     {
         Schema::table('courses_courses', function (Blueprint $table) {
-            $table->dropColumn('category_id');
+            $table->softDeletes();
         });
     }
 }

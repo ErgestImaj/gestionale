@@ -17,6 +17,12 @@ return [
     'billing_info'                      => 'Dati fatturazione',
     'email_smtp'                        => 'Configurazione dei dati di posta',
     'new_category'                      => 'Aggiungi nuova categoria',
+    'courses_list'                      => 'Lista Corsi',
+    'all'                               => 'Tutti',
+    'base_info'                         => 'Informazioni di base',
+    'costs_info'                        => 'Informazioni di costi',
+    'edit_course'                       => 'Modifica corso',
+    'filter'                            => 'Filtri',
 
 
 

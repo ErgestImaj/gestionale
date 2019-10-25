@@ -7,10 +7,10 @@
                 </div>
                 <div class="profile-name">
                     <p class="name">
-                        {{auth()->user()->lastname}}
+                        {{auth()->user()->displayName()}}
                     </p>
                     <p class="designation">
-                        {{auth()->user()->userRole()}}
+                        {{auth()->user()->getUserRole()}}
                     </p>
                 </div>
             </div>
@@ -44,8 +44,8 @@
             </a>
             <div class="collapse" id="course">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('form.add_course')}}</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('menu.course')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.courses.create')}}">{{trans('form.add_course')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.courses.list')}}">{{trans('menu.course')}}</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.categories')}}">{{trans('menu.category')}}</a></li>
                 </ul>
             </div>

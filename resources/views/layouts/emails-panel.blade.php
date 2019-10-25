@@ -45,22 +45,7 @@
 </div>
 @push('scripts')
     <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
-    <script>
-        $('.summernote').summernote({
-            height: 150,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-
-        });
-    </script>
+    <script src="{{asset('js/config.js')}}"></script>
     <script>
         $('.sender-email-to').on('click',function (e) {
             e.preventDefault();

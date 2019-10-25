@@ -69,3 +69,11 @@ if (!function_exists('convert_to_price')){
 
     }
 }
+
+if (!function_exists('price_formater')){
+    function price_formater($price){
+
+        return convert_to_price($price).' €';
+
+    }
+}

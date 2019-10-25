@@ -63,8 +63,8 @@
                                         @foreach($categories as $category)
                                             <tr>
                                                 <td>{{$category->name}}</td>
-                                                <td>{{optional($category->user)->lastname}}</td>
-                                                <td>{{@$category->getUpdatedByUser()}}</td>
+                                                <td>{{optional($category->user)->displayName()}}</td>
+                                                <td>{{optional($category->updatedByUser)->displayName()}}</td>
                                                 <td>
                                                     <a class="btn block-btn btn-dark mb-1"  data-tooltip="{{trans('form.edit')}}" href="{{route('admin.category.edit',['category'=>$category->hashid()])}}">
                                                         <i class="fas fa-pencil-alt"></i>

@@ -10,7 +10,7 @@ return [
     'delete'                      => 'I dati sono stati cancelati correttamente!',
     'error'                       => 'Si è verificato un errore, riprova più tardi.',
     'change_status'               => 'Lo stato è cambiato con successo',
-    'delete_user'                 => 'Utente eliminato con successo',
+    'delete_msg'                  => ':record eliminato con successo',
     'delete_confirm'              => 'Sei sicuro di voler eliminare questo :record?',
     'delete_confirm_pl'           => 'Sei sicuro di voler eliminare questa :record?',
     'cant_delete_category'        => 'Questa categoria non può essere cancellata, abbiamo trovato corsi relativi a questa categoria',

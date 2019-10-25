@@ -4,27 +4,33 @@ var table = $('#order-listing')
     })
     .DataTable({
         "aLengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "All"]],
-        "iDisplayLength": 10,
         "language": {search: ""},
         oLanguage: {
             "sProcessing": "<i class=\"fa fa-spinner fa-spin fa-3x fa-fw\"></i><span class=\"sr-only\">Loading...</span> '",
         },
         "processing": true,
         "serverSide": true,
-        "ajax": window.Laravel.baseURL + '/amministrazione/segreteria/index',
+        "ajax": window.Laravel.baseURL + '/amministrazione/courses',
         "columns": [
             {"data": "DT_RowIndex","orderable":false},
-            {"data": "username"},
-            {"data": "first_name"},
-            {"data": "last_name"},
-            {"data": "email"},
+            {"data": "code"},
+            {"data": "category"},
+            {"data": "name"},
+            {"data": "costo"},
             {"data": "status"},
-            {"data": "last_login"},
-            {"data": "created"},
+            {"data": "created_by"},
+            {"data": "updated_by"},
             {"data": "actions", "orderable":false},
             {"data": "id", "visible": false,"orderable":false},
-        ]
+        ],
+        initComplete: function(){
+            $("#filter-category select").on( 'change', function () {
+                var val = $(this).val()
+                table.column(2)
+                    .search( val ? '^'+val+'$' : '', true, false )
+                    .draw();
+
+            });
+        },
     });
-
-
 

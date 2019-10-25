@@ -3,20 +3,19 @@
 namespace App\Models;
 
 use App\Notifications\InvitationEmailNotification;
-use Carbon\Carbon;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\HasRoles;
+use App\Traits\HasStatus;
+use App\Traits\UserRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasHashid, HashidRouting,SoftDeletes;
+    use  Notifiable, UserRelationships, HasRoles,HasHashid, HashidRouting,SoftDeletes, HasStatus;
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
@@ -71,63 +70,6 @@ class User extends Authenticatable
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function userInfo(){
-        return $this->hasOne(UsersInfo::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function roles(){
-        return $this->belongsToMany(UserGroups::class,'user_user_groups','user_id','group_id');
-    }
-
-    public function userRole(){
-        return $this->roles()->firstOrFail()->name;
-    }
-
-    /**
-     *
-     * @param string|array $roles
-     */
-    public function authorizeRoles($roles)
-    {
-        if (is_array($roles)) {
-            return $this->hasAnyRole($roles) ||
-                abort(401, 'This action is unauthorized.');
-        }
-        return $this->hasRole($roles) ||
-            abort(401, 'This action is unauthorized.');
-    }
-    /**
-     * Check multiple roles
-     * @param array $roles
-     */
-    public function hasAnyRole($roles)
-    {
-
-        return null !== $this->roles()->whereIn('name', Arr::flatten($roles))->first();
-    }
-    /**
-     * Check one role
-     * @param string $role
-     */
-    public function hasRole($role)
-    {
-
-        return null !== $this->roles()->where('name', strtolower($role))->first();
-    }
-
-    /**
-     * @return first user role
-     */
-    public function getUserRole(){
-        return $this->roles()->firstOrFail()->name;
-    }
-
-    /**
      * Check if user is superadmin
      * @return bool
      */
@@ -145,6 +87,11 @@ class User extends Authenticatable
         return $this->firstname.' '.$this->lastname;
     }
 
+    public function displayName(){
+        $names = explode(' ', $this->full_name);
+        return $names[0]." ".substr($names[1], 0,1).".";
+    }
+
     /**
      * @return avatar url
      */
@@ -155,28 +102,7 @@ class User extends Authenticatable
         return Storage::url('user-avatar.png');
     }
 
-    /**
-     * get user status
-     * @return bool
-     */
-    public function isActive(){
-        return $this->state == 1;
-    }
-    /**
-     * @return int
-     */
-    public function disableUser(){
-        $this->locked = Carbon::now()->toDateTimeString();
-        $this->locked_by = Auth::id();
-        $this->state = self::NOT_ACTIVE;
-    }
 
-    /**
-     * @return int
-     */
-    public function activeUser(){
-        return $this->state = self::IS_ACTIVE;
-    }
     /**
      * Get image thumb path.
      *
@@ -195,8 +121,5 @@ class User extends Authenticatable
     }
 
 
-    public function categories(){
-        return $this->hasMany(Category::class);
-    }
 
 }

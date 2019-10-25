@@ -28,6 +28,7 @@ return [
     'support_email'                     => 'Supporto email',
     'add'                               => 'Aggiungi',
     'add_course'                        => 'Nuovo corso',
+    'course'                            => 'corso',
     'value'                             => 'Valore',
     'send_email'                        => 'Invia Email',
     'add_cc_email'                      => 'Aggiungi CC email',
@@ -65,6 +66,18 @@ return [
     'lrn_examiner_accreditation_price'                            => 'Costo accreditamento LRN esaminatore',
     'lrn_invigilator_accreditation_price'                         => 'Costo accreditamento LRN invigilator',
     'price_certificate_duplicate'                                 => 'Prezzo duplicato certificato',
+    'code'                              => 'Codice corso',
+    'costo'                             => 'Costo',
+    'aliquota'                          => 'Aliquota',
+    'course_name'                       => 'Nome Corso',
+    'skills'                            => 'A chi è rivolto',
+    'expiry'                            => 'Scadenza',
+    'duration'                          => 'Durata',
+    'program_description'               => 'Descrizione programma',
+    'min_order_partner'                 => 'Ordine minimo Partner',
+    'min_order_master'                  => 'Ordine minimo Master',
+    'min_order_affiliate'               => 'Ordine minimo Affiliate',
+    'vat_rate'                          => 'Aliquota',
 
 ];
 

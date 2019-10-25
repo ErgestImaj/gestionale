@@ -55,4 +55,5 @@
     <script src="{{asset('js/addons.js')}}"></script>
     <script src="{{asset('js/admin.js')}}"></script>
     <script src="{{asset('js/actions.js')}}"></script>
+    <script src="{{asset('js/search.js')}}"></script>
 @endpush

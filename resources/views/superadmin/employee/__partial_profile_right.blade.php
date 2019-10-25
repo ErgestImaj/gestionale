@@ -29,7 +29,7 @@
                 <p class="clearfix">
                     <span class="float-left">{{trans('profile.status')}}</span>
                     <span class="float-right text-muted">
-                                       @if($user->state)
+                                       @if($user->isActive())
                             <span class="badge badge-pill badge-success ml-auto px-1 py-1"><i class="fas fa-check font-weight-bold"></i></span>
                         @else
                             <span class="badge badge-pill badge-danger ml-auto px-1 py-1"><i class="fas fa-times font-weight-bold"></i></span>

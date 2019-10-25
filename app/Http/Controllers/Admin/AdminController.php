@@ -20,6 +20,7 @@ class AdminController extends Controller
      */
     public function index($role = User::ADMIN)
     {
+
         $admins = User::whereHas('roles',function ($query) use ($role){
             $query->where('name',$role);
         })->get();
@@ -44,7 +45,7 @@ class AdminController extends Controller
             } )
             ->addColumn( 'status', function ( $row )
             {
-                return $row->state ? '<span class="badge badge-success">'.trans('form.active').'</span>'
+                return $row->isActive() ? '<span class="badge badge-success">'.trans('form.active').'</span>'
                     : '<span class="badge badge-secondary">'.trans('form.disabled').'</span>';
             } )
             ->addColumn( 'last_login', function ( $row )
@@ -183,14 +184,14 @@ class AdminController extends Controller
             ] );
 
         }
-        $user->isActive() ? $user->disableUser() : $user->activeUser();
-        if ($user->update()){
-            return response( [
-                'status' => 'success',
-                'msg'    => trans('messages.change_status')
-            ] );
+        $user->isActive() ? $user->disable() : $user->enable();
 
-        }
+        return response( [
+            'status' => 'success',
+            'msg'    => trans('messages.change_status')
+        ] );
+
+
 
     }
 
@@ -206,7 +207,7 @@ class AdminController extends Controller
             $user->delete();
             return response( [
                 'status' => 'success',
-                'msg'    => trans('messages.delete_user')
+                'msg'    => trans('messages.delete_msg',['record'=>trans('menu.user')])
             ] );
 
     }
