@@ -66,7 +66,7 @@ class CourseModuleController extends Controller
      */
     public function edit(CourseModule $courseModule)
     {
-        //
+       return ['module'=>$courseModule];
     }
 
     /**
@@ -76,9 +76,14 @@ class CourseModuleController extends Controller
      * @param  \App\Models\CourseModule  $courseModule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourseModule $courseModule)
+    public function update(CourseModuleRequest $request, CourseModule $courseModule)
     {
-        //
+        $courseModule->fill($request->fillFormData());
+        $courseModule->update();
+        return response( [
+            'status' => 'success',
+            'msg'    => trans('messages.success')
+        ] );
     }
 
     /**

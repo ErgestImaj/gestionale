@@ -88,6 +88,7 @@ return [
     'price'                             => 'Prezzo',
     'add_content'                       => 'Aggiungi contenuto',
     'module'                            => 'modulo',
+    'search'                            => 'Cerca',
 
 ];
 

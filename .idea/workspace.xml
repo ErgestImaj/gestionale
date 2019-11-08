@@ -2,29 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/superadmin/course/modules/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/ModulesListComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CourseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CourseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CourseRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CourseRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Course.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Course.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CourseModuleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CourseModuleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/CourseModuleRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/CourseModuleRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CourseModuleComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/CourseModuleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CourseModuleComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/it/form.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/headers.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/headers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/footer.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users/usergrups.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users/usergrups.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +53,7 @@
         <option value="CSS File" />
         <option value="Blade" />
         <option value="JavaScript File" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -311,7 +298,7 @@
       <workItem from="1572618246956" duration="1286000" />
       <workItem from="1572619806443" duration="590000" />
       <workItem from="1573118239446" duration="24777000" />
-      <workItem from="1573208001552" duration="3900000" />
+      <workItem from="1573208001552" duration="9431000" />
     </task>
     <servers />
   </component>

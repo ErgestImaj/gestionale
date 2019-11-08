@@ -24,24 +24,24 @@ class CourseModuleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string',
-            'description'=>'nullable|string',
+            'module_name'=>'required|string',
+            'module_description'=>'nullable|string',
             'module_percentage_success'=>'nullable|numeric',
             'module_credits'=>'nullable|numeric',
             'module_credits_price'=>'nullable|numeric',
-            'code'=>'nullable|string',
+            'module_code'=>'nullable|string',
         ];
     }
 
     public function attributes()
     {
         return [
-            'name'=>strtolower(trans('form.name')),
-            'code'=>strtolower(trans('form.code_module')),
+            'module_name'=>strtolower(trans('form.name')),
+            'module_code'=>strtolower(trans('form.code_module')),
             'module_percentage_success'=>strtolower(trans('form.module_percentage_success')),
             'module_credits'=>strtolower(trans('form.module_credits')),
             'module_credits_price'=>strtolower(trans('form.module_credits_price')),
-            'description'=>strtolower(trans('form.description')),
+            'module_description'=>strtolower(trans('form.description')),
         ];
     }
 
@@ -49,9 +49,9 @@ class CourseModuleRequest extends FormRequest
     {
 
         return [
-            'module_name'=>$this->name,
-            'module_description'=>$this->description,
-            'module_code'=>$this->code,
+            'module_name'=>$this->module_name,
+            'module_description'=>$this->module_description,
+            'module_code'=>$this->module_code,
             'module_percentage_success'=>$this->module_percentage_success ?? 0,
             'module_credits'=>$this->module_credits ??  0,
             'module_credits_price'=>$this->module_credits_price ?? 0,

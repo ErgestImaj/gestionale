@@ -32,6 +32,7 @@ Vue.filter('percent', function (value) {
 Vue.component('multiselect',Multiselect);
 Vue.component('course-module-component', require('./components/CourseModuleComponent.vue').default);
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
