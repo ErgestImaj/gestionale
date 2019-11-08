@@ -87,6 +87,7 @@
                            this.submiting = false
                            if (response.data.status == 'success'){
                                swal("Good job!", response.data.msg, "success");
+                               this.$refs.modules.getModules();
                            }
                            this.module = {};
 
@@ -119,6 +120,7 @@
                            this.submiting = false
                            if (response.data.status == 'success'){
                                swal("Good job!", response.data.msg, "success");
+                               this.update = false;
                                this.$refs.modules.getModules();
                            }
                            this.module = {};

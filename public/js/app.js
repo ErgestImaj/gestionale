@@ -1929,6 +1929,8 @@ __webpack_require__.r(__webpack_exports__);
 
           if (response.data.status == 'success') {
             swal("Good job!", response.data.msg, "success");
+
+            _this.$refs.modules.getModules();
           }
 
           _this.module = {};
@@ -1960,6 +1962,7 @@ __webpack_require__.r(__webpack_exports__);
 
           if (response.data.status == 'success') {
             swal("Good job!", response.data.msg, "success");
+            _this3.update = false;
 
             _this3.$refs.modules.getModules();
           }
