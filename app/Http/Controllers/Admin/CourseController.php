@@ -75,7 +75,7 @@ class CourseController extends Controller
                           <div class="btn-group mb-1">
                             <button type="button" class="btn block-btn dropdown-toggle" data-toggle="dropdown"><span class="caret ml-0"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
-          
+
                                     <li>
                                       <a class="d-block update-btn btn-link page-link" href="#" data-action="'.route('admin.course.status',['course'=>$row->hashid()]).'">';
                                         if ($row->isActive()):
@@ -84,6 +84,11 @@ class CourseController extends Controller
                                             $html .='  <i class="fas fa-ticket-alt"></i>'.trans('messages.active');
                                         endif;
                           $html .=' </a>
+                                    </li>
+                                    <li>
+                                        <a class="d-block btn-link page-link" href="'.route('module.index',['course'=>$row->hashid()]).'">
+                                           <i class="fas fa-cubes"></i>'.trans('form.add_module').'
+                                        </a>
                                     </li>
                                      <li>
                                         <a class="d-block delete-btn btn-link page-link" data-content="'.trans('messages.delete_confirm',['record'=>trans('form.course')]).'" data-action="'.route('admin.courses.destroy',['course'=>$row->hashid()]).'" href="#">

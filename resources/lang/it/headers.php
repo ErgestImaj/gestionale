@@ -22,6 +22,7 @@ return [
     'base_info'                         => 'Informazioni di base',
     'costs_info'                        => 'Informazioni di costi',
     'edit_course'                       => 'Modifica corso',
+    'edit_module'                       => 'Modifica modulo',
     'filter'                            => 'Filtri',
 
 

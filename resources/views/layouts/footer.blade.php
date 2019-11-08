@@ -4,10 +4,21 @@
     </div>
     <!-- Scripts -->
     <script>
+
+        /**
+         * Get data from url
+         */
+        function getUrlData(key) {
+            let str = window.location.pathname;
+            let res = str.split("/");
+            return res[key];
+        }
+
         window.Laravel = <?php echo json_encode([
             'baseURL' => url('/'),
         ]); ?>
     </script>
+    <script src="/js/lang.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 
 @stack('scripts')

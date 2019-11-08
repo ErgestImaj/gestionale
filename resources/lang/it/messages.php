@@ -21,5 +21,8 @@ return [
     'locked'                      => 'Il tuo account è stato sospeso. Si prega di contattare l\'amministratore.',
     'maintenance'                 => 'Se il sistema è in modalità manutenzione, solo gli utenti che sono super amministratori possono accedere',
     'under_maintenance'           => 'Siamo in manutenzione, riprovare più tardi',
+    'not_found'                   => 'Non abbiamo trovato nulla',
+    'not_found_help'              => 'Prova a cambiare i filtri o aggiungine uno nuovo',
+    'delete_module'               => 'Sei sicuro di voler eliminare questo modulo?',
 
 ];

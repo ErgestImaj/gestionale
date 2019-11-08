@@ -77,6 +77,7 @@ Route::group([
     Route::get('/category/{category}','CategoryController@edit')->name('category.edit');
     Route::patch('/categories/{category}','CategoryController@update')->name('category.update');
     Route::delete('/categories/{category}','CategoryController@destroy')->name('category.destroy');
+
     Route::get('/courses-list','CourseController@filter')->name('courses.list');
     Route::resource('/courses','CourseController');
     Route::patch('/course/status/{course}','CourseController@updateStatus')->name('course.status');

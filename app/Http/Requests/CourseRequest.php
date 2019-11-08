@@ -16,7 +16,7 @@ class CourseRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
 
@@ -82,7 +82,7 @@ class CourseRequest extends FormRequest
 
     public function fillFormData()
     {
-  
+
         return [
             'name'=>$this->course_name,
             'category_id'=>$this->category,

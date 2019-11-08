@@ -42,5 +42,9 @@ class Course extends Model
         return $this->belongsTo(Expiry::class,'expiry','id');
     }
 
+    public function modules(){
+        return $this->hasMany(CourseModule::class);
+    }
+
 
 }

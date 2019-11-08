@@ -28,6 +28,8 @@ return [
     'support_email'                     => 'Supporto email',
     'add'                               => 'Aggiungi',
     'add_course'                        => 'Nuovo corso',
+    'add_module'                        => 'Aggiungi Modulo',
+    'new_module'                        => 'Aggiungi nuovo modulo',
     'course'                            => 'corso',
     'value'                             => 'Valore',
     'send_email'                        => 'Invia Email',
@@ -67,6 +69,7 @@ return [
     'lrn_invigilator_accreditation_price'                         => 'Costo accreditamento LRN invigilator',
     'price_certificate_duplicate'                                 => 'Prezzo duplicato certificato',
     'code'                              => 'Codice corso',
+    'code_module'                       => 'Codice',
     'costo'                             => 'Costo',
     'aliquota'                          => 'Aliquota',
     'course_name'                       => 'Nome Corso',
@@ -78,6 +81,13 @@ return [
     'min_order_master'                  => 'Ordine minimo Master',
     'min_order_affiliate'               => 'Ordine minimo Affiliate',
     'vat_rate'                          => 'Aliquota',
+    'module_percentage_success'         => 'Percentuale di successo',
+    'module_percentage'                 => 'Percentuale',
+    'module_credits'                    => 'Crediti',
+    'module_credits_price'              => 'Prezzo crediti',
+    'price'                             => 'Prezzo',
+    'add_content'                       => 'Aggiungi contenuto',
+    'module'                            => 'modulo',
 
 ];
 
