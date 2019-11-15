@@ -146,5 +146,6 @@ return [
     */
 
     'attributes' => [],
+    'module_course'=>'Il modulo selezionato non corrisponde a questo corso'
 
 ];

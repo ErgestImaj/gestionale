@@ -19,8 +19,9 @@
         ]); ?>
     </script>
     <script src="/js/lang.js"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
 
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{asset('js/config.js')}}"></script>
 @stack('scripts')
     <script>
         jQuery(function () {

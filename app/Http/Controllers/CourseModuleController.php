@@ -17,11 +17,10 @@ class CourseModuleController extends Controller
     public function index(Request $request, Course $course)
     {
 
-        $value      = $request->input('search') ?? '';
+        $value  = $request->input('search') ?? '';
 
         $modules = $course->modules()->search($value)->orderBy($request->input('orderBy.column'), $request->input('orderBy.direction'))
                        ->paginate($request->input('pagination.per_page'));
-
         return  $modules;
 
     }

@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('superadmin.course.category.index',
+        return view('course.category.index',
             [
               'categories'=>  $categories
             ]);
@@ -54,7 +54,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = Category::all();
-        return view('superadmin.course.category.index',
+        return view('course.category.index',
             [
                 'categories'=> $categories,
                 'category'=>  $category,

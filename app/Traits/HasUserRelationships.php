@@ -13,5 +13,8 @@ trait HasUserRelationships{
     public function updatedByUser(){
         return $this->belongsTo(User::class,'updated_by');
     }
+    public function lockedByUser(){
+        return $this->belongsTo(User::class,'locked_by');
+    }
 
 }

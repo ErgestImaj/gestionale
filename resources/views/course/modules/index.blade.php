@@ -7,7 +7,7 @@
         </h3>
     </div>
 
-     <course-module-component></course-module-component>
+     <course-module></course-module>
 @endsection
 @push('scripts')
     <script src="{{asset('js/actions.js')}}"></script>

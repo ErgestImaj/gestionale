@@ -12,6 +12,7 @@ class CourseModule extends Model
 {
     use HasUserRelationships,HasHashid,HashidRouting,SoftDeletes;
 
+
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
 
@@ -46,5 +47,9 @@ class CourseModule extends Model
         if(empty($value)) return $query;
 
         return $query->where('module_name', 'LIKE', '%'.$value.'%');
+    }
+
+    public function contents(){
+        return $this->hasMany(ModuleContent::class, 'module_id');
     }
 }

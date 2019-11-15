@@ -12,13 +12,9 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .copy('resources/js/actions/actions.js','public/js/actions.js')
-    .copy('resources/js/datatables/admin.js','public/js/admin.js')
-    .copy('resources/js/datatables/segreteria.js','public/js/segreteria.js')
-    .copy('resources/js/datatables/course.js','public/js/course.js')
-    .copy('resources/js/datatables/search.js','public/js/search.js')
-    .copy('resources/js/dashboard/dashboard.js','public/js/dashboard.js')
-    .copy('resources/js/summernote/config.js','public/js/config.js')
+    .copy('resources/js/actions/','public/js')
+    .copy('resources/js/datatables/','public/js')
+    .copy('resources/js/summernote/config.js','public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .copy('resources/sass/style.css','public/css/style.css')
    .copy('resources/sass/addons.css','public/css/addons.css')

@@ -23,11 +23,18 @@ class Course extends Model
     protected $table = 'courses_courses';
     protected $guarded = [];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
+    protected $appends = [
+        'hashid'
+    ];
+
+    public function scopeActive($query){
+        $query->where('state',self::IS_ACTIVE);
+    }
+
+    public function getHashidAttribute()
+    {
+        return $this->hashid();
+    }
 
 
     public function category(){

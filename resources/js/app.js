@@ -13,6 +13,7 @@ import Multiselect from 'vue-multiselect'
 
 
 import swal from 'sweetalert';
+import summernote from './summernote/summernote-bs4.min.js';
 
 /**
  * Global filters
@@ -25,12 +26,17 @@ Vue.filter('currency', function (value) {
 Vue.filter('percent', function (value) {
     return parseFloat(value).toFixed(2) + '%';
 });
+Vue.filter('capitalize', function (s) {
+        if (typeof s !== 'string') return ''
+        return s.charAt(0).toUpperCase() + s.slice(1)
+});
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('multiselect',Multiselect);
-Vue.component('course-module-component', require('./components/CourseModuleComponent.vue').default);
+Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
+Vue.component('module-content', require('./components/ModuleContentComponent').default);
 
 
 /**

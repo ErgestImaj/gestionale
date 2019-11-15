@@ -1,12 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/actions.js": "/js/actions.js",
-    "/js/admin.js": "/js/admin.js",
-    "/js/segreteria.js": "/js/segreteria.js",
-    "/js/course.js": "/js/course.js",
-    "/js/search.js": "/js/search.js",
-    "/js/dashboard.js": "/js/dashboard.js",
     "/js/config.js": "/js/config.js",
     "/css/style.css": "/css/style.css",
     "/css/addons.css": "/css/addons.css",

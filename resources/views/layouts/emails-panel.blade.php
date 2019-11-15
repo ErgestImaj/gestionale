@@ -44,8 +44,6 @@
         </div>
 </div>
 @push('scripts')
-    <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
-    <script src="{{asset('js/config.js')}}"></script>
     <script>
         $('.sender-email-to').on('click',function (e) {
             e.preventDefault();

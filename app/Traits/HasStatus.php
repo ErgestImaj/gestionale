@@ -12,7 +12,7 @@ trait HasStatus {
      * @return bool
      */
     public function isActive(){
-        return $this->state == 1;
+        return $this->state == self::IS_ACTIVE;
     }
 
     /**

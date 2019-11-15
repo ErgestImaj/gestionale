@@ -16,5 +16,6 @@ return [
     'maintenance'                       => 'In manutenzione',
     'course'                            => 'Corsi',
     'category'                          => 'Categorie',
+    'lms_content'                       => 'Contentuo LMS',
 
 ];

@@ -7,6 +7,8 @@ return [
     'created'                           => 'Creato a',
     'created_by'                        => 'Creato da',
     'updated_by'                        => 'Modificato da',
+    'locked_by'                         => 'Blocato da',
+    'locked'                            => 'Blocato a',
     'actions'                           => 'Azioni',
     'active'                            => 'Attivo',
     'disabled'                          => 'Non Attivo',
@@ -88,7 +90,16 @@ return [
     'price'                             => 'Prezzo',
     'add_content'                       => 'Aggiungi contenuto',
     'module'                            => 'modulo',
+    'modul'                             => 'Moduli',
     'search'                            => 'Cerca',
+    'content'                           => 'contenuto',
+    'view'                              => 'Vedi',
+    'title'                             => 'Titolo',
+    'content_type'                      => 'Tipo di contenuto',
+    'lms_file'                          => 'Lms File',
+    'resource_link'                     => 'Resource Link',
+
+
 
 ];
 

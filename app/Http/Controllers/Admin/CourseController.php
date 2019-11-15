@@ -18,7 +18,7 @@ class CourseController extends Controller
     public function filter(){
 
         $categories = Category::all();
-        return view('superadmin.course.index',[
+        return view('course.index',[
             'categories'=>$categories
         ]);
     }
@@ -87,7 +87,7 @@ class CourseController extends Controller
                                     </li>
                                     <li>
                                         <a class="d-block btn-link page-link" href="'.route('module.index',['course'=>$row->hashid()]).'">
-                                           <i class="fas fa-cubes"></i>'.trans('form.add_module').'
+                                           <i class="fas fa-cubes"></i>'.trans('form.modul').'
                                         </a>
                                     </li>
                                      <li>
@@ -119,7 +119,7 @@ class CourseController extends Controller
         $categories = Category::all();
         $expirations = Expiry::all();
         $vatrates = VatRate::all();
-        return view('superadmin.course.create',[
+        return view('course.create',[
             'categories'=>$categories,
             'expirations'=>$expirations,
             'vatrates'=>$vatrates
@@ -169,7 +169,7 @@ class CourseController extends Controller
         $categories = Category::all();
         $expirations = Expiry::all();
         $vatrates = VatRate::all();
-        return view('superadmin.course.edit',[
+        return view('course.edit',[
             'categories'=>$categories,
             'course'=>$course,
             'expirations'=>$expirations,
