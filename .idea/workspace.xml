@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/UserGroups.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserGroups.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -192,7 +194,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../app_c24" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -220,18 +222,6 @@
       <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\dashboard" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -264,6 +254,18 @@
         <item itemvalue="npm.development" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -312,7 +314,18 @@
       <workItem from="1573636108417" duration="5493000" />
       <workItem from="1573721091789" duration="24682000" />
       <workItem from="1573809868095" duration="8258000" />
-      <workItem from="1574071697610" duration="715000" />
+      <workItem from="1574071697610" duration="2381000" />
+      <workItem from="1574078588666" duration="77000" />
+      <workItem from="1574089051051" duration="76000" />
+      <workItem from="1574178852596" duration="452000" />
+      <workItem from="1574240073430" duration="1490000" />
+      <workItem from="1574263520292" duration="2140000" />
+      <workItem from="1574330245343" duration="83000" />
+      <workItem from="1574354368553" duration="243000" />
+      <workItem from="1574354698099" duration="144000" />
+      <workItem from="1574433135693" duration="283000" />
+      <workItem from="1574870951669" duration="595000" />
+      <workItem from="1575557356651" duration="53000" />
     </task>
     <servers />
   </component>
@@ -349,9 +362,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1573750746641">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1575559445835">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573750746641" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575559445835" />
   </component>
 </project>

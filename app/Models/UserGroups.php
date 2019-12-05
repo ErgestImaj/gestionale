@@ -50,7 +50,7 @@ class UserGroups extends Model
             ->groupBy('pivot_group_id');
     }
 
-// accessor for easier fetching the count
+   // accessor for easier fetching the count
     public function getUsersCountAttribute()
     {
         if ( ! array_key_exists('usersCount', $this->relations)) $this->load('usersCount');
