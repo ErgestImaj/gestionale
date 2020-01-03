@@ -24,7 +24,6 @@ class UserObserver
         $user->created_by = Auth::id();
         $user->change_password = 1;
         $user->state = 1;
-        $user->slug = strtolower($uid);
     }
 
     /**

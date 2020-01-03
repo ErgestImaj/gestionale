@@ -5,7 +5,7 @@
  */
 if (!function_exists('format_date')){
     function format_date($date){
-        if (!empty($date)){
+        if (!empty($date) && $date != "0000-00-00 00:00:00" && $date != "0000-00-00"){
             return \Carbon\Carbon::parse($date)->format('d M Y');
         }
         return 'non disponibile';
@@ -19,7 +19,7 @@ if (!function_exists('format_date')){
 if (!function_exists('diffForHumans')){
 
     function diffForHumans($date){
-        if (!empty($date)){
+        if (!empty($date) && $date != "0000-00-00 00:00:00" && $date != "0000-00-00" ){
             return \Carbon\Carbon::createFromTimeStamp(strtotime($date))->diffForHumans();
         }
         return 'non disponibile';

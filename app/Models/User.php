@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     #user roles
     const SUPERADMIN = 'superadmin';
-    const ADMIN = 'admin';
+    const ADMIN = 'amministrazione';
     const SEGRETERIA = 'segreteria';
 
 
@@ -35,7 +35,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'slug','username','firstname','lastname', 'email', 'password',
+        'username','firstname','lastname', 'email', 'password',
         'state','activation','created_by','updated_by','locked',
         'avatar'
     ];

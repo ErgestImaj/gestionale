@@ -59,7 +59,7 @@ class AdminController extends Controller
             ->addColumn( 'actions', function ( $row )
             {
                 $html =' <a class="action btn block-btn btn-success mb-1" data-tooltip="'.trans('messages.login_as').'" href="'.route('admin.loginasuser',['user'=>$row->hashid()]).' ">
-                                <i class="fas fa-random"></i> 
+                                <i class="fas fa-random"></i>
                           </a>
                           <a class=" action btn block-btn btn-dark mb-1" data-tooltip="'.trans('headers.edit_user').'" href="'.route('admin.admins.edit',['user'=>$row->hashid()]).'">
                                <i class="fas fa-pencil-alt"></i>
@@ -68,7 +68,7 @@ class AdminController extends Controller
                           <div class="btn-group mb-1">
                             <button type="button" class="btn block-btn dropdown-toggle" data-toggle="dropdown"><span class="caret ml-0"></span></button>
                             <ul class="dropdown-menu dropdown-menu-right">
-          
+
                                     <li>
                                       <a class="d-block update-btn btn-link page-link" href="#" data-action="'.route('admin.users.status',['user'=>$row->hashid()]).'">';
                                          if ($row->isActive()):
@@ -79,7 +79,7 @@ class AdminController extends Controller
 
                                        $html .=' </a>
                                                 </li>
-                                 
+
                                                 <li>
                                                     <a class="d-block post-action btn-link page-link" data-content="'.trans('messages.send_reset_link_confirm').'"  data-action="'.route('admin.invitation',['user'=>$row->hashid()]).'" href="#">
                                                        <i class="fas fa-paper-plane"></i>'.trans('messages.send_reset_link').'

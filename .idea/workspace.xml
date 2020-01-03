@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/2a43e492-9414-432f-a93f-57b9ff9c8e61.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/UserGroups.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserGroups.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Observers/UserObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/UserObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_01_101400_create_users_userinfo_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_01_144805_create_user_user_groups_table.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,25 +44,25 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="gest@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="gest@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="gest@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="gestionaledata: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="gest: schema" type="ebfa3cd1:MariaImplModel$Schema" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="gest@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="gestionaledata: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-        <item name="fcf_module_contents: table" type="dbc44a63:MariaImplModel$Table" />
+        <item name="gest: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="fcf_users: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -74,6 +86,9 @@
         <option value="C:\xampp\htdocs\gestionale\.idea" />
       </set>
     </option>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -190,8 +205,14 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -209,11 +230,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views\course\lmscontent" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\summernote" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\views\superadmin\course\modules" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
@@ -326,6 +347,15 @@
       <workItem from="1574433135693" duration="283000" />
       <workItem from="1574870951669" duration="595000" />
       <workItem from="1575557356651" duration="53000" />
+      <workItem from="1576800938493" duration="772000" />
+      <workItem from="1576960297358" duration="886000" />
+      <workItem from="1577131686557" duration="4453000" />
+      <workItem from="1577395909589" duration="64000" />
+      <workItem from="1577746864124" duration="810000" />
+      <workItem from="1577747679839" duration="820000" />
+      <workItem from="1577980285691" duration="5510000" />
+      <workItem from="1577992009695" duration="4989000" />
+      <workItem from="1578086318113" duration="3418000" />
     </task>
     <servers />
   </component>
@@ -346,6 +376,14 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="432" y="162" key="#Deployment" timestamp="1576960569537">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="432" y="162" key="#Deployment/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1576960569537" />
+    <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577980702778">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980702778" />
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1573743196286">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -354,17 +392,31 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1573747706275" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1573728427737">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="648" y="266" key="FileChooserDialogImpl" timestamp="1577747676664">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1573728427737" />
+    <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577747676664" />
+    <state width="200" height="539" key="HiddenNamespacesPopup" timestamp="1577980679472">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980679472" />
+    <state x="609" y="141" key="RollbackChangesDialog" timestamp="1578088650236">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578088650236" />
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576960511234">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1576960511234" />
     <state x="657" y="125" width="606" height="789" key="find.popup" timestamp="1573545089957">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1575559445835">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1578090441757">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575559445835" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578090441757" />
   </component>
 </project>

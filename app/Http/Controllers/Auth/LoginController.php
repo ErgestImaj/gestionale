@@ -31,13 +31,6 @@ class LoginController extends Controller
      * @var string
      */
    // protected $redirectTo = '/home';
-    public function redirectTo(){
-
-
-     return  $this->redirect_user_to_specific_dashboard(
-           auth()->user()->getUserRole()
-       );
-    }
 
     /**
      * Create a new controller instance.
@@ -48,6 +41,13 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->username = $this->findUsername();
+    }
+
+    public function redirectTo(){
+
+        return  $this->redirect_user_to_specific_dashboard(
+            auth()->user()->getUserRole()
+        );
     }
 
     /**
@@ -92,21 +92,16 @@ class LoginController extends Controller
 
         //update old passwords from md5  to bycrypt
 
-        $user = User::where('email', $request->input('login'))->orWhere('username', $request->input('login'))->first();
-
-        if ($user && !$user->change_password) {
-            if (md5($request->input('password')) === $user->password) {
-                $user->password = Hash::make($request->input('password'));
-                $user->change_password = 1;
-                $user->save();
-            } else {
-
-                return $this->sendLoginResponse($request);
-            }
-        }
-
-
         if ($this->attemptLogin($request)) {
+
+            $user = User::where('email', $request->input('login'))->orWhere('username', $request->input('login'))->first();
+            if ($user && !$user->change_password) {
+                if (md5($request->input('password')) === $user->password) {
+                    $user->password = Hash::make($request->input('password'));
+                    $user->change_password = 1;
+                    $user->save();
+                }
+            }
             return $this->sendLoginResponse($request);
         }
 
@@ -126,8 +121,10 @@ class LoginController extends Controller
    public function authenticated(Request $request, $user)
     {
 
-        $user->last_login = Carbon::now();
-        $user->last_login_ip = $request->getClientIp();
-        $user->save();
+           $user->last_login = Carbon::now();
+           $user->last_login_ip = $request->getClientIp();
+           $user->save();
+
+
     }
 }
