@@ -46,7 +46,7 @@ Route::group([
 //Superadmin and admin routes
 
 Route::group([
-    'middleware' => ['auth','check_user_role:superadmin|admin' ],
+    'middleware' => ['auth','check_user_role:superadmin|amministrazione' ],
     'prefix'=>'amministrazione','as'=>'admin.',
     'namespace'=>'Admin'
 ],function() {
