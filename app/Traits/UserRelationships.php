@@ -3,6 +3,7 @@ namespace App\Traits;
 
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\MassMailHistory;
 use App\Models\UsersInfo;
 
 trait UserRelationships{
@@ -26,5 +27,9 @@ trait UserRelationships{
      */
     public function userInfo(){
         return $this->hasOne(UsersInfo::class);
+    }
+
+    public function massMailsHistories(){
+        return $this->hasMany(MassMailHistory::class);
     }
 }

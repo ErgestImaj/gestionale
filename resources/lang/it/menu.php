@@ -17,5 +17,6 @@ return [
     'course'                            => 'Corsi',
     'category'                          => 'Categorie',
     'lms_content'                       => 'Contentuo LMS',
+    'mass_emails'                       => 'Messagi',
 
 ];

@@ -6,6 +6,9 @@
 
 require('./bootstrap');
 
+import select2 from 'select2';
+
+
 window.Vue = require('vue');
 
 Vue.prototype.trans = string => _.get(window.i18n, string);

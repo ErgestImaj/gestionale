@@ -51,6 +51,15 @@
                 </ul>
             </div>
         </li>
+        <!--Messages-->
+        <li class="nav-item @if(Request::is('amministrazione/messaggi*'))active @endif">
+            <a class="nav-link" href="{{route('admin.massemail')}}" >
+                <i class="fas fa-envelope menu-icon"></i>
+                <span class="menu-title">{{trans('menu.mass_emails')}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
+        <!--.Messages-->
         @hasrole('superadmin')
         <li class="nav-item @if(Request::is('amministrazione/settings*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">

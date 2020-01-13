@@ -98,6 +98,8 @@ return [
     'content_type'                      => 'Tipo di contenuto',
     'lms_file'                          => 'Lms File',
     'resource_link'                     => 'Resource Link',
+    'target'                            => 'Target',
+    'exclude'                           => 'Escludere',
 
 
 

@@ -208,7 +208,6 @@
             'defaultText': '{{trans('form.add')}}',
             'removeWithBackspace': true,
             'minChars': 0,
-            'maxChars': 20, // if not provided there is no limit
             'placeholderColor': '#666666'
         });
     </script>

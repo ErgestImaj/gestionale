@@ -138,12 +138,15 @@ class CourseController extends Controller
         $course = new Course();
         $course->fill($request->fillFormData());
 
-        if ( $course->save()){
+        try {
+            $course->save();
             toastr()->success(trans('messages.success'));
             return redirect()->route('admin.courses.list');
+        }catch (\Exception $exception){
+            logger($exception->getMessage());
+            toastr()->success(trans('messages.error'));
+            return back();
         }
-        toastr()->success(trans('messages.error'));
-        return back();
 
     }
 
@@ -190,12 +193,15 @@ class CourseController extends Controller
 
         $course->fill($request->fillFormData());
 
-        if ( $course->update()){
+        try {
+            $course->update();
             toastr()->success(trans('messages.success'));
             return redirect()->route('admin.courses.list');
+        }catch (\Exception $exception){
+            logger($exception->getMessage());
+            toastr()->success(trans('messages.error'));
+            return back();
         }
-        toastr()->success(trans('messages.error'));
-        return back();
 
     }
 

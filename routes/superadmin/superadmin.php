@@ -82,4 +82,12 @@ Route::group([
     Route::resource('/courses','CourseController');
     Route::patch('/course/status/{course}','CourseController@updateStatus')->name('course.status');
 
+    /*
+     * Mass emails
+     */
+    Route::get( '/messaggi', 'EmailsController@massEmail' )->name( 'massemail' );
+    Route::get( '/api/messaggi', 'EmailsController@massEmailApi' )->name( 'apimassemail' );
+    Route::post( '/messaggi', 'EmailsController@sendMassEmail' )->name( 'sendmassemail' );
+    Route::delete( '/messaggi/{log}/elimina', 'EmailsController@deleteMassEmail' )->name( 'deletemassemail' );
+
 });
