@@ -2,47 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/datatables/massemails.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/superadmin/messages/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gestionale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestionale.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CourseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CourseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Traits/UserRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/UserRelationships.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/font-awesome/fontawesome-webfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/form.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/it/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/messages.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/_styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/_styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/superadmin/settings/emails.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/superadmin/settings/emails.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -386,7 +347,7 @@
       <workItem from="1578845903738" duration="2520000" />
       <workItem from="1578849113634" duration="3195000" />
       <workItem from="1578859643412" duration="7309000" />
-      <workItem from="1578947828017" duration="8917000" />
+      <workItem from="1578947828017" duration="9410000" />
     </task>
     <servers />
   </component>
@@ -457,10 +418,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1578958242771">
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1578958511763">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575559445835" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578958242771" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578958511763" />
   </component>
 </project>

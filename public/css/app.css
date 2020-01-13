@@ -3311,7 +3311,11 @@
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.13);
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
+.select2-container.select2-container--default {
+  width: 100% !important;
+}
+
+.select2-container.select2-container--default .select2-selection--multiple .select2-selection__choice {
   font-size: 14px;
   padding: 5px !important;
 }
