@@ -85,7 +85,9 @@ Route::group([
     /*
      * Mass emails
      */
-    Route::get( '/messaggi', 'EmailsController@massEmail' )->name( 'massemail' );
+    Route::view( '/messaggi', 'superadmin.messages.index' )->name( 'massemail' );
+    Route::get( '/api/getroles', 'EmailsController@getRoles' )->name( 'getRoles' );
+    Route::get( '/api/getemails/{email}', 'EmailsController@getEmails' )->name( 'getEmails' );
     Route::get( '/api/messaggi', 'EmailsController@massEmailApi' )->name( 'apimassemail' );
     Route::post( '/messaggi', 'EmailsController@sendMassEmail' )->name( 'sendmassemail' );
     Route::delete( '/messaggi/{log}/elimina', 'EmailsController@deleteMassEmail' )->name( 'deletemassemail' );

@@ -182,8 +182,6 @@
 
                    formData.append('lms_file', this.lms_file);
                    formData.append('content',JSON.stringify(this.content))
-                   console.log(this.content)
-                   console.log(formData)
                    axios.post(`/lms-content`,
                        formData,
                        {

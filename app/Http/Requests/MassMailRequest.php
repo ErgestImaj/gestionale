@@ -28,7 +28,6 @@ class MassMailRequest extends FormRequest
             'description'=>'required|string|min:15',
             'target'=>'required|array|min:1',
             'exclude'=>'nullable|array',
-            'exclude.*'=>'nullable|email',
         ];
     }
     public function attributes() {
@@ -44,8 +43,8 @@ class MassMailRequest extends FormRequest
            'subject'=>$this->subject,
            'created_by'=>auth()->id(),
            'description'=>$this->description,
-           'send_to'=>implode(',',$this->target),
-           'exclude'=>($this->exists('exclude') && is_array($this->exclude)) ? implode(',',$this->exclude) : null
+           'send_to'=>implode(', ',array_pluck($this->target, 'name')),
+           'exclude'=>($this->exists('exclude') && is_array($this->exclude)) ? implode(', ',array_pluck($this->exclude, 'email')) : null
        ];
     }
 }

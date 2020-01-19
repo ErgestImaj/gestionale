@@ -2073,6 +2073,136 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MassEmailsComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MassEmailsComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      roles: [],
+      emails: [],
+      massemails: {},
+      errors: {},
+      submiting: false,
+      config: {
+        height: 100
+      }
+    };
+  },
+  components: {
+    'summernote': __webpack_require__(/*! ./Summernote */ "./resources/js/components/Summernote.js")
+  },
+  mounted: function mounted() {
+    this.getRoles();
+  },
+  methods: {
+    getRoles: function getRoles() {
+      var _this = this;
+
+      axios.get("/amministrazione/api/getroles").then(function (response) {
+        _this.roles = response.data;
+      })["catch"](function (error) {});
+    },
+    asyncFind: function asyncFind(query) {
+      var _this2 = this;
+
+      axios.get("/amministrazione/api/getemails/".concat(query)).then(function (response) {
+        _this2.emails = response.data;
+      })["catch"](function (error) {});
+    },
+    create: function create() {
+      var _this3 = this;
+
+      if (!this.submiting) {
+        this.submiting = true;
+        axios.post("/amministrazione/messaggi", this.massemails).then(function (response) {
+          console.log(response.data);
+          _this3.submiting = false;
+
+          if (response.data.status == 'success') {
+            swal("Good job!", response.data.msg, "success");
+            _this3.massemails = {};
+          } else if (response.data.status == 'error') {
+            swal("Woops!", response.data.msg, "error");
+            _this3.massemails = {};
+          }
+        })["catch"](function (error) {
+          _this3.submiting = false;
+          _this3.errors = error.response.data.errors;
+        });
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModuleContentComponent.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModuleContentComponent.vue?vue&type=script&lang=js& ***!
@@ -2273,8 +2403,6 @@ __webpack_require__.r(__webpack_exports__);
         var formData = new FormData();
         formData.append('lms_file', this.lms_file);
         formData.append('content', JSON.stringify(this.content));
-        console.log(this.content);
-        console.log(formData);
         axios.post("/lms-content", formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -53991,6 +54119,207 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MassEmailsComponent.vue?vue&type=template&id=7142d492&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MassEmailsComponent.vue?vue&type=template&id=7142d492& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-12" }, [
+      _c("form", { attrs: { action: "" } }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "subject" } }, [
+            _vm._v(_vm._s(_vm.trans("form.subject")))
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.massemails.subject,
+                expression: "massemails.subject"
+              }
+            ],
+            staticClass: "form-control",
+            class: { "is-invalid": _vm.errors.subject },
+            attrs: { type: "text", id: "subject", name: "subject" },
+            domProps: { value: _vm.massemails.subject },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.massemails, "subject", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.subject
+            ? _c("div", { staticClass: "invalid-feedback" }, [
+                _vm._v(_vm._s(_vm.errors.subject[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c(
+              "label",
+              {
+                staticClass: "form-control-label",
+                attrs: { for: "description" }
+              },
+              [_vm._v(_vm._s(_vm.trans("form.description")))]
+            ),
+            _vm._v(" "),
+            _c("summernote", {
+              attrs: {
+                id: "description",
+                name: "editor",
+                model: _vm.massemails.description,
+                config: _vm.config
+              },
+              on: {
+                change: function(value) {
+                  _vm.massemails.description = value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.description
+              ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                  _vm._v(_vm._s(_vm.errors.description[0]))
+                ])
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c(
+              "label",
+              { staticClass: "form-control-label", attrs: { for: "target" } },
+              [_vm._v(_vm._s(_vm.trans("form.target")))]
+            ),
+            _vm._v(" "),
+            _c("multiselect", {
+              class: { "border border-danger rounded": _vm.errors.target },
+              attrs: {
+                options: _vm.roles,
+                multiple: true,
+                openDirection: "bottom",
+                "track-by": "name",
+                label: "name",
+                id: "target"
+              },
+              model: {
+                value: _vm.massemails.target,
+                callback: function($$v) {
+                  _vm.$set(_vm.massemails, "target", $$v)
+                },
+                expression: "massemails.target"
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.target
+              ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                  _vm._v(_vm._s(_vm.errors.target[0]))
+                ])
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c(
+              "label",
+              { staticClass: "form-control-label", attrs: { for: "exclude" } },
+              [_vm._v(_vm._s(_vm.trans("form.exclude")))]
+            ),
+            _vm._v(" "),
+            _c("multiselect", {
+              class: { "border border-danger rounded": _vm.errors.exclude },
+              attrs: {
+                options: _vm.emails,
+                multiple: true,
+                openDirection: "bottom",
+                "track-by": "email",
+                label: "email",
+                id: "exclude"
+              },
+              on: { "search-change": _vm.asyncFind },
+              model: {
+                value: _vm.massemails.exclude,
+                callback: function($$v) {
+                  _vm.$set(_vm.massemails, "exclude", $$v)
+                },
+                expression: "massemails.exclude"
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.exclude
+              ? _c("div", { staticClass: "invalid-feedback d-block" }, [
+                  _vm._v(_vm._s(_vm.errors.exclude[0]))
+                ])
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-12" }, [
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-info text-uppercase mt-5",
+              attrs: { href: "#", disabled: _vm.submiting },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.create($event)
+                }
+              }
+            },
+            [
+              _vm.submiting
+                ? _c("i", { staticClass: "fas fa-spinner fa-spin" })
+                : _vm._e(),
+              _vm._v(" "),
+              _c("span", { staticClass: "ml-1" }, [
+                _vm._v(_vm._s(_vm.trans("messages.send_email")))
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ModuleContentComponent.vue?vue&type=template&id=8476998a&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ModuleContentComponent.vue?vue&type=template&id=8476998a& ***!
@@ -67076,6 +67405,7 @@ Vue.filter('capitalize', function (s) {
 Vue.component('multiselect', vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.component('course-module', __webpack_require__(/*! ./components/CourseModuleComponent.vue */ "./resources/js/components/CourseModuleComponent.vue")["default"]);
 Vue.component('module-content', __webpack_require__(/*! ./components/ModuleContentComponent */ "./resources/js/components/ModuleContentComponent.vue")["default"]);
+Vue.component('mass-emails', __webpack_require__(/*! ./components/MassEmailsComponent */ "./resources/js/components/MassEmailsComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -67210,6 +67540,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseModuleComponent_vue_vue_type_template_id_29b9f1fb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CourseModuleComponent_vue_vue_type_template_id_29b9f1fb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/MassEmailsComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/MassEmailsComponent.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MassEmailsComponent_vue_vue_type_template_id_7142d492___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MassEmailsComponent.vue?vue&type=template&id=7142d492& */ "./resources/js/components/MassEmailsComponent.vue?vue&type=template&id=7142d492&");
+/* harmony import */ var _MassEmailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MassEmailsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/MassEmailsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MassEmailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MassEmailsComponent_vue_vue_type_template_id_7142d492___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MassEmailsComponent_vue_vue_type_template_id_7142d492___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/MassEmailsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/MassEmailsComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/MassEmailsComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MassEmailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./MassEmailsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MassEmailsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MassEmailsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/MassEmailsComponent.vue?vue&type=template&id=7142d492&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/MassEmailsComponent.vue?vue&type=template&id=7142d492& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MassEmailsComponent_vue_vue_type_template_id_7142d492___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./MassEmailsComponent.vue?vue&type=template&id=7142d492& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MassEmailsComponent.vue?vue&type=template&id=7142d492&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MassEmailsComponent_vue_vue_type_template_id_7142d492___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MassEmailsComponent_vue_vue_type_template_id_7142d492___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

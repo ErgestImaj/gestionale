@@ -64,12 +64,20 @@ class EmailsController extends Controller
     public function massEmail(){
 
         return view('superadmin.messages.index')->with([
-            'logs'=>MassMailHistory::paginate(20),
-            'roles'=>UserGroups::all(),
             'emails'=>User::all(['email'])
         ]);
     }
+     public function getRoles(){
 
+        return UserGroups::all(['name']);
+
+     }
+
+     public function getEmails(Request $request){
+
+        return User::where('email','LIKE','%'.strtolower($request->email).'%')->get('email');
+
+     }
     public function massEmailApi(){
         $logs = MassMailHistory::all();
 
@@ -116,16 +124,47 @@ class EmailsController extends Controller
      * Save and Send Mass Emails
      */
     public function sendMassEmail(MassMailRequest $request){
+        $roles = array_pluck($request->input('target'), 'name');
+        $emails = [];
+        if ($request->exists('exclude')){
+            $emails = array_pluck($request->input('exclude'), 'email');
+        }
+
+        //get users by role
+       foreach($roles as $role){
+           $users = User::whereHas('roles',function($query) use($role){
+               $query->where('name',$role);
+           })->get();
+          if (empty($users)) continue;
+
+           foreach ( $users as $user ) {
+               //exclude users
+              if (is_array($emails) && !empty($emails)){
+                  if (in_array($user->email,$emails)) continue;
+              }
+               Mail::send(new SendEmailToSingleUser(
+                   auth()->user(),
+                   $user,
+                   $request->input('subject'),
+                   $request->input('description')
+               ));
+
+           }
+       }
         $logs = new MassMailHistory();
         $logs->fill($request->fillFormData());
-        try {
+      try {
             $logs->save();
-            toastr()->success(trans('messages.success'));
-            return back();
+              return response( [
+                  'status' => 'success',
+                  'msg'    => trans('messages.success')
+              ] );
         }catch (\Exception $exception){
             logger($exception->getMessage());
-            toastr()->error(trans('messages.error'));
-            return back();
+          return response( [
+              'status' => 'error',
+              'msg'    => trans('messages.error')
+          ] );
         }
     }
 
@@ -136,4 +175,5 @@ class EmailsController extends Controller
             'msg'    => trans('messages.delete_msg',['record'=>'email'])
         ] );
     }
+
 }

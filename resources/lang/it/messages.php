@@ -25,5 +25,6 @@ return [
     'not_found_help'              => 'Prova a cambiare i filtri o aggiungine uno nuovo',
     'delete_module'               => 'Sei sicuro di voler eliminare questo modulo?',
     'select_an_option'            => 'Seleziona un\'opzione',
+    'comm_histoy'                 => 'Storia delle comunicazioni',
 
 ];
