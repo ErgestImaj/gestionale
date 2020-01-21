@@ -59,6 +59,13 @@
                 <i class="menu-arrow"></i>
             </a>
         </li>
+        <li class="nav-item @if(Request::is('amministrazione/workshops*'))active @endif">
+            <a class="nav-link" href="{{route('admin.workshops.index')}}" >
+                <i class="fas fa-briefcase menu-icon"></i>
+                <span class="menu-title">{{trans('menu.workshop')}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+        </li>
         <!--.Messages-->
         @hasrole('superadmin')
         <li class="nav-item @if(Request::is('amministrazione/settings*'))active @endif">

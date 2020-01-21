@@ -100,6 +100,8 @@ return [
     'resource_link'                     => 'Resource Link',
     'target'                            => 'Target',
     'exclude'                           => 'Escludere',
+    'participants'                      => 'Partecipanti',
+    'data'                              => 'Data',
 
 
 

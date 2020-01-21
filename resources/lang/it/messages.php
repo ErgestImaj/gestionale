@@ -26,5 +26,6 @@ return [
     'delete_module'               => 'Sei sicuro di voler eliminare questo modulo?',
     'select_an_option'            => 'Seleziona un\'opzione',
     'comm_histoy'                 => 'Storia delle comunicazioni',
+    'list_workshops'              => 'Lista workshops',
 
 ];

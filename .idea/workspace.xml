@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/MassEmailsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gestionale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestionale.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/datatables/workshop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/workshops/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmailsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/MassMailRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/MassMailRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/imgpsh_fullsize_anim.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ModuleContentComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ModuleContentComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/it/form.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/it/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/menu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/lang/it/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/superadmin/messages/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/superadmin/messages/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -217,7 +210,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/datatables" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -231,19 +224,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\views" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
+      <recent name="C:\xampp\htdocs\gestionale" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\views\course\lmscontent" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
       <recent name="C:\xampp\htdocs\gestionale\resources\sass\summernote" />
       <recent name="C:\xampp\htdocs\gestionale\resources\sass" />
-      <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\dashboard" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
-      <recent name="C:\xampp\htdocs\gestionale" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\views\course\lmscontent" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\summernote" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
@@ -364,7 +357,8 @@
       <workItem from="1578947828017" duration="9776000" />
       <workItem from="1579126466131" duration="2552000" />
       <workItem from="1579436622854" duration="2948000" />
-      <workItem from="1579444870401" duration="10505000" />
+      <workItem from="1579444870401" duration="11325000" />
+      <workItem from="1579555245763" duration="4684000" />
     </task>
     <servers />
   </component>
@@ -397,11 +391,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1573743196286" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578957200011">
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1579564249920">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1573747706275" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578957200011" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579564249920" />
     <state x="648" y="266" key="FileChooserDialogImpl" timestamp="1579437464143">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -423,10 +417,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1576960511234" />
-    <state x="1906" y="0" width="1198" height="973" maximized="true" key="dock-window-1" timestamp="1579471372759">
+    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1" timestamp="1579564512464">
       <screen x="1680" y="0" width="1680" height="1010" />
     </state>
-    <state x="1906" y="0" width="1198" height="973" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579471372759" />
+    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579564512464" />
     <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" timestamp="1578957529065">
       <screen x="1680" y="0" width="1680" height="1010" />
     </state>
@@ -435,11 +429,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1579470266169">
-      <screen x="1680" y="0" width="1680" height="1010" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1579564332475">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575559445835" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579436986585" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579564332475" />
     <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1579470266169" />
   </component>
 </project>

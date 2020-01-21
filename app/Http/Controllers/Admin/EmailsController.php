@@ -142,12 +142,16 @@ class EmailsController extends Controller
               if (is_array($emails) && !empty($emails)){
                   if (in_array($user->email,$emails)) continue;
               }
-               Mail::send(new SendEmailToSingleUser(
-                   auth()->user(),
-                   $user,
-                   $request->input('subject'),
-                   $request->input('description')
-               ));
+               try {
+                   Mail::send(new SendEmailToSingleUser(
+                       auth()->user(),
+                       $user,
+                       $request->input('subject'),
+                       $request->input('description')
+                   ));
+               }catch (\Exception $exception){
+                  logger($exception->getMessage());
+               }
 
            }
        }

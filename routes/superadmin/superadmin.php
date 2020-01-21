@@ -92,4 +92,11 @@ Route::group([
     Route::post( '/messaggi', 'EmailsController@sendMassEmail' )->name( 'sendmassemail' );
     Route::delete( '/messaggi/{log}/elimina', 'EmailsController@deleteMassEmail' )->name( 'deletemassemail' );
 
+    /*
+     * Workshop
+     */
+    Route::view( '/workshops', 'workshops.index' )->name( 'workshops.index' );
+    Route::get( '/api/getworkshops', 'WorkshopController@getWorkshops' )->name( 'workshop.data' );
+
+
 });
