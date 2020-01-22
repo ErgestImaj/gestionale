@@ -13,6 +13,7 @@ use App\Notifications\InvitationEmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 use Yajra\DataTables\DataTables;
 
@@ -79,7 +80,7 @@ class EmailsController extends Controller
 
      }
     public function massEmailApi(){
-        $logs = MassMailHistory::all();
+        $logs = MassMailHistory::latest()->get();
 
         $datatable = DataTables::of(  $logs  )
                                ->addIndexColumn()
@@ -89,7 +90,7 @@ class EmailsController extends Controller
                                } )
                                ->addColumn( 'description', function ( $row )
                                {
-                                   return  $row->description;
+                                   return  Str::limit($row->description,20,'...');
                                } )
                                ->addColumn( 'target', function ( $row )
                                {

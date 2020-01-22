@@ -19,5 +19,6 @@ return [
     'lms_content'                       => 'Contentuo LMS',
     'mass_emails'                       => 'Messagi',
     'workshop'                          => 'Workshop',
+    'workshop_data'                     => 'Dati del workshop',
 
 ];

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkshopRequest;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\DataTables;
 
 class WorkshopController extends Controller
@@ -16,20 +18,24 @@ class WorkshopController extends Controller
      */
     public function getWorkshops()
     {
-        $workshops  = Workshop::all();
+        $workshops  = Workshop::latest()->get();
         $datatable = DataTables::of(   $workshops )
                                ->addIndexColumn()
                                ->addColumn( 'data', function ($row )
                                {
-                                   return format_date($row->date);
+                                   $html = '<p>';
+                                   $html.=$row->when == 1 ? trans('form.afternoon') : trans('form.morning');
+                                   $html.=' | '.format_date($row->date);
+                                   $html.= '</p>' ;
+                                   return $html;
                                } )
                                ->addColumn( 'description', function ( $row )
                                {
-                                   return  $row->note;
+                                   return   Str::limit($row->note,20,'...');
                                } )
                                ->addColumn( 'participants', function ( $row )
                                {
-                                   return  $row->partecipants;
+                                   return  implode(', ',array_pluck($row->partecipants,'name'));
                                } )
                                ->addColumn( 'created_by', function ( $row )
                                {
@@ -46,21 +52,12 @@ class WorkshopController extends Controller
 
                                    return $html;
                                } )
-                               ->rawColumns( ['actions','description'] )
+                               ->rawColumns( ['actions','description','data'] )
                                ->make( true );
 
         return  $datatable;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -68,10 +65,25 @@ class WorkshopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WorkshopRequest $request)
     {
-        //
+          $workshop = new Workshop;
+          $workshop->fill($request->fillFormData());
+        try {
+            $workshop->save();
+            return response( [
+                'status' => 'success',
+                'msg'    => trans('messages.success')
+            ] );
+        }catch (\Exception $exception){
+            logger($exception->getMessage());
+            return response( [
+                'status' => 'error',
+                'msg'    => trans('messages.error')
+            ] );
+        }
     }
+
 
     /**
      * Display the specified resource.

@@ -8,6 +8,16 @@
     <div class="content-single">
         <div class="page-header">
             <h3 class="page-title">
+                <span class="text-semibold"><i class="fas fa-list"></i>@lang('menu.workshop_data')</span>
+            </h3>
+        </div>
+        <div class="card mb-5">
+            <div class="card-body">
+                <workshop></workshop>
+            </div>
+        </div>
+        <div class="page-header">
+            <h3 class="page-title">
                 <span class="text-semibold"><i class="fas fa-list"></i>@lang('messages.list_workshops')</span>
             </h3>
         </div>

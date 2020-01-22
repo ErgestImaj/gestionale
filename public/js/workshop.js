@@ -21,14 +21,5 @@ var table = $('#order-listing')
             {"data": "actions", "orderable":false},
             {"data": "id", "visible": false,"orderable":false},
         ],
-        initComplete: function(){
-            $("#filter-category select").on( 'change', function () {
-                var val = $(this).val()
-                table.column(2)
-                    .search( val ? '^'+val+'$' : '', true, false )
-                    .draw();
-
-            });
-        },
     });
 

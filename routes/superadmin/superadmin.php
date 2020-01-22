@@ -97,6 +97,6 @@ Route::group([
      */
     Route::view( '/workshops', 'workshops.index' )->name( 'workshops.index' );
     Route::get( '/api/getworkshops', 'WorkshopController@getWorkshops' )->name( 'workshop.data' );
-
+   Route::post('/workshop','WorkshopController@store');
 
 });

@@ -102,6 +102,11 @@ return [
     'exclude'                           => 'Escludere',
     'participants'                      => 'Partecipanti',
     'data'                              => 'Data',
+    'preferenze'                        => 'Preferenza',
+    'morning'                           => 'Mattina',
+    'afternoon'                         => 'Pomeriggio',
+
+
 
 
 

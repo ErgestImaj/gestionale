@@ -13,4 +13,9 @@ class Workshop extends Model
     use HashidRouting,HasHashid,HasUserRelationships,SoftDeletes;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'partecipants'=>'array',
+        'when'=>'boolean'
+    ];
 }

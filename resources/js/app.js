@@ -14,7 +14,6 @@ window.Vue = require('vue');
 Vue.prototype.trans = string => _.get(window.i18n, string);
 import Multiselect from 'vue-multiselect'
 
-
 import swal from 'sweetalert';
 import summernote from './summernote/summernote-bs4.min.js';
 
@@ -41,6 +40,7 @@ Vue.component('multiselect',Multiselect);
 Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
 Vue.component('module-content', require('./components/ModuleContentComponent').default);
 Vue.component('mass-emails', require('./components/MassEmailsComponent').default);
+Vue.component('workshop', require('./components/WorkshopComponent').default);
 
 
 /**
