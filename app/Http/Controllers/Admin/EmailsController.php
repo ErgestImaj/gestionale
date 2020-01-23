@@ -174,11 +174,18 @@ class EmailsController extends Controller
     }
 
     public function deleteMassEmail(MassMailHistory $log){
-        $log->delete();
-        return response( [
-            'status' => 'success',
-            'msg'    => trans('messages.delete_msg',['record'=>'email'])
-        ] );
+        try {
+            $log->delete();
+            return response( [
+                'status' => 'success',
+                'msg'    => trans('messages.delete_msg',['record'=>'email'])
+            ] );
+        }catch (\Exception $exception){
+            return response( [
+                'status' => 'error',
+                'msg'    => trans('messages.error')
+            ] );
+        }
     }
 
 }

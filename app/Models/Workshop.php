@@ -16,6 +16,5 @@ class Workshop extends Model
 
     protected $casts = [
         'partecipants'=>'array',
-        'when'=>'boolean'
     ];
 }

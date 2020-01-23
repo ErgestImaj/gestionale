@@ -24,19 +24,19 @@ class WorkshopRequest extends FormRequest
     public function rules()
     {
         return [
-            'preferenze'=>'required|in:0,1',
+            'when'=>'required|in:0,1',
             'date'=>'required|date',
-            'target'=>'required|array',
-            'description'=>'required|string'
+            'partecipants'=>'required|array',
+            'note'=>'required|string|min:20'
 
         ];
     }
     public function attributes() {
         return [
-            'preferenze'=>strtolower(trans('form.preferenze')),
+            'when'=>strtolower(trans('form.preferenze')),
             'date'=>strtolower(trans('form.data')),
-            'description'=>strtolower(trans('form.description')),
-            'exclude'=>strtolower(trans('form.exclude')),
+            'note'=>strtolower(trans('form.description')),
+            'partecipants'=>strtolower(trans('form.target')),
         ];
     }
     public function fillFormData(){
@@ -44,9 +44,9 @@ class WorkshopRequest extends FormRequest
         return [
             'date'=>substr($this->date, 0, strpos($this->date, "T")),
             'created_by'=>auth()->id(),
-            'note'=>$this->description,
-            'partecipants'=>$this->target,
-            'when'=>$this->preferenze
+            'note'=>$this->note,
+            'partecipants'=>$this->partecipants,
+            'when'=>$this->when
         ];
     }
 }

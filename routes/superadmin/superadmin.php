@@ -97,6 +97,9 @@ Route::group([
      */
     Route::view( '/workshops', 'workshops.index' )->name( 'workshops.index' );
     Route::get( '/api/getworkshops', 'WorkshopController@getWorkshops' )->name( 'workshop.data' );
-   Route::post('/workshop','WorkshopController@store');
+    Route::post('/workshop','WorkshopController@store');
+    Route::get('/workshop/{workshop}','WorkshopController@edit')->name('workshop.edit');
+    Route::patch('/workshop/{workshop}/update','WorkshopController@update')->name('workshop.update');
+    Route::delete( '/workshop/{workshop}/elimina', 'WorkshopController@destroy' )->name( 'workshop.destroy' );
 
 });

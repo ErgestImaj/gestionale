@@ -47,7 +47,10 @@ class WorkshopController extends Controller
                                 } )
                                ->addColumn( 'actions', function ( $row )
                                {
-                                   $html ='<a class="delete-btn py-2 px-3 btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'email']).'" data-action="'.route('admin.deletemassemail',['log'=>$row->hashid()]).'" href="#">
+                                   $html ='<a class="action btn block-btn btn-dark mb-1" data-tooltip="'.trans('form.edit').'" href="'.route('admin.workshop.edit',$row->hashid()).'">
+                                                       <i class="fas fa-pencil-alt"></i>
+                                                  </a>
+                                               <a class="delete-btn action btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'workshop']).'" data-action="'.route('admin.workshop.destroy',$row->hashid()).'" href="#">
                                                        <i class="fas fa-trash-alt"></i> </a>';
 
                                    return $html;
@@ -67,6 +70,7 @@ class WorkshopController extends Controller
      */
     public function store(WorkshopRequest $request)
     {
+
           $workshop = new Workshop;
           $workshop->fill($request->fillFormData());
         try {
@@ -104,7 +108,7 @@ class WorkshopController extends Controller
      */
     public function edit(Workshop $workshop)
     {
-        //
+        return view('workshops.edit')->with(['workshop'=>$workshop]);
     }
 
     /**
@@ -114,9 +118,23 @@ class WorkshopController extends Controller
      * @param  \App\Models\Workshop  $workshop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Workshop $workshop)
+    public function update(WorkshopRequest $request, Workshop $workshop)
     {
-        //
+       $workshop->fill($request->fillFormData());
+       $workshop->update_by = auth()->id();
+        try {
+            $workshop->update();
+            return response( [
+                'status' => 'success',
+                'msg'    => trans('messages.success')
+            ] );
+        }catch (\Exception $exception){
+            logger($exception->getMessage());
+            return response( [
+                'status' => 'error',
+                'msg'    => trans('messages.error')
+            ] );
+        }
     }
 
     /**
@@ -127,6 +145,20 @@ class WorkshopController extends Controller
      */
     public function destroy(Workshop $workshop)
     {
-        //
+
+        try {
+            $workshop->delete();
+            return response( [
+                'status' => 'success',
+                'msg'    => trans('messages.delete_msg',['record'=>'workshop'])
+            ] );
+        }catch (\Exception $exception){
+            return response( [
+                'status' => 'error',
+                'msg'    => trans('messages.error')
+            ] );
+        }
+
+
     }
 }

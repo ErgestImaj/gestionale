@@ -6,8 +6,6 @@
 
 require('./bootstrap');
 
-import select2 from 'select2';
-
 
 window.Vue = require('vue');
 
@@ -41,6 +39,7 @@ Vue.component('course-module', require('./components/CourseModuleComponent.vue')
 Vue.component('module-content', require('./components/ModuleContentComponent').default);
 Vue.component('mass-emails', require('./components/MassEmailsComponent').default);
 Vue.component('workshop', require('./components/WorkshopComponent').default);
+Vue.component('workshop-edit', require('./components/WorkshopEditComponent').default);
 
 
 /**

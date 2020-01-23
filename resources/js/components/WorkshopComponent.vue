@@ -11,28 +11,28 @@
                     <div class="form-group col-md-3">
                         <label class="form-control-label">{{trans('form.preferenze')}}</label>
                             <div class="custom-control custom-radio">
-                                <input type="radio" v-model="workshop.preferenze" v-bind:value="0"  class="custom-control-input" id="customControlValidation2">
+                                <input type="radio" v-model="workshop.when" v-bind:value="0"  class="custom-control-input" id="customControlValidation2">
                                 <label class="custom-control-label pt-1" for="customControlValidation2">{{trans('form.morning')}}</label>
                             </div>
                             <div class="custom-control custom-radio mb-3">
-                                <input type="radio" v-model="workshop.preferenze" v-bind:value="1" class="custom-control-input" id="customControlValidation3">
+                                <input type="radio" v-model="workshop.when" v-bind:value="1" class="custom-control-input" id="customControlValidation3">
                                 <label class="custom-control-label pt-1" for="customControlValidation3">{{trans('form.afternoon')}}</label>
-                                <div class="invalid-feedback d-block" v-if="errors.target">{{errors.preferenze[0]}}</div>
+                                <div class="invalid-feedback d-block" v-if="errors.when">{{errors.when[0]}}</div>
                             </div>
                     </div>
                     <div class="form-group col-md-9">
                         <label class="form-control-label"  for="target">{{trans('form.target')}}</label>
                         <multiselect
-                            v-model="workshop.target"
+                            v-model="workshop.partecipants"
                             :options="roles"
                             :multiple="true"
                             openDirection="bottom"
                             track-by="name"
                             label="name"
                             id="target"
-                            :class="{'border border-danger rounded': errors.target}">
+                            :class="{'border border-danger rounded': errors.partecipants}">
                         </multiselect>
-                        <div class="invalid-feedback d-block" v-if="errors.target">{{errors.target[0]}}</div>
+                        <div class="invalid-feedback d-block" v-if="errors.partecipants">{{errors.partecipants[0]}}</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -40,11 +40,11 @@
                     <summernote
                         id="description"
                         name="editor"
-                        :model="workshop.description"
-                        v-on:change="value => { workshop.description = value }"
+                        :model="workshop.note"
+                        v-on:change="value => { workshop.note = value }"
                         :config="config"
                     ></summernote>
-                    <div class="invalid-feedback d-block" v-if="errors.description">{{errors.description[0]}}</div>
+                    <div class="invalid-feedback d-block" v-if="errors.note">{{errors.note[0]}}</div>
                 </div>
 
 
