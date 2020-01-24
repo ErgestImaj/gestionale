@@ -42,7 +42,7 @@ class WorkshopRequest extends FormRequest
     public function fillFormData(){
 
         return [
-            'date'=>substr($this->date, 0, strpos($this->date, "T")),
+            'date'=> substr($this->date, 0, strpos($this->date, "T")) == "" ? $this->date : (substr($this->date, 0, strpos($this->date, "T"))),
             'created_by'=>auth()->id(),
             'note'=>$this->note,
             'partecipants'=>$this->partecipants,

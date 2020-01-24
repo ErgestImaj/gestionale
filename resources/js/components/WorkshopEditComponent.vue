@@ -30,7 +30,6 @@
                                 track-by="name"
                                 label="name"
                                 id="target"
-                                @remove="toggleUnSelectMarket"
                                 :class="{'border border-danger rounded': errors.partecipants}">
                         </multiselect>
                         <div class="invalid-feedback d-block" v-if="errors.partecipants">{{errors.partecipants[0]}}</div>
@@ -40,7 +39,7 @@
                     <label class="form-control-label" for="description">{{trans('form.description')}}</label>
                     <summernote
                             id="description"
-                            name="editor"
+                            name="note"
                             :model="workshop.note"
                             v-on:change="value => { workshop.note = value }"
                             :config="config"
@@ -63,10 +62,11 @@
 <script>
     import Datepicker from 'vuejs-datepicker';
     export default {
-        props: ['workshop_data'],
+
         data(){
             return{
                 roles:[],
+                workshop:{},
                 errors: {},
                 submiting: false,
                 config: {
@@ -78,17 +78,26 @@
             'summernote' : require('./Summernote'),
             'datepicker':  Datepicker
         },
-        computed: {
-            workshop:function () {
-                return  JSON.parse(this.workshop_data)
-            },
-        },
+
         mounted() {
+            this.getWorkshop();
             this.getRoles();
         },
         methods:{
-            toggleUnSelectMarket({ value, id }) {
-                console.log(value,id)
+            getWorkshop(){
+                axios.get(`/amministrazione/api/workshop/${getUrlData(3)}/show`)
+                    .then(response=>{
+                        this.workshop = response.data
+                    }) .catch(error => {
+                    swal({
+                        title: "Whoops!",
+                        text: 'Workshop does not exist!',
+                        icon: "warning",
+                        dangerMode: true,
+                    })
+                    location.href = '/amministrazione/workshops'
+                   })
+
             },
             getRoles(){
                 axios.get(`/amministrazione/api/getroles`)
@@ -104,6 +113,15 @@
                             this.submiting = false
                             if (response.data.status == 'success'){
                                 swal("Good job!", response.data.msg, "success");
+                                this.update = false;
+                            }
+                            else if (response.data.status == 'error'){
+                                swal({
+                                    title: "Whoops!",
+                                    text: response.data.msg,
+                                    icon: "warning",
+                                    dangerMode: true,
+                                })
                                 this.update = false;
                             }
                         })

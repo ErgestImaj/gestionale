@@ -70,10 +70,9 @@ class WorkshopController extends Controller
      */
     public function store(WorkshopRequest $request)
     {
-
           $workshop = new Workshop;
-          $workshop->fill($request->fillFormData());
         try {
+            $workshop->fill($request->fillFormData());
             $workshop->save();
             return response( [
                 'status' => 'success',
@@ -108,7 +107,7 @@ class WorkshopController extends Controller
      */
     public function edit(Workshop $workshop)
     {
-        return view('workshops.edit')->with(['workshop'=>$workshop]);
+        return $workshop;
     }
 
     /**
@@ -120,9 +119,10 @@ class WorkshopController extends Controller
      */
     public function update(WorkshopRequest $request, Workshop $workshop)
     {
-       $workshop->fill($request->fillFormData());
-       $workshop->update_by = auth()->id();
+
         try {
+            $workshop->fill($request->fillFormData());
+            $workshop->updated_by = auth()->id();
             $workshop->update();
             return response( [
                 'status' => 'success',

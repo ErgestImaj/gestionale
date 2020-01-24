@@ -13,9 +13,7 @@
         </div>
         <div class="card mb-5">
             <div class="card-body">
-                <workshop-edit
-                        workshop_data='{!! e(json_encode($workshop),true) !!}'
-                ></workshop-edit>
+                <workshop-edit></workshop-edit>
             </div>
         </div>
 

@@ -101,9 +101,7 @@ class ModuleContentController extends Controller
      */
     public function create()
     {
-
         return view('course.lmscontent.create');
-
     }
 
     public function filterCourses(){
