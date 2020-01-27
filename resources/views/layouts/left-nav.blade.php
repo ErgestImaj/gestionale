@@ -36,6 +36,34 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item @if(Request::is('amministrazione/admins*'))active @endif">
+            <a class="nav-link" data-toggle="collapse" href="#strutture" aria-expanded="false" aria-controls="strutture">
+                <i class="fas fa-user-tie menu-icon"></i>
+                <span class="menu-title">{{trans('menu.strutture')}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="strutture">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('menu.strutture')}}</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="nav-item @if(Request::is('amministrazione/download*'))active @endif">
+            <a class="nav-link" data-toggle="collapse" href="#download" aria-expanded="false" aria-controls="download">
+                <i class="fas fa-download menu-icon"></i>
+                <span class="menu-title">{{trans('menu.download')}}</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="download">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.download.create')}}">{{trans('form.add_file')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.download.index')}}">{{trans('menu.documents')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('menu.category')}}</a></li>
+                </ul>
+            </div>
+        </li>
+
         <li class="nav-item @if(Request::is('amministrazione/course*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#course" aria-expanded="false" aria-controls="course">
                 <i class="fas fa-book-open menu-icon"></i>

@@ -30,6 +30,7 @@ return [
     'support_email'                     => 'Supporto email',
     'add'                               => 'Aggiungi',
     'add_course'                        => 'Nuovo corso',
+    'add_file'                          => 'Nuovo file',
     'add_module'                        => 'Aggiungi Modulo',
     'new_module'                        => 'Aggiungi nuovo modulo',
     'course'                            => 'corso',
@@ -105,6 +106,8 @@ return [
     'preferenze'                        => 'Preferenza',
     'morning'                           => 'Mattina',
     'afternoon'                         => 'Pomeriggio',
+    'share_with'                        => 'Share with',
+    'doc_file'                          => 'Document File'
 
 
 

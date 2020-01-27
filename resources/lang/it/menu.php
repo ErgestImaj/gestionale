@@ -20,5 +20,7 @@ return [
     'mass_emails'                       => 'Messagi',
     'workshop'                          => 'Workshop',
     'workshop_data'                     => 'Dati del workshop',
-
+    'strutture'                         => 'Strutture',
+    'download'                          => 'Area Download',
+    'documents'                         => 'List of documents'
 ];

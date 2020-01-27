@@ -83,6 +83,12 @@ Route::group([
     Route::patch('/course/status/{course}','CourseController@updateStatus')->name('course.status');
 
     /*
+     * Area Download
+     */
+    Route::resource('/download', 'DownloadController');
+
+
+    /*
      * Mass emails
      */
     Route::view( '/messaggi', 'superadmin.messages.index' )->name( 'massemail' );
