@@ -204,3 +204,22 @@
     }
 }
 
+.theme--light.v-application {
+	background: none;
+}
+.v-menu__content {
+	margin-top: 60px;
+}
+.v-messages, .v-text-field__details {
+	min-height: 0;
+}
+.v-text-field__details {
+	margin-bottom: 0 !important;
+}
+span.gcount {
+	position: absolute;
+	width: 20px;
+	height: 17px;
+	font-size: 14px;
+	line-height: 20px;
+}

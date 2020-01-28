@@ -107,11 +107,9 @@ return [
     'morning'                           => 'Mattina',
     'afternoon'                         => 'Pomeriggio',
     'share_with'                        => 'Share with',
-    'doc_file'                          => 'Document File'
-
-
-
-
+    'doc_file'                          => 'Document File',
+    'add_doc'                      			=> 'Add File',
+		'doc_cat' => 'Document Categories'
 
 ];
 

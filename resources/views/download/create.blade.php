@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title',trans('form.add_course'))
+@section('title',trans('form.add_file'))
 @section('pagestyle')
     <link rel="stylesheet" href="{{asset('css/addons.css')}}">
     <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
@@ -7,11 +7,19 @@
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
-            <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_course')</span>
+            <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_file')</span>
         </h3>
     </div>
-    <form action="#" method="POST" enctype="multipart/form-data">
-    @csrf
-        @include('download._doc_form')
-    </form>
+		<v-app>
+			<v-card
+				outlined
+				flat
+			>
+				<document-create></document-create>
+			</v-card>
+
+		</v-app>
 @endsection
+@push('scripts')
+    <script src="{{asset('js/actions.js')}}"></script>
+@endpush

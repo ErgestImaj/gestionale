@@ -59,7 +59,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.download.create')}}">{{trans('form.add_file')}}</a></li>
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.download.index')}}">{{trans('menu.documents')}}</a></li>
-                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('menu.category')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.download.categories')}}">{{trans('menu.category')}}</a></li>
                 </ul>
             </div>
         </li>

@@ -8,6 +8,8 @@ require('./bootstrap');
 
 
 window.Vue = require('vue');
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 
 Vue.prototype.trans = string => _.get(window.i18n, string);
 import Multiselect from 'vue-multiselect'
@@ -40,6 +42,8 @@ Vue.component('module-content', require('./components/ModuleContentComponent').d
 Vue.component('mass-emails', require('./components/MassEmailsComponent').default);
 Vue.component('workshop', require('./components/WorkshopComponent').default);
 Vue.component('workshop-edit', require('./components/WorkshopEditComponent').default);
+Vue.component('document-create', require('./components/DocumentComponent').default);
+Vue.component('document-categories', require('./components/DocumentCategoriesComponent').default);
 
 
 /**
@@ -50,5 +54,13 @@ Vue.component('workshop-edit', require('./components/WorkshopEditComponent').def
 
 const app = new Vue({
     el: '#app',
-
+	vuetify: new Vuetify({
+		theme: {
+			themes: {
+				light: {
+					primary: '#7b0b07',
+				},
+			},
+		},
+	})
 });

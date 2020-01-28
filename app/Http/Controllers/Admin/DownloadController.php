@@ -22,6 +22,11 @@ class DownloadController extends Controller
         return view('download.index', []);
     }
 
+		public function categories()
+		{
+			return view('download.categories', []);
+		}
+
     public function create()
     {
 //        $this->authorize('create',Course::class);

@@ -13,24 +13,12 @@ var table = $('#document-list')
         "ajax": window.Laravel.baseURL + '/amministrazione/documents',
         "columns": [
             {"data": "DT_RowIndex","orderable":false},
-            {"data": "code"},
             {"data": "category"},
             {"data": "name"},
-            {"data": "costo"},
-            {"data": "status"},
             {"data": "created_by"},
             {"data": "updated_by"},
             {"data": "actions", "orderable":false},
             {"data": "id", "visible": false,"orderable":false},
         ],
-        initComplete: function(){
-            $("#filter-category select").on( 'change', function () {
-                var val = $(this).val()
-                table.column(2)
-                    .search( val ? '^'+val+'$' : '', true, false )
-                    .draw();
-
-            });
-        },
     });
 

@@ -85,7 +85,9 @@ Route::group([
     /*
      * Area Download
      */
-    Route::resource('/download', 'DownloadController');
+    Route::view('/download/create', 'download.create')->name('download.create');
+    Route::view('/download/', 'download.index')->name('download.index');
+    Route::view('/download/categories', 'download.categories')->name('download.categories');
 
 
     /*
