@@ -13,7 +13,7 @@
         </div>
         <div class="card mb-5">
             <div class="card-body">
-                <workshop-edit></workshop-edit>
+                <workshop-edit note="{!! e($workshop->note) !!}"></workshop-edit>
             </div>
         </div>
 

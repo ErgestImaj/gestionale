@@ -2825,8 +2825,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['note'],
   data: function data() {
     return {
       roles: [],
@@ -2844,6 +2846,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getWorkshop();
+    this.$refs.description.run('code', this.note);
     this.getRoles();
   },
   methods: {
@@ -49823,6 +49826,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("summernote", {
+              ref: "description",
               attrs: {
                 id: "description",
                 name: "note",
@@ -64918,6 +64922,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 module.exports = {
   template: '<textarea :name="name"></textarea>',
   props: {
@@ -64931,6 +64937,21 @@ module.exports = {
     height: {
       type: String,
       "default": '150'
+    }
+  },
+  methods: {
+    /**
+     * run summernote API
+     * @param {String} code
+     * @param {String | Number} value
+     * @returns {*|jQuery}
+     */
+    run: function run(code, value) {
+      if (_typeof(value) === undefined) {
+        return $(this.$el).summernote(code);
+      } else {
+        return $(this.$el).summernote(code, value);
+      }
     }
   },
   mounted: function mounted() {
