@@ -1,3 +1,4 @@
+
 module.exports = {
 
     template: '<textarea :name="name"></textarea>',
@@ -17,7 +18,21 @@ module.exports = {
             default: '150'
         }
     },
-
+    methods: {
+        /**
+         * run summernote API
+         * @param {String} code
+         * @param {String | Number} value
+         * @returns {*|jQuery}
+         */
+        run: function (code, value) {
+            if (typeof value === undefined) {
+                return $(this.$el).summernote(code)
+            } else {
+                return $(this.$el).summernote(code, value)
+            }
+        }
+    },
     mounted:function () {
         {
             (function($,_this){

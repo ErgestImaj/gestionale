@@ -2,29 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bcaca32f-d226-4b17-812e-9a1decde99dd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/WorkshopController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/WorkshopController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ModuleContentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ModuleContentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/WorkshopRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/WorkshopRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-regular-400.woff2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Summernote.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Summernote.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/WorkshopComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/WorkshopComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/WorkshopEditComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/WorkshopEditComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/workshops/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/workshops/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
@@ -372,6 +356,11 @@
       <workItem from="1579555245763" duration="5701000" />
       <workItem from="1579643012230" duration="8075000" />
       <workItem from="1579873942484" duration="7882000" />
+      <workItem from="1580078882041" duration="8024000" />
+      <workItem from="1580157337233" duration="993000" />
+      <workItem from="1580158852622" duration="2320000" />
+      <workItem from="1580246128040" duration="12375000" />
+      <workItem from="1580335609090" duration="7834000" />
     </task>
     <servers />
   </component>
@@ -419,11 +408,11 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980679472" />
-    <state x="696" y="145" key="RollbackChangesDialog" timestamp="1579878449515">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="609" y="141" key="RollbackChangesDialog" timestamp="1580253866989">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579878449515" />
-    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578088650236" />
+    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580253866989" />
     <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog" timestamp="1579788724584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -449,11 +438,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1579880784537">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1580344216517">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579880784537" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579649978118" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580344216517" />
     <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1579470266169" />
   </component>
 </project>
