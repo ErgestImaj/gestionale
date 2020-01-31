@@ -96,7 +96,7 @@ class WorkshopController extends Controller
      */
     public function show(Workshop $workshop)
     {
-        //
+        return view('workshops.edit',compact('workshop'));
     }
 
     /**

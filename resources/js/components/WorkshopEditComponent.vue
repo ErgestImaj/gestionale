@@ -40,6 +40,7 @@
                     <summernote
                             id="description"
                             name="note"
+                            ref="description"
                             :model="workshop.note"
                             v-on:change="value => { workshop.note = value }"
                             :config="config"
@@ -62,7 +63,7 @@
 <script>
     import Datepicker from 'vuejs-datepicker';
     export default {
-
+        props:['note'],
         data(){
             return{
                 roles:[],
@@ -72,17 +73,19 @@
                 config: {
                     height: 100
                 },
+
             }
         },
         components: {
             'summernote' : require('./Summernote'),
             'datepicker':  Datepicker
         },
-
         mounted() {
             this.getWorkshop();
+            this.$refs.description.run('code',this.note);
             this.getRoles();
         },
+
         methods:{
             getWorkshop(){
                 axios.get(`/amministrazione/api/workshop/${getUrlData(3)}/show`)
