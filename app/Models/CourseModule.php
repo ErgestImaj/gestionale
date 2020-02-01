@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +11,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class CourseModule extends Model
 {
-    use HasUserRelationships,HasHashid,HashidRouting,SoftDeletes;
+    use HasUserRelationships,HasHashid,HashidRouting, HashIdAttribute, SoftDeletes;
 
 
     const CREATED_AT = 'created';
@@ -36,11 +37,6 @@ class CourseModule extends Model
             $module->created_by = auth()->id();
             $module->updated_by = auth()->id();
         });
-    }
-
-    public function getHashidAttribute()
-    {
-        return $this->hashid();
     }
 
     public function scopeSearch($query,$value){

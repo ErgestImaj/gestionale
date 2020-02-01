@@ -88,7 +88,10 @@ Route::group([
     Route::view('/download/create', 'download.create')->name('download.create');
     Route::view('/download/', 'download.index')->name('download.index');
     Route::view('/download/categories', 'download.categories')->name('download.categories');
-
+    Route::get('/api/download/category/index','DocumentCategoriesController@index')->name('download.categories.index');
+    Route::post('/api/download/category/create','DocumentCategoriesController@store')->name('download.categories.create');
+    Route::patch('/api/download/category/{category}','DocumentCategoriesController@update')->name('download.categories.update');
+    Route::delete('/download/categories/{category}','DocumentCategoriesController@destroy')->name('download.category.destroy');
 
     /*
      * Mass emails

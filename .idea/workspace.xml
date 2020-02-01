@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Traits/HashIdAttribute.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/CourseModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/CourseModule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Traits/UserRelationships.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Traits/UserRelationships.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/DocumentCategoriesComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/DocumentCategoriesComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/it/messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/it/messages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,7 +204,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Traits" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -212,11 +219,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
       <recent name="C:\xampp\htdocs\gestionale" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\views\course\lmscontent" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
@@ -353,6 +360,9 @@
       <workItem from="1580158852622" duration="2320000" />
       <workItem from="1580246128040" duration="12375000" />
       <workItem from="1580335609090" duration="9137000" />
+      <workItem from="1580504784093" duration="822000" />
+      <workItem from="1580505631991" duration="6026000" />
+      <workItem from="1580512734168" duration="3724000" />
     </task>
     <servers />
   </component>
@@ -386,11 +396,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1573743196286" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1579643755863">
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580514302631">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1573747706275" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579643755863" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580514302631" />
     <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1579794416233">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -400,11 +410,19 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980679472" />
+    <state x="675" y="423" key="NewPhpFileDialog" timestamp="1580514597342">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="675" y="423" key="NewPhpFileDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580514597342" />
     <state x="609" y="141" key="RollbackChangesDialog" timestamp="1580253866989">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579878449515" />
     <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580253866989" />
+    <state x="341" y="136" key="SettingsEditor" timestamp="1580505608476">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580505608476" />
     <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog" timestamp="1579788724584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -430,11 +448,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1580344216517">
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1580514128993">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579880784537" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580344216517" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580514128993" />
     <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1579470266169" />
   </component>
 </project>

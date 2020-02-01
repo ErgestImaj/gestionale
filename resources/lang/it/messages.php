@@ -12,6 +12,7 @@ return [
     'change_status'               => 'Lo stato è cambiato con successo',
     'delete_msg'                  => ':record eliminato con successo',
     'delete_confirm'              => 'Sei sicuro di voler eliminare questo :record?',
+    'delete_record'               => 'Sei sicuro di voler eliminare questo record?',
     'delete_confirm_pl'           => 'Sei sicuro di voler eliminare questa :record?',
     'cant_delete_category'        => 'Questa categoria non può essere cancellata, abbiamo trovato corsi relativi a questa categoria',
     'cant_delete_rate'            => 'Questa aliquest non può essere cancellata, abbiamo trovato corsi relativi',
