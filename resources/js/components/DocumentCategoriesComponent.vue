@@ -130,7 +130,7 @@
             updateCategory(record){
                 if (!this.submiting) {
                     this.submiting = true
-                    axios.patch(`/api/download/category/${record}`, this.cat)
+                    axios.patch(`/amministrazione/api/download/category/${record}`, this.cat)
                         .then(response => {
                             this.submiting = false
                             if (response.data.status == 'success'){

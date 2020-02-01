@@ -2214,7 +2214,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.submiting) {
         this.submiting = true;
-        axios.patch("/api/download/category/".concat(record), this.cat).then(function (response) {
+        axios.patch("/amministrazione/api/download/category/".concat(record), this.cat).then(function (response) {
           _this3.submiting = false;
 
           if (response.data.status == 'success') {
@@ -2314,48 +2314,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['lang'],
   components: {
     modules: _ModulesListComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
       doc: {},
+      doc_file: null,
       errors: {},
       submiting: false,
-      categories: ['cat1', 'cat2', 'cat3', 'cat4'],
-      roles: ['rol1', 'rol2', 'rol3', 'rol4']
+      categories: [],
+      roles: []
     };
   },
-  props: ['lang'],
-  created: function created() {//
+  mounted: function mounted() {
+    this.getCategories();
+    this.getRoles();
   },
   methods: {
+    getRoles: function getRoles() {
+      var _this = this;
+
+      axios.get("/amministrazione/api/getroles").then(function (response) {
+        if (response.data != undefined) {
+          _this.roles = _this.convertObjectToArray(response.data);
+        }
+      })["catch"](function (error) {});
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      axios.get("/amministrazione/api/download/category/list").then(function (response) {
+        if (response.data != undefined) {
+          _this2.categories = _this2.convertObjectToArray(response.data);
+        }
+      })["catch"](function (error) {});
+    },
+    convertObjectToArray: function convertObjectToArray(object) {
+      return object.map(function (i, v) {
+        return i.name;
+      });
+    },
+    pickFile: function pickFile() {
+      this.$refs.image.click();
+    },
+    handleFileUpload: function handleFileUpload(e) {
+      console.log(1);
+      return this.doc_file = e.target.files[0];
+    },
     send: function send() {
+      var _this3 = this;
+
       if (!this.submiting) {
-        this.submiting = true; // let formData = new FormData()
-        // formData.append('doc_file', this.doc.file);
-        // formData.append('content', JSON.stringify(this.content))
-        // axios.post(`/lms-content`,
-        //     formData,
-        //     {
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //         }
-        //
-        //     }).then(response => {
-        //     this.submiting = false
-        //     if (response.data.status == 'success'){
-        //         swal("Good job!", response.data.msg, "success");
-        //         this.content = {};
-        //         this.content_type=null;
-        //         this.lms_file= null;
-        //     }
-        // }).catch(error => {
-        //     this.submiting = false
-        //     this.errors = error.response.data.errors
-        // })
+        this.submiting = true;
+        var formData = new FormData();
+        formData.append('doc_file', this.doc_file);
+        formData.append('doc', JSON.stringify(this.doc));
+        axios.post("/amministrazione/api/download/store", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(function (response) {
+          _this3.submiting = false;
+
+          if (response.data.status == 'success') {
+            swal("Good job!", response.data.msg, "success");
+            _this3.content = {};
+            _this3.content_type = null;
+            _this3.lms_file = null;
+          }
+        })["catch"](function (error) {
+          _this3.submiting = false;
+          _this3.errors = error.response.data.errors;
+        });
       }
     }
   }
@@ -49005,19 +49040,22 @@ var render = function() {
                 "v-col",
                 { attrs: { cols: "12", sm: "12" } },
                 [
-                  _c("v-file-input", {
+                  _c("v-text-field", {
                     attrs: {
-                      label: _vm.trans("form.doc_file"),
                       outlined: "",
-                      "prepend-icon": "",
                       "prepend-inner-icon": "mdi-cloud-upload"
                     },
-                    model: {
-                      value: _vm.doc.file,
-                      callback: function($$v) {
-                        _vm.$set(_vm.doc, "file", $$v)
-                      },
-                      expression: "doc.file"
+                    on: { click: _vm.pickFile }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    ref: "image",
+                    staticStyle: { display: "none" },
+                    attrs: { type: "file" },
+                    on: {
+                      change: function($event) {
+                        return _vm.handleFileUpload($event)
+                      }
                     }
                   })
                 ],
@@ -49047,9 +49085,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n\t\t\t\t\t" +
+                        "\n                    " +
                           _vm._s(_vm.trans("form.add_doc")) +
-                          "\n\t\t\t\t\t"
+                          "\n                    "
                       ),
                       _c("v-icon", { attrs: { right: "", dark: "" } }, [
                         _vm._v("mdi-cloud-upload")

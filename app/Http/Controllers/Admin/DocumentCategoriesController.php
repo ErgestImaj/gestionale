@@ -16,6 +16,9 @@ class DocumentCategoriesController extends Controller
         $categroies = DocumentCategories::latest()->withCount('documents')->get();
         return $categroies;
     }
+    public function listCategories(){
+        return DocumentCategories::latest()->get(['name'])->toArray();
+    }
     public function store(CategoriesRequest $request){
 
         try {

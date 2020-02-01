@@ -7,5 +7,7 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
-    //
+    public function store(Request $request){
+        dd($request->all());
+    }
 }
