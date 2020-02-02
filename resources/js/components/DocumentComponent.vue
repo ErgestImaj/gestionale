@@ -15,7 +15,7 @@
                         v-model="doc.category"
                         :items="categories"
                         :menu-props="{ maxHeight: '400' }"
-                        :label="trans('form.category')"
+                        :label="trans('form.doc_category_select')"
                         multiple
                         outlined
                     ></v-select>
@@ -24,6 +24,8 @@
                     <v-select
                         v-model="doc.role"
                         :items="roles"
+												item-text="name"
+												item-value="id"
                         :menu-props="{ maxHeight: '400' }"
                         :label="trans('form.share_with')"
                         multiple
@@ -33,7 +35,7 @@
             </v-row>
             <v-row>
                 <v-col cols="12" sm="12">
-                    <v-text-field  outlined @click='pickFile' prepend-inner-icon="mdi-cloud-upload"></v-text-field>
+                    <v-text-field :label="trans('form.choose_file')" outlined @click='pickFile' prepend-inner-icon="mdi-cloud-upload" :value="doc_file ? doc_file.name : '' "></v-text-field>
                     <input
                         type="file"
                         style="display: none"
@@ -88,8 +90,9 @@
             getRoles() {
                 axios.get(`/amministrazione/api/getroles`)
                     .then(response => {
-                        if (response.data != undefined) {
-                            this.roles = this.convertObjectToArray(response.data)
+                        if (response.data) {
+														console.log(response.data);
+														this.roles = response.data;
                         }
                     })
                     .catch(error => {
@@ -115,13 +118,13 @@
                 this.$refs.image.click ()
             },
             handleFileUpload(e){
-                console.log(1)
+                console.log(e.target.files[0].name);
                 return this.doc_file = e.target.files[0];
             },
             send: function () {
                 if (!this.submiting) {
-                    this.submiting = true
-                    let formData = new FormData()
+                    this.submiting = true;
+                    let formData = new FormData();
                     formData.append('doc_file', this.doc_file);
                     formData.append('doc', JSON.stringify(this.doc))
                     axios.post(`/amministrazione/api/download/store`,
@@ -132,14 +135,15 @@
                             }
 
                         }).then(response => {
-                        this.submiting = false
-                        if (response.data.status == 'success'){
-                            swal("Good job!", response.data.msg, "success");
-                            this.content = {};
-                            this.content_type=null;
-                            this.lms_file= null;
-                        }
-                    }).catch(error => {
+                            console.log(response);
+                            this.submiting = false
+                            if (response.data.status == 'success'){
+                                swal("Good job!", response.data.msg, "success");
+                                this.content = {};
+                                this.content_type=null;
+                                this.lms_file= null;
+                            }
+                        }).catch(error => {
                         this.submiting = false
                         this.errors = error.response.data.errors
                     })
