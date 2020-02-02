@@ -70,7 +70,7 @@ class EmailsController extends Controller
     }
      public function getRoles(){
 
-        return UserGroups::all(['name']);
+        return UserGroups::all(['id', 'name']);
 
      }
 
