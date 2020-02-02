@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,6 +171,8 @@
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/vendor/laravel/helpers" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/maengkom/boxapi" />
     </include_path>
   </component>
   <component name="ProjectId" id="1THXx0ftMuAPehSHpFHzqhptOQc" />
@@ -210,19 +210,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\views" />
-      <recent name="C:\xampp\htdocs\gestionale" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
       <recent name="C:\xampp\htdocs\gestionale\resources\sass\summernote" />
       <recent name="C:\xampp\htdocs\gestionale\resources\sass" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\dashboard" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\views" />
+      <recent name="C:\xampp\htdocs\gestionale" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
