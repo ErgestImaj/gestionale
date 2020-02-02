@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+	<div class="authback">
+		<div class="g-row">
+			<div class="auth-left"></div>
+			<div class="auth-right gpad">
+				<div class="brand-logo">
+					<img src="{{asset('images/logo.jpg')}}" alt="logo">
+				</div>
+				<div class="auth-form-light text-left p-5">
                 <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">

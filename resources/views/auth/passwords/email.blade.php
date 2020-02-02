@@ -1,8 +1,14 @@
 @extends('layouts.auth')
 
 @section('auth')
-        <div class="card mx-4">
-            <div class="card-body p-4">
+	<div class="authback">
+		<div class="g-row">
+			<div class="auth-left"></div>
+			<div class="auth-right gpad">
+				<div class="brand-logo">
+					<img src="{{asset('images/logo.jpg')}}" alt="logo">
+				</div>
+				<div class="auth-form-light text-left p-5">
                 <h1>{{ __('Reset Password') }}</h1>
                 <p class="text-muted">Reset you password</p>
 
@@ -37,6 +43,8 @@
                         </div>
                     @endif
                 </form>
+            	</div>
             </div>
         </div>
+	</div>
 @endsection
