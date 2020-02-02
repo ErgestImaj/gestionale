@@ -3351,3 +3351,129 @@ span.gcount {
   line-height: 20px;
 }
 
+.v-dialog__content.v-dialog__content--active {
+  z-index: 10000 !important;
+}
+
+.v-overlay.v-overlay--active {
+  z-index: 9999 !important;
+}
+
+.authback .g-row .auth-left {
+  height: 100%;
+  background: red;
+  display: block;
+}
+
+.authback > .g-row {
+  width: 800px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.authback {
+  display: -webkit-box;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  background-image: url(/images/auth/login-back.jpg);
+  background-size: cover;
+}
+
+.authback > .g-row > * {
+  position: relative;
+}
+
+.authback > .g-row::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: calc(-50vh + 50%);
+  left: calc(-50vw + 50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  background-image: url(/images/auth/login-back.jpg);
+  background-size: cover;
+  -webkit-filter: blur(20px);
+  filter: blur(10px);
+}
+
+.authback > .g-row {
+  width: 900px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: stretch;
+          align-items: stretch;
+  z-index: 2;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.auth-right .brand-logo {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.auth-right {
+  background: white;
+}
+
+.auth-right::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: white white transparent transparent;
+  border-width: 20px;
+}
+
+.authback > .g-row > div {
+  width: 50%;
+}
+
+@media all and (max-width: 900px) {
+  .auth-left {
+    width: 30%;
+  }
+
+  .authback > .g-row {
+    width: 700px;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .authback > .g-row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+
+  .authback > .g-row > div {
+    width: 100%;
+  }
+
+  .auth-right::before {
+    display: none;
+  }
+
+  .authback > .g-row {
+    width: 500px;
+  }
+}
+

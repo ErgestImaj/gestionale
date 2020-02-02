@@ -2158,6 +2158,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2167,20 +2200,37 @@ __webpack_require__.r(__webpack_exports__);
     return {
       cat: {},
       errors: {},
+      errorsmodify: {},
       submiting: false,
-      categories: []
+      categories: [],
+      noCategories: false,
+      loading: true,
+      editDialog: false,
+      edit: null
     };
   },
   mounted: function mounted() {
     this.getCategories();
   },
   methods: {
+    openEdit: function openEdit(record) {
+      this.edit = record;
+      this.editDialog = true;
+    },
+    closeEdit: function closeEdit() {
+      this.editDialog = false;
+    },
     getCategories: function getCategories() {
       var _this = this;
 
       axios.get("/amministrazione/api/download/category/index").then(function (response) {
+        console.log(response.data);
         _this.categories = response.data;
-      })["catch"](function (error) {});
+        _this.noCategories = response.data.length === 0;
+        _this.loading = false;
+      })["catch"](function (error) {
+        _this.loading = false;
+      });
     },
     send: function send() {
       var _this2 = this;
@@ -2190,9 +2240,12 @@ __webpack_require__.r(__webpack_exports__);
         axios.post("/amministrazione/api/download/category/create", this.cat).then(function (response) {
           _this2.submiting = false;
 
-          if (response.data.status == 'success') {
+          if (response.data.status === 'success') {
             swal("Good job!", response.data.msg, "success");
-          } else if (response.data.status == 'error') {
+            _this2.loading = true;
+
+            _this2.getCategories();
+          } else if (response.data.status === 'error') {
             swal({
               title: "Whoops!",
               text: response.data.msg,
@@ -2214,13 +2267,19 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.submiting) {
         this.submiting = true;
-        axios.patch("/amministrazione/api/download/category/".concat(record), this.cat).then(function (response) {
+        axios.patch("/amministrazione/api/download/category/".concat(record), this.edit).then(function (response) {
           _this3.submiting = false;
 
-          if (response.data.status == 'success') {
+          if (response.data.status === 'success') {
             swal("Good job!", response.data.msg, "success");
             _this3.update = false;
-          } else if (response.data.status == 'error') {
+            _this3.loading = true;
+
+            _this3.getCategories();
+
+            _this3.edit = null;
+            _this3.editDialog = false;
+          } else if (response.data.status === 'error') {
             swal({
               title: "Whoops!",
               text: response.data.msg,
@@ -2233,7 +2292,7 @@ __webpack_require__.r(__webpack_exports__);
           _this3.cat = {};
         })["catch"](function (error) {
           _this3.submiting = false;
-          _this3.errors = error.response.data.errors;
+          _this3.errorsmodify = error.response.data.errors;
         });
       }
     }
@@ -2252,6 +2311,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ModulesListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModulesListComponent */ "./resources/js/components/ModulesListComponent.vue");
+//
+//
 //
 //
 //
@@ -2340,8 +2401,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/amministrazione/api/getroles").then(function (response) {
-        if (response.data != undefined) {
-          _this.roles = _this.convertObjectToArray(response.data);
+        if (response.data) {
+          console.log(response.data);
+          _this.roles = response.data;
         }
       })["catch"](function (error) {});
     },
@@ -2363,7 +2425,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.image.click();
     },
     handleFileUpload: function handleFileUpload(e) {
-      console.log(1);
+      console.log(e.target.files[0].name);
       return this.doc_file = e.target.files[0];
     },
     send: function send() {
@@ -2379,6 +2441,7 @@ __webpack_require__.r(__webpack_exports__);
             'Content-Type': 'multipart/form-data'
           }
         }).then(function (response) {
+          console.log(response);
           _this3.submiting = false;
 
           if (response.data.status == 'success') {
@@ -48698,138 +48761,174 @@ var render = function() {
     "v-row",
     [
       _c(
+        "v-overlay",
+        { attrs: { value: _vm.loading } },
+        [
+          _c("v-progress-circular", {
+            attrs: { indeterminate: "", size: "64" }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "v-col",
         { attrs: { cols: "12", sm: "6" } },
         [
-          _c(
-            "v-card",
-            { staticClass: "mx-auto" },
-            [
-              _c(
-                "v-toolbar",
-                { attrs: { color: "primary", dark: "" } },
+          _vm.noCategories
+            ? _c("v-card", { staticClass: "mx-auto" }, [
+                _c("p", { staticClass: "p-3" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t\t\t" +
+                      _vm._s(_vm.trans("form.doc_no_records")) +
+                      "\n\t\t\t\t\t\t"
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.noCategories
+            ? _c(
+                "v-card",
+                { staticClass: "mx-auto" },
                 [
-                  _c("v-toolbar-title", [_vm._v("Categories")]),
+                  _c(
+                    "v-toolbar",
+                    { attrs: { color: "primary", dark: "" } },
+                    [_c("v-toolbar-title", [_vm._v("Categories")])],
+                    1
+                  ),
                   _vm._v(" "),
-                  _c("v-spacer")
+                  _c(
+                    "v-list",
+                    { attrs: { "two-line": "" } },
+                    _vm._l(_vm.categories, function(item) {
+                      return _c("v-list-item", {
+                        key: item.title,
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "default",
+                              fn: function(ref) {
+                                var active = ref.active
+                                var toggle = ref.toggle
+                                return [
+                                  _c(
+                                    "v-list-item-avatar",
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          staticClass:
+                                            "grey lighten-1 white--text"
+                                        },
+                                        [_vm._v("mdi-folder")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "gcount" }, [
+                                        _vm._v(_vm._s(item.documents_count))
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c("v-list-item-title", {
+                                        domProps: {
+                                          textContent: _vm._s(item.name)
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-list-item-subtitle",
+                                        { staticClass: "text--primary" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              "Files: " + item.documents_count
+                                            ) +
+                                              "\n                                "
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-action",
+                                    {
+                                      staticClass:
+                                        "d-flex flex-row justify-space-between align-center"
+                                    },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        { attrs: { icon: "" } },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              attrs: {
+                                                color: "grey lighten-1"
+                                              },
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.openEdit(item)
+                                                }
+                                              }
+                                            },
+                                            [_vm._v("mdi-pencil")]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "delete-btn",
+                                          attrs: {
+                                            icon: "",
+                                            "data-content": _vm.trans(
+                                              "messages.delete_record"
+                                            ),
+                                            "data-action":
+                                              "/amministrazione/download/categories/" +
+                                              item.hashid
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            {
+                                              attrs: { color: "grey lighten-1" }
+                                            },
+                                            [_vm._v("mdi-delete-outline")]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              }
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      })
+                    }),
+                    1
+                  )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-list",
-                { attrs: { "two-line": "" } },
-                _vm._l(_vm.categories, function(item) {
-                  return _c("v-list-item", {
-                    key: item.title,
-                    scopedSlots: _vm._u(
-                      [
-                        {
-                          key: "default",
-                          fn: function(ref) {
-                            var active = ref.active
-                            var toggle = ref.toggle
-                            return [
-                              _c(
-                                "v-list-item-avatar",
-                                [
-                                  _c(
-                                    "v-icon",
-                                    {
-                                      staticClass: "grey lighten-1 white--text"
-                                    },
-                                    [_vm._v("mdi-folder")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("span", { staticClass: "gcount" }, [
-                                    _vm._v(_vm._s(item.documents_count))
-                                  ])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-list-item-content",
-                                [
-                                  _c("v-list-item-title", {
-                                    domProps: { textContent: _vm._s(item.name) }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-list-item-subtitle",
-                                    { staticClass: "text--primary" },
-                                    [
-                                      _vm._v(
-                                        _vm._s(
-                                          "Files: " + item.documents_count
-                                        ) + "\n                            "
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-list-item-action",
-                                {
-                                  staticClass:
-                                    "d-flex flex-row justify-space-between align-center"
-                                },
-                                [
-                                  _c(
-                                    "v-btn",
-                                    { attrs: { icon: "" } },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        { attrs: { color: "grey lighten-1" } },
-                                        [_vm._v("mdi-pencil")]
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-btn",
-                                    {
-                                      staticClass: "delete-btn",
-                                      attrs: {
-                                        icon: "",
-                                        "data-content": _vm.trans(
-                                          "messages.delete_record"
-                                        ),
-                                        "data-action":
-                                          "/amministrazione/download/categories/" +
-                                          item.hashid
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        { attrs: { color: "grey lighten-1" } },
-                                        [_vm._v("mdi-delete-outline")]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ]
-                          }
-                        }
-                      ],
-                      null,
-                      true
-                    )
-                  })
-                }),
-                1
               )
-            ],
-            1
-          )
+            : _vm._e()
         ],
         1
       ),
@@ -48845,7 +48944,11 @@ var render = function() {
               _c(
                 "v-toolbar",
                 { attrs: { color: "primary", dark: "" } },
-                [_c("v-toolbar-title", [_vm._v("Add new category")])],
+                [
+                  _c("v-toolbar-title", [
+                    _vm._v(_vm._s(_vm.trans("form.doc_cat_add")))
+                  ])
+                ],
                 1
               ),
               _vm._v(" "),
@@ -48903,7 +49006,9 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                            Add Category\n                        "
+                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(_vm.trans("form.doc_cat_add_btn")) +
+                                  "\n                            "
                               )
                             ]
                           )
@@ -48919,6 +49024,122 @@ var render = function() {
             ],
             1
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { persistent: "", "max-width": "600px" },
+          model: {
+            value: _vm.editDialog,
+            callback: function($$v) {
+              _vm.editDialog = $$v
+            },
+            expression: "editDialog"
+          }
+        },
+        [
+          _vm.edit
+            ? _c(
+                "v-card",
+                [
+                  _c("v-card-title", [
+                    _c("span", { staticClass: "headline" }, [
+                      _vm._v(_vm._s(_vm.trans("form.doc_cat_edit")))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-container",
+                        [
+                          _c(
+                            "v-form",
+                            [
+                              _c(
+                                "v-row",
+                                [
+                                  _c(
+                                    "v-col",
+                                    { attrs: { cols: "12", sm: "12" } },
+                                    [
+                                      _c("v-text-field", {
+                                        attrs: {
+                                          label: _vm.trans("form.name"),
+                                          "error-messages": _vm.errorsmodify
+                                            .name
+                                            ? _vm.errorsmodify.name[0]
+                                            : [],
+                                          outlined: ""
+                                        },
+                                        model: {
+                                          value: _vm.edit.name,
+                                          callback: function($$v) {
+                                            _vm.$set(_vm.edit, "name", $$v)
+                                          },
+                                          expression: "edit.name"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "grey darken-1", text: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.closeEdit()
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.trans("form.doc_close")))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            color: "primary darken-1",
+                            "data-name": _vm.edit.name
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.updateCategory(_vm.edit.hashid)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.trans("form.save")))]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e()
         ],
         1
       )
@@ -48990,7 +49211,7 @@ var render = function() {
                     attrs: {
                       items: _vm.categories,
                       "menu-props": { maxHeight: "400" },
-                      label: _vm.trans("form.category"),
+                      label: _vm.trans("form.doc_category_select"),
                       multiple: "",
                       outlined: ""
                     },
@@ -49013,6 +49234,8 @@ var render = function() {
                   _c("v-select", {
                     attrs: {
                       items: _vm.roles,
+                      "item-text": "name",
+                      "item-value": "id",
                       "menu-props": { maxHeight: "400" },
                       label: _vm.trans("form.share_with"),
                       multiple: "",
@@ -49042,8 +49265,10 @@ var render = function() {
                 [
                   _c("v-text-field", {
                     attrs: {
+                      label: _vm.trans("form.choose_file"),
                       outlined: "",
-                      "prepend-inner-icon": "mdi-cloud-upload"
+                      "prepend-inner-icon": "mdi-cloud-upload",
+                      value: _vm.doc_file ? _vm.doc_file.name : ""
                     },
                     on: { click: _vm.pickFile }
                   }),
@@ -49085,9 +49310,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                    " +
+                        "\n                        " +
                           _vm._s(_vm.trans("form.add_doc")) +
-                          "\n                    "
+                          "\n                        "
                       ),
                       _c("v-icon", { attrs: { right: "", dark: "" } }, [
                         _vm._v("mdi-cloud-upload")
