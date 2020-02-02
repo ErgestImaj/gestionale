@@ -109,7 +109,14 @@ return [
     'share_with'                        => 'Share with',
     'doc_file'                          => 'Document File',
     'add_doc'                      			=> 'Add File',
-		'doc_cat' => 'Document Categories'
+		'doc_cat' => 'Document Categories',
+		'doc_no_records' => 'Nessun record trovato, aggiungi una nuova categoria!',
+		'doc_cat_add' => 'Aggiungi nuova categoria',
+		'doc_cat_add_btn' => 'Aggiungi categoria',
+		'doc_cat_edit' => 'Modifica categoria',
+		'doc_close' => 'Chiudi',
+		'choose_file' => 'Scegli il file',
+		'doc_category_select' => 'Categoria'
 
 ];
 

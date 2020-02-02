@@ -16,13 +16,7 @@
 <body>
 <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="content-wrapper d-flex align-items-center auth">
-            <div class="row w-100 mx-auto">
-                <div class="col-lg-4 mx-auto">
-                         @yield('auth')
-                </div>
-            </div>
-        </div>
+			@yield('auth')
     </div>
     <!-- page-body-wrapper ends -->
 </div>
