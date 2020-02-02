@@ -33,7 +33,7 @@
                                     <th>#</th>
                                     <th>@lang('form.name')</th>
                                     <th>{{ucfirst(trans('form.category'))}}</th>
-                                    <th>@lang('form.created_by')</th>
+                                    <th>@lang('form.created')</th>
                                     <th>@lang('form.updated_by')</th>
                                     <th>@lang('form.actions')</th>
                                 </tr>
@@ -50,6 +50,9 @@
     </div>
 @endsection
 @push('scripts')
+    <script>
+        var actionUrl ='{{route('admin.download.datatable')}}';
+    </script>
     <script src="{{asset('js/addons.js')}}"></script>
     <script src="{{asset('js/download.js')}}"></script>
     <script src="{{asset('js/actions.js')}}"></script>

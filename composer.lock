@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "32a30bd43c2eabce39e79c4abf4d4df7",
+    "content-hash": "6614721f7b9a8e473cde24bc4c434fd3",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1286,6 +1286,61 @@
             "time": "2019-09-02T16:34:23+00:00"
         },
         {
+            "name": "lcobucci/jwt",
+            "version": "3.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+                "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "~1.5",
+                "phpmd/phpmd": "~2.2",
+                "phpunit/php-invoker": "~1.1",
+                "phpunit/phpunit": "^5.7 || ^7.3",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Otávio Cobucci Oblonczyk",
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "keywords": [
+                "JWS",
+                "jwt"
+            ],
+            "time": "2019-05-24T18:30:49+00:00"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.0.55",
             "source": {
@@ -1368,6 +1423,52 @@
                 "storage"
             ],
             "time": "2019-08-24T11:17:19+00:00"
+        },
+        {
+            "name": "maengkom/boxapi",
+            "version": "0.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maengkom/boxapi.git",
+                "reference": "61a6b4f6402335aa183281241303ea6be4d37db6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maengkom/boxapi/zipball/61a6b4f6402335aa183281241303ea6be4d37db6",
+                "reference": "61a6b4f6402335aa183281241303ea6be4d37db6",
+                "shasum": ""
+            },
+            "require": {
+                "lcobucci/jwt": "^3.1",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Maengkom\\Box\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Benyamin Maengkom",
+                    "email": "bento@maengkom.com"
+                }
+            ],
+            "description": "Latest Box API for Standard User & App User",
+            "homepage": "http://maengkom.com",
+            "keywords": [
+                "BoxAPI",
+                "box",
+                "laravel"
+            ],
+            "time": "2017-09-11T14:04:41+00:00"
         },
         {
             "name": "monolog/monolog",

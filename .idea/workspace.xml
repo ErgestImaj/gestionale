@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/config/boxapi.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/box_private_key.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gestionale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestionale.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/datatables/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/datatables/download.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/download/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/download/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,6 +184,8 @@
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/vendor/laravel/helpers" />
+      <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
+      <path value="$PROJECT_DIR$/vendor/maengkom/boxapi" />
     </include_path>
   </component>
   <component name="ProjectId" id="1THXx0ftMuAPehSHpFHzqhptOQc" />
@@ -196,7 +209,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Traits" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -210,19 +223,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\views" />
-      <recent name="C:\xampp\htdocs\gestionale" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\storage" />
       <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
       <recent name="C:\xampp\htdocs\gestionale\resources\sass\summernote" />
       <recent name="C:\xampp\htdocs\gestionale\resources\sass" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\dashboard" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\config" />
+      <recent name="C:\xampp\htdocs\gestionale" />
+      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
@@ -356,6 +369,9 @@
       <workItem from="1580505631991" duration="6026000" />
       <workItem from="1580512734168" duration="7597000" />
       <workItem from="1580597833799" duration="1269000" />
+      <workItem from="1580653332787" duration="275000" />
+      <workItem from="1580654171205" duration="1372000" />
+      <workItem from="1580656274724" duration="6833000" />
     </task>
     <servers />
   </component>
@@ -385,15 +401,19 @@
     </state>
     <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579788706244" />
     <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980702778" />
+    <state x="594" y="294" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580658043811">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="594" y="294" key="#com.intellij.fileTypes.FileTypeChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580658043811" />
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1573743196286">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1573743196286" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580514302631">
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580676601206">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1573747706275" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580514302631" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580676601206" />
     <state x="648" y="266" key="FileChooserDialogImpl" timestamp="1580599237030">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -429,10 +449,10 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1576960511234" />
-    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1" timestamp="1579564512464">
+    <state x="1680" y="35" width="1114" height="692" maximized="true" key="dock-window-1" timestamp="1580676643878">
       <screen x="1680" y="0" width="1680" height="1010" />
     </state>
-    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579564512464" />
+    <state x="1680" y="35" width="1114" height="692" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580676643878" />
     <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" timestamp="1578957529065">
       <screen x="1680" y="0" width="1680" height="1010" />
     </state>
@@ -441,11 +461,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1580520271008">
+    <state width="600" height="440" key="javadoc.popup" timestamp="1580655990810">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="600" height="440" key="javadoc.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580655990810" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1580676861950">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579880784537" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580520271008" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580676861950" />
     <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1579470266169" />
   </component>
 </project>

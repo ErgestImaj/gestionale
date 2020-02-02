@@ -16,6 +16,7 @@
         "laravel/helpers": "^1.1",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
+        "maengkom/boxapi": "^0.1.5",
         "mtvs/eloquent-hashids": "^1.1",
         "predis/predis": "^1.1",
         "yajra/laravel-datatables-oracle": "~9.0",
