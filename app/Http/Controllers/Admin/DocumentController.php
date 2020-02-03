@@ -47,7 +47,7 @@ class DocumentController extends Controller
     }
     public function store(DocumentRequest $request){
         $api = new BoxAppUser( config( 'boxapi' ) );
-
+         dd($api);
         $uploadedFile = $api->uploadFile( '', 0, '', false );
 
 
