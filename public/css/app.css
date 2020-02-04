@@ -3363,22 +3363,6 @@ span.gcount {
   width: 100%;
   align-items: center;
   justify-content: center;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-          align-items: center;
-}
-
-.authback {
-  display: -webkit-box;
-  display: flex;
-  width: 100%;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-          justify-content: center;
   background-image: url(/images/auth/login-back.jpg);
   background-size: cover;
 }
@@ -3407,12 +3391,6 @@ span.gcount {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: stretch;
-          align-items: stretch;
   z-index: 2;
   position: relative;
   overflow: hidden;
@@ -3459,9 +3437,6 @@ span.gcount {
 @media all and (max-width: 767px) {
   .authback > .g-row {
     flex-direction: column;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-            flex-direction: column;
   }
 
   .authback > .g-row > div {

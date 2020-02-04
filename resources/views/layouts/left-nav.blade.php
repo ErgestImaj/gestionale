@@ -45,6 +45,7 @@
             <div class="collapse" id="strutture">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="#">{{trans('menu.strutture')}}</a></li>
+                    <li class="nav-item d-none d-lg-block"> <a class="nav-link" href="{{route('admin.struture.create')}}">add</a></li>
                 </ul>
             </div>
         </li>
