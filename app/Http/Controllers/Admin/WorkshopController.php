@@ -47,10 +47,10 @@ class WorkshopController extends Controller
                                 } )
                                ->addColumn( 'actions', function ( $row )
                                {
-                                   $html ='<a class="action btn block-btn btn-dark mb-1" data-tooltip="'.trans('form.edit').'" href="'.route('admin.workshop.edit',$row->hashid()).'">
+                                   $html ='<a class="py-2 px-3 btn block-btn btn-dark mb-1" data-tooltip="'.trans('form.edit').'" href="'.route('admin.workshop.edit',$row->hashid()).'">
                                                        <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                               <a class="delete-btn action btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'workshop']).'" data-action="'.route('admin.workshop.destroy',$row->hashid()).'" href="#">
+                                               <a class="delete-btn py-2 px-3  btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'workshop']).'" data-action="'.route('admin.workshop.destroy',$row->hashid()).'" href="#">
                                                        <i class="fas fa-trash-alt"></i> </a>';
 
                                    return $html;

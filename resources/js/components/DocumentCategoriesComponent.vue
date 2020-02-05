@@ -1,14 +1,14 @@
 <template>
     <v-row>
-			<v-overlay :value="loading">
-				<v-progress-circular indeterminate size="64"></v-progress-circular>
-			</v-overlay>
-        <v-col cols="12" sm="6" >
-					<v-card class="mx-auto" v-if="noCategories">
-						<p class="p-3">
-							{{trans('form.doc_no_records')}}
-						</p>
-					</v-card>
+        <v-overlay :value="loading">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
+        <v-col cols="12" sm="6">
+            <v-card class="mx-auto" v-if="noCategories">
+                <p class="p-3">
+                    {{trans('form.doc_no_records')}}
+                </p>
+            </v-card>
             <v-card class="mx-auto" v-if="!noCategories">
                 <v-toolbar color="primary" dark>
                     <v-toolbar-title>Categories</v-toolbar-title>
@@ -32,7 +32,8 @@
                                 <v-btn icon>
                                     <v-icon color="grey lighten-1" @click="openEdit(item)">mdi-pencil</v-icon>
                                 </v-btn>
-                                <v-btn icon class="delete-btn" :data-content="trans('messages.delete_record')"  :data-action="'/amministrazione/download/categories/'+item.hashid" >
+                                <v-btn icon class="delete-btn" :data-content="trans('messages.delete_record')"
+                                       :data-action="'/amministrazione/download/categories/'+item.hashid">
                                     <v-icon color="grey lighten-1">mdi-delete-outline</v-icon>
                                 </v-btn>
                             </v-list-item-action>
@@ -67,7 +68,7 @@
                                 class="ma-0 white--text"
                                 @click="send"
                             >
-															{{trans('form.doc_cat_add_btn')}}
+                                {{trans('form.doc_cat_add_btn')}}
                             </v-btn>
                         </v-col>
                     </v-row>
@@ -75,33 +76,35 @@
             </v-card>
         </v-col>
 
-			<v-dialog v-model="editDialog" persistent max-width="600px">
-				<v-card v-if="edit">
-					<v-card-title>
-						<span class="headline">{{trans('form.doc_cat_edit')}}</span>
-					</v-card-title>
-					<v-card-text>
-						<v-container>
-							<v-form >
-									<v-row>
-										<v-col cols="12" sm="12">
-											<v-text-field
-												:label="trans('form.name')"
-												:error-messages="errorsmodify.name ? errorsmodify.name[0] : []"
-												outlined v-model="edit.name"
-											></v-text-field>
-										</v-col>
-									</v-row>
-							</v-form>
-						</v-container>
-					</v-card-text>
-					<v-card-actions>
-						<v-spacer></v-spacer>
-						<v-btn color="grey darken-1" text @click="closeEdit()">{{trans('form.doc_close')}}</v-btn>
-						<v-btn color="primary darken-1" :data-name="edit.name" @click="updateCategory(edit.hashid)">{{trans('form.save')}}</v-btn>
-					</v-card-actions>
-				</v-card>
-			</v-dialog>
+        <v-dialog v-model="editDialog" persistent max-width="600px">
+            <v-card v-if="edit">
+                <v-card-title>
+                    <span class="headline">{{trans('form.doc_cat_edit')}}</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-form>
+                            <v-row>
+                                <v-col cols="12" sm="12">
+                                    <v-text-field
+                                        :label="trans('form.name')"
+                                        :error-messages="errorsmodify.name ? errorsmodify.name[0] : []"
+                                        outlined v-model="edit.name"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-form>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="grey darken-1" text @click="closeEdit()">{{trans('form.doc_close')}}</v-btn>
+                    <v-btn color="primary darken-1" :data-name="edit.name" @click="updateCategory(edit.hashid)">
+                        {{trans('form.save')}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </v-row>
 
 </template>
@@ -120,10 +123,10 @@
                 errorsmodify: {},
                 submiting: false,
                 categories: [],
-								noCategories: false,
-								loading: true,
-								editDialog: false,
-								edit: null
+                noCategories: false,
+                loading: true,
+                editDialog: false,
+                edit: null
             }
         },
         mounted() {
@@ -133,20 +136,20 @@
             openEdit(record) {
                 this.edit = record;
                 this.editDialog = true;
-						},
-						closeEdit() {
+            },
+            closeEdit() {
                 this.editDialog = false
-						},
+            },
             getCategories() {
                 axios.get(`/amministrazione/api/download/category/index`)
-                     .then(response => {
-                         this.categories = response.data;
-                         this.noCategories = response.data.length === 0;
-                         this.loading = false;
-                     })
-                     .catch(error => {
-                         this.loading = false;
-                     });
+                    .then(response => {
+                        this.categories = response.data;
+                        this.noCategories = response.data.length === 0;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        this.loading = false;
+                    });
             },
             send() {
                 if (!this.submiting) {
@@ -175,21 +178,20 @@
                         })
                 }
             },
-            updateCategory(record){
+            updateCategory(record) {
                 if (!this.submiting) {
                     this.submiting = true;
                     axios.patch(`/amministrazione/api/download/category/${record}`, this.edit)
                         .then(response => {
                             this.submiting = false;
-                            if (response.data.status === 'success'){
+                            if (response.data.status === 'success') {
                                 swal("Good job!", response.data.msg, "success");
                                 this.update = false;
                                 this.loading = true;
                                 this.getCategories();
                                 this.edit = null;
                                 this.editDialog = false;
-                            }
-                            else if (response.data.status === 'error') {
+                            } else if (response.data.status === 'error') {
                                 swal({
                                     title: "Whoops!",
                                     text: response.data.msg,

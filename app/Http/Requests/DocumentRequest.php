@@ -24,6 +24,7 @@ class DocumentRequest extends FormRequest
         $doc = json_decode($this->get('doc'),true);
 
         $this->merge([
+            'id' => isset( $doc['id']) ? $doc['id'] : '',
             'role' => isset( $doc['role']) ? $doc['role'] : '',
             'category'=> isset($doc['category']) ? $doc['category'] : '',
             'name'=>isset($doc['name']) ? $doc['name'] : '',
@@ -37,13 +38,20 @@ class DocumentRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $roles =  [
             'role'=>'required|array',
             'role.*'=>'numeric',
             'category'=>'required|array',
             'category.*'=>'numeric',
             'name'=>'required|string|min:3|max:199',
-            'doc_file'=>'required|file|max:10000',
         ];
+        if (!empty($this->id)){
+            $roles['doc_file'] = 'nullable|max:10000';
+        }else{
+            $roles['doc_file'] = 'required|file|max:10000';
+        }
+        return $roles;
+
+
     }
 }
