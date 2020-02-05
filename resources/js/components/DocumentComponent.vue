@@ -5,6 +5,7 @@
                 <v-col cols="12" sm="12">
                     <v-text-field
                         :label="trans('form.name')"
+                        :error-messages="errors.name ? errors.name[0] : []"
                         outlined v-model="doc.name"
                     ></v-text-field>
                 </v-col>
@@ -14,6 +15,9 @@
                     <v-select
                         v-model="doc.category"
                         :items="categories"
+                        item-text="name"
+                        item-value="id"
+                        :error-messages="errors.category ? errors.category[0] : []"
                         :menu-props="{ maxHeight: '400' }"
                         :label="trans('form.doc_category_select')"
                         multiple
@@ -24,8 +28,9 @@
                     <v-select
                         v-model="doc.role"
                         :items="roles"
-												item-text="name"
-												item-value="id"
+                        :error-messages="errors.role ? errors.role[0] : []"
+                        item-text="name"
+                        item-value="id"
                         :menu-props="{ maxHeight: '400' }"
                         :label="trans('form.share_with')"
                         multiple
@@ -35,7 +40,10 @@
             </v-row>
             <v-row>
                 <v-col cols="12" sm="12">
-                    <v-text-field :label="trans('form.choose_file')" outlined @click='pickFile' prepend-inner-icon="mdi-cloud-upload" :value="doc_file ? doc_file.name : '' "></v-text-field>
+                    <v-text-field :label="trans('form.choose_file')" outlined @click='pickFile'
+                                  prepend-inner-icon="mdi-cloud-upload"
+                                  :error-messages="errors.doc_file ? errors.doc_file[0] : []"
+                                  :value="doc_file ? doc_file.name : '' "></v-text-field>
                     <input
                         type="file"
                         style="display: none"
@@ -91,8 +99,7 @@
                 axios.get(`/amministrazione/api/getroles`)
                     .then(response => {
                         if (response.data) {
-														console.log(response.data);
-														this.roles = response.data;
+                            this.roles = response.data;
                         }
                     })
                     .catch(error => {
@@ -102,23 +109,17 @@
                 axios.get(`/amministrazione/api/download/category/list`)
                     .then(response => {
                         if (response.data != undefined) {
-                            this.categories = this.convertObjectToArray(response.data)
+                            this.categories = response.data
                         }
                     })
                     .catch(error => {
 
                     });
             },
-            convertObjectToArray(object) {
-                return object.map((i, v) => {
-                    return i.name
-                })
+            pickFile() {
+                this.$refs.image.click()
             },
-            pickFile () {
-                this.$refs.image.click ()
-            },
-            handleFileUpload(e){
-                console.log(e.target.files[0].name);
+            handleFileUpload(e) {
                 return this.doc_file = e.target.files[0];
             },
             send: function () {
@@ -135,15 +136,22 @@
                             }
 
                         }).then(response => {
-                            console.log(response);
+                        this.submiting = false
+                        if (response.data.status == 'success') {
+                            swal("Good job!", response.data.msg, "success");
+                            this.doc = {};
+                            this.doc_file = null;
+                        }
+                        else if (response.data.status === 'error') {
+                            swal({
+                                title: "Whoops!",
+                                text: response.data.msg,
+                                icon: "warning",
+                                dangerMode: true,
+                            });
                             this.submiting = false
-                            if (response.data.status == 'success'){
-                                swal("Good job!", response.data.msg, "success");
-                                this.content = {};
-                                this.content_type=null;
-                                this.lms_file= null;
-                            }
-                        }).catch(error => {
+                        }
+                    }).catch(error => {
                         this.submiting = false
                         this.errors = error.response.data.errors
                     })
