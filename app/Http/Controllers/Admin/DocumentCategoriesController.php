@@ -13,11 +13,11 @@ class DocumentCategoriesController extends Controller
 {
     //
     public function index(){
-        $categroies = DocumentCategories::latest()->withCount('documents')->get();
-        return $categroies;
+
+        return  DocumentCategories::latest()->withCount('documents')->get();
     }
     public function listCategories(){
-        return DocumentCategories::latest()->get(['name'])->toArray();
+        return DocumentCategories::latest()->get(['name','id']);
     }
     public function store(CategoriesRequest $request){
 
