@@ -19,7 +19,7 @@ class DocumentCategories extends Model
         ];
         public function documents(){
 
-            return $this->belongsToMany(Document::class,'document_category','document_id','category_id');
+            return $this->belongsToMany(Document::class,'document_category','category_id','document_id');
 
         }
 }

@@ -140,7 +140,6 @@
             getCategories() {
                 axios.get(`/amministrazione/api/download/category/index`)
                      .then(response => {
-                         console.log(response.data);
                          this.categories = response.data;
                          this.noCategories = response.data.length === 0;
                          this.loading = false;
@@ -166,7 +165,6 @@
                                     icon: "warning",
                                     dangerMode: true,
                                 });
-                                this.update = false;
                             }
                             this.cat = {};
 
@@ -213,6 +211,3 @@
     }
 </script>
 
-<style scoped>
-
-</style>

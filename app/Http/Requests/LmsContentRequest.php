@@ -68,7 +68,7 @@ class LmsContentRequest extends FormRequest
                 $rules['lms_file'] = 'bail|required|mimes:jpeg,png,jpg,pdf';
                 break;
             case 'video' :
-                $rules['lms_file'] = 'bail|required|mimetypes:video/avi,video/mpeg,video/quicktime,video/x-flv,video/3gpp,video/quicktime,video/mp4,video/x-flv';
+                $rules['lms_file'] = 'bail|required|mimetypes:video/avi,video/mpeg,video/quicktime,video/x-flv,video/3gpp,video/quicktime,video/mp4';
                 $this->file_path = $this->file('lms_file');
                 break;
             case 'audio' :
