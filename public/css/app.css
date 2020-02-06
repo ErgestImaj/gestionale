@@ -3359,6 +3359,14 @@ span.gcount {
   z-index: 9999 !important;
 }
 
+.box-block {
+  overflow: hidden;
+}
+
+.box-block iframe {
+  margin-top: -63px;
+}
+
 .authback .g-row .auth-left {
   height: 100%;
   background: red;

@@ -85,7 +85,7 @@
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <div v-else-if="box.includes(doc.type)">
+                    <div v-else-if="box.includes(doc.type)" class="box-block">
                         <iframe width="100%" height="650px" :src="doc.doc_file"></iframe>
                     </div>
                     <div v-else-if="doc.type == 'pdf'">

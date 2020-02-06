@@ -49833,7 +49833,7 @@ var render = function() {
                         )
                       ])
                     : _vm.box.includes(_vm.doc.type)
-                    ? _c("div", [
+                    ? _c("div", { staticClass: "box-block" }, [
                         _c("iframe", {
                           attrs: {
                             width: "100%",
