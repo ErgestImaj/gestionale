@@ -88,9 +88,12 @@ Route::group([
     Route::view('/download/create', 'download.create')->name('download.create');
     Route::post('/api/download/store','DocumentController@store')->name('download.store');
     Route::view('/download/', 'download.index')->name('download.index');
+    Route::view('/download/{document}', 'download.edit')->name('download.edit');
+    Route::get('/api/download/{document}','DocumentController@edit')->name('download.getdoc');
+    Route::post('/api/download/{document}/update','DocumentController@update')->name('download.update');
     Route::get('/area-download/', 'DocumentController@index')->name('download.datatable');
     Route::delete('/area-download/{document}','DocumentController@destroy')->name('download.destroy');
-    Route::view('/download/categories', 'download.categories')->name('download.categories');
+    Route::view('/area-download/categories', 'download.categories')->name('download.categories');
     Route::get('/api/download/category/index','DocumentCategoriesController@index')->name('download.categories.index');
     Route::get('/api/download/category/list','DocumentCategoriesController@listCategories')->name('download.categories.list');
     Route::post('/api/download/category/create','DocumentCategoriesController@store')->name('download.categories.create');

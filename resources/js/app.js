@@ -43,6 +43,7 @@ Vue.component('mass-emails', require('./components/MassEmailsComponent').default
 Vue.component('workshop', require('./components/WorkshopComponent').default);
 Vue.component('workshop-edit', require('./components/WorkshopEditComponent').default);
 Vue.component('document-create', require('./components/DocumentComponent').default);
+Vue.component('document-edit', require('./components/DocumentEditComponent').default);
 Vue.component('document-categories', require('./components/DocumentCategoriesComponent').default);
 Vue.component('corsi-table', require('./components/CorsiTableComponent').default);
 Vue.component('struture-create', require('./components/AddStrutureComponent').default);

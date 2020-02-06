@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DocumentRequest;
 use App\Models\Document;
 use App\Models\DocumentCategories;
+use App\Models\UserGroups;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -45,7 +46,10 @@ class DocumentController extends Controller
                                } )
                                ->addColumn( 'actions', function ( $row )
                                {
-                                   $html ='<a class="delete-btn py-2 px-3 btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'record']).'" data-action="'.route('admin.download.destroy',$row->hashid()).'" href="#">
+                                   $html ='<a class=" py-2 px-3 btn block-btn btn-dark mb-1" data-tooltip="'.trans('form.edit').'" href="'.route('admin.download.edit',$row->hashid()).'">
+                                                       <i class="fas fa-pencil-alt"></i>
+                                                  </a>
+                                                  <a class="delete-btn py-2 px-3 btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'record']).'" data-action="'.route('admin.download.destroy',$row->hashid()).'" href="#">
                                                        <i class="fas fa-trash-alt"></i> </a>';
 
                                    return $html;
@@ -111,6 +115,68 @@ class DocumentController extends Controller
             'msg'    => trans('messages.error_file')
         ] );
 
+
+    }
+    public function edit(Document $document){
+        return [
+            'document'=>$document,
+            'categories'=>$document->categories,
+            'roles'=>UserGroups::whereIn('id',$document->share_with)->get(['id','name'])
+        ];
+    }
+    public function update(DocumentRequest $request,Document $document){
+
+        $file = null;
+
+        if ($request->hasFile('doc_file')) {
+
+            if ( $request->file( 'doc_file' )->isValid() ) {
+                #file
+                $file = $request->file( 'doc_file' );
+                #get file extension
+                $extension = $file->getClientOriginalExtension();
+                #register file name
+                $name = $file->getClientOriginalName();
+                $name = microtime() . '_' . $name;
+                #take care of save
+                if ( in_array( $extension, FileExtensionsHelper::allowedExtensions() ) ) {
+                    $upload = new Upload();
+                    $file   = $upload->upload( $file, 'public/' . Document::CONTENT_PATH )->getData();
+                    $url    = $file['basename'];
+                } else if ( in_array( $extension, FileExtensionsHelper::allowedExtensionsForBox() ) ) {
+                    $url = UploadToBox::exportFile( $file );
+                } else {
+                    return response( [
+                        'status' => 'error',
+                        'msg'    => trans( 'messages.error_file' )
+                    ] );
+                }
+            }
+        }
+        //preapre date for update
+
+        $document->name       = $request->input( 'name' );
+        $document->share_with = $request->input( 'role' );
+        $document->type       = $request->hasFile( 'doc_file' ) ? $extension : $document->type;
+        $document->updated_by = auth()->id();
+        $document->doc_file   = $request->hasFile( 'doc_file' ) ? $url : $document->doc_file;
+
+        try {
+            $document->update();
+            $document->categories()->sync( $request->input( 'category' ) );
+
+            return response( [
+                'status' => 'success',
+                'msg'    => trans( 'messages.success' )
+            ] );
+        } catch ( \Exception $exception ) {
+            logger( $exception->getMessage() );
+
+            return response( [
+                'status' => 'error',
+                'msg'    => trans( 'messages.error' )
+            ] );
+        }
 
     }
     public function destroy(Document $document){

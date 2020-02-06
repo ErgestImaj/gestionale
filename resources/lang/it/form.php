@@ -21,6 +21,7 @@ return [
     'remember_me'                       => 'Salva credenziali',
     'forgot_password'                   => 'Hai dimenticato la password?',
     'edit_user'                         => 'Modifica utente:',
+    'edit_file'                         => 'Modifica file',
     'edit'                              => 'Modifica',
     'category_name'                     => 'Nome categoria',
     'category'                          => 'categoria',

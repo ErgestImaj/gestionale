@@ -229,7 +229,12 @@ span.gcount {
 .v-overlay.v-overlay--active {
 	z-index: 9999 !important;
 }
-
+.box-block{
+    overflow: hidden;
+    iframe{
+        margin-top: -63px;
+    }
+}
 // login style
 
 .authback .g-row .auth-left {
