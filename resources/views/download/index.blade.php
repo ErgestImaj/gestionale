@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title',trans('menu.documents'))
+@section('title',trans('form.doc_list'))
 @section('pagestyle')
     <link rel="stylesheet" href="{{asset('css/addons.css')}}">
 @endsection
@@ -10,7 +10,7 @@
 					<div class="col-md-6 mb-3">
 						<div class="page-header">
 							<h3 class="page-title">
-								<span class="text-semibold"><i class="fas fa-list"></i>@lang('menu.documents')</span>
+								<span class="text-semibold"><i class="fas fa-list"></i>@lang('form.doc_list')</span>
 							</h3>
 						</div>
 					</div>

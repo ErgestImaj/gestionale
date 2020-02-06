@@ -11,7 +11,7 @@
             </v-card>
             <v-card class="mx-auto" v-if="!noCategories">
                 <v-toolbar color="primary" dark>
-                    <v-toolbar-title>Categories</v-toolbar-title>
+                    <v-toolbar-title>{{trans('form.doc_cats')}}</v-toolbar-title>
                 </v-toolbar>
 
                 <v-list two-line>

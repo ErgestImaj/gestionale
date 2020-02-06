@@ -1346,7 +1346,6 @@ module.exports = function isAbsoluteURL(url) {
 
 
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
-var isValidXss = __webpack_require__(/*! ./isValidXss */ "./node_modules/axios/lib/helpers/isValidXss.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1366,10 +1365,6 @@ module.exports = (
     */
       function resolveURL(url) {
         var href = url;
-
-        if (isValidXss(url)) {
-          throw new Error('URL contains XSS injection attempt');
-        }
 
         if (msie) {
         // IE needs attribute set twice to normalize properties
@@ -1416,25 +1411,6 @@ module.exports = (
       };
     })()
 );
-
-
-/***/ }),
-
-/***/ "./node_modules/axios/lib/helpers/isValidXss.js":
-/*!******************************************************!*\
-  !*** ./node_modules/axios/lib/helpers/isValidXss.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isValidXss(requestURL) {
-  var xssRegex = /(\b)(on\w+)=|javascript|(<\s*)(\/*)script/gi;
-  return xssRegex.test(requestURL);
-};
-
 
 
 /***/ }),
@@ -2184,12 +2160,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2200,8 +2170,7 @@ __webpack_require__.r(__webpack_exports__);
           password: null,
           piva: null,
           lingua: null,
-          catEipass: null,
-          dataContratoEipass: null
+          accredit: null
         },
         sedeLegale: {
           nazione: null,
@@ -2212,8 +2181,7 @@ __webpack_require__.r(__webpack_exports__);
           telefono: null,
           fax: null,
           email: null,
-          pec: null,
-          codUnivoco: null
+          pec: null
         },
         sediEsame: {
           nome: null,
@@ -2249,7 +2217,8 @@ __webpack_require__.r(__webpack_exports__);
           telefono: null
         }
       },
-      doc_file: null,
+      doc1: null,
+      doc2: null,
       errors: {},
       submiting: false,
       categories: [],
@@ -2259,17 +2228,24 @@ __webpack_require__.r(__webpack_exports__);
       date: new Date().toISOString().substr(0, 10),
       nazioni: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antartide', 'Antigua e Barbuda', 'Antille Olandesi', 'Arabia Saudita', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrein', 'Bangladesh', 'Barbados', 'Belgio', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bielorussia', 'Bolivia', 'Bosnia Erzegovina', 'Botswana', 'Brasile', 'Brunei Darussalam', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambogia', 'Camerun', 'Canada', 'Capo Verde', 'Christmas Island', 'Ciad', 'Cile', 'Cina', 'Cipro', 'Cocos (Keeling) Islands', 'Colombia', 'Comore', 'Congo', 'Congo,Rep. Democratica', 'Corea del Nord', 'Corea del Sud', 'Costa d\'Avorio', 'Costa Rica', 'Croazia', 'Cuba', 'Danimarca', 'Dominica', 'Ecuador', 'Egitto', 'EIRE', 'El Salvador', 'Emirati Arabi Uniti', 'Eritrea', 'Estonia', 'Etiopia', 'Falkland Islands (Malvinas)', 'Figi', 'Filippine', 'Finlandia', 'Francia', 'Gabon', 'Gambia', 'Georgia', 'Germania', 'Ghana', 'Giamaica', 'Giappone', 'Gibilterra', 'Gibuti', 'Giordania', 'Gran Bretagna', 'Grecia', 'Grenada', 'Groenlandia', 'Guadalupa', 'Guam', 'Guatemala', 'Guiana Francese', 'Guinea', 'Guinea Equatoriale', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Holy See (Vatican City State)', 'Honduras', 'Hong Kong', 'India', 'Indonesia', 'Iran', 'Iraq', 'Islanda', 'Isola Bouvet', 'Isola di Norfolk', 'Isole Cayman', 'Isole di Cook', 'Isole Faroe', 'Isole Heard e McDonald', 'Isole Maldive', 'Isole Marianne del Nord', 'Isole Marshall', 'Isole Minor Outlying, USA', 'Isole Solomone', 'Isole Turks e Caicos', 'Isole Vergini, GB', 'Isole Vergini, USA', 'Israele', 'Italia', 'Kazakistan', 'Kenya', 'Kirgizistan', 'Kiribati', 'Kosovo', 'Kuwait', 'Laos', 'Lesotho', 'Lettonia', 'Libano', 'Liberia', 'Libia', 'Liechtenstein', 'Lituania', 'Lussemburgo', 'Macao', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Mali', 'Malta', 'Marocco', 'Martinica', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia', 'Moldova, Republic of', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norvegia', 'Nuova Caledonia', 'Nuova Guinea', 'Nuova Zelanda', 'Oceano Indiano, territorio britannico', 'Oman', 'Paesi Bassi', 'Pakistan', 'Palau', 'Panama', 'Paraguay', 'Peru', 'Pitcairn', 'Polinesia Francese', 'Polonia', 'Porto Rico', 'Portogallo', 'Qatar', 'R?union', 'Repubblica Ceca', 'Repubblica Centrafricana', 'Repubblica Dominicana', 'Romania', 'Russia', 'Rwanda', 'Sahara Occidentale', 'Saint Kitts e Nevis', 'Saint Pierre e Miquelon', 'Saint Vincent e le Grenadine', 'Samoa', 'Samoa Americane', 'San Marino', 'Sant\'Elena', 'Santa Lucia', 'Sao Tome e Principe', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Siria', 'Slovacchia', 'Slovenia', 'Somalia', 'Spagna', 'Sri Lanka', 'Sud Africa', 'Sud Georgia', 'Sudan', 'Suriname', 'Svalbard e Jan Mayen', 'Svezia', 'Svizzera', 'Swaziland', 'Tagikistan', 'Taiwan', 'Tanzania', 'Territori Francesi del Sud', 'Territori Palestinesi', 'Thailand', 'Timor Est', 'Togo', 'Tokelau', 'Tonga', 'Trinidad e Tobago', 'Tunisia', 'Turchia', 'Turkmenistan', 'Tuvalu', 'Ucraina', 'Uganda', 'Ungheria', 'Uruguay', 'USA', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Wallis e Futuna', 'Yemen', 'Zambia', 'Zimbabwe'],
       lingua: ['Italiani', 'Inglese'],
-      catEipass: ['AFFILIATO BUSINESS', 'AFFILIATO ACADEMY', 'AFFILIATO MASTER'],
+      accredit: ['MIUR', 'MEDIAFORM', 'IIQ', 'LRN', 'DILE'],
       province: ['Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Ascoli Piceno', 'L\'Aquila', 'Arezzo', 'Asti', 'Avellino', 'Bari', 'Bergamo', 'Biella', 'Belluno', 'Benevento', 'Bologna', 'Brindisi', 'Brescia', 'Barletta - Andria - Trani', 'Bolzano', 'Cagliari', 'Campobasso', 'Caserta', 'Chieti', 'Carbonia Iglesias', 'Caltanissetta', 'Cuneo', 'Como', 'Cremona', 'Cosenza', 'Catania', 'Catanzaro', 'Enna', 'Forlì Cesena', 'Ferrara', 'Foggia', 'Firenze', 'FERMO', 'Frosinone', 'Genova', 'Gorizia', 'Grosseto', 'Imperia', 'Isernia', 'Crotone', 'Lecco', 'Lecce', 'Livorno', 'Lodi', 'Latina', 'Lucca', 'Monza Brianza', 'Macerata', 'Messina', 'Milano', 'Mantova', 'Modena', 'Massa Carrara', 'Matera', 'Napoli', 'Novara', 'Nuoro', 'Ogliastra', 'Oristano', 'Olbia Tempio', 'Palermo', 'Piacenza', 'Padova', 'Pescara', 'Perugia', 'Pisa', 'Pordenone', 'Prato', 'Parma', 'Pistoia', 'Pesaro Urbino', 'Pavia', 'Potenza', 'Ravenna', 'Reggio Calabria', 'Reggio Emilia', 'Ragusa', 'Rieti', 'Roma', 'Rimini', 'Rovigo', 'Salerno', 'Siena', 'Sondrio', 'La Spezia', 'Siracusa', 'Sassari', 'Sud Sardegna', 'Savona', 'Taranto', 'Teramo', 'Trento', 'Torino', 'Trapani', 'Terni', 'Trieste', 'Treviso', 'Udine', 'Varese', 'Verbania', 'Vercelli', 'Venezia', 'Vicenza', 'Verona', 'Medio Campidano', 'Viterbo', 'Vibo Valentia']
     };
   },
   methods: {
-    pickFile: function pickFile() {
-      this.$refs.image.click();
+    pickFile: function pickFile(i) {
+      if (i == 0) {
+        this.$refs.file0.click();
+      } else if (i == 1) {
+        this.$refs.file1.click();
+      }
     },
-    handleFileUpload: function handleFileUpload(e) {
-      console.log(e.target.files[0].name);
-      return this.doc_file = e.target.files[0];
+    handleFileUpload: function handleFileUpload(e, i) {
+      if (i == 0) {
+        this.doc1 = e.target.files[0];
+      } else if (i == 1) {
+        this.doc2 = e.target.files[0];
+      }
     }
   }
 });
@@ -14743,7 +14719,12 @@ __webpack_require__.r(__webpack_exports__);
       for (var i$1 = 0; i$1 < hist.undone.length; i$1++) { if (!hist.undone[i$1].ranges) { ++undone; } }
       return {undo: done, redo: undone}
     },
-    clearHistory: function() {this.history = new History(this.history.maxGeneration);},
+    clearHistory: function() {
+      var this$1 = this;
+
+      this.history = new History(this.history.maxGeneration);
+      linkedDocs(this, function (doc) { return doc.history = this$1.history; }, true);
+    },
 
     markClean: function() {
       this.cleanGeneration = this.changeGeneration(true);
@@ -14994,28 +14975,39 @@ __webpack_require__.r(__webpack_exports__);
     // and insert it.
     if (files && files.length && window.FileReader && window.File) {
       var n = files.length, text = Array(n), read = 0;
-      var loadFile = function (file, i) {
-        if (cm.options.allowDropFileTypes &&
-            indexOf(cm.options.allowDropFileTypes, file.type) == -1)
-          { return }
-
-        var reader = new FileReader;
-        reader.onload = operation(cm, function () {
-          var content = reader.result;
-          if (/[\x00-\x08\x0e-\x1f]{2}/.test(content)) { content = ""; }
-          text[i] = content;
-          if (++read == n) {
+      var markAsReadAndPasteIfAllFilesAreRead = function () {
+        if (++read == n) {
+          operation(cm, function () {
             pos = clipPos(cm.doc, pos);
             var change = {from: pos, to: pos,
-                          text: cm.doc.splitLines(text.join(cm.doc.lineSeparator())),
+                          text: cm.doc.splitLines(
+                              text.filter(function (t) { return t != null; }).join(cm.doc.lineSeparator())),
                           origin: "paste"};
             makeChange(cm.doc, change);
             setSelectionReplaceHistory(cm.doc, simpleSelection(pos, changeEnd(change)));
+          })();
+        }
+      };
+      var readTextFromFile = function (file, i) {
+        if (cm.options.allowDropFileTypes &&
+            indexOf(cm.options.allowDropFileTypes, file.type) == -1) {
+          markAsReadAndPasteIfAllFilesAreRead();
+          return
+        }
+        var reader = new FileReader;
+        reader.onerror = function () { return markAsReadAndPasteIfAllFilesAreRead(); };
+        reader.onload = function () {
+          var content = reader.result;
+          if (/[\x00-\x08\x0e-\x1f]{2}/.test(content)) {
+            markAsReadAndPasteIfAllFilesAreRead();
+            return
           }
-        });
+          text[i] = content;
+          markAsReadAndPasteIfAllFilesAreRead();
+        };
         reader.readAsText(file);
       };
-      for (var i = 0; i < n; ++i) { loadFile(files[i], i); }
+      for (var i = 0; i < files.length; i++) { readTextFromFile(files[i], i); }
     } else { // Normal drop
       // Don't do a replace if the drop happened inside of the selected text.
       if (cm.state.draggingText && cm.doc.sel.contains(pos) > -1) {
@@ -15325,6 +15317,7 @@ __webpack_require__.r(__webpack_exports__);
 
   function endOfLine(visually, cm, lineObj, lineNo, dir) {
     if (visually) {
+      if (cm.getOption("direction") == "rtl") { dir = -dir; }
       var order = getOrder(lineObj, cm.doc.direction);
       if (order) {
         var part = dir < 0 ? lst(order) : order[0];
@@ -16402,6 +16395,9 @@ __webpack_require__.r(__webpack_exports__);
     // which point we can't mess with it anymore. Context menu is
     // handled in onMouseDown for these browsers.
     on(d.scroller, "contextmenu", function (e) { return onContextMenu(cm, e); });
+    on(d.input.getField(), "contextmenu", function (e) {
+      if (!d.scroller.contains(e.target)) { onContextMenu(cm, e); }
+    });
 
     // Used to suppress mouse event handling when a touch happens
     var touchFinished, prevTouch = {end: 0};
@@ -17132,8 +17128,9 @@ __webpack_require__.r(__webpack_exports__);
     var oldPos = pos;
     var origDir = dir;
     var lineObj = getLine(doc, pos.line);
+    var lineDir = visually && doc.cm && doc.cm.getOption("direction") == "rtl" ? -dir : dir;
     function findNextLine() {
-      var l = pos.line + dir;
+      var l = pos.line + lineDir;
       if (l < doc.first || l >= doc.first + doc.size) { return false }
       pos = new Pos(l, pos.ch, pos.sticky);
       return lineObj = getLine(doc, l)
@@ -17147,7 +17144,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       if (next == null) {
         if (!boundToLine && findNextLine())
-          { pos = endOfLine(visually, doc.cm, lineObj, pos.line, dir); }
+          { pos = endOfLine(visually, doc.cm, lineObj, pos.line, lineDir); }
         else
           { return false }
       } else {
@@ -18224,7 +18221,7 @@ __webpack_require__.r(__webpack_exports__);
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.50.2";
+  CodeMirror.version = "5.51.0";
 
   return CodeMirror;
 
@@ -18245,7 +18242,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.gel > div {\n\tmargin-bottom: 15px !important;\n}\n.gel .col-sm-6.col-12 {\n\tpadding: 0 12px;\n}\n.v-menu__content {\n\tmargin-top: 40px !important;\n}\n.v-menu__content.v-autocomplete__content {\n\tmargin-top: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n.gel > div {\n\tmargin-bottom: 15px !important;\n}\n.gel .col-md-6.col-12 {\n\tpadding: 0 12px;\n}\n.v-menu__content {\n\tmargin-top: 40px !important;\n}\n.v-menu__content.v-autocomplete__content {\n\tmargin-top: 0 !important;\n}\n.v-menu__content.gdate {\n\tmargin-top: 0 !important;\n}\n.v-card__title {\n\tbackground: #388E3C;\n\tcolor: white;\n\tpadding: 10px 15px;\n\tbox-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\n\tbackground: linear-gradient(45deg, #388E3C, #81C784);\n\tmargin-bottom: 10px;\n\tfont-size: 18px;\n\tfont-weight: normal;\n}\n.v-application--is-ltr .v-text-field--outlined fieldset {\n\tbackground: #f2f2f2;\n\tborder-color: #bfbfbf;\n}\n.gel {\n\tpadding-bottom: 0;\n}\n.gel div:last-child {\n\tmargin-bottom: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -46095,7 +46092,7 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.16.0
+ * @version 1.16.1
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -46441,7 +46438,7 @@ function getBordersSize(styles, axis) {
   var sideA = axis === 'x' ? 'Left' : 'Top';
   var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+  return parseFloat(styles['border' + sideA + 'Width']) + parseFloat(styles['border' + sideB + 'Width']);
 }
 
 function getSize(axis, body, html, computedStyle) {
@@ -46596,8 +46593,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var scrollParent = getScrollParent(children);
 
   var styles = getStyleComputedProperty(parent);
-  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
-  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
+  var borderTopWidth = parseFloat(styles.borderTopWidth);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth);
 
   // In cases where the parent is fixed, we must ignore negative scroll in offset calc
   if (fixedPosition && isHTML) {
@@ -46618,8 +46615,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
   if (!isIE10 && isHTML) {
-    var marginTop = parseFloat(styles.marginTop, 10);
-    var marginLeft = parseFloat(styles.marginLeft, 10);
+    var marginTop = parseFloat(styles.marginTop);
+    var marginLeft = parseFloat(styles.marginLeft);
 
     offsets.top -= borderTopWidth - marginTop;
     offsets.bottom -= borderTopWidth - marginTop;
@@ -47558,8 +47555,8 @@ function arrow(data, options) {
   // Compute the sideValue using the updated popper offsets
   // take popper margin in account because we don't have this info available
   var css = getStyleComputedProperty(data.instance.popper);
-  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
-  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized]);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width']);
   var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
   // prevent arrowElement from being placed not contiguously to its popper
@@ -49789,13 +49786,15 @@ var render = function() {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "12", sm: "6" } },
+                { attrs: { cols: "12", md: "6" } },
                 [
                   _c(
                     "v-card",
                     { attrs: { outlined: "", flat: "" } },
                     [
-                      _c("v-card-title", [_vm._v("Informazioni di accesso")]),
+                      _c("v-card-title", [
+                        _vm._v(_vm._s(_vm.trans("form.info_accesso")))
+                      ]),
                       _vm._v(" "),
                       _c(
                         "v-card-text",
@@ -49812,7 +49811,7 @@ var render = function() {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Nome",
+                                      label: _vm.trans("form.name"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -49831,7 +49830,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Username",
+                                      label: _vm.trans("form.username"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -49851,7 +49850,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Password",
+                                      label: _vm.trans("form.password"),
                                       outlined: "",
                                       dense: "",
                                       "append-icon": _vm.showpass
@@ -49880,7 +49879,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "P.iva",
+                                      label: _vm.trans("form.piva"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -49901,7 +49900,7 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.lingua,
-                                      label: "Lingua",
+                                      label: _vm.trans("form.lang"),
                                       outlined: ""
                                     },
                                     model: {
@@ -49920,92 +49919,23 @@ var render = function() {
                                   _c("v-select", {
                                     attrs: {
                                       dense: "",
-                                      items: _vm.catEipass,
-                                      label: "Categoria EIPASS",
+                                      items: _vm.accredit,
+                                      label: _vm.trans("form.accredit"),
                                       outlined: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.infoAccesso.catEipass,
+                                      value: _vm.strutura.infoAccesso.accredit,
                                       callback: function($$v) {
                                         _vm.$set(
                                           _vm.strutura.infoAccesso,
-                                          "catEipass",
+                                          "accredit",
                                           $$v
                                         )
                                       },
                                       expression:
-                                        "strutura.infoAccesso.catEipass"
+                                        "strutura.infoAccesso.accredit"
                                     }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-menu",
-                                    {
-                                      attrs: {
-                                        "close-on-content-click": false,
-                                        transition: "scale-transition",
-                                        "offset-y": "",
-                                        "min-width": "290px"
-                                      },
-                                      scopedSlots: _vm._u([
-                                        {
-                                          key: "activator",
-                                          fn: function(ref) {
-                                            var on = ref.on
-                                            return [
-                                              _c(
-                                                "v-text-field",
-                                                _vm._g(
-                                                  {
-                                                    attrs: {
-                                                      label:
-                                                        "Data contratto EIPASS",
-                                                      readonly: "",
-                                                      outlined: "",
-                                                      dense: ""
-                                                    },
-                                                    model: {
-                                                      value: _vm.date,
-                                                      callback: function($$v) {
-                                                        _vm.date = $$v
-                                                      },
-                                                      expression: "date"
-                                                    }
-                                                  },
-                                                  on
-                                                )
-                                              )
-                                            ]
-                                          }
-                                        }
-                                      ]),
-                                      model: {
-                                        value: _vm.dataContratto,
-                                        callback: function($$v) {
-                                          _vm.dataContratto = $$v
-                                        },
-                                        expression: "dataContratto"
-                                      }
-                                    },
-                                    [
-                                      _vm._v(" "),
-                                      _c("v-date-picker", {
-                                        on: {
-                                          input: function($event) {
-                                            _vm.dataContratto = false
-                                          }
-                                        },
-                                        model: {
-                                          value: _vm.date,
-                                          callback: function($$v) {
-                                            _vm.date = $$v
-                                          },
-                                          expression: "date"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
+                                  })
                                 ],
                                 1
                               )
@@ -50024,7 +49954,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "12", sm: "6" } },
+                { attrs: { cols: "12", md: "6" } },
                 [
                   _c(
                     "v-card",
@@ -50049,7 +49979,7 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.nazioni,
-                                      label: "Nazione",
+                                      label: _vm.trans("form.country"),
                                       outlined: ""
                                     },
                                     model: {
@@ -50067,7 +49997,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Indirizzo",
+                                      label: _vm.trans("form.address"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50090,11 +50020,11 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Città",
+                                              label: _vm.trans("form.city"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50118,13 +50048,13 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-autocomplete", {
                                             attrs: {
                                               dense: "",
                                               items: _vm.province,
-                                              label: "Provincia",
+                                              label: _vm.trans("form.state"),
                                               outlined: ""
                                             },
                                             model: {
@@ -50151,7 +50081,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Cap",
+                                      label: _vm.trans("form.cap"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50173,11 +50103,11 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Telefono",
+                                              label: _vm.trans("form.phone"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50202,11 +50132,11 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Fax",
+                                              label: _vm.trans("form.fax"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50236,11 +50166,11 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Email",
+                                              label: _vm.trans("form.email"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50264,11 +50194,11 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "PEC",
+                                              label: _vm.trans("form.pec"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50291,28 +50221,7 @@ var render = function() {
                                       )
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label:
-                                        "CODICE UNIVOCO PER LA FATTURAZIONE ELETTRONICA",
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.sedeLegale.codUnivoco,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "codUnivoco",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.sedeLegale.codUnivoco"
-                                    }
-                                  })
+                                  )
                                 ],
                                 1
                               )
@@ -50337,13 +50246,15 @@ var render = function() {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "12", sm: "6" } },
+                { attrs: { cols: "12", md: "6" } },
                 [
                   _c(
                     "v-card",
                     { attrs: { outlined: "", flat: "" } },
                     [
-                      _c("v-card-title", [_vm._v("Sedi esame")]),
+                      _c("v-card-title", [
+                        _vm._v(_vm._s(_vm.trans("form.sedi_esame")))
+                      ]),
                       _vm._v(" "),
                       _c(
                         "v-card-text",
@@ -50360,7 +50271,7 @@ var render = function() {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Nome",
+                                      label: _vm.trans("form.name"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50381,7 +50292,7 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.nazioni,
-                                      label: "Nazione",
+                                      label: _vm.trans("form.country"),
                                       outlined: ""
                                     },
                                     model: {
@@ -50399,7 +50310,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Indirizzo",
+                                      label: _vm.trans("form.address"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50421,11 +50332,11 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Città",
+                                              label: _vm.trans("form.city"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50449,13 +50360,13 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-autocomplete", {
                                             attrs: {
                                               dense: "",
                                               items: _vm.province,
-                                              label: "Provincia",
+                                              label: _vm.trans("form.state"),
                                               outlined: ""
                                             },
                                             model: {
@@ -50481,7 +50392,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Cap",
+                                      label: _vm.trans("form.cap"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50503,11 +50414,11 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Telefono",
+                                              label: _vm.trans("form.phone"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50531,11 +50442,11 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Fax",
+                                              label: _vm.trans("form.fax"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50564,11 +50475,11 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Email",
+                                              label: _vm.trans("form.email"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50592,11 +50503,11 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", sm: "6" } },
+                                        { attrs: { cols: "12", md: "6" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: "Sito",
+                                              label: _vm.trans("form.site"),
                                               outlined: "",
                                               dense: ""
                                             },
@@ -50638,13 +50549,15 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "12", sm: "6" } },
+                { attrs: { cols: "12", md: "6" } },
                 [
                   _c(
                     "v-card",
                     { attrs: { outlined: "", flat: "" } },
                     [
-                      _c("v-card-title", [_vm._v("Sede spedizione")]),
+                      _c("v-card-title", [
+                        _vm._v(_vm._s(_vm.trans("form.sede_spedizione")))
+                      ]),
                       _vm._v(" "),
                       _c(
                         "v-card-text",
@@ -50661,7 +50574,7 @@ var render = function() {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Destinatario",
+                                      label: _vm.trans("form.recipient"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50685,7 +50598,7 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.nazioni,
-                                      label: "Nazione",
+                                      label: _vm.trans("form.country"),
                                       outlined: ""
                                     },
                                     model: {
@@ -50705,7 +50618,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Indirizzo e n.civico",
+                                      label: _vm.trans("form.address_civico"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50727,7 +50640,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Città",
+                                      label: _vm.trans("form.city"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50749,7 +50662,7 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.province,
-                                      label: "Provincia",
+                                      label: _vm.trans("form.state"),
                                       outlined: ""
                                     },
                                     model: {
@@ -50769,7 +50682,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Cap",
+                                      label: _vm.trans("form.cap"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50809,13 +50722,15 @@ var render = function() {
             [
               _c(
                 "v-col",
-                { attrs: { cols: "12", sm: "6" } },
+                { attrs: { cols: "12", md: "6" } },
                 [
                   _c(
                     "v-card",
                     { attrs: { outlined: "", flat: "" } },
                     [
-                      _c("v-card-title", [_vm._v("Rappresentante legale")]),
+                      _c("v-card-title", [
+                        _vm._v(_vm._s(_vm.trans("form.rap_legale")))
+                      ]),
                       _vm._v(" "),
                       _c(
                         "v-card-text",
@@ -50832,7 +50747,7 @@ var render = function() {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Cognome",
+                                      label: _vm.trans("form.last_name"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50854,7 +50769,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Nome",
+                                      label: _vm.trans("form.name"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50875,7 +50790,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Email",
+                                      label: _vm.trans("form.email"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50896,7 +50811,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Telefono",
+                                      label: _vm.trans("form.phone"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50918,7 +50833,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Fax",
+                                      label: _vm.trans("form.fax"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -50954,14 +50869,14 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "v-col",
-                { attrs: { cols: "12", sm: "6" } },
+                { attrs: { cols: "12", md: "6" } },
                 [
                   _c(
                     "v-card",
                     { attrs: { outlined: "", flat: "" } },
                     [
                       _c("v-card-title", [
-                        _vm._v("Rappresentante eipass designato")
+                        _vm._v(_vm._s(_vm.trans("form.rap_eipass")))
                       ]),
                       _vm._v(" "),
                       _c(
@@ -50979,7 +50894,7 @@ var render = function() {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Cognome",
+                                      label: _vm.trans("form.last_name"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -51001,7 +50916,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Nome",
+                                      label: _vm.trans("form.name"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -51022,7 +50937,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Email",
+                                      label: _vm.trans("form.email"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -51043,7 +50958,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: "Telefono",
+                                      label: _vm.trans("form.phone"),
                                       outlined: "",
                                       dense: ""
                                     },
@@ -51082,33 +50997,89 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "v-row",
+            "v-card",
+            { attrs: { outlined: "", flat: "" } },
             [
+              _c("v-card-title", [
+                _vm._v(_vm._s(_vm.trans("form.rap_eipass")))
+              ]),
+              _vm._v(" "),
               _c(
-                "v-col",
-                { attrs: { cols: "12", sm: "12" } },
+                "v-card-text",
                 [
-                  _c("v-text-field", {
-                    attrs: {
-                      dense: "",
-                      label: _vm.trans("form.choose_file"),
-                      outlined: "",
-                      "prepend-inner-icon": "mdi-cloud-upload",
-                      value: _vm.doc_file ? _vm.doc_file.name : ""
-                    },
-                    on: { click: _vm.pickFile }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    ref: "image",
-                    staticStyle: { display: "none" },
-                    attrs: { type: "file" },
-                    on: {
-                      change: function($event) {
-                        return _vm.handleFileUpload($event)
-                      }
-                    }
-                  })
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", md: "6" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              dense: "",
+                              readonly: "",
+                              label: _vm.trans("form.choose_file"),
+                              outlined: "",
+                              "prepend-inner-icon": "mdi-cloud-upload",
+                              value: _vm.doc1 ? _vm.doc1.name : ""
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.pickFile(0)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            ref: "file0",
+                            staticStyle: { display: "none" },
+                            attrs: { type: "file" },
+                            on: {
+                              change: function($event) {
+                                return _vm.handleFileUpload($event, 0)
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-col",
+                        { attrs: { cols: "12", md: "6" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              dense: "",
+                              readonly: "",
+                              label: _vm.trans("form.choose_file"),
+                              outlined: "",
+                              "prepend-inner-icon": "mdi-cloud-upload",
+                              value: _vm.doc2 ? _vm.doc2.name : ""
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.pickFile(1)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            ref: "file1",
+                            staticStyle: { display: "none" },
+                            attrs: { type: "file" },
+                            on: {
+                              change: function($event) {
+                                return _vm.handleFileUpload($event, 1)
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ],
                 1
               )
@@ -51715,7 +51686,11 @@ var render = function() {
                   _c(
                     "v-toolbar",
                     { attrs: { color: "primary", dark: "" } },
-                    [_c("v-toolbar-title", [_vm._v("Categories")])],
+                    [
+                      _c("v-toolbar-title", [
+                        _vm._v(_vm._s(_vm.trans("form.doc_cats")))
+                      ])
+                    ],
                     1
                   ),
                   _vm._v(" "),
@@ -83024,9 +82999,7 @@ var __spread = undefined && undefined.__spread || function () {
     value: {
       default: undefined,
       validator: function validator(val) {
-        return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(val).every(function (v) {
-          return v != null && _typeof(v) === 'object';
-        });
+        return _typeof(val) === 'object' || Array.isArray(val);
       }
     }
   },
@@ -83039,15 +83012,15 @@ var __spread = undefined && undefined.__spread || function () {
     computedCounterValue: function computedCounterValue() {
       var fileCount = this.isMultiple && this.lazyValue ? this.lazyValue.length : this.lazyValue instanceof File ? 1 : 0;
       if (!this.showSize) return this.$vuetify.lang.t(this.counterString, fileCount);
-      var bytes = this.internalArrayValue.reduce(function (bytes, _a) {
-        var _b = _a.size,
-            size = _b === void 0 ? 0 : _b;
-        return bytes + size;
+      var bytes = this.internalArrayValue.reduce(function (size, file) {
+        return size + file.size;
       }, 0);
       return this.$vuetify.lang.t(this.counterSizeString, fileCount, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(bytes, this.base === 1024));
     },
     internalArrayValue: function internalArrayValue() {
-      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(this.internalValue);
+      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(this.internalValue).filter(function (file) {
+        return file instanceof File;
+      });
     },
     internalValue: {
       get: function get() {
@@ -83072,14 +83045,9 @@ var __spread = undefined && undefined.__spread || function () {
 
       if (!this.isDirty) return [this.placeholder];
       return this.internalArrayValue.map(function (file) {
-        var _a = file.name,
-            name = _a === void 0 ? '' : _a,
-            _b = file.size,
-            size = _b === void 0 ? 0 : _b;
+        var name = _this.truncateText(file.name);
 
-        var truncatedText = _this.truncateText(name);
-
-        return !_this.showSize ? truncatedText : truncatedText + " (" + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(size, _this.base === 1024) + ")";
+        return !_this.showSize ? name : name + " (" + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(file.size, _this.base === 1024) + ")";
       });
     },
     base: function base() {
@@ -90454,8 +90422,7 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_11__["default"])(_
           value: this.lazyValue
         },
         attrs: {
-          type: 'hidden',
-          name: this.attrs$.name
+          type: 'hidden'
         }
       });
     },
@@ -95092,7 +95059,7 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_9__["default"])(_VInput__WEBPACK_IMPORTED_MODULE_1__["default"], Object(_mixins_intersectable__WEBPACK_IMPORTED_MODULE_4__["default"])({
-  onVisible: ['setLabelWidth', 'setPrefixWidth', 'setPrependWidth', 'tryAutofocus']
+  onVisible: ['setLabelWidth', 'setPrefixWidth', 'setPrependWidth']
 }), _mixins_loadable__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'month'];
 /* @vue/component */
@@ -95249,7 +95216,7 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
   mounted: function mounted() {
     var _this = this;
 
-    this.autofocus && this.tryAutofocus();
+    this.autofocus && this.onFocus();
     this.setLabelWidth();
     this.setPrefixWidth();
     this.setPrependWidth();
@@ -95487,11 +95454,6 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
     setPrependWidth: function setPrependWidth() {
       if (!this.outlined || !this.$refs['prepend-inner']) return;
       this.prependWidth = this.$refs['prepend-inner'].offsetWidth;
-    },
-    tryAutofocus: function tryAutofocus() {
-      if (!this.autofocus || typeof document === 'undefined' || !this.$refs.input || document.activeElement === this.$refs.input) return false;
-      this.$refs.input.focus();
-      return true;
     },
     updateValue: function updateValue(val) {
       // Sets validationState from validatable
@@ -100426,7 +100388,7 @@ function () {
 
   Vuetify.install = _install__WEBPACK_IMPORTED_MODULE_0__["install"];
   Vuetify.installed = false;
-  Vuetify.version = "2.2.8";
+  Vuetify.version = "2.2.6";
   return Vuetify;
 }();
 
@@ -109213,10 +109175,9 @@ function upperFirst(str) {
 }
 function groupItems(items, groupBy, groupDesc) {
   var key = groupBy[0];
-  return items.reduce(function (acc, item) {
-    var val = getObjectValueByPath(item, key);
-    (acc[val] = acc[val] || []).push(item);
-    return acc;
+  return items.reduce(function (rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
   }, {});
 }
 function wrapInArray(v) {
@@ -114796,8 +114757,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\gestionale\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\gestionale\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xamppp\htdocs\gestionale\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xamppp\htdocs\gestionale\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
