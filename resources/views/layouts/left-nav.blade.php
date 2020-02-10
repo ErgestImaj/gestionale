@@ -38,14 +38,15 @@
         </li>
         <li class="nav-item @if(Request::is('amministrazione/admins*'))active @endif">
             <a class="nav-link" data-toggle="collapse" data-target="#strutture" href="#strutture" aria-expanded="false" aria-controls="strutture">
-                <i class="fas fa-user-tie menu-icon"></i>
+                <i class="fas fa-list-alt menu-icon"></i>
                 <span class="menu-title">{{trans('menu.strutture')}}</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="strutture">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="#">{{trans('menu.strutture')}}</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.struture.create')}}">add</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('structure.struture.partner')}}">Partner</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('structure.struture.master')}}">Master</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('structure.struture.affiliati')}}">Affiliati</a></li>
                 </ul>
             </div>
         </li>

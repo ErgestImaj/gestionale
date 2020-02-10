@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title',trans('form.add_file'))
+@section('title', 'Nuovo Strutura')
 @section('pagestyle')
     <link rel="stylesheet" href="{{asset('css/addons.css')}}">
     <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
@@ -7,11 +7,11 @@
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
-            <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_file')</span>
+            <span class="text-semibold"><i class="fas fa-list"></i>Nuovo Strutura</span>
         </h3>
     </div>
 		<v-app>
-				<struture-create></struture-create>
+				<struture-create structure-type="partner"></struture-create>
 
 		</v-app>
 @endsection

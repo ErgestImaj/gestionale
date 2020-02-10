@@ -143,6 +143,9 @@ return [
 		'sede_spedizione' => 'Sede spedizione',
 		'rap_legale' => 'Rappresentante legale',
 		'rap_eipass' => 'Rappresentante designato',
-		'accredit' => 'Accreditamento corsi'
+		'accredit' => 'Accreditamento corsi',
+		'nome_strutura' => 'Nome Strutura',
+		'ragione_sociale' => 'Ragione Sociale',
+		'codice_destinatario' => 'Codice Destinatario'
 ];
 

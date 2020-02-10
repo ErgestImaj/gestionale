@@ -100,11 +100,7 @@ Route::group([
     Route::patch('/api/download/category/{category}','DocumentCategoriesController@update')->name('download.categories.update');
     Route::delete('/download/categories/{category}','DocumentCategoriesController@destroy')->name('download.category.destroy');
 
-		/*
-		 * Struture
-		 */
 
-	Route::view('/struture/create', 'struture.create')->name('struture.create');
 
     /*
      * Mass emails

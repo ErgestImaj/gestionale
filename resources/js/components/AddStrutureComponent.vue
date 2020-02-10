@@ -1,5 +1,5 @@
 <template>
-	<v-form>
+	<v-form class="add-stru">
 		<v-container>
 			<v-row>
 				<v-col cols="12" md="6">
@@ -8,7 +8,8 @@
 						<v-card-text>
 							<v-row>
 								<v-col cols="12" sm="12" class="gel">
-									<v-text-field :label="trans('form.name')" outlined v-model="strutura.infoAccesso.nome" dense></v-text-field>
+									<v-text-field :label="trans('form.nome_strutura')" outlined v-model="strutura.infoAccesso.nome" dense></v-text-field>
+									<v-text-field :label="trans('form.ragione_sociale')" outlined v-model="strutura.infoAccesso.ragione_sociale" dense></v-text-field>
 									<v-text-field :label="trans('form.username')" outlined v-model="strutura.infoAccesso.username" dense></v-text-field>
 									<v-text-field :label="trans('form.password')" outlined v-model="strutura.infoAccesso.password" dense
 																:append-icon="showpass ? 'mdi-eye' : 'mdi-eye-off'"
@@ -17,6 +18,7 @@
 									></v-text-field>
 									<v-text-field :label="trans('form.piva')" outlined v-model="strutura.infoAccesso.piva" dense></v-text-field>
 
+
 									<v-select dense v-model="strutura.infoAccesso.lingua" :items="lingua"
 														:label="trans('form.lang')" outlined
 									></v-select>
@@ -24,6 +26,8 @@
 									<v-select dense v-model="strutura.infoAccesso.accredit" :items="accredit"
 														:label="trans('form.accredit')" outlined
 									></v-select>
+
+									<v-text-field :label="trans('form.codice_destinatario')" outlined v-model="strutura.infoAccesso.codice_destinatario" dense></v-text-field>
 
 								</v-col>
 							</v-row>
@@ -44,18 +48,14 @@
 
 									<v-text-field :label="trans('form.address')" outlined v-model="strutura.sedeLegale.indirizzo" dense></v-text-field>
 
-									<v-row>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.city')" outlined v-model="strutura.sedeLegale.citta" dense></v-text-field>
-										</v-col>
-										<v-col cols="12" md="6">
-											<v-autocomplete
+
+									<v-text-field :label="trans('form.city')" outlined v-model="strutura.sedeLegale.citta" dense></v-text-field>
+
+									<v-autocomplete
 												dense v-model="strutura.sedeLegale.provinca" :items="province"
 												:label="trans('form.state')"
 												outlined
-											></v-autocomplete>
-										</v-col>
-									</v-row>
+									></v-autocomplete>
 
 									<v-text-field :label="trans('form.cap')" outlined v-model="strutura.sedeLegale.cap" dense></v-text-field>
 
@@ -68,14 +68,9 @@
 										</v-col>
 									</v-row>
 
-									<v-row>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.email')" outlined v-model="strutura.sedeLegale.email" dense></v-text-field>
-										</v-col>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.pec')" outlined v-model="strutura.sedeLegale.pec" dense></v-text-field>
-										</v-col>
-									</v-row>
+									<v-text-field :label="trans('form.email')" outlined v-model="strutura.sedeLegale.email" dense></v-text-field>
+									<v-text-field :label="trans('form.pec')" outlined v-model="strutura.sedeLegale.pec" dense></v-text-field>
+
 								</v-col>
 							</v-row>
 						</v-card-text>
@@ -207,7 +202,7 @@
 				<v-card-text>
 					<v-row>
 						<v-col cols="12" md="6">
-							<v-text-field dense readonly :label="trans('form.choose_file')" outlined @click='pickFile(0)'
+							<v-text-field dense readonly label="Domanda accreditamento" outlined @click='pickFile(0)'
 														prepend-inner-icon="mdi-cloud-upload" :value="doc1 ? doc1.name : '' "
 							></v-text-field>
 							<input
@@ -218,7 +213,7 @@
 							>
 						</v-col>
 						<v-col cols="12" md="6">
-							<v-text-field dense readonly :label="trans('form.choose_file')" outlined @click='pickFile(1)'
+							<v-text-field dense readonly label="Visura camerale" outlined @click='pickFile(1)'
 														prepend-inner-icon="mdi-cloud-upload" :value="doc2 ? doc2.name : '' "
 							></v-text-field>
 							<input
@@ -241,8 +236,7 @@
 						color="primary"
 						class="ma-0 white--text"
 					>
-						{{trans('form.add_doc')}}
-						<v-icon right dark>mdi-cloud-upload</v-icon>
+						Salva
 					</v-btn>
 				</v-col>
 			</v-row>
@@ -252,16 +246,19 @@
 
 <script>
     export default {
+        props: ['structureType'],
         data() {
             return {
                 strutura: {
                     infoAccesso: {
                         nome: null,
+                        ragione_sociale: null,
                         username: null,
                         password: null,
                         piva: null,
                         lingua: null,
-                        accredit: null
+                        accredit: null,
+                        codice_destinatario: null
                     },
                     sedeLegale: {
                         nazione: null,
@@ -371,6 +368,9 @@
 										'Medio Campidano', 'Viterbo', 'Vibo Valentia'],
 						}
 				},
+				mounted() {
+            console.log(this.structureType);
+				},
 				methods: {
             pickFile(i) {
                 if(i == 0) {
@@ -406,7 +406,7 @@
 	.v-menu__content.gdate {
 		margin-top: 0 !important;
 	}
-	.v-card__title {
+	.add-stru .v-card__title {
 		background: #388E3C;
 		color: white;
 		padding: 10px 15px;
