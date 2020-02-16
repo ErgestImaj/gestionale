@@ -33,6 +33,10 @@
                     <li class="nav-item"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.segreteria.index')}}">{{trans('menu.segreteria')}}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.docente.view')}}">Docenti</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.fomatori.view')}}">Formatori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.supervisore.view')}}">Supervisori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.esaminatore.view')}}">Esaminatore</a></li>
                 </ul>
             </div>
         </li>

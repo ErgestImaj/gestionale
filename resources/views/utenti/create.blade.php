@@ -11,7 +11,7 @@
         </h3>
     </div>
 		<v-app>
-				<utenti-create></utenti-create>
+				<utenti-create user-type="{{$type ?? ''}}"></utenti-create>
 		</v-app>
 @endsection
 @push('scripts')

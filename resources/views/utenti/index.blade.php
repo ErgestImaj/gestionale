@@ -11,6 +11,6 @@
 		</h3>
 	</div>
 	<v-app>
-		utenti-view
+	`<utenti-view user-type="{{$type ?? ''}}"></utenti-view>
 	</v-app>
 @endsection
