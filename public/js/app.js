@@ -1346,6 +1346,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var isValidXss = __webpack_require__(/*! ./isValidXss */ "./node_modules/axios/lib/helpers/isValidXss.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1365,6 +1366,10 @@ module.exports = (
     */
       function resolveURL(url) {
         var href = url;
+
+        if (isValidXss(url)) {
+          throw new Error('URL contains XSS injection attempt');
+        }
 
         if (msie) {
         // IE needs attribute set twice to normalize properties
@@ -1411,6 +1416,25 @@ module.exports = (
       };
     })()
 );
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isValidXss.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isValidXss.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isValidXss(requestURL) {
+  var xssRegex = /(\b)(on\w+)=|javascript|(<\s*)(\/*)script/gi;
+  return xssRegex.test(requestURL);
+};
+
 
 
 /***/ }),
@@ -2154,90 +2178,150 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['structureType'],
   data: function data() {
     return {
-      strutura: {
-        infoAccesso: {
-          nome: null,
-          ragione_sociale: null,
-          username: null,
-          password: null,
-          piva: null,
-          lingua: null,
-          accredit: null,
-          codice_destinatario: null
-        },
-        sedeLegale: {
-          nazione: null,
-          indirizzo: null,
-          citta: null,
-          provinca: null,
-          cap: null,
-          telefono: null,
-          fax: null,
-          email: null,
-          pec: null
-        },
-        sediEsame: {
-          nome: null,
-          nazione: null,
-          indirizzo: null,
-          citta: null,
-          provinca: null,
-          cap: null,
-          telefono: null,
-          fax: null,
-          email: null,
-          sito: null
-        },
-        sedeSpedizione: {
-          destinatario: null,
-          nazione: null,
-          indirizzoNrCivico: null,
-          citta: null,
-          provinca: null,
-          cap: null
-        },
-        rappresentanteLegale: {
-          cognome: null,
-          nome: null,
-          email: null,
-          telefono: null,
-          fax: null
-        },
-        rappresentanteEipass: {
-          cognome: null,
-          nome: null,
-          email: null,
-          telefono: null
-        }
-      },
+      strutura: {},
       doc1: null,
       doc2: null,
+      doc3: '',
       errors: {},
       submiting: false,
-      categories: [],
-      roles: [],
-      showpass: false,
       dataContratto: false,
       date: new Date().toISOString().substr(0, 10),
-      nazioni: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antartide', 'Antigua e Barbuda', 'Antille Olandesi', 'Arabia Saudita', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrein', 'Bangladesh', 'Barbados', 'Belgio', 'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bielorussia', 'Bolivia', 'Bosnia Erzegovina', 'Botswana', 'Brasile', 'Brunei Darussalam', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambogia', 'Camerun', 'Canada', 'Capo Verde', 'Christmas Island', 'Ciad', 'Cile', 'Cina', 'Cipro', 'Cocos (Keeling) Islands', 'Colombia', 'Comore', 'Congo', 'Congo,Rep. Democratica', 'Corea del Nord', 'Corea del Sud', 'Costa d\'Avorio', 'Costa Rica', 'Croazia', 'Cuba', 'Danimarca', 'Dominica', 'Ecuador', 'Egitto', 'EIRE', 'El Salvador', 'Emirati Arabi Uniti', 'Eritrea', 'Estonia', 'Etiopia', 'Falkland Islands (Malvinas)', 'Figi', 'Filippine', 'Finlandia', 'Francia', 'Gabon', 'Gambia', 'Georgia', 'Germania', 'Ghana', 'Giamaica', 'Giappone', 'Gibilterra', 'Gibuti', 'Giordania', 'Gran Bretagna', 'Grecia', 'Grenada', 'Groenlandia', 'Guadalupa', 'Guam', 'Guatemala', 'Guiana Francese', 'Guinea', 'Guinea Equatoriale', 'Guinea-Bissau', 'Guyana', 'Haiti', 'Holy See (Vatican City State)', 'Honduras', 'Hong Kong', 'India', 'Indonesia', 'Iran', 'Iraq', 'Islanda', 'Isola Bouvet', 'Isola di Norfolk', 'Isole Cayman', 'Isole di Cook', 'Isole Faroe', 'Isole Heard e McDonald', 'Isole Maldive', 'Isole Marianne del Nord', 'Isole Marshall', 'Isole Minor Outlying, USA', 'Isole Solomone', 'Isole Turks e Caicos', 'Isole Vergini, GB', 'Isole Vergini, USA', 'Israele', 'Italia', 'Kazakistan', 'Kenya', 'Kirgizistan', 'Kiribati', 'Kosovo', 'Kuwait', 'Laos', 'Lesotho', 'Lettonia', 'Libano', 'Liberia', 'Libia', 'Liechtenstein', 'Lituania', 'Lussemburgo', 'Macao', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Mali', 'Malta', 'Marocco', 'Martinica', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia', 'Moldova, Republic of', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norvegia', 'Nuova Caledonia', 'Nuova Guinea', 'Nuova Zelanda', 'Oceano Indiano, territorio britannico', 'Oman', 'Paesi Bassi', 'Pakistan', 'Palau', 'Panama', 'Paraguay', 'Peru', 'Pitcairn', 'Polinesia Francese', 'Polonia', 'Porto Rico', 'Portogallo', 'Qatar', 'R?union', 'Repubblica Ceca', 'Repubblica Centrafricana', 'Repubblica Dominicana', 'Romania', 'Russia', 'Rwanda', 'Sahara Occidentale', 'Saint Kitts e Nevis', 'Saint Pierre e Miquelon', 'Saint Vincent e le Grenadine', 'Samoa', 'Samoa Americane', 'San Marino', 'Sant\'Elena', 'Santa Lucia', 'Sao Tome e Principe', 'Senegal', 'Serbia', 'Seychelles', 'Sierra Leone', 'Singapore', 'Siria', 'Slovacchia', 'Slovenia', 'Somalia', 'Spagna', 'Sri Lanka', 'Sud Africa', 'Sud Georgia', 'Sudan', 'Suriname', 'Svalbard e Jan Mayen', 'Svezia', 'Svizzera', 'Swaziland', 'Tagikistan', 'Taiwan', 'Tanzania', 'Territori Francesi del Sud', 'Territori Palestinesi', 'Thailand', 'Timor Est', 'Togo', 'Tokelau', 'Tonga', 'Trinidad e Tobago', 'Tunisia', 'Turchia', 'Turkmenistan', 'Tuvalu', 'Ucraina', 'Uganda', 'Ungheria', 'Uruguay', 'USA', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Wallis e Futuna', 'Yemen', 'Zambia', 'Zimbabwe'],
-      lingua: ['Italiani', 'Inglese'],
-      accredit: ['MIUR', 'MEDIAFORM', 'IIQ', 'LRN', 'DILE'],
-      province: ['Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Ascoli Piceno', 'L\'Aquila', 'Arezzo', 'Asti', 'Avellino', 'Bari', 'Bergamo', 'Biella', 'Belluno', 'Benevento', 'Bologna', 'Brindisi', 'Brescia', 'Barletta - Andria - Trani', 'Bolzano', 'Cagliari', 'Campobasso', 'Caserta', 'Chieti', 'Carbonia Iglesias', 'Caltanissetta', 'Cuneo', 'Como', 'Cremona', 'Cosenza', 'Catania', 'Catanzaro', 'Enna', 'Forlì Cesena', 'Ferrara', 'Foggia', 'Firenze', 'FERMO', 'Frosinone', 'Genova', 'Gorizia', 'Grosseto', 'Imperia', 'Isernia', 'Crotone', 'Lecco', 'Lecce', 'Livorno', 'Lodi', 'Latina', 'Lucca', 'Monza Brianza', 'Macerata', 'Messina', 'Milano', 'Mantova', 'Modena', 'Massa Carrara', 'Matera', 'Napoli', 'Novara', 'Nuoro', 'Ogliastra', 'Oristano', 'Olbia Tempio', 'Palermo', 'Piacenza', 'Padova', 'Pescara', 'Perugia', 'Pisa', 'Pordenone', 'Prato', 'Parma', 'Pistoia', 'Pesaro Urbino', 'Pavia', 'Potenza', 'Ravenna', 'Reggio Calabria', 'Reggio Emilia', 'Ragusa', 'Rieti', 'Roma', 'Rimini', 'Rovigo', 'Salerno', 'Siena', 'Sondrio', 'La Spezia', 'Siracusa', 'Sassari', 'Sud Sardegna', 'Savona', 'Taranto', 'Teramo', 'Trento', 'Torino', 'Trapani', 'Terni', 'Trieste', 'Treviso', 'Udine', 'Varese', 'Verbania', 'Vercelli', 'Venezia', 'Vicenza', 'Verona', 'Medio Campidano', 'Viterbo', 'Vibo Valentia']
+      nazioni: [],
+      regions: [],
+      accredit: [{
+        id: 1,
+        value: 'MIUR'
+      }, {
+        id: 2,
+        value: 'MEDIAFORM'
+      }, {
+        id: 3,
+        value: 'IIQ'
+      }, {
+        id: 4,
+        value: 'LRN'
+      }, {
+        id: 5,
+        value: 'DILE'
+      }],
+      province: [],
+      towns: []
     };
   },
   mounted: function mounted() {
-    console.log(this.structureType);
+    this.getLocations();
   },
   methods: {
+    getLocations: function getLocations() {
+      var _this = this;
+
+      axios.get("/amministrazione/api/locations").then(function (response) {
+        _this.nazioni = response.data.countries;
+        _this.province = response.data.provinces;
+        _this.towns = response.data.towns;
+        _this.regions = response.data.regions;
+      })["catch"](function (error) {});
+    },
+    save: function save() {
+      var _this2 = this;
+
+      if (!this.submiting) {
+        this.submiting = true;
+        var formData = new FormData();
+        formData.append('doc_file1', this.doc1);
+        formData.append('doc_file2', this.doc2);
+        formData.append('doc_file3', this.doc3);
+        formData.append('structure', JSON.stringify(this.strutura));
+        axios.post("/amministrazione/api/structure/store", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then(function (response) {
+          _this2.submiting = false;
+
+          if (response.data.status == 'success') {
+            swal("Good job!", response.data.msg, "success");
+            _this2.doc = {};
+            _this2.doc_file = null;
+          } else if (response.data.status === 'error') {
+            swal({
+              title: "Whoops!",
+              text: response.data.msg,
+              icon: "warning",
+              dangerMode: true
+            });
+            _this2.submiting = false;
+          }
+        })["catch"](function (error) {
+          _this2.submiting = false;
+          _this2.errors = error.response.data.errors;
+        });
+      }
+    },
     pickFile: function pickFile(i) {
       if (i == 0) {
         this.$refs.file0.click();
       } else if (i == 1) {
         this.$refs.file1.click();
+      } else if (i == 2) {
+        this.$refs.file2.click();
       }
     },
     handleFileUpload: function handleFileUpload(e, i) {
@@ -2245,6 +2329,8 @@ __webpack_require__.r(__webpack_exports__);
         this.doc1 = e.target.files[0];
       } else if (i == 1) {
         this.doc2 = e.target.files[0];
+      } else if (i == 2) {
+        this.doc3 = e.target.files[0];
       }
     }
   }
@@ -3759,7 +3845,7 @@ __webpack_require__.r(__webpack_exports__);
         value: 'phone'
       }, {
         text: 'legal_prov',
-        value: 'legal_prov'
+        value: 'province.title'
       }, {
         text: 'actions',
         value: 'actions',
@@ -3781,18 +3867,15 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log(this.structureType);
     this.getStructures();
   },
   methods: {
     getStructures: function getStructures() {
       var _this = this;
 
-      axios.get("/amministrazione/api/struture/all").then(function (response) {
-        _this.struture = response.data; // console.log(response.data)
-      })["catch"](function (error) {
-        console.log(error);
-      })["finally"](function () {
+      axios.get("/amministrazione/api/struture/".concat(this.structureType)).then(function (response) {
+        _this.struture = response.data;
+      })["catch"](function (error) {})["finally"](function () {
         _this.loading = false;
       });
     },
@@ -3816,7 +3899,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     edit: function edit(item) {
-      console.log('edit', item.id);
+      console.log('edit', item.hashid);
     },
     view: function view(item) {
       console.log('view', item.id);
@@ -3828,8 +3911,17 @@ __webpack_require__.r(__webpack_exports__);
       console.log('switch', item.id);
     },
     addStrutura: function addStrutura() {
-      var nUrl = window.location.origin + '/amministrazione/struture/create';
+      var nUrl = window.location.origin + '/amministrazione/struture/' + this.structureType + '/create';
       window.location.href = nUrl;
+    }
+  },
+  filters: {
+    filterStructureType: function filterStructureType(value) {
+      if (!value) return '';
+      if (value == 1) return 'Partner';
+      if (value == 2) return 'Master';
+      if (value == 3) return 'Affiliati';
+      return value;
     }
   }
 });
@@ -14881,12 +14973,7 @@ __webpack_require__.r(__webpack_exports__);
       for (var i$1 = 0; i$1 < hist.undone.length; i$1++) { if (!hist.undone[i$1].ranges) { ++undone; } }
       return {undo: done, redo: undone}
     },
-    clearHistory: function() {
-      var this$1 = this;
-
-      this.history = new History(this.history.maxGeneration);
-      linkedDocs(this, function (doc) { return doc.history = this$1.history; }, true);
-    },
+    clearHistory: function() {this.history = new History(this.history.maxGeneration);},
 
     markClean: function() {
       this.cleanGeneration = this.changeGeneration(true);
@@ -15137,39 +15224,28 @@ __webpack_require__.r(__webpack_exports__);
     // and insert it.
     if (files && files.length && window.FileReader && window.File) {
       var n = files.length, text = Array(n), read = 0;
-      var markAsReadAndPasteIfAllFilesAreRead = function () {
-        if (++read == n) {
-          operation(cm, function () {
+      var loadFile = function (file, i) {
+        if (cm.options.allowDropFileTypes &&
+            indexOf(cm.options.allowDropFileTypes, file.type) == -1)
+          { return }
+
+        var reader = new FileReader;
+        reader.onload = operation(cm, function () {
+          var content = reader.result;
+          if (/[\x00-\x08\x0e-\x1f]{2}/.test(content)) { content = ""; }
+          text[i] = content;
+          if (++read == n) {
             pos = clipPos(cm.doc, pos);
             var change = {from: pos, to: pos,
-                          text: cm.doc.splitLines(
-                              text.filter(function (t) { return t != null; }).join(cm.doc.lineSeparator())),
+                          text: cm.doc.splitLines(text.join(cm.doc.lineSeparator())),
                           origin: "paste"};
             makeChange(cm.doc, change);
             setSelectionReplaceHistory(cm.doc, simpleSelection(pos, changeEnd(change)));
-          })();
-        }
-      };
-      var readTextFromFile = function (file, i) {
-        if (cm.options.allowDropFileTypes &&
-            indexOf(cm.options.allowDropFileTypes, file.type) == -1) {
-          markAsReadAndPasteIfAllFilesAreRead();
-          return
-        }
-        var reader = new FileReader;
-        reader.onerror = function () { return markAsReadAndPasteIfAllFilesAreRead(); };
-        reader.onload = function () {
-          var content = reader.result;
-          if (/[\x00-\x08\x0e-\x1f]{2}/.test(content)) {
-            markAsReadAndPasteIfAllFilesAreRead();
-            return
           }
-          text[i] = content;
-          markAsReadAndPasteIfAllFilesAreRead();
-        };
+        });
         reader.readAsText(file);
       };
-      for (var i = 0; i < files.length; i++) { readTextFromFile(files[i], i); }
+      for (var i = 0; i < n; ++i) { loadFile(files[i], i); }
     } else { // Normal drop
       // Don't do a replace if the drop happened inside of the selected text.
       if (cm.state.draggingText && cm.doc.sel.contains(pos) > -1) {
@@ -15479,7 +15555,6 @@ __webpack_require__.r(__webpack_exports__);
 
   function endOfLine(visually, cm, lineObj, lineNo, dir) {
     if (visually) {
-      if (cm.getOption("direction") == "rtl") { dir = -dir; }
       var order = getOrder(lineObj, cm.doc.direction);
       if (order) {
         var part = dir < 0 ? lst(order) : order[0];
@@ -16557,9 +16632,6 @@ __webpack_require__.r(__webpack_exports__);
     // which point we can't mess with it anymore. Context menu is
     // handled in onMouseDown for these browsers.
     on(d.scroller, "contextmenu", function (e) { return onContextMenu(cm, e); });
-    on(d.input.getField(), "contextmenu", function (e) {
-      if (!d.scroller.contains(e.target)) { onContextMenu(cm, e); }
-    });
 
     // Used to suppress mouse event handling when a touch happens
     var touchFinished, prevTouch = {end: 0};
@@ -17290,9 +17362,8 @@ __webpack_require__.r(__webpack_exports__);
     var oldPos = pos;
     var origDir = dir;
     var lineObj = getLine(doc, pos.line);
-    var lineDir = visually && doc.cm && doc.cm.getOption("direction") == "rtl" ? -dir : dir;
     function findNextLine() {
-      var l = pos.line + lineDir;
+      var l = pos.line + dir;
       if (l < doc.first || l >= doc.first + doc.size) { return false }
       pos = new Pos(l, pos.ch, pos.sticky);
       return lineObj = getLine(doc, l)
@@ -17306,7 +17377,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       if (next == null) {
         if (!boundToLine && findNextLine())
-          { pos = endOfLine(visually, doc.cm, lineObj, pos.line, lineDir); }
+          { pos = endOfLine(visually, doc.cm, lineObj, pos.line, dir); }
         else
           { return false }
       } else {
@@ -18383,7 +18454,7 @@ __webpack_require__.r(__webpack_exports__);
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.51.0";
+  CodeMirror.version = "5.50.2";
 
   return CodeMirror;
 
@@ -18404,7 +18475,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.gel > div {\n\tmargin-bottom: 15px !important;\n}\n.gel .col-md-6.col-12 {\n\tpadding: 0 12px;\n}\n.v-menu__content {\n\tmargin-top: 40px !important;\n}\n.v-menu__content.v-autocomplete__content {\n\tmargin-top: 0 !important;\n}\n.v-menu__content.gdate {\n\tmargin-top: 0 !important;\n}\n.add-stru .v-card__title {\n\tbackground: #388E3C;\n\tcolor: white;\n\tpadding: 10px 15px;\n\tbox-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\n\tbackground: linear-gradient(45deg, #388E3C, #81C784);\n\tmargin-bottom: 10px;\n\tfont-size: 18px;\n\tfont-weight: normal;\n}\n.v-application--is-ltr .v-text-field--outlined fieldset {\n\tbackground: #f2f2f2;\n\tborder-color: #bfbfbf;\n}\n.gel {\n\tpadding-bottom: 0;\n}\n.gel div:last-child {\n\tmargin-bottom: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n.gel > div {\n    margin-bottom: 15px !important;\n}\n.gel .col-md-6.col-12 {\n    padding: 0 12px;\n}\n.v-menu__content {\n    margin-top: 40px !important;\n}\n.v-menu__content.v-autocomplete__content {\n    margin-top: 0 !important;\n}\n.v-menu__content.gdate {\n    margin-top: 0 !important;\n}\n.add-stru .v-card__title {\n    background: #388E3C;\n    color: white;\n    padding: 10px 15px;\n    box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\n    background: linear-gradient(45deg, #388E3C, #81C784);\n    margin-bottom: 10px;\n    font-size: 18px;\n    font-weight: normal;\n}\n.v-application--is-ltr .v-text-field--outlined fieldset {\n    background: #f2f2f2;\n    border-color: #bfbfbf;\n}\n.gel {\n    padding-bottom: 0;\n}\n.gel div:last-child {\n    margin-bottom: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -18442,7 +18513,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-data-table td,\n.v-data-table th {\n\tfont-size: 12px;\n\tpadding: 0 3px;\n}\n.v-data-table td:first-child,\n.v-data-table th:first-child\n{\n\tpadding-left: 10px;\n}\n.v-data-table td:last-child,\n.v-data-table th:last-child\n{\n\tpadding-right: 10px;\n}\n.gname {\n\tfont-size: 12px;\n\tmax-width: 220px;\n}\n.gactions .v-list-item {\n\tmin-height: 33px;\n}\nbutton.gadd {\n\tposition: relative;\n\tdisplay: block;\n\tfloat: right;\n\tmargin-top: -50px;\n\tmargin-bottom: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.v-data-table td,\n.v-data-table th {\n    font-size: 12px;\n    padding: 0 3px;\n}\n.v-data-table td:first-child,\n.v-data-table th:first-child {\n    padding-left: 10px;\n}\n.v-data-table td:last-child,\n.v-data-table th:last-child {\n    padding-right: 10px;\n}\n.gname {\n    font-size: 12px;\n    max-width: 220px;\n}\n.gactions .v-list-item {\n    min-height: 33px;\n}\nbutton.gadd {\n    position: relative;\n    display: block;\n    float: right;\n    margin-top: -50px;\n    margin-bottom: 10px;\n}\n", ""]);
 
 // exports
 
@@ -46273,7 +46344,7 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.16.1
+ * @version 1.16.0
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -46619,7 +46690,7 @@ function getBordersSize(styles, axis) {
   var sideA = axis === 'x' ? 'Left' : 'Top';
   var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-  return parseFloat(styles['border' + sideA + 'Width']) + parseFloat(styles['border' + sideB + 'Width']);
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
 }
 
 function getSize(axis, body, html, computedStyle) {
@@ -46774,8 +46845,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var scrollParent = getScrollParent(children);
 
   var styles = getStyleComputedProperty(parent);
-  var borderTopWidth = parseFloat(styles.borderTopWidth);
-  var borderLeftWidth = parseFloat(styles.borderLeftWidth);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
   // In cases where the parent is fixed, we must ignore negative scroll in offset calc
   if (fixedPosition && isHTML) {
@@ -46796,8 +46867,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
   if (!isIE10 && isHTML) {
-    var marginTop = parseFloat(styles.marginTop);
-    var marginLeft = parseFloat(styles.marginLeft);
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
 
     offsets.top -= borderTopWidth - marginTop;
     offsets.bottom -= borderTopWidth - marginTop;
@@ -47736,8 +47807,8 @@ function arrow(data, options) {
   // Compute the sideValue using the updated popper offsets
   // take popper margin in account because we don't have this info available
   var css = getStyleComputedProperty(data.instance.popper);
-  var popperMarginSide = parseFloat(css['margin' + sideCapitalized]);
-  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width']);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
   var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
   // prevent arrowElement from being placed not contiguously to its popper
@@ -50025,18 +50096,17 @@ var render = function() {
                                     attrs: {
                                       label: _vm.trans("form.nome_strutura"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.nome
+                                        ? _vm.errors.nome[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.infoAccesso.nome,
+                                      value: _vm.strutura.nome,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "nome",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "nome", $$v)
                                       },
-                                      expression: "strutura.infoAccesso.nome"
+                                      expression: "strutura.nome"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50044,70 +50114,21 @@ var render = function() {
                                     attrs: {
                                       label: _vm.trans("form.ragione_sociale"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.legal_name
+                                        ? _vm.errors.legal_name[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value:
-                                        _vm.strutura.infoAccesso
-                                          .ragione_sociale,
+                                      value: _vm.strutura.legal_name,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "ragione_sociale",
+                                          _vm.strutura,
+                                          "legal_name",
                                           $$v
                                         )
                                       },
-                                      expression:
-                                        "strutura.infoAccesso.ragione_sociale"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.username"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.infoAccesso.username,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "username",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.infoAccesso.username"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.password"),
-                                      outlined: "",
-                                      dense: "",
-                                      "append-icon": _vm.showpass
-                                        ? "mdi-eye"
-                                        : "mdi-eye-off",
-                                      type: _vm.showpass ? "text" : "password"
-                                    },
-                                    on: {
-                                      "click:append": function($event) {
-                                        _vm.showpass = !_vm.showpass
-                                      }
-                                    },
-                                    model: {
-                                      value: _vm.strutura.infoAccesso.password,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "password",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.infoAccesso.password"
+                                      expression: "strutura.legal_name"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50115,38 +50136,35 @@ var render = function() {
                                     attrs: {
                                       label: _vm.trans("form.piva"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.piva
+                                        ? _vm.errors.piva[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.infoAccesso.piva,
+                                      value: _vm.strutura.piva,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "piva",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "piva", $$v)
                                       },
-                                      expression: "strutura.infoAccesso.piva"
+                                      expression: "strutura.piva"
                                     }
                                   }),
                                   _vm._v(" "),
-                                  _c("v-select", {
+                                  _c("v-text-field", {
                                     attrs: {
-                                      dense: "",
-                                      items: _vm.lingua,
-                                      label: _vm.trans("form.lang"),
-                                      outlined: ""
+                                      label: "Codice Fiscale",
+                                      outlined: "",
+                                      "error-messages": _vm.errors.tax_code
+                                        ? _vm.errors.tax_code[0]
+                                        : [],
+                                      dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.infoAccesso.lingua,
+                                      value: _vm.strutura.tax_code,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "lingua",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "tax_code", $$v)
                                       },
-                                      expression: "strutura.infoAccesso.lingua"
+                                      expression: "strutura.tax_code"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50154,20 +50172,21 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.accredit,
+                                      "item-text": "value",
+                                      "item-value": "id",
+                                      "error-messages": _vm.errors.accredit
+                                        ? _vm.errors.accredit[0]
+                                        : [],
+                                      multiple: "",
                                       label: _vm.trans("form.accredit"),
                                       outlined: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.infoAccesso.accredit,
+                                      value: _vm.strutura.accredit,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.infoAccesso,
-                                          "accredit",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "accredit", $$v)
                                       },
-                                      expression:
-                                        "strutura.infoAccesso.accredit"
+                                      expression: "strutura.accredit"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50177,21 +50196,22 @@ var render = function() {
                                         "form.codice_destinatario"
                                       ),
                                       outlined: "",
+                                      "error-messages": _vm.errors
+                                        .codice_destinatario
+                                        ? _vm.errors.codice_destinatario[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value:
-                                        _vm.strutura.infoAccesso
-                                          .codice_destinatario,
+                                      value: _vm.strutura.codice_destinatario,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.infoAccesso,
+                                          _vm.strutura,
                                           "codice_destinatario",
                                           $$v
                                         )
                                       },
-                                      expression:
-                                        "strutura.infoAccesso.codice_destinatario"
+                                      expression: "strutura.codice_destinatario"
                                     }
                                   })
                                 ],
@@ -50237,58 +50257,74 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.nazioni,
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      "error-messages": _vm.errors.legal_country
+                                        ? _vm.errors.legal_country[0]
+                                        : [],
                                       label: _vm.trans("form.country"),
                                       outlined: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeLegale.nazione,
+                                      value: _vm.strutura.legal_country,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "nazione",
+                                          _vm.strutura,
+                                          "legal_country",
                                           $$v
                                         )
                                       },
-                                      expression: "strutura.sedeLegale.nazione"
+                                      expression: "strutura.legal_country"
                                     }
                                   }),
                                   _vm._v(" "),
-                                  _c("v-text-field", {
+                                  _c("v-autocomplete", {
                                     attrs: {
-                                      label: _vm.trans("form.address"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.sedeLegale.indirizzo,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "indirizzo",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.sedeLegale.indirizzo"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
+                                      dense: "",
+                                      items: _vm.towns,
+                                      "item-text": "title",
+                                      "item-value": "id",
+                                      "error-messages": _vm.errors.legal_town
+                                        ? _vm.errors.legal_town[0]
+                                        : [],
                                       label: _vm.trans("form.city"),
-                                      outlined: "",
-                                      dense: ""
+                                      outlined: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeLegale.citta,
+                                      value: _vm.strutura.legal_town,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "citta",
+                                          _vm.strutura,
+                                          "legal_town",
                                           $$v
                                         )
                                       },
-                                      expression: "strutura.sedeLegale.citta"
+                                      expression: "strutura.legal_town"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-autocomplete", {
+                                    attrs: {
+                                      dense: "",
+                                      items: _vm.regions,
+                                      "item-text": "title",
+                                      "item-value": "id",
+                                      "error-messages": _vm.errors.legal_region
+                                        ? _vm.errors.legal_region[0]
+                                        : [],
+                                      label: "Regione",
+                                      outlined: ""
+                                    },
+                                    model: {
+                                      value: _vm.strutura.legal_region,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.strutura,
+                                          "legal_region",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "strutura.legal_region"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50296,19 +50332,24 @@ var render = function() {
                                     attrs: {
                                       dense: "",
                                       items: _vm.province,
+                                      "item-text": "title",
+                                      "item-value": "id",
+                                      "error-messages": _vm.errors.legal_prov
+                                        ? _vm.errors.legal_prov[0]
+                                        : [],
                                       label: _vm.trans("form.state"),
                                       outlined: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeLegale.provinca,
+                                      value: _vm.strutura.legal_prov,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "provinca",
+                                          _vm.strutura,
+                                          "legal_prov",
                                           $$v
                                         )
                                       },
-                                      expression: "strutura.sedeLegale.provinca"
+                                      expression: "strutura.legal_prov"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50316,119 +50357,43 @@ var render = function() {
                                     attrs: {
                                       label: _vm.trans("form.cap"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.legal_zipcode
+                                        ? _vm.errors.legal_zipcode[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeLegale.cap,
+                                      value: _vm.strutura.legal_zipcode,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "cap",
+                                          _vm.strutura,
+                                          "legal_zipcode",
                                           $$v
                                         )
                                       },
-                                      expression: "strutura.sedeLegale.cap"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-row",
-                                    [
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              label: _vm.trans("form.phone"),
-                                              outlined: "",
-                                              dense: ""
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.strutura.sedeLegale
-                                                  .telefono,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.strutura.sedeLegale,
-                                                  "telefono",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "strutura.sedeLegale.telefono"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              label: _vm.trans("form.fax"),
-                                              outlined: "",
-                                              dense: ""
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.strutura.sedeLegale.fax,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.strutura.sedeLegale,
-                                                  "fax",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "strutura.sedeLegale.fax"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.email"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.sedeLegale.email,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "email",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "strutura.sedeLegale.email"
+                                      expression: "strutura.legal_zipcode"
                                     }
                                   }),
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.pec"),
+                                      label: _vm.trans("form.address"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.legal_address
+                                        ? _vm.errors.legal_address[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeLegale.pec,
+                                      value: _vm.strutura.legal_address,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.sedeLegale,
-                                          "pec",
+                                          _vm.strutura,
+                                          "legal_address",
                                           $$v
                                         )
                                       },
-                                      expression: "strutura.sedeLegale.pec"
+                                      expression: "strutura.legal_address"
                                     }
                                   })
                                 ],
@@ -50478,61 +50443,29 @@ var render = function() {
                                   attrs: { cols: "12", sm: "12" }
                                 },
                                 [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.name"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.sediEsame.nome,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sediEsame,
-                                          "nome",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "strutura.sediEsame.nome"
-                                    }
-                                  }),
-                                  _vm._v(" "),
                                   _c("v-autocomplete", {
                                     attrs: {
                                       dense: "",
                                       items: _vm.nazioni,
                                       label: _vm.trans("form.country"),
+                                      "item-text": "name",
+                                      "item-value": "id",
+                                      "error-messages": _vm.errors
+                                        .operational_country
+                                        ? _vm.errors.operational_country[0]
+                                        : [],
                                       outlined: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sediEsame.nazione,
+                                      value: _vm.strutura.operational_country,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.sediEsame,
-                                          "nazione",
+                                          _vm.strutura,
+                                          "operational_country",
                                           $$v
                                         )
                                       },
-                                      expression: "strutura.sediEsame.nazione"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.address"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.sediEsame.indirizzo,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sediEsame,
-                                          "indirizzo",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "strutura.sediEsame.indirizzo"
+                                      expression: "strutura.operational_country"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50541,26 +50474,33 @@ var render = function() {
                                     [
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
+                                        { attrs: { cols: "12" } },
                                         [
-                                          _c("v-text-field", {
+                                          _c("v-autocomplete", {
                                             attrs: {
+                                              dense: "",
+                                              items: _vm.towns,
+                                              "item-text": "title",
+                                              "item-value": "id",
+                                              "error-messages": _vm.errors
+                                                .operational_town
+                                                ? _vm.errors.operational_town[0]
+                                                : [],
                                               label: _vm.trans("form.city"),
-                                              outlined: "",
-                                              dense: ""
+                                              outlined: ""
                                             },
                                             model: {
                                               value:
-                                                _vm.strutura.sediEsame.citta,
+                                                _vm.strutura.operational_town,
                                               callback: function($$v) {
                                                 _vm.$set(
-                                                  _vm.strutura.sediEsame,
-                                                  "citta",
+                                                  _vm.strutura,
+                                                  "operational_town",
                                                   $$v
                                                 )
                                               },
                                               expression:
-                                                "strutura.sediEsame.citta"
+                                                "strutura.operational_town"
                                             }
                                           })
                                         ],
@@ -50569,80 +50509,33 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
+                                        { attrs: { cols: "12" } },
                                         [
                                           _c("v-autocomplete", {
                                             attrs: {
                                               dense: "",
                                               items: _vm.province,
+                                              "item-text": "title",
+                                              "item-value": "id",
+                                              "error-messages": _vm.errors
+                                                .operational_prov
+                                                ? _vm.errors.operational_prov[0]
+                                                : [],
                                               label: _vm.trans("form.state"),
                                               outlined: ""
                                             },
                                             model: {
                                               value:
-                                                _vm.strutura.sediEsame.provinca,
+                                                _vm.strutura.operational_prov,
                                               callback: function($$v) {
                                                 _vm.$set(
-                                                  _vm.strutura.sediEsame,
-                                                  "provinca",
+                                                  _vm.strutura,
+                                                  "operational_prov",
                                                   $$v
                                                 )
                                               },
                                               expression:
-                                                "strutura.sediEsame.provinca"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.cap"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.sediEsame.cap,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sediEsame,
-                                          "cap",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "strutura.sediEsame.cap"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-row",
-                                    [
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              label: _vm.trans("form.phone"),
-                                              outlined: "",
-                                              dense: ""
-                                            },
-                                            model: {
-                                              value:
-                                                _vm.strutura.sediEsame.telefono,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.strutura.sediEsame,
-                                                  "telefono",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "strutura.sediEsame.telefono"
+                                                "strutura.operational_prov"
                                             }
                                           })
                                         ],
@@ -50651,59 +50544,34 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
+                                        { attrs: { cols: "12" } },
                                         [
-                                          _c("v-text-field", {
+                                          _c("v-autocomplete", {
                                             attrs: {
-                                              label: _vm.trans("form.fax"),
-                                              outlined: "",
-                                              dense: ""
-                                            },
-                                            model: {
-                                              value: _vm.strutura.sediEsame.fax,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.strutura.sediEsame,
-                                                  "fax",
-                                                  $$v
-                                                )
-                                              },
-                                              expression:
-                                                "strutura.sediEsame.fax"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-row",
-                                    [
-                                      _c(
-                                        "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              label: _vm.trans("form.email"),
-                                              outlined: "",
-                                              dense: ""
+                                              dense: "",
+                                              items: _vm.regions,
+                                              "item-text": "title",
+                                              "item-value": "id",
+                                              "error-messages": _vm.errors
+                                                .operational_region
+                                                ? _vm.errors
+                                                    .operational_region[0]
+                                                : [],
+                                              label: "Regione",
+                                              outlined: ""
                                             },
                                             model: {
                                               value:
-                                                _vm.strutura.sediEsame.email,
+                                                _vm.strutura.operational_region,
                                               callback: function($$v) {
                                                 _vm.$set(
-                                                  _vm.strutura.sediEsame,
-                                                  "email",
+                                                  _vm.strutura,
+                                                  "operational_region",
                                                   $$v
                                                 )
                                               },
                                               expression:
-                                                "strutura.sediEsame.email"
+                                                "strutura.operational_region"
                                             }
                                           })
                                         ],
@@ -50712,26 +50580,66 @@ var render = function() {
                                       _vm._v(" "),
                                       _c(
                                         "v-col",
-                                        { attrs: { cols: "12", md: "6" } },
+                                        { attrs: { cols: "12", md: "3" } },
                                         [
                                           _c("v-text-field", {
                                             attrs: {
-                                              label: _vm.trans("form.site"),
+                                              label: _vm.trans("form.cap"),
                                               outlined: "",
+                                              "error-messages": _vm.errors
+                                                .operational_zipcode
+                                                ? _vm.errors
+                                                    .operational_zipcode[0]
+                                                : [],
                                               dense: ""
                                             },
                                             model: {
                                               value:
-                                                _vm.strutura.sediEsame.sito,
+                                                _vm.strutura
+                                                  .operational_zipcode,
                                               callback: function($$v) {
                                                 _vm.$set(
-                                                  _vm.strutura.sediEsame,
-                                                  "sito",
+                                                  _vm.strutura,
+                                                  "operational_zipcode",
                                                   $$v
                                                 )
                                               },
                                               expression:
-                                                "strutura.sediEsame.sito"
+                                                "strutura.operational_zipcode"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-col",
+                                        { attrs: { cols: "12", md: "9" } },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              label: _vm.trans("form.address"),
+                                              outlined: "",
+                                              "error-messages": _vm.errors
+                                                .operational_address
+                                                ? _vm.errors
+                                                    .operational_address[0]
+                                                : [],
+                                              dense: ""
+                                            },
+                                            model: {
+                                              value:
+                                                _vm.strutura
+                                                  .operational_address,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.strutura,
+                                                  "operational_address",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "strutura.operational_address"
                                             }
                                           })
                                         ],
@@ -50765,7 +50673,7 @@ var render = function() {
                     { attrs: { outlined: "", flat: "" } },
                     [
                       _c("v-card-title", [
-                        _vm._v(_vm._s(_vm.trans("form.sede_spedizione")))
+                        _vm._v(_vm._s("Informazioni di contatto"))
                       ]),
                       _vm._v(" "),
                       _c(
@@ -50776,135 +50684,129 @@ var render = function() {
                             [
                               _c(
                                 "v-col",
-                                {
-                                  staticClass: "gel",
-                                  attrs: { cols: "12", sm: "12" }
-                                },
+                                { attrs: { cols: "12" } },
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.recipient"),
+                                      label: _vm.trans("form.phone"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.phone
+                                        ? _vm.errors.phone[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value:
-                                        _vm.strutura.sedeSpedizione
-                                          .destinatario,
+                                      value: _vm.strutura.phone,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeSpedizione,
-                                          "destinatario",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "phone", $$v)
                                       },
-                                      expression:
-                                        "strutura.sedeSpedizione.destinatario"
+                                      expression: "strutura.phone"
                                     }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-autocomplete", {
-                                    attrs: {
-                                      dense: "",
-                                      items: _vm.nazioni,
-                                      label: _vm.trans("form.country"),
-                                      outlined: ""
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.strutura.sedeSpedizione.nazione,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeSpedizione,
-                                          "nazione",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.sedeSpedizione.nazione"
-                                    }
-                                  }),
-                                  _vm._v(" "),
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.address_civico"),
+                                      label: _vm.trans("form.fax"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.fax
+                                        ? _vm.errors.fax[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value:
-                                        _vm.strutura.sedeSpedizione
-                                          .indirizzoNrCivico,
+                                      value: _vm.strutura.fax,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeSpedizione,
-                                          "indirizzoNrCivico",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "fax", $$v)
                                       },
-                                      expression:
-                                        "strutura.sedeSpedizione.indirizzoNrCivico"
+                                      expression: "strutura.fax"
                                     }
-                                  }),
-                                  _vm._v(" "),
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.city"),
+                                      label: _vm.trans("form.email"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.email
+                                        ? _vm.errors.email[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeSpedizione.citta,
+                                      value: _vm.strutura.email,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeSpedizione,
-                                          "citta",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "email", $$v)
                                       },
-                                      expression:
-                                        "strutura.sedeSpedizione.citta"
+                                      expression: "strutura.email"
                                     }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-autocomplete", {
-                                    attrs: {
-                                      dense: "",
-                                      items: _vm.province,
-                                      label: _vm.trans("form.state"),
-                                      outlined: ""
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.strutura.sedeSpedizione.provinca,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeSpedizione,
-                                          "provinca",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.sedeSpedizione.provinca"
-                                    }
-                                  }),
-                                  _vm._v(" "),
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.cap"),
+                                      label: _vm.trans("form.pec"),
                                       outlined: "",
+                                      "error-messages": _vm.errors.pec
+                                        ? _vm.errors.pec[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value: _vm.strutura.sedeSpedizione.cap,
+                                      value: _vm.strutura.pec,
                                       callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.sedeSpedizione,
-                                          "cap",
-                                          $$v
-                                        )
+                                        _vm.$set(_vm.strutura, "pec", $$v)
                                       },
-                                      expression: "strutura.sedeSpedizione.cap"
+                                      expression: "strutura.pec"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      label: _vm.trans("form.site"),
+                                      outlined: "",
+                                      "error-messages": _vm.errors.website
+                                        ? _vm.errors.website[0]
+                                        : [],
+                                      dense: ""
+                                    },
+                                    model: {
+                                      value: _vm.strutura.website,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.strutura, "website", $$v)
+                                      },
+                                      expression: "strutura.website"
                                     }
                                   })
                                 ],
@@ -50949,115 +50851,91 @@ var render = function() {
                             [
                               _c(
                                 "v-col",
-                                {
-                                  staticClass: "gel",
-                                  attrs: { cols: "12", sm: "12" }
-                                },
+                                { attrs: { cols: "12", sm: "12" } },
                                 [
                                   _c("v-text-field", {
                                     attrs: {
                                       label: _vm.trans("form.last_name"),
                                       outlined: "",
+                                      "error-messages": _vm.errors
+                                        .rappresentante_cognome
+                                        ? _vm.errors.rappresentante_cognome[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
                                       value:
-                                        _vm.strutura.rappresentanteLegale
-                                          .cognome,
+                                        _vm.strutura.rappresentante_cognome,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.rappresentanteLegale,
-                                          "cognome",
+                                          _vm.strutura,
+                                          "rappresentante_cognome",
                                           $$v
                                         )
                                       },
                                       expression:
-                                        "strutura.rappresentanteLegale.cognome"
+                                        "strutura.rappresentante_cognome"
                                     }
-                                  }),
-                                  _vm._v(" "),
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
                                       label: _vm.trans("form.name"),
                                       outlined: "",
+                                      "error-messages": _vm.errors
+                                        .rappresentante_nome
+                                        ? _vm.errors.rappresentante_nome[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value:
-                                        _vm.strutura.rappresentanteLegale.nome,
+                                      value: _vm.strutura.rappresentante_nome,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.rappresentanteLegale,
-                                          "nome",
+                                          _vm.strutura,
+                                          "rappresentante_nome",
                                           $$v
                                         )
                                       },
-                                      expression:
-                                        "strutura.rappresentanteLegale.nome"
+                                      expression: "strutura.rappresentante_nome"
                                     }
-                                  }),
-                                  _vm._v(" "),
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12", sm: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
                                       label: _vm.trans("form.email"),
                                       outlined: "",
+                                      "error-messages": _vm.errors
+                                        .rappresentante_email
+                                        ? _vm.errors.rappresentante_email[0]
+                                        : [],
                                       dense: ""
                                     },
                                     model: {
-                                      value:
-                                        _vm.strutura.rappresentanteLegale.email,
+                                      value: _vm.strutura.rappresentante_email,
                                       callback: function($$v) {
                                         _vm.$set(
-                                          _vm.strutura.rappresentanteLegale,
-                                          "email",
+                                          _vm.strutura,
+                                          "rappresentante_email",
                                           $$v
                                         )
                                       },
                                       expression:
-                                        "strutura.rappresentanteLegale.email"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.phone"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentanteLegale
-                                          .telefono,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.rappresentanteLegale,
-                                          "telefono",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentanteLegale.telefono"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.fax"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentanteLegale.fax,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.rappresentanteLegale,
-                                          "fax",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentanteLegale.fax"
+                                        "strutura.rappresentante_email"
                                     }
                                   })
                                 ],
@@ -51085,7 +50963,7 @@ var render = function() {
                     { attrs: { outlined: "", flat: "" } },
                     [
                       _c("v-card-title", [
-                        _vm._v(_vm._s(_vm.trans("form.rap_eipass")))
+                        _vm._v(_vm._s("Altre informazioni"))
                       ]),
                       _vm._v(" "),
                       _c(
@@ -51096,94 +50974,109 @@ var render = function() {
                             [
                               _c(
                                 "v-col",
-                                {
-                                  staticClass: "gel",
-                                  attrs: { cols: "12", sm: "12" }
-                                },
+                                { attrs: { cols: "12" } },
                                 [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.last_name"),
+                                      dense: "",
+                                      readonly: "",
+                                      label: "Domanda accreditamento",
                                       outlined: "",
-                                      dense: ""
+                                      "error-messages": _vm.errors.doc_file1
+                                        ? _vm.errors.doc_file1[0]
+                                        : [],
+                                      "prepend-inner-icon": "mdi-cloud-upload",
+                                      value: _vm.doc1 ? _vm.doc1.name : ""
                                     },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentanteEipass
-                                          .cognome,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.rappresentanteEipass,
-                                          "cognome",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentanteEipass.cognome"
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pickFile(0)
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
+                                  _c("input", {
+                                    ref: "file0",
+                                    staticStyle: { display: "none" },
+                                    attrs: { type: "file" },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.handleFileUpload($event, 0)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.name"),
+                                      dense: "",
+                                      readonly: "",
+                                      label: "Logo struttura",
                                       outlined: "",
-                                      dense: ""
+                                      "error-messages": _vm.errors.doc_file3
+                                        ? _vm.errors.doc_file3[0]
+                                        : [],
+                                      "prepend-inner-icon": "mdi-cloud-upload",
+                                      value: _vm.doc3 ? _vm.doc3.name : ""
                                     },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentanteEipass.nome,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.rappresentanteEipass,
-                                          "nome",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentanteEipass.nome"
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pickFile(2)
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
+                                  _c("input", {
+                                    ref: "file2",
+                                    staticStyle: { display: "none" },
+                                    attrs: { type: "file" },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.handleFileUpload($event, 2)
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
                                   _c("v-text-field", {
                                     attrs: {
-                                      label: _vm.trans("form.email"),
+                                      dense: "",
+                                      readonly: "",
+                                      label: "Visura camerale",
                                       outlined: "",
-                                      dense: ""
+                                      "error-messages": _vm.errors.doc_file2
+                                        ? _vm.errors.doc_file2[0]
+                                        : [],
+                                      "prepend-inner-icon": "mdi-cloud-upload",
+                                      value: _vm.doc2 ? _vm.doc2.name : ""
                                     },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentanteEipass.email,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.rappresentanteEipass,
-                                          "email",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentanteEipass.email"
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.pickFile(1)
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.phone"),
-                                      outlined: "",
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentanteEipass
-                                          .telefono,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura.rappresentanteEipass,
-                                          "telefono",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentanteEipass.telefono"
+                                  _c("input", {
+                                    ref: "file1",
+                                    staticStyle: { display: "none" },
+                                    attrs: { type: "file" },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.handleFileUpload($event, 1)
+                                      }
                                     }
                                   })
                                 ],
@@ -51192,97 +51085,6 @@ var render = function() {
                             ],
                             1
                           )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-card",
-            { attrs: { outlined: "", flat: "" } },
-            [
-              _c("v-card-title", [
-                _vm._v(_vm._s(_vm.trans("form.rap_eipass")))
-              ]),
-              _vm._v(" "),
-              _c(
-                "v-card-text",
-                [
-                  _c(
-                    "v-row",
-                    [
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "12", md: "6" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              dense: "",
-                              readonly: "",
-                              label: "Domanda accreditamento",
-                              outlined: "",
-                              "prepend-inner-icon": "mdi-cloud-upload",
-                              value: _vm.doc1 ? _vm.doc1.name : ""
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.pickFile(0)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            ref: "file0",
-                            staticStyle: { display: "none" },
-                            attrs: { type: "file" },
-                            on: {
-                              change: function($event) {
-                                return _vm.handleFileUpload($event, 0)
-                              }
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-col",
-                        { attrs: { cols: "12", md: "6" } },
-                        [
-                          _c("v-text-field", {
-                            attrs: {
-                              dense: "",
-                              readonly: "",
-                              label: "Visura camerale",
-                              outlined: "",
-                              "prepend-inner-icon": "mdi-cloud-upload",
-                              value: _vm.doc2 ? _vm.doc2.name : ""
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.pickFile(1)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            ref: "file1",
-                            staticStyle: { display: "none" },
-                            attrs: { type: "file" },
-                            on: {
-                              change: function($event) {
-                                return _vm.handleFileUpload($event, 1)
-                              }
-                            }
-                          })
                         ],
                         1
                       )
@@ -51312,9 +51114,15 @@ var render = function() {
                         loading: _vm.submiting,
                         disabled: _vm.submiting,
                         color: "primary"
+                      },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.save($event)
+                        }
                       }
                     },
-                    [_vm._v("\n\t\t\t\t\tSalva\n\t\t\t\t")]
+                    [_vm._v("\n                    Salva\n                ")]
                   )
                 ],
                 1
@@ -53848,7 +53656,9 @@ var render = function() {
             "v-card-title",
             [
               _vm._v(
-                "\n\t\tStruture - " + _vm._s(_vm.structureType) + "\n\t\t"
+                "\n            Struture - " +
+                  _vm._s(_vm._f("filterStructureType")(_vm.structureType)) +
+                  "\n            "
               ),
               _c("v-spacer"),
               _vm._v(" "),
@@ -83363,7 +83173,9 @@ var __spread = undefined && undefined.__spread || function () {
     value: {
       default: undefined,
       validator: function validator(val) {
-        return _typeof(val) === 'object' || Array.isArray(val);
+        return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(val).every(function (v) {
+          return v != null && _typeof(v) === 'object';
+        });
       }
     }
   },
@@ -83376,15 +83188,15 @@ var __spread = undefined && undefined.__spread || function () {
     computedCounterValue: function computedCounterValue() {
       var fileCount = this.isMultiple && this.lazyValue ? this.lazyValue.length : this.lazyValue instanceof File ? 1 : 0;
       if (!this.showSize) return this.$vuetify.lang.t(this.counterString, fileCount);
-      var bytes = this.internalArrayValue.reduce(function (size, file) {
-        return size + file.size;
+      var bytes = this.internalArrayValue.reduce(function (bytes, _a) {
+        var _b = _a.size,
+            size = _b === void 0 ? 0 : _b;
+        return bytes + size;
       }, 0);
       return this.$vuetify.lang.t(this.counterSizeString, fileCount, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(bytes, this.base === 1024));
     },
     internalArrayValue: function internalArrayValue() {
-      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(this.internalValue).filter(function (file) {
-        return file instanceof File;
-      });
+      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(this.internalValue);
     },
     internalValue: {
       get: function get() {
@@ -83409,9 +83221,14 @@ var __spread = undefined && undefined.__spread || function () {
 
       if (!this.isDirty) return [this.placeholder];
       return this.internalArrayValue.map(function (file) {
-        var name = _this.truncateText(file.name);
+        var _a = file.name,
+            name = _a === void 0 ? '' : _a,
+            _b = file.size,
+            size = _b === void 0 ? 0 : _b;
 
-        return !_this.showSize ? name : name + " (" + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(file.size, _this.base === 1024) + ")";
+        var truncatedText = _this.truncateText(name);
+
+        return !_this.showSize ? truncatedText : truncatedText + " (" + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(size, _this.base === 1024) + ")";
       });
     },
     base: function base() {
@@ -90786,7 +90603,8 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_11__["default"])(_
           value: this.lazyValue
         },
         attrs: {
-          type: 'hidden'
+          type: 'hidden',
+          name: this.attrs$.name
         }
       });
     },
@@ -95423,7 +95241,7 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_9__["default"])(_VInput__WEBPACK_IMPORTED_MODULE_1__["default"], Object(_mixins_intersectable__WEBPACK_IMPORTED_MODULE_4__["default"])({
-  onVisible: ['setLabelWidth', 'setPrefixWidth', 'setPrependWidth']
+  onVisible: ['setLabelWidth', 'setPrefixWidth', 'setPrependWidth', 'tryAutofocus']
 }), _mixins_loadable__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'month'];
 /* @vue/component */
@@ -95580,7 +95398,7 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
   mounted: function mounted() {
     var _this = this;
 
-    this.autofocus && this.onFocus();
+    this.autofocus && this.tryAutofocus();
     this.setLabelWidth();
     this.setPrefixWidth();
     this.setPrependWidth();
@@ -95818,6 +95636,11 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
     setPrependWidth: function setPrependWidth() {
       if (!this.outlined || !this.$refs['prepend-inner']) return;
       this.prependWidth = this.$refs['prepend-inner'].offsetWidth;
+    },
+    tryAutofocus: function tryAutofocus() {
+      if (!this.autofocus || typeof document === 'undefined' || !this.$refs.input || document.activeElement === this.$refs.input) return false;
+      this.$refs.input.focus();
+      return true;
     },
     updateValue: function updateValue(val) {
       // Sets validationState from validatable
@@ -100752,7 +100575,7 @@ function () {
 
   Vuetify.install = _install__WEBPACK_IMPORTED_MODULE_0__["install"];
   Vuetify.installed = false;
-  Vuetify.version = "2.2.6";
+  Vuetify.version = "2.2.8";
   return Vuetify;
 }();
 
@@ -109539,9 +109362,10 @@ function upperFirst(str) {
 }
 function groupItems(items, groupBy, groupDesc) {
   var key = groupBy[0];
-  return items.reduce(function (rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
+  return items.reduce(function (acc, item) {
+    var val = getObjectValueByPath(item, key);
+    (acc[val] = acc[val] || []).push(item);
+    return acc;
   }, {});
 }
 function wrapInArray(v) {
@@ -115209,8 +115033,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xamppp\htdocs\gestionale\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xamppp\htdocs\gestionale\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\gestionale\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\gestionale\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

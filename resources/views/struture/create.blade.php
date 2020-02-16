@@ -7,11 +7,11 @@
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
-            <span class="text-semibold"><i class="fas fa-list"></i>Nuovo Strutura</span>
+            <span class="text-semibold"><i class="fas fa-list"></i>Nuova Strutura</span>
         </h3>
     </div>
 		<v-app>
-				<struture-create structure-type="partner"></struture-create>
+				<struture-create></struture-create>
 
 		</v-app>
 @endsection

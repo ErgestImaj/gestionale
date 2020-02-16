@@ -1,8 +1,4 @@
 <?php
-/**
- *ketu do vendosesh routes per strukturat master dhe afiliati
- */
-//Superadmin and admin routes
 
 Route::group([
 	'middleware' => ['auth','check_user_role:superadmin|amministrazione' ],
@@ -10,11 +6,11 @@ Route::group([
 	'namespace'=>'Structures'
 ],function() {
 
-	/*
-		 * partner ketu
+	    /*
+		 * Partner Routes
 		 */
-	Route::view('/struture/create', 'struture.create')->name('struture.create');
-	Route::get('/api/struture/all', 'StructureController@all')->name('struture.all');
+
+	Route::get('/api/struture/{type}', 'StructureController@getStructure')->name('struture.all');
 	Route::get('/struture', 'StructureController@partnerIndex')->name('struture.partner');
 
 });
@@ -24,8 +20,9 @@ Route::group([
 	'prefix'=>'amministrazione','as'=>'structure.',
 	'namespace'=>'Structures'
 ],function() {
-
-	//cdo gje per masterin ketu
+        /*
+        * Master Routes
+        */
 	Route::get('/struture/master', 'StructureController@masterIndex')->name('struture.master');
 });
 
@@ -34,7 +31,22 @@ Route::group([
 	'prefix'=>'amministrazione','as'=>'structure.',
 	'namespace'=>'Structures'
 ],function() {
-
-	//cdo gje peraffiliati ketu
+    /*
+     * Affiliati Routes
+     */
+    Route::view('/struture/{type}/create', 'struture.create')->name('struture.create');
+    Route::post('/api/structure/store', 'StructureController@store')->name('struture.store');
 	Route::get('/struture/affiliati', 'StructureController@affiliatiIndex')->name('struture.affiliati');
+
+});
+
+Route::group([
+    'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master' ],
+    'prefix'=>'amministrazione','as'=>'location',
+],function() {
+    /*
+     * Location
+     */
+
+    Route::get('/api/locations', 'LocationController@getLocations');
 });
