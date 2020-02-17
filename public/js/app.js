@@ -2232,6 +2232,135 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2239,6 +2368,16 @@ __webpack_require__.r(__webpack_exports__);
       doc1: null,
       doc2: null,
       doc3: '',
+      lrn: false,
+      mf: false,
+      iiq: false,
+      miur: false,
+      dile: false,
+      datePicker1: false,
+      datePicker2: false,
+      datePicker3: false,
+      datePicker4: false,
+      datePicker5: false,
       errors: {},
       submiting: false,
       dataContratto: false,
@@ -2278,6 +2417,33 @@ __webpack_require__.r(__webpack_exports__);
         _this.towns = response.data.towns;
         _this.regions = response.data.regions;
       })["catch"](function (error) {});
+    },
+    getValues: function getValues(val) {
+      this.lrn = false;
+      this.mf = false;
+      this.iiq = false;
+      this.miur = false;
+      this.dile = false;
+
+      if (val.includes(1)) {
+        this.miur = true;
+      }
+
+      if (val.includes(2)) {
+        this.mf = true;
+      }
+
+      if (val.includes(3)) {
+        this.iiq = true;
+      }
+
+      if (val.includes(4)) {
+        this.lrn = true;
+      }
+
+      if (val.includes(5)) {
+        this.dile = true;
+      }
     },
     save: function save() {
       var _this2 = this;
@@ -3802,55 +3968,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["structureType"],
+  props: ['structureType'],
   data: function data() {
     return {
       struture: [],
-      search: "",
+      search: '',
       headers: [{
-        text: "#",
-        value: "id"
+        text: '#',
+        value: 'id'
       }, {
-        text: "piva",
-        value: "piva"
+        text: 'piva',
+        value: 'piva'
       }, {
-        text: "legal_name",
-        value: "legal_name"
+        text: 'legal_name',
+        value: 'legal_name'
       }, {
-        text: "code",
-        value: "code"
+        text: 'code',
+        value: 'code'
       }, {
-        text: "email",
-        value: "email"
+        text: 'email',
+        value: 'email'
       }, {
-        text: "phone",
-        value: "phone"
+        text: 'phone',
+        value: 'phone'
       }, {
-<<<<<<< HEAD
         text: 'legal_prov',
         value: 'province.title'
-=======
-        text: "legal_prov",
-        value: "legal_prov"
->>>>>>> dev-ergis
       }, {
-        text: "actions",
-        value: "actions",
+        text: 'actions',
+        value: 'actions',
         sortable: false,
-        align: "right"
+        align: 'right'
       }],
       loading: true,
       menuItems: [{
-        title: "Edit"
+        title: 'Edit'
       }, {
-        title: "View"
+        title: 'View'
       }, {
-        title: "Add Discount"
+        title: 'Add Discount'
       }, {
-        title: "Switch Account"
+        title: 'Switch Account'
       }, {
-        title: "---"
+        title: '---'
       }]
     };
   },
@@ -3869,45 +4047,47 @@ __webpack_require__.r(__webpack_exports__);
     },
     menuClick: function menuClick(name, item) {
       switch (name) {
-        case "Edit":
+        case 'Edit':
           this.edit(item);
           break;
 
-        case "View":
+        case 'View':
           this.view(item);
           break;
 
-        case "Add Discount":
+        case 'Add Discount':
           this.addDiscount(item);
           break;
 
-        case "Switch Account":
+        case 'Switch Account':
           this.switchAccount(item);
           break;
       }
     },
     edit: function edit(item) {
-<<<<<<< HEAD
       console.log('edit', item.hashid);
-=======
-      console.log("edit", item.id);
->>>>>>> dev-ergis
     },
     view: function view(item) {
-      console.log("view", item.id);
+      console.log('view', item.id);
     },
     addDiscount: function addDiscount(item) {
-      console.log("add discount", item.id);
+      console.log('add discount', item.id);
     },
     switchAccount: function switchAccount(item) {
-      console.log("switch", item.id);
+      console.log('switch', item.id);
     },
     addStrutura: function addStrutura() {
-<<<<<<< HEAD
       var nUrl = window.location.origin + '/amministrazione/struture/' + this.structureType + '/create';
-=======
-      var nUrl = window.location.origin + "/amministrazione/struture/create";
       window.location.href = nUrl;
+    }
+  },
+  filters: {
+    filterStructureType: function filterStructureType(value) {
+      if (!value) return '';
+      if (value == 1) return 'Partner';
+      if (value == 2) return 'Master';
+      if (value == 3) return 'Affiliati';
+      return value;
     }
   }
 });
@@ -4489,17 +4669,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     addUtente: function addUtente() {
       var nUrl = window.location.origin + "/amministrazione/utenti/" + this.userType + "/create";
->>>>>>> dev-ergis
       window.location.href = nUrl;
-    }
-  },
-  filters: {
-    filterStructureType: function filterStructureType(value) {
-      if (!value) return '';
-      if (value == 1) return 'Partner';
-      if (value == 2) return 'Master';
-      if (value == 3) return 'Affiliati';
-      return value;
     }
   }
 });
@@ -19091,10 +19261,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-<<<<<<< HEAD
-exports.push([module.i, "\n.v-data-table td,\n.v-data-table th {\n    font-size: 12px;\n    padding: 0 3px;\n}\n.v-data-table td:first-child,\n.v-data-table th:first-child {\n    padding-left: 10px;\n}\n.v-data-table td:last-child,\n.v-data-table th:last-child {\n    padding-right: 10px;\n}\n.gname {\n    font-size: 12px;\n    max-width: 220px;\n}\n.gactions .v-list-item {\n    min-height: 33px;\n}\nbutton.gadd {\n    position: relative;\n    display: block;\n    float: right;\n    margin-top: -50px;\n    margin-bottom: 10px;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.v-data-table td,\r\n.v-data-table th {\r\n  font-size: 12px;\r\n  padding: 0 3px;\n}\n.v-data-table td:first-child,\r\n.v-data-table th:first-child {\r\n  padding-left: 10px;\n}\n.v-data-table td:last-child,\r\n.v-data-table th:last-child {\r\n  padding-right: 10px;\n}\n.gname {\r\n  font-size: 12px;\r\n  max-width: 220px;\n}\n.gactions .v-list-item {\r\n  min-height: 33px;\n}\nbutton.gadd {\r\n  position: relative;\r\n  display: block;\r\n  float: right;\r\n  margin-top: -50px;\r\n  margin-bottom: 10px;\n}\r\n", ""]);
+exports.push([module.i, "\n.v-data-table td,\n.v-data-table th {\n  font-size: 12px;\n  padding: 0 3px;\n}\n.v-data-table td:first-child,\n.v-data-table th:first-child {\n  padding-left: 10px;\n}\n.v-data-table td:last-child,\n.v-data-table th:last-child {\n  padding-right: 10px;\n}\n.gname {\n  font-size: 12px;\n  max-width: 220px;\n}\n.gactions .v-list-item {\n  min-height: 33px;\n}\nbutton.gadd {\n  position: relative;\n  display: block;\n  float: right;\n  margin-top: -50px;\n  margin-bottom: 10px;\n}\n\n", ""]);
 
 // exports
 
@@ -19113,8 +19280,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.add-user .v-card__title {\r\n  background: #388e3c;\r\n  color: white;\r\n  padding: 10px 15px;\r\n  box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\r\n  background: linear-gradient(45deg, #388e3c, #81c784);\r\n  margin-bottom: 10px;\r\n  font-size: 18px;\r\n  font-weight: normal;\n}\r\n", ""]);
->>>>>>> dev-ergis
+exports.push([module.i, "\n.add-user .v-card__title {\n  background: #388e3c;\n  color: white;\n  padding: 10px 15px;\n  box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\n  background: linear-gradient(45deg, #388e3c, #81c784);\n  margin-bottom: 10px;\n  font-size: 18px;\n  font-weight: normal;\n}\n", ""]);
 
 // exports
 
@@ -50812,6 +50978,7 @@ var render = function() {
                                       label: _vm.trans("form.accredit"),
                                       outlined: ""
                                     },
+                                    on: { change: _vm.getValues },
                                     model: {
                                       value: _vm.strutura.accredit,
                                       callback: function($$v) {
@@ -50820,6 +50987,510 @@ var render = function() {
                                       expression: "strutura.accredit"
                                     }
                                   }),
+                                  _vm._v(" "),
+                                  _vm.lrn
+                                    ? _c("v-text-field", {
+                                        attrs: {
+                                          label: "Codice LRN",
+                                          outlined: "",
+                                          "error-messages": _vm.errors.lrn
+                                            ? _vm.errors.lrn[0]
+                                            : [],
+                                          dense: ""
+                                        },
+                                        model: {
+                                          value: _vm.strutura.lrn,
+                                          callback: function($$v) {
+                                            _vm.$set(_vm.strutura, "lrn", $$v)
+                                          },
+                                          expression: "strutura.lrn"
+                                        }
+                                      })
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.lrn
+                                    ? _c(
+                                        "v-menu",
+                                        {
+                                          attrs: {
+                                            "content-class": "gdate",
+                                            "close-on-content-click": false,
+                                            transition: "scale-transition",
+                                            "offset-y": "",
+                                            "min-width": "290px"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-text-field",
+                                                      _vm._g(
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              "Data accreditamento LRN",
+                                                            readonly: "",
+                                                            outlined: "",
+                                                            dense: "",
+                                                            "error-messages": _vm
+                                                              .errors
+                                                              .accredit_lrn
+                                                              ? _vm.errors
+                                                                  .accredit_lrn[0]
+                                                              : []
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.strutura
+                                                                .accredit_lrn,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.strutura,
+                                                                "accredit_lrn",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "strutura.accredit_lrn"
+                                                          }
+                                                        },
+                                                        on
+                                                      )
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            false,
+                                            652004449
+                                          ),
+                                          model: {
+                                            value: _vm.datePicker1,
+                                            callback: function($$v) {
+                                              _vm.datePicker1 = $$v
+                                            },
+                                            expression: "datePicker1"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            on: {
+                                              input: function($event) {
+                                                _vm.datePicker1 = false
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.strutura.accredit_lrn,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.strutura,
+                                                  "accredit_lrn",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "strutura.accredit_lrn"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.mf
+                                    ? _c(
+                                        "v-menu",
+                                        {
+                                          attrs: {
+                                            "content-class": "gdate",
+                                            "close-on-content-click": false,
+                                            transition: "scale-transition",
+                                            "offset-y": "",
+                                            "min-width": "290px"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-text-field",
+                                                      _vm._g(
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              "Data accreditamento MF",
+                                                            readonly: "",
+                                                            outlined: "",
+                                                            dense: "",
+                                                            "error-messages": _vm
+                                                              .errors
+                                                              .accredit_mf
+                                                              ? _vm.errors
+                                                                  .accredit_mf[0]
+                                                              : []
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.strutura
+                                                                .accredit_mf,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.strutura,
+                                                                "accredit_mf",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "strutura.accredit_mf"
+                                                          }
+                                                        },
+                                                        on
+                                                      )
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            false,
+                                            2953634881
+                                          ),
+                                          model: {
+                                            value: _vm.datePicker2,
+                                            callback: function($$v) {
+                                              _vm.datePicker2 = $$v
+                                            },
+                                            expression: "datePicker2"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            on: {
+                                              input: function($event) {
+                                                _vm.datePicker2 = false
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.strutura.accredit_mf,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.strutura,
+                                                  "accredit_mf",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "strutura.accredit_mf"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.dile
+                                    ? _c(
+                                        "v-menu",
+                                        {
+                                          attrs: {
+                                            "content-class": "gdate",
+                                            "close-on-content-click": false,
+                                            transition: "scale-transition",
+                                            "offset-y": "",
+                                            "min-width": "290px"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-text-field",
+                                                      _vm._g(
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              "Data accreditamento DILE",
+                                                            readonly: "",
+                                                            outlined: "",
+                                                            dense: "",
+                                                            "error-messages": _vm
+                                                              .errors
+                                                              .accredit_dile
+                                                              ? _vm.errors
+                                                                  .accredit_dile[0]
+                                                              : []
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.strutura
+                                                                .accredit_dile,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.strutura,
+                                                                "accredit_dile",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "strutura.accredit_dile"
+                                                          }
+                                                        },
+                                                        on
+                                                      )
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            false,
+                                            1935602017
+                                          ),
+                                          model: {
+                                            value: _vm.datePicker3,
+                                            callback: function($$v) {
+                                              _vm.datePicker3 = $$v
+                                            },
+                                            expression: "datePicker3"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            on: {
+                                              input: function($event) {
+                                                _vm.datePicker3 = false
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.strutura.accredit_dile,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.strutura,
+                                                  "accredit_dile",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "strutura.accredit_dile"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.iiq
+                                    ? _c(
+                                        "v-menu",
+                                        {
+                                          attrs: {
+                                            "content-class": "gdate",
+                                            "close-on-content-click": false,
+                                            transition: "scale-transition",
+                                            "offset-y": "",
+                                            "min-width": "290px"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-text-field",
+                                                      _vm._g(
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              "Data accreditamento IIQ",
+                                                            readonly: "",
+                                                            outlined: "",
+                                                            dense: "",
+                                                            "error-messages": _vm
+                                                              .errors
+                                                              .accredit_iiq
+                                                              ? _vm.errors
+                                                                  .accredit_iiq[0]
+                                                              : []
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.strutura
+                                                                .accredit_iiq,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.strutura,
+                                                                "accredit_iiq",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "strutura.accredit_iiq"
+                                                          }
+                                                        },
+                                                        on
+                                                      )
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            false,
+                                            74329761
+                                          ),
+                                          model: {
+                                            value: _vm.datePicker4,
+                                            callback: function($$v) {
+                                              _vm.datePicker4 = $$v
+                                            },
+                                            expression: "datePicker4"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            on: {
+                                              input: function($event) {
+                                                _vm.datePicker4 = false
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.strutura.accredit_iiq,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.strutura,
+                                                  "accredit_iiq",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "strutura.accredit_iiq"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.miur
+                                    ? _c(
+                                        "v-menu",
+                                        {
+                                          attrs: {
+                                            "content-class": "gdate",
+                                            "close-on-content-click": false,
+                                            transition: "scale-transition",
+                                            "offset-y": "",
+                                            "min-width": "290px"
+                                          },
+                                          scopedSlots: _vm._u(
+                                            [
+                                              {
+                                                key: "activator",
+                                                fn: function(ref) {
+                                                  var on = ref.on
+                                                  return [
+                                                    _c(
+                                                      "v-text-field",
+                                                      _vm._g(
+                                                        {
+                                                          attrs: {
+                                                            label:
+                                                              "Data accreditamento MIUR",
+                                                            readonly: "",
+                                                            outlined: "",
+                                                            dense: "",
+                                                            "error-messages": _vm
+                                                              .errors
+                                                              .accredit_miur
+                                                              ? _vm.errors
+                                                                  .accredit_miur[0]
+                                                              : []
+                                                          },
+                                                          model: {
+                                                            value:
+                                                              _vm.strutura
+                                                                .accredit_miur,
+                                                            callback: function(
+                                                              $$v
+                                                            ) {
+                                                              _vm.$set(
+                                                                _vm.strutura,
+                                                                "accredit_miur",
+                                                                $$v
+                                                              )
+                                                            },
+                                                            expression:
+                                                              "strutura.accredit_miur"
+                                                          }
+                                                        },
+                                                        on
+                                                      )
+                                                    )
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            null,
+                                            false,
+                                            2558699201
+                                          ),
+                                          model: {
+                                            value: _vm.datePicker5,
+                                            callback: function($$v) {
+                                              _vm.datePicker5 = $$v
+                                            },
+                                            expression: "datePicker5"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(" "),
+                                          _c("v-date-picker", {
+                                            on: {
+                                              input: function($event) {
+                                                _vm.datePicker5 = false
+                                              }
+                                            },
+                                            model: {
+                                              value: _vm.strutura.accredit_miur,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.strutura,
+                                                  "accredit_miur",
+                                                  $$v
+                                                )
+                                              },
+                                              expression:
+                                                "strutura.accredit_miur"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   _c("v-text-field", {
                                     attrs: {
@@ -51753,7 +52424,11 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n                    Salva\n                ")]
+                    [
+                      _vm._v(
+                        "\n                        Salva\n                    "
+                      )
+                    ]
                   )
                 ],
                 1
@@ -54287,13 +54962,9 @@ var render = function() {
             "v-card-title",
             [
               _vm._v(
-<<<<<<< HEAD
                 "\n            Struture - " +
                   _vm._s(_vm._f("filterStructureType")(_vm.structureType)) +
                   "\n            "
-=======
-                "\n      Struture - " + _vm._s(_vm.structureType) + "\n      "
->>>>>>> dev-ergis
               ),
               _c("v-spacer"),
               _vm._v(" "),

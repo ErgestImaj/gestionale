@@ -288,4 +288,16 @@ class SettingsController extends Controller
             'msg'    => trans('messages.delete')
         ] );
     }
+    public function scadenzaContrato(){
+    	 $period = env('CONTRACT_EXPIRY_PERIOD');
+       return view('superadmin.settings.scadenza_contrato',compact('period'));
+    }
+    public function addScadenzaContrato(Request $request){
+	    setEnvironmentValue( [
+		    'CONTRACT_EXPIRY_PERIOD' => $request->input('period')
+	    ] );
+
+	    toastr()->success(trans('messages.success'));
+	    return back();
+    }
 }

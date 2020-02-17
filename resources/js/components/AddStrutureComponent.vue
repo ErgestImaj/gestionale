@@ -26,11 +26,140 @@
                                               :items="accredit"
                                               item-text="value"
                                               item-value="id"
+																							@change="getValues"
                                               :error-messages="errors.accredit  ? errors.accredit[0] : []"
                                               multiple
                                               :label="trans('form.accredit')" outlined
                                     ></v-select>
-
+																	<v-text-field  label="Codice LRN" outlined
+																								 v-if="lrn"
+																								 :error-messages="errors.lrn  ? errors.lrn[0] : []"
+																								 v-model="strutura.lrn" dense></v-text-field>
+																	<v-menu
+																		v-if="lrn"
+																		content-class="gdate"
+																		v-model="datePicker1"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_lrn"
+																				label="Data accreditamento LRN"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_lrn ? errors.accredit_lrn[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_lrn"
+																			@input="datePicker1 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="mf"
+																		content-class="gdate"
+																		v-model="datePicker2"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_mf"
+																				label="Data accreditamento MF"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_mf ? errors.accredit_mf[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_mf"
+																			@input="datePicker2 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="dile"
+																		content-class="gdate"
+																		v-model="datePicker3"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_dile"
+																				label="Data accreditamento DILE"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_dile ? errors.accredit_dile[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_dile"
+																			@input="datePicker3 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="iiq"
+																		content-class="gdate"
+																		v-model="datePicker4"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_iiq"
+																				label="Data accreditamento IIQ"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_iiq ? errors.accredit_iiq[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_iiq"
+																			@input="datePicker4 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="miur"
+																		content-class="gdate"
+																		v-model="datePicker5"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_miur"
+																				label="Data accreditamento MIUR"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_miur ? errors.accredit_miur[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_miur"
+																			@input="datePicker5 = false"
+																		></v-date-picker>
+																	</v-menu>
                                     <v-text-field :label="trans('form.codice_destinatario')" outlined
                                                   :error-messages="errors.codice_destinatario  ? errors.codice_destinatario[0] : []"
                                                   v-model="strutura.codice_destinatario"
@@ -306,6 +435,16 @@
                 doc1: null,
                 doc2: null,
                 doc3: '',
+							  lrn:false,
+							  mf:false,
+							  iiq:false,
+							  miur:false,
+							  dile:false,
+							datePicker1: false,
+							datePicker2: false,
+							datePicker3: false,
+							datePicker4: false,
+							datePicker5: false,
                 errors: {},
                 submiting: false,
                 dataContratto: false,
@@ -339,6 +478,24 @@
                         .catch(error => {
                         });
             },
+						getValues(val){
+							  this.lrn=false;
+								this.mf=false;
+								this.iiq=false;
+								this.miur=false;
+								this.dile=false;
+              if (val.includes(1)){
+								this.miur = true;
+							}if (val.includes(2)){
+                	this.mf = true;
+							}if (val.includes(3)){
+                	this.iiq = true;
+							}if (val.includes(4)){
+                	this.lrn = true;
+							}if (val.includes(5)){
+                	this.dile = true;
+							}
+						},
             save(){
                 if (!this.submiting) {
                     this.submiting = true;

@@ -11,13 +11,13 @@
                   <v-text-field label="Nome" outlined v-model="user.firstname" dense
 				  	:error-messages="errors.firstname ? errors.firstname[0] : []"
 				  ></v-text-field>
-                  <v-text-field label="Cognome" outlined v-model="user.lastname" dense 
+                  <v-text-field label="Cognome" outlined v-model="user.lastname" dense
 				  	:error-messages="errors.lastname ? errors.lastname[0] : []"></v-text-field>
-                  <v-text-field label="Email" outlined v-model="user.email" dense 
+                  <v-text-field label="Email" outlined v-model="user.email" dense
 				  	:error-messages="errors.email ? errors.email[0] : []"></v-text-field>
-                  <v-text-field label="Telefono" outlined v-model="user.phone" dense 
+                  <v-text-field label="Telefono" outlined v-model="user.phone" dense
 				  	:error-messages="errors.phone ? errors.phone[0] : []"></v-text-field>
-                  <v-text-field label="Cellulare" outlined v-model="user.mobile" dense 
+                  <v-text-field label="Cellulare" outlined v-model="user.mobile" dense
 				  	:error-messages="errors.mobile ? errors.mobile[0] : []"></v-text-field>
                 </v-col>
               </v-row>
@@ -30,7 +30,7 @@
             <v-card-text>
               <v-row>
                 <v-col cols="12" sm="12" class="gel">
-                  <v-text-field label="Codice fiscale" outlined v-model="user.fiscal_code" dense 
+                  <v-text-field label="Codice fiscale" outlined v-model="user.fiscal_code" dense
 				  :error-messages="errors.fiscal_code ? errors.fiscal_code[0] : []"></v-text-field>
                   <v-select
                     dense
@@ -55,7 +55,7 @@
                         outlined
                         dense
                         v-on="on"
-						:error-messages="errors.birth_date ? errors.birth_date[0] : []"
+						            :error-messages="errors.birth_date ? errors.birth_date[0] : []"
                       ></v-text-field>
                     </template>
                     <v-date-picker
@@ -152,7 +152,7 @@
                     label="Regione istituto scolastico"
                     outlined
                   	:error-messages="errors.school_region ? errors.school_region[0] : []"></v-select>
-                  <v-text-field label="Istituto" outlined v-model="user.school_name" dense 
+                  <v-text-field label="Istituto" outlined v-model="user.school_name" dense
 				  	:error-messages="errors.school_name ? errors.school_name[0] : []"></v-text-field>
                   <v-text-field
                     label="Codice meccanografico"
@@ -271,7 +271,7 @@
             <v-card-text>
               <v-row>
                 <v-col cols="12" sm="12" class="gel">
-                  <v-text-field v-model="user.high_school_diploma_name" label="Diploma" outlined dense 
+                  <v-text-field v-model="user.high_school_diploma_name" label="Diploma" outlined dense
 				  :error-messages="errors.high_school_diploma_name ? errors.high_school_diploma_name[0] : []"></v-text-field>
 
                   <v-menu
@@ -313,7 +313,7 @@
                     dense
 					:error-messages="errors.university_degree_faculty ? errors.university_degree_faculty[0] : []"
                   ></v-text-field>
-                  <v-text-field v-model="user.university_degree_name" label="Laurea" outlined dense 
+                  <v-text-field v-model="user.university_degree_name" label="Laurea" outlined dense
 				  :error-messages="errors.university_degree_name ? errors.university_degree_name[0] : []"></v-text-field>
 
                   <v-menu

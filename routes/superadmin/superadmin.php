@@ -38,6 +38,8 @@ Route::group([
        Route::post('/settings/iva/','SettingsController@addIvaSettings')->name('iva.add');
        Route::patch('/settings/iva/{rate}','SettingsController@updateIvaSettings')->name('iva.update');
        Route::delete('/settings/iva/{rate}','SettingsController@destroyIvaSettings')->name('iva.destroy');
+	     Route::get('/settings/scadenza-contrato/','SettingsController@scadenzaContrato')->name('scadenza_contrato');
+	     Route::post('/settings/scadenza-contrato/','SettingsController@addScadenzaContrato')->name('scadenza_contrato.add');
 
 
 
