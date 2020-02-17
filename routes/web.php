@@ -27,6 +27,13 @@ require_once __DIR__ .'/superadmin/superadmin.php';
 
 require_once __DIR__ .'/agencies/agencies.php';
 
+
+/**
+ * Utenti
+ */
+
+require_once __DIR__ .'/utenti/utenti.php';
+
 /**
  * All other users routes
  */

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="" />
-=======
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/config/boxapi.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public.pem" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/box_private_key.pem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/UtentiCreateComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/emails/user/password-reset.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/utenti/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/utenti/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/routes/utenti/utenti.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gestionale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestionale.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/DocumentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/datatables/download.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/datatables/download.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/download/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/download/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
->>>>>>> dev
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,17 +43,6 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="gestionaledata@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="gestionaledata: schema" type="ebfa3cd1:MariaImplModel$Schema" />
-      </path>
     </expand>
     <select />
   </component>
@@ -64,9 +50,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="Vue Single File Component" />
         <option value="JavaScript File" />
         <option value="Blade" />
+        <option value="Vue Single File Component" />
       </list>
     </option>
   </component>
@@ -213,7 +199,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -228,26 +214,30 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\gestionale\storage" />
+      <recent name="C:\xamppp\htdocs\gestionale\app\Models" />
       <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\sass\summernote" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\sass" />
+      <recent name="C:\xampp\htdocs\gestionale" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\gestionale\config" />
-      <recent name="C:\xampp\htdocs\gestionale" />
+      <recent name="C:\xamppp\htdocs\gestionale\resources\views" />
+      <recent name="C:\xamppp\htdocs\gestionale\resources\views\auth" />
       <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
       <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\views" />
-      <recent name="C:\xampp\htdocs\gestionale" />
-    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -280,18 +270,6 @@
         <item itemvalue="npm.development" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -383,7 +361,53 @@
       <workItem from="1580653332787" duration="275000" />
       <workItem from="1580654171205" duration="1372000" />
       <workItem from="1580656274724" duration="6833000" />
+      <workItem from="1580599369937" duration="2112000" />
+      <workItem from="1580661160168" duration="8036000" />
+      <workItem from="1580680406458" duration="1332000" />
+      <workItem from="1580843321992" duration="169000" />
+      <workItem from="1580932459760" duration="588000" />
+      <workItem from="1581020603031" duration="6077000" />
+      <workItem from="1581200565275" duration="1724000" />
+      <workItem from="1581257561261" duration="5536000" />
+      <workItem from="1581362951590" duration="7424000" />
+      <workItem from="1581539011511" duration="4005000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixes for Document Categories and Redesign of Login + Responsive">
+      <created>1580676638377</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1580676638377</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix auth pages">
+      <created>1580681189754</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1580681189754</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Create Markup for Struture create, and testing for vuetify datatables">
+      <created>1580855126739</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1580855126739</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix mobile menu, and Struture create">
+      <created>1581028600074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1581028600074</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Struture list and controller/model">
+      <created>1581370468684</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1581370468684</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,85 +426,56 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
+    <MESSAGE value="Fixes for Document Categories and Redesign of Login + Responsive" />
+    <MESSAGE value="Fix auth pages" />
+    <MESSAGE value="Create Markup for Struture create, and testing for vuetify datatables" />
+    <MESSAGE value="Fix mobile menu, and Struture create" />
+    <MESSAGE value="Struture list and controller/model" />
+    <option name="LAST_COMMIT_MESSAGE" value="Struture list and controller/model" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="432" y="162" key="#Deployment" timestamp="1576960569537">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="432" y="162" key="#Deployment/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1576960569537" />
-    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579788706244">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579788706244" />
-    <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980702778" />
-    <state x="594" y="294" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580658043811">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="594" y="294" key="#com.intellij.fileTypes.FileTypeChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580658043811" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1573743196286">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1573743196286" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1580676601206">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1573747706275" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580676601206" />
-    <state x="648" y="266" key="FileChooserDialogImpl" timestamp="1580599237030">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579794416233" />
-    <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580599237030" />
-    <state width="200" height="539" key="HiddenNamespacesPopup" timestamp="1577980679472">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1577980679472" />
-    <state x="675" y="423" key="NewPhpFileDialog" timestamp="1580514597342">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="675" y="423" key="NewPhpFileDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580514597342" />
-    <state x="609" y="141" key="RollbackChangesDialog" timestamp="1580253866989">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579878449515" />
-    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580253866989" />
-    <state x="341" y="136" key="SettingsEditor" timestamp="1580505608476">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580505608476" />
-    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog" timestamp="1579788724584">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579788724584" />
-    <state x="570" y="309" key="com.intellij.database.dbimport.ImportUtil.MyDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1579643561877" />
-    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1578852006120">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578852006120" />
-    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576960511234">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1576960511234" />
-    <state x="1680" y="35" width="1114" height="692" maximized="true" key="dock-window-1" timestamp="1580676643878">
-      <screen x="1680" y="0" width="1680" height="1010" />
-    </state>
-    <state x="1680" y="35" width="1114" height="692" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580676643878" />
-    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" timestamp="1578957529065">
-      <screen x="1680" y="0" width="1680" height="1010" />
-    </state>
-    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1578957529065" />
-    <state x="657" y="125" width="606" height="789" key="find.popup" timestamp="1573545089957">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1573545089957" />
-    <state width="600" height="440" key="javadoc.popup" timestamp="1580655990810">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state width="600" height="440" key="javadoc.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580655990810" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" timestamp="1580676861950">
-      <screen x="0" y="0" width="1680" height="1010" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1579880784537" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1580676861950" />
-    <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1579470266169" />
+    <state x="432" y="162" key="#Deployment" />
+    <state x="432" y="162" key="#Deployment/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
+    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" />
+    <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="740" y="274" key="FileChooserDialogImpl" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" />
+    <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state width="200" height="539" key="HiddenNamespacesPopup" />
+    <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="675" y="423" key="NewPhpFileDialog" />
+    <state x="675" y="423" key="NewPhpFileDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="609" y="141" key="RollbackChangesDialog" />
+    <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" />
+    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="341" y="136" key="SettingsEditor" />
+    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog" />
+    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog/0.0.1920.1040@0.0.1920.1040" />
+    <state x="570" y="309" key="com.intellij.database.dbimport.ImportUtil.MyDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" />
+    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" />
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1" />
+    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" />
+    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="657" y="125" width="606" height="789" key="find.popup" />
+    <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" />
+    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
+    <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" />
   </component>
 </project>

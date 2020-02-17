@@ -131,40 +131,38 @@
                 return value;
             }
         }
-    }
+
+};
 </script>
 
 <style>
-    .v-data-table td,
-    .v-data-table th {
-        font-size: 12px;
-        padding: 0 3px;
-    }
 
-    .v-data-table td:first-child,
-    .v-data-table th:first-child {
-        padding-left: 10px;
-    }
+.v-data-table td,
+.v-data-table th {
+  font-size: 12px;
+  padding: 0 3px;
+}
+.v-data-table td:first-child,
+.v-data-table th:first-child {
+  padding-left: 10px;
+}
+.v-data-table td:last-child,
+.v-data-table th:last-child {
+  padding-right: 10px;
+}
+.gname {
+  font-size: 12px;
+  max-width: 220px;
+}
+.gactions .v-list-item {
+  min-height: 33px;
+}
+button.gadd {
+  position: relative;
+  display: block;
+  float: right;
+  margin-top: -50px;
+  margin-bottom: 10px;
+}
 
-    .v-data-table td:last-child,
-    .v-data-table th:last-child {
-        padding-right: 10px;
-    }
-
-    .gname {
-        font-size: 12px;
-        max-width: 220px;
-    }
-
-    .gactions .v-list-item {
-        min-height: 33px;
-    }
-
-    button.gadd {
-        position: relative;
-        display: block;
-        float: right;
-        margin-top: -50px;
-        margin-bottom: 10px;
-    }
 </style>

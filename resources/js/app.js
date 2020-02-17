@@ -47,6 +47,8 @@ Vue.component('document-categories', require('./components/DocumentCategoriesCom
 Vue.component('corsi-table', require('./components/CorsiTableComponent').default);
 Vue.component('struture-create', require('./components/AddStrutureComponent').default);
 Vue.component('structure-view', require('./components/StructureViewComponent').default);
+Vue.component('utenti-create', require('./components/UtentiCreateComponent').default);
+Vue.component('utenti-view', require('./components/UtentiViewComponent').default);
 
 
 /**
