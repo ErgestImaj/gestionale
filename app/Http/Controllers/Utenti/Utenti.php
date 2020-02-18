@@ -30,7 +30,23 @@ class Utenti extends Controller
 			'type'=> 'formatori'
 		]);
 	}
+	
+	public function CreateStudenti() {
+		return view('utenti.create',[
+			'type'=> 'studenti'
+		]);
+	}
 
+	public function CreateTutor() {
+		return view('utenti.create',[
+			'type'=> 'tutor'
+		]);
+	}
+	public function CreateInspector() {
+		return view('utenti.create',[
+			'type'=> 'inspector'
+		]);
+	}
 	public function ViewEsaminatore() {
 		return view('utenti.index',[
 			'type'=> 'esaminatore'
@@ -54,5 +70,23 @@ class Utenti extends Controller
 			'type'=> 'formatori'
 		]);
 	}
+	
+	public function ViewStudenti() {
+		return view('utenti.index',[
+			'type'=> 'studenti'
+		]);
+	}
 
+	public function ViewTutori() {
+		return view('utenti.index',[
+			'type'=> 'tutor'
+		]);
+	}
+
+	
+	public function ViewInspectori() {
+		return view('utenti.index',[
+			'type'=> 'inspector'
+		]);
+	}
 }

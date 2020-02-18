@@ -11,8 +11,12 @@
         </h3>
     </div>
 		<v-app>
-				<utenti-create user-type="{{$type ?? ''}}"></utenti-create>
-		</v-app>
+            @if ($type == 'tutor' || $type == 'inspector')
+                <utenti-basic-create user-type="{{$type}}"></utenti-basic-create>                
+            @else
+                <utenti-create user-type="{{$type ?? ''}}"></utenti-create>
+            @endif
+        </v-app>
 @endsection
 @push('scripts')
     <script src="{{asset('js/actions.js')}}"></script>

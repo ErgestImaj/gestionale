@@ -49,6 +49,7 @@ Vue.component('struture-create', require('./components/AddStrutureComponent').de
 Vue.component('structure-view', require('./components/StructureViewComponent').default);
 Vue.component('utenti-create', require('./components/UtentiCreateComponent').default);
 Vue.component('utenti-view', require('./components/UtentiViewComponent').default);
+Vue.component('utenti-basic-create', require('./components/BasicUserCreateComponent').default);
 
 
 /**
@@ -63,7 +64,7 @@ const app = new Vue({
 		theme: {
 			themes: {
 				light: {
-					primary: '#7b0b07',
+					primary: '#388e3c',
 				},
 			},
 		},

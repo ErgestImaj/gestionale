@@ -34,7 +34,7 @@ export default {
   data() {
     return {
         search: "",
-        loading: "",
+        loading: true,
         isDocente: false,
         isEsaminatore: false,
         isSupervisore: false,
@@ -50,7 +50,25 @@ export default {
                 text: "#",
                 value: "id"
             },
-            { text: "actions", value: "actions", sortable: false, align: "right" }
+            {
+              text: 'Nome',
+              value: 'firstname'
+            },
+            {
+              text: 'Cognome',
+              value: 'lastname'
+            },
+            {
+              text: 'Email',
+              value: 'email'
+            },{
+              text: 'Codice Fiscale',
+              value: 'fiscal_code'
+            }, {
+              text: 'Sesso',
+              value: 'gender'
+            },
+            { text: "Actions", value: "actions", sortable: false, align: "right" }
         ],
     };
   },
