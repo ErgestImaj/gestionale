@@ -1,429 +1,602 @@
 <template>
-	<v-form class="add-stru">
-		<v-container>
-			<v-row>
-				<v-col cols="12" md="6">
-					<v-card outlined flat>
-						<v-card-title>{{ trans('form.info_accesso' )}}</v-card-title>
-						<v-card-text>
-							<v-row>
-								<v-col cols="12" sm="12" class="gel">
-									<v-text-field :label="trans('form.nome_strutura')" outlined v-model="strutura.infoAccesso.nome" dense></v-text-field>
-									<v-text-field :label="trans('form.ragione_sociale')" outlined v-model="strutura.infoAccesso.ragione_sociale" dense></v-text-field>
-									<v-text-field :label="trans('form.username')" outlined v-model="strutura.infoAccesso.username" dense></v-text-field>
-									<v-text-field :label="trans('form.password')" outlined v-model="strutura.infoAccesso.password" dense
-																:append-icon="showpass ? 'mdi-eye' : 'mdi-eye-off'"
-																:type="showpass ? 'text' : 'password'"
-																@click:append="showpass = !showpass"
-									></v-text-field>
-									<v-text-field :label="trans('form.piva')" outlined v-model="strutura.infoAccesso.piva" dense></v-text-field>
+    <v-form class="add-stru">
+        <v-container>
+            <v-row>
+                <v-col cols="12" md="6">
+                    <v-card outlined flat>
+                        <v-card-title>{{ trans('form.info_accesso' )}}</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12" sm="12" class="gel">
+                                    <v-text-field :label="trans('form.nome_strutura')" outlined
+                                                  :error-messages="errors.nome  ? errors.nome[0] : []"
+                                                  v-model="strutura.nome" dense></v-text-field>
+                                    <v-text-field :label="trans('form.ragione_sociale')" outlined
+                                                  :error-messages="errors.legal_name  ? errors.legal_name[0] : []"
+                                                  v-model="strutura.legal_name" dense></v-text-field>
+                                    <v-text-field :label="trans('form.piva')" outlined
+                                                  :error-messages="errors.piva  ? errors.piva[0] : []"
+                                                  v-model="strutura.piva" dense></v-text-field>
+
+                                    <v-text-field  label="Codice Fiscale" outlined
+                                                  :error-messages="errors.tax_code  ? errors.tax_code[0] : []"
+                                                  v-model="strutura.tax_code" dense></v-text-field>
+
+                                    <v-select dense v-model="strutura.accredit"
+                                              :items="accredit"
+                                              item-text="value"
+                                              item-value="id"
+																							@change="getValues"
+                                              :error-messages="errors.accredit  ? errors.accredit[0] : []"
+                                              multiple
+                                              :label="trans('form.accredit')" outlined
+                                    ></v-select>
+																	<v-text-field  label="Codice LRN" outlined
+																								 v-if="lrn"
+																								 :error-messages="errors.lrn  ? errors.lrn[0] : []"
+																								 v-model="strutura.lrn" dense></v-text-field>
+																	<v-menu
+																		v-if="lrn"
+																		content-class="gdate"
+																		v-model="datePicker1"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_lrn"
+																				label="Data accreditamento LRN"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_lrn ? errors.accredit_lrn[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_lrn"
+																			@input="datePicker1 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="mf"
+																		content-class="gdate"
+																		v-model="datePicker2"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_mf"
+																				label="Data accreditamento MF"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_mf ? errors.accredit_mf[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_mf"
+																			@input="datePicker2 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="dile"
+																		content-class="gdate"
+																		v-model="datePicker3"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_dile"
+																				label="Data accreditamento DILE"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_dile ? errors.accredit_dile[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_dile"
+																			@input="datePicker3 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="iiq"
+																		content-class="gdate"
+																		v-model="datePicker4"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_iiq"
+																				label="Data accreditamento IIQ"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_iiq ? errors.accredit_iiq[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_iiq"
+																			@input="datePicker4 = false"
+																		></v-date-picker>
+																	</v-menu>
+																	<v-menu
+																		v-if="miur"
+																		content-class="gdate"
+																		v-model="datePicker5"
+																		:close-on-content-click="false"
+																		transition="scale-transition"
+																		offset-y
+																		min-width="290px"
+																	>
+																		<template v-slot:activator="{ on }">
+																			<v-text-field
+																				v-model="strutura.accredit_miur"
+																				label="Data accreditamento MIUR"
+																				readonly
+																				outlined
+																				dense
+																				v-on="on"
+																				:error-messages="errors.accredit_miur ? errors.accredit_miur[0] : []"
+																			></v-text-field>
+																		</template>
+																		<v-date-picker
+																			v-model="strutura.accredit_miur"
+																			@input="datePicker5 = false"
+																		></v-date-picker>
+																	</v-menu>
+                                    <v-text-field :label="trans('form.codice_destinatario')" outlined
+                                                  :error-messages="errors.codice_destinatario  ? errors.codice_destinatario[0] : []"
+                                                  v-model="strutura.codice_destinatario"
+                                                  dense></v-text-field>
+
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <v-card outlined flat>
+                        <v-card-title>Sede legale</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12" sm="12" class="gel">
+                                    <v-autocomplete
+                                        dense v-model="strutura.legal_country"
+                                        :items="nazioni"
+                                        item-text="name"
+                                        item-value="id"
+                                        :error-messages="errors.legal_country ? errors.legal_country[0] : []"
+                                        :label="trans('form.country')"
+                                        outlined
+                                    ></v-autocomplete>
+                                    <v-autocomplete
+                                        dense v-model="strutura.legal_town"
+                                        :items="towns"
+                                        item-text="title"
+                                        item-value="id"
+                                        :error-messages="errors.legal_town ? errors.legal_town[0] : []"
+                                        :label="trans('form.city')"
+                                        outlined
+                                    ></v-autocomplete>
+
+                                    <v-autocomplete
+                                        dense v-model="strutura.legal_region"
+                                        :items="regions"
+                                        item-text="title"
+                                        item-value="id"
+                                        :error-messages="errors.legal_region ? errors.legal_region[0] : []"
+                                        label="Regione"
+                                        outlined
+                                    ></v-autocomplete>
+
+                                    <v-autocomplete
+                                        dense v-model="strutura.legal_prov"
+                                        :items="province"
+                                        item-text="title"
+                                        item-value="id"
+                                        :error-messages="errors.legal_prov ? errors.legal_prov[0] : []"
+                                        :label="trans('form.state')"
+                                        outlined
+                                    ></v-autocomplete>
+
+                                        <v-text-field :label="trans('form.cap')" outlined v-model="strutura.legal_zipcode"
+                                                      :error-messages="errors.legal_zipcode ? errors.legal_zipcode[0] : []"
+                                                      dense></v-text-field>
+
+                                        <v-text-field :label="trans('form.address')" outlined
+                                                      :error-messages="errors.legal_address ? errors.legal_address[0] : []"
+                                                      v-model="strutura.legal_address" dense></v-text-field>
 
 
-									<v-select dense v-model="strutura.infoAccesso.lingua" :items="lingua"
-														:label="trans('form.lang')" outlined
-									></v-select>
 
-									<v-select dense v-model="strutura.infoAccesso.accredit" :items="accredit"
-														:label="trans('form.accredit')" outlined
-									></v-select>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
 
-									<v-text-field :label="trans('form.codice_destinatario')" outlined v-model="strutura.infoAccesso.codice_destinatario" dense></v-text-field>
+            <v-row>
+                <v-col cols="12" md="6">
+                    <v-card outlined flat>
+                        <v-card-title>{{trans('form.sedi_esame')}}</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12" sm="12" class="gel">
 
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-card outlined flat>
-						<v-card-title>Sede legale</v-card-title>
-						<v-card-text>
-							<v-row>
-								<v-col cols="12" sm="12" class="gel">
-									<v-autocomplete
-										dense v-model="strutura.sedeLegale.nazione" :items="nazioni"
-										:label="trans('form.country')"
-										outlined
-									></v-autocomplete>
+                                    <v-autocomplete
+                                        dense v-model="strutura.operational_country"
+                                        :items="nazioni"
+                                        :label="trans('form.country')"
+                                        item-text="name"
+                                        item-value="id"
+                                        :error-messages="errors.operational_country ? errors.operational_country[0] : []"
+                                        outlined
+                                    ></v-autocomplete>
+                                    <v-row>
+                                        <v-col cols="12" >
+                                            <v-autocomplete
+                                                dense v-model="strutura.operational_town"
+                                                :items="towns"
+                                                item-text="title"
+                                                item-value="id"
+                                                :error-messages="errors.operational_town ? errors.operational_town[0] : []"
+                                                :label="trans('form.city')"
+                                                outlined
+                                            ></v-autocomplete>
+                                        </v-col>
+                                        <v-col cols="12" >
+                                            <v-autocomplete
+                                                dense v-model="strutura.operational_prov"
+                                                :items="province"
+                                                item-text="title"
+                                                item-value="id"
+                                                :error-messages="errors.operational_prov ? errors.operational_prov[0] : []"
+                                                :label="trans('form.state')"
+                                                outlined
+                                            ></v-autocomplete>
+                                        </v-col>
+                                         <v-col cols="12">
+                                             <v-autocomplete
+                                                 dense v-model="strutura.operational_region"
+                                                 :items="regions"
+                                                 item-text="title"
+                                                 item-value="id"
+                                                 :error-messages="errors.operational_region ? errors.operational_region[0] : []"
+                                                 label="Regione"
+                                                 outlined
+                                             ></v-autocomplete>
+                                         </v-col>
+                                        <v-col cols="12" md="3">
+                                            <v-text-field :label="trans('form.cap')" outlined v-model="strutura.operational_zipcode"
+                                                          :error-messages="errors.operational_zipcode ? errors.operational_zipcode[0] : []"
+                                                          dense></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" md="9">
+                                            <v-text-field :label="trans('form.address')" outlined
+                                                          :error-messages="errors.operational_address ? errors.operational_address[0] : []"
+                                                          v-model="strutura.operational_address" dense></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <v-card outlined flat>
+                        <v-card-title>{{'Informazioni di contatto'}}</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12" >
+                                    <v-text-field :label="trans('form.phone')" outlined
+                                                  :error-messages="errors.phone ? errors.phone[0] : []"
+                                                  v-model="strutura.phone" dense></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field :label="trans('form.fax')" outlined
+                                                  :error-messages="errors.fax ? errors.fax[0] : []"
+                                                  v-model="strutura.fax" dense></v-text-field>
+                                </v-col>
+                            </v-row>
 
-									<v-text-field :label="trans('form.address')" outlined v-model="strutura.sedeLegale.indirizzo" dense></v-text-field>
+                            <v-row>
+                                <v-col cols="12" >
+                                    <v-text-field :label="trans('form.email')" outlined
+                                                  :error-messages="errors.email ? errors.email[0] : []"
+                                                  v-model="strutura.email" dense></v-text-field>
 
-
-									<v-text-field :label="trans('form.city')" outlined v-model="strutura.sedeLegale.citta" dense></v-text-field>
-
-									<v-autocomplete
-												dense v-model="strutura.sedeLegale.provinca" :items="province"
-												:label="trans('form.state')"
-												outlined
-									></v-autocomplete>
-
-									<v-text-field :label="trans('form.cap')" outlined v-model="strutura.sedeLegale.cap" dense></v-text-field>
-
-									<v-row>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.phone')" outlined v-model="strutura.sedeLegale.telefono" dense></v-text-field>
-										</v-col>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.fax')" outlined v-model="strutura.sedeLegale.fax" dense></v-text-field>
-										</v-col>
-									</v-row>
-
-									<v-text-field :label="trans('form.email')" outlined v-model="strutura.sedeLegale.email" dense></v-text-field>
-									<v-text-field :label="trans('form.pec')" outlined v-model="strutura.sedeLegale.pec" dense></v-text-field>
-
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-			</v-row>
-
-			<v-row>
-				<v-col cols="12" md="6">
-					<v-card outlined flat>
-						<v-card-title>{{trans('form.sedi_esame')}}</v-card-title>
-						<v-card-text>
-							<v-row>
-								<v-col cols="12" sm="12" class="gel">
-
-									<v-text-field :label="trans('form.name')" outlined v-model="strutura.sediEsame.nome" dense></v-text-field>
-
-									<v-autocomplete
-										dense v-model="strutura.sediEsame.nazione" :items="nazioni"
-										:label="trans('form.country')"
-										outlined
-									></v-autocomplete>
-
-									<v-text-field :label="trans('form.address')" outlined v-model="strutura.sediEsame.indirizzo" dense></v-text-field>
-
-									<v-row>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.city')" outlined v-model="strutura.sediEsame.citta" dense></v-text-field>
-										</v-col>
-										<v-col cols="12" md="6">
-											<v-autocomplete
-												dense v-model="strutura.sediEsame.provinca" :items="province"
-												:label="trans('form.state')"
-												outlined
-											></v-autocomplete>
-										</v-col>
-									</v-row>
-
-									<v-text-field :label="trans('form.cap')" outlined v-model="strutura.sediEsame.cap" dense></v-text-field>
-
-									<v-row>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.phone')" outlined v-model="strutura.sediEsame.telefono" dense></v-text-field>
-										</v-col>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.fax')" outlined v-model="strutura.sediEsame.fax" dense></v-text-field>
-										</v-col>
-									</v-row>
-
-									<v-row>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.email')" outlined v-model="strutura.sediEsame.email" dense></v-text-field>
-										</v-col>
-										<v-col cols="12" md="6">
-											<v-text-field :label="trans('form.site')" outlined v-model="strutura.sediEsame.sito" dense></v-text-field>
-										</v-col>
-									</v-row>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-card outlined flat>
-						<v-card-title>{{trans('form.sede_spedizione')}}</v-card-title>
-						<v-card-text>
-							<v-row>
-								<v-col cols="12" sm="12" class="gel">
-									<v-text-field :label="trans('form.recipient')" outlined v-model="strutura.sedeSpedizione.destinatario" dense></v-text-field>
-
-									<v-autocomplete
-										dense v-model="strutura.sedeSpedizione.nazione" :items="nazioni"
-										:label="trans('form.country')"
-										outlined
-									></v-autocomplete>
-
-									<v-text-field :label="trans('form.address_civico')" outlined v-model="strutura.sedeSpedizione.indirizzoNrCivico" dense></v-text-field>
-									<v-text-field :label="trans('form.city')" outlined v-model="strutura.sedeSpedizione.citta" dense></v-text-field>
-
-									<v-autocomplete
-										dense v-model="strutura.sedeSpedizione.provinca" :items="province"
-										:label="trans('form.state')"
-										outlined
-									></v-autocomplete>
-
-									<v-text-field :label="trans('form.cap')" outlined v-model="strutura.sedeSpedizione.cap" dense></v-text-field>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-			</v-row>
-			<v-row>
-				<v-col cols="12" md="6">
-					<v-card outlined flat>
-						<v-card-title>{{trans('form.rap_legale')}}</v-card-title>
-						<v-card-text>
-							<v-row>
-								<v-col cols="12" sm="12" class="gel">
-									<v-text-field :label="trans('form.last_name')" outlined v-model="strutura.rappresentanteLegale.cognome" dense></v-text-field>
-									<v-text-field :label="trans('form.name')" outlined v-model="strutura.rappresentanteLegale.nome" dense></v-text-field>
-									<v-text-field :label="trans('form.email')" outlined v-model="strutura.rappresentanteLegale.email" dense></v-text-field>
-									<v-text-field :label="trans('form.phone')" outlined v-model="strutura.rappresentanteLegale.telefono" dense></v-text-field>
-									<v-text-field :label="trans('form.fax')" outlined v-model="strutura.rappresentanteLegale.fax" dense></v-text-field>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-				<v-col cols="12" md="6">
-					<v-card outlined flat>
-						<v-card-title>{{trans('form.rap_eipass')}}</v-card-title>
-						<v-card-text>
-							<v-row>
-								<v-col cols="12" sm="12" class="gel">
-									<v-text-field :label="trans('form.last_name')" outlined v-model="strutura.rappresentanteEipass.cognome" dense></v-text-field>
-									<v-text-field :label="trans('form.name')" outlined v-model="strutura.rappresentanteEipass.nome" dense></v-text-field>
-									<v-text-field :label="trans('form.email')" outlined v-model="strutura.rappresentanteEipass.email" dense></v-text-field>
-									<v-text-field :label="trans('form.phone')" outlined v-model="strutura.rappresentanteEipass.telefono" dense></v-text-field>
-								</v-col>
-							</v-row>
-						</v-card-text>
-					</v-card>
-				</v-col>
-			</v-row>
-
-			<v-card outlined flat>
-				<v-card-title>{{trans('form.rap_eipass')}}</v-card-title>
-				<v-card-text>
-					<v-row>
-						<v-col cols="12" md="6">
-							<v-text-field dense readonly label="Domanda accreditamento" outlined @click='pickFile(0)'
-														prepend-inner-icon="mdi-cloud-upload" :value="doc1 ? doc1.name : '' "
-							></v-text-field>
-							<input
-								type="file"
-								style="display: none"
-								ref="file0"
-								@change="handleFileUpload($event, 0)"
-							>
-						</v-col>
-						<v-col cols="12" md="6">
-							<v-text-field dense readonly label="Visura camerale" outlined @click='pickFile(1)'
-														prepend-inner-icon="mdi-cloud-upload" :value="doc2 ? doc2.name : '' "
-							></v-text-field>
-							<input
-								type="file"
-								style="display: none"
-								ref="file1"
-								@change="handleFileUpload($event, 1)"
-							>
-						</v-col>
-					</v-row>
-				</v-card-text>
-			</v-card>
-
-			<v-row>
-				<v-col cols="12" sm="12">
-					<v-btn
-						dense
-						:loading="submiting"
-						:disabled="submiting"
-						color="primary"
-						class="ma-0 white--text"
-					>
-						Salva
-					</v-btn>
-				</v-col>
-			</v-row>
-		</v-container>
-	</v-form>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field :label="trans('form.pec')" outlined v-model="strutura.pec"
+                                                  :error-messages="errors.pec ? errors.pec[0] : []"
+                                                  dense></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field :label="trans('form.site')" outlined
+                                                  :error-messages="errors.website ? errors.website[0] : []"
+                                                  v-model="strutura.website" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row >
+                <v-col   cols="12" md="6">
+                    <v-card outlined flat>
+                        <v-card-title>{{trans('form.rap_legale')}}</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12" sm="12" >
+                                    <v-text-field :label="trans('form.last_name')" outlined
+                                                  :error-messages="errors.rappresentante_cognome ? errors.rappresentante_cognome[0] : []"
+                                                  v-model="strutura.rappresentante_cognome" dense></v-text-field>
+                                </v-col>
+                                 <v-col cols="12" sm="12" >
+                                    <v-text-field :label="trans('form.name')" outlined
+                                                  :error-messages="errors.rappresentante_nome ? errors.rappresentante_nome[0] : []"
+                                                  v-model="strutura.rappresentante_nome" dense></v-text-field>
+                                 </v-col>
+                                 <v-col cols="12" sm="12" >
+                                    <v-text-field :label="trans('form.email')" outlined
+                                                  :error-messages="errors.rappresentante_email ? errors.rappresentante_email[0] : []"
+                                                  v-model="strutura.rappresentante_email" dense></v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" md="6">
+                    <v-card outlined flat>
+                        <v-card-title>{{'Altre informazioni'}}</v-card-title>
+                        <v-card-text>
+                            <v-row>
+                                <v-col cols="12" >
+                                    <v-text-field dense readonly label="Domanda accreditamento" outlined @click='pickFile(0)'
+                                                  :error-messages="errors.doc_file1 ? errors.doc_file1[0] : []"
+                                                  prepend-inner-icon="mdi-cloud-upload" :value="doc1 ? doc1.name : '' "
+                                    ></v-text-field>
+                                    <input
+                                        type="file"
+                                        style="display: none"
+                                        ref="file0"
+                                        @change="handleFileUpload($event, 0)"
+                                    >
+                                </v-col>
+                                <v-col cols="12" >
+                                    <v-text-field dense readonly label="Logo struttura" outlined @click='pickFile(2)'
+                                                  :error-messages="errors.doc_file3 ? errors.doc_file3[0] : []"
+                                                  prepend-inner-icon="mdi-cloud-upload" :value="doc3 ? doc3.name : '' "
+                                    ></v-text-field>
+                                    <input
+                                        type="file"
+                                        style="display: none"
+                                        ref="file2"
+                                        @change="handleFileUpload($event, 2)"
+                                    >
+                                </v-col>
+                                <v-col cols="12">
+                                    <v-text-field dense readonly label="Visura camerale" outlined @click='pickFile(1)'
+                                                  :error-messages="errors.doc_file2 ? errors.doc_file2[0] : []"
+                                                  prepend-inner-icon="mdi-cloud-upload" :value="doc2 ? doc2.name : '' "
+                                    ></v-text-field>
+                                    <input
+                                        type="file"
+                                        style="display: none"
+                                        ref="file1"
+                                        @change="handleFileUpload($event, 1)"
+                                    >
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+            <v-row>
+                <v-col cols="12" sm="12">
+                    <v-btn
+                        dense
+                        :loading="submiting"
+                        :disabled="submiting"
+                        color="primary"
+                        class="ma-0 white--text"
+                        @click.prevent="save"
+                    >
+                        Salva
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-form>
 </template>
 
 <script>
     export default {
-        props: ['structureType'],
         data() {
             return {
-                strutura: {
-                    infoAccesso: {
-                        nome: null,
-                        ragione_sociale: null,
-                        username: null,
-                        password: null,
-                        piva: null,
-                        lingua: null,
-                        accredit: null,
-                        codice_destinatario: null
-                    },
-                    sedeLegale: {
-                        nazione: null,
-                        indirizzo: null,
-                        citta: null,
-                        provinca: null,
-                        cap: null,
-                        telefono: null,
-                        fax: null,
-                        email: null,
-                        pec: null
-                    },
-                    sediEsame: {
-                        nome: null,
-                        nazione: null,
-                        indirizzo: null,
-                        citta: null,
-                        provinca: null,
-                        cap: null,
-                        telefono: null,
-                        fax: null,
-                        email: null,
-                        sito: null
-                    },
-                    sedeSpedizione: {
-                        destinatario: null,
-                        nazione: null,
-                        indirizzoNrCivico: null,
-                        citta: null,
-                        provinca: null,
-                        cap: null
-                    },
-                    rappresentanteLegale: {
-                        cognome: null,
-                        nome: null,
-                        email: null,
-                        telefono: null,
-                        fax: null
-                    },
-                    rappresentanteEipass: {
-                        cognome: null,
-                        nome: null,
-                        email: null,
-                        telefono: null
-                    }
-                },
-								doc1: null,
-								doc2: null,
+                strutura: {},
+                doc1: null,
+                doc2: null,
+                doc3: '',
+							  lrn:false,
+							  mf:false,
+							  iiq:false,
+							  miur:false,
+							  dile:false,
+							datePicker1: false,
+							datePicker2: false,
+							datePicker3: false,
+							datePicker4: false,
+							datePicker5: false,
                 errors: {},
                 submiting: false,
-                categories: [],
-                roles: [],
-								showpass: false,
                 dataContratto: false,
                 date: new Date().toISOString().substr(0, 10),
-								nazioni: ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Anguilla', 'Antartide',
-										'Antigua e Barbuda', 'Antille Olandesi', 'Arabia Saudita', 'Argentina', 'Armenia', 'Aruba',
-										'Australia', 'Austria', 'Azerbaijan', 'Bahamas', 'Bahrein', 'Bangladesh', 'Barbados', 'Belgio',
-										'Belize', 'Benin', 'Bermuda', 'Bhutan', 'Bielorussia', 'Bolivia', 'Bosnia Erzegovina', 'Botswana',
-										'Brasile', 'Brunei Darussalam', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cambogia', 'Camerun',
-										'Canada', 'Capo Verde', 'Christmas Island', 'Ciad', 'Cile', 'Cina', 'Cipro',
-										'Cocos (Keeling) Islands', 'Colombia', 'Comore', 'Congo', 'Congo,Rep. Democratica',
-										'Corea del Nord', 'Corea del Sud', 'Costa d\'Avorio', 'Costa Rica', 'Croazia', 'Cuba', 'Danimarca',
-										'Dominica', 'Ecuador', 'Egitto', 'EIRE', 'El Salvador', 'Emirati Arabi Uniti', 'Eritrea', 'Estonia',
-										'Etiopia', 'Falkland Islands (Malvinas)', 'Figi', 'Filippine', 'Finlandia', 'Francia', 'Gabon',
-										'Gambia', 'Georgia', 'Germania', 'Ghana', 'Giamaica', 'Giappone', 'Gibilterra', 'Gibuti',
-										'Giordania', 'Gran Bretagna', 'Grecia', 'Grenada', 'Groenlandia', 'Guadalupa', 'Guam', 'Guatemala',
-										'Guiana Francese', 'Guinea', 'Guinea Equatoriale', 'Guinea-Bissau', 'Guyana', 'Haiti',
-										'Holy See (Vatican City State)', 'Honduras', 'Hong Kong', 'India', 'Indonesia', 'Iran', 'Iraq',
-										'Islanda', 'Isola Bouvet', 'Isola di Norfolk', 'Isole Cayman', 'Isole di Cook', 'Isole Faroe',
-										'Isole Heard e McDonald', 'Isole Maldive', 'Isole Marianne del Nord', 'Isole Marshall',
-										'Isole Minor Outlying, USA', 'Isole Solomone', 'Isole Turks e Caicos', 'Isole Vergini, GB',
-										'Isole Vergini, USA', 'Israele', 'Italia', 'Kazakistan', 'Kenya', 'Kirgizistan', 'Kiribati',
-										'Kosovo', 'Kuwait', 'Laos', 'Lesotho', 'Lettonia', 'Libano', 'Liberia', 'Libia', 'Liechtenstein',
-										'Lituania', 'Lussemburgo', 'Macao', 'Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Mali',
-										'Malta', 'Marocco', 'Martinica', 'Mauritania', 'Mauritius', 'Mayotte', 'Mexico', 'Micronesia',
-										'Moldova, Republic of', 'Monaco', 'Mongolia', 'Montenegro', 'Montserrat', 'Mozambique', 'Myanmar',
-										'Namibia', 'Nauru', 'Nepal', 'Nicaragua', 'Niger', 'Nigeria', 'Niue', 'Norvegia', 'Nuova Caledonia',
-										'Nuova Guinea', 'Nuova Zelanda', 'Oceano Indiano, territorio britannico', 'Oman', 'Paesi Bassi',
-										'Pakistan', 'Palau', 'Panama', 'Paraguay', 'Peru', 'Pitcairn', 'Polinesia Francese', 'Polonia',
-										'Porto Rico', 'Portogallo', 'Qatar', 'R?union', 'Repubblica Ceca', 'Repubblica Centrafricana',
-										'Repubblica Dominicana', 'Romania', 'Russia', 'Rwanda', 'Sahara Occidentale', 'Saint Kitts e Nevis',
-										'Saint Pierre e Miquelon', 'Saint Vincent e le Grenadine', 'Samoa', 'Samoa Americane', 'San Marino',
-										'Sant\'Elena', 'Santa Lucia', 'Sao Tome e Principe', 'Senegal', 'Serbia', 'Seychelles',
-										'Sierra Leone', 'Singapore', 'Siria', 'Slovacchia', 'Slovenia', 'Somalia', 'Spagna', 'Sri Lanka',
-										'Sud Africa', 'Sud Georgia', 'Sudan', 'Suriname', 'Svalbard e Jan Mayen', 'Svezia', 'Svizzera',
-										'Swaziland', 'Tagikistan', 'Taiwan', 'Tanzania', 'Territori Francesi del Sud',
-										'Territori Palestinesi', 'Thailand', 'Timor Est', 'Togo', 'Tokelau', 'Tonga',
-										'Trinidad e Tobago', 'Tunisia', 'Turchia', 'Turkmenistan', 'Tuvalu', 'Ucraina', 'Uganda',
-										'Ungheria', 'Uruguay', 'USA', 'Uzbekistan', 'Vanuatu', 'Venezuela', 'Vietnam', 'Wallis e Futuna',
-										'Yemen', 'Zambia', 'Zimbabwe'],
-								lingua: ['Italiani', 'Inglese'],
-								accredit: ['MIUR', 'MEDIAFORM', 'IIQ', 'LRN', 'DILE'],
-								province: ['Agrigento', 'Alessandria', 'Ancona', 'Aosta', 'Ascoli Piceno', 'L\'Aquila', 'Arezzo',
-										'Asti', 'Avellino', 'Bari', 'Bergamo', 'Biella', 'Belluno', 'Benevento', 'Bologna', 'Brindisi',
-										'Brescia', 'Barletta - Andria - Trani', 'Bolzano', 'Cagliari', 'Campobasso', 'Caserta', 'Chieti',
-										'Carbonia Iglesias', 'Caltanissetta', 'Cuneo', 'Como', 'Cremona', 'Cosenza', 'Catania', 'Catanzaro',
-										'Enna', 'Forlì Cesena', 'Ferrara', 'Foggia', 'Firenze', 'FERMO', 'Frosinone', 'Genova', 'Gorizia',
-										'Grosseto', 'Imperia', 'Isernia', 'Crotone', 'Lecco', 'Lecce', 'Livorno', 'Lodi', 'Latina', 'Lucca',
-										'Monza Brianza', 'Macerata', 'Messina', 'Milano', 'Mantova', 'Modena', 'Massa Carrara', 'Matera',
-										'Napoli', 'Novara', 'Nuoro', 'Ogliastra', 'Oristano', 'Olbia Tempio', 'Palermo', 'Piacenza',
-										'Padova', 'Pescara', 'Perugia', 'Pisa', 'Pordenone', 'Prato', 'Parma', 'Pistoia', 'Pesaro Urbino',
-										'Pavia', 'Potenza', 'Ravenna', 'Reggio Calabria', 'Reggio Emilia', 'Ragusa', 'Rieti', 'Roma',
-										'Rimini', 'Rovigo', 'Salerno', 'Siena', 'Sondrio', 'La Spezia', 'Siracusa', 'Sassari',
-										'Sud Sardegna', 'Savona', 'Taranto', 'Teramo', 'Trento', 'Torino', 'Trapani', 'Terni',
-										'Trieste', 'Treviso', 'Udine', 'Varese', 'Verbania', 'Vercelli', 'Venezia', 'Vicenza', 'Verona',
-										'Medio Campidano', 'Viterbo', 'Vibo Valentia'],
-						}
-				},
-				mounted() {
-            console.log(this.structureType);
-				},
-				methods: {
-            pickFile(i) {
-                if(i == 0) {
-                    this.$refs.file0.click()
-								} else if (i == 1) {
-                    this.$refs.file1.click()
-								}
+                nazioni: [],
+                regions:[],
+                accredit: [
+                    {id:1, value: 'MIUR'},
+                    {id:2, value: 'MEDIAFORM'},
+                    {id:3, value: 'IIQ'},
+                    {id:4, value: 'LRN'},
+                    {id:5, value: 'DILE'},
+
+                ],
+                province: [],
+                towns:[]
+            }
+        },
+        mounted() {
+         this.getLocations();
+        },
+        methods: {
+            getLocations(){
+                    axios.get(`/amministrazione/api/locations`)
+                        .then(response => {
+                            this.nazioni = response.data.countries;
+                            this.province = response.data.provinces;
+                            this.towns = response.data.towns;
+                            this.regions = response.data.regions;
+                        })
+                        .catch(error => {
+                        });
             },
-            handleFileUpload(e, i){
-                if(i == 0) {
+						getValues(val){
+							  this.lrn=false;
+								this.mf=false;
+								this.iiq=false;
+								this.miur=false;
+								this.dile=false;
+              if (val.includes(1)){
+								this.miur = true;
+							}if (val.includes(2)){
+                	this.mf = true;
+							}if (val.includes(3)){
+                	this.iiq = true;
+							}if (val.includes(4)){
+                	this.lrn = true;
+							}if (val.includes(5)){
+                	this.dile = true;
+							}
+						},
+            save(){
+                if (!this.submiting) {
+                    this.submiting = true;
+                    let formData = new FormData();
+                    formData.append('doc_file1', this.doc1);
+                    formData.append('doc_file2', this.doc2);
+                    formData.append('doc_file3', this.doc3);
+                    formData.append('structure', JSON.stringify(this.strutura))
+                    axios.post(`/amministrazione/api/structure/store`,
+                        formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+
+                        }).then(response => {
+                        this.submiting = false
+                        if (response.data.status == 'success') {
+                            swal("Good job!", response.data.msg, "success");
+                            this.doc = {};
+                            this.doc_file = null;
+                        }
+                        else if (response.data.status === 'error') {
+                            swal({
+                                title: "Whoops!",
+                                text: response.data.msg,
+                                icon: "warning",
+                                dangerMode: true,
+                            });
+                            this.submiting = false
+                        }
+                    }).catch(error => {
+                        this.submiting = false
+                        this.errors = error.response.data.errors
+                    })
+                }
+            },
+            pickFile(i) {
+                if (i == 0) {
+                    this.$refs.file0.click()
+                } else if (i == 1) {
+                    this.$refs.file1.click()
+                }else if (i == 2) {
+                    this.$refs.file2.click()
+                }
+            },
+            handleFileUpload(e, i) {
+                if (i == 0) {
                     this.doc1 = e.target.files[0];
                 } else if (i == 1) {
                     this.doc2 = e.target.files[0];
+                }else if (i == 2) {
+                    this.doc3 = e.target.files[0];
                 }
             },
-				}
+        }
     }
 </script>
 
 <style>
-	.gel > div {
-		margin-bottom: 15px !important;
-	}
-	.gel .col-md-6.col-12 {
-		padding: 0 12px;
-	}
-	.v-menu__content {
-		margin-top: 40px !important;
-	}
-	.v-menu__content.v-autocomplete__content {
-		margin-top: 0 !important;
-	}
-	.v-menu__content.gdate {
-		margin-top: 0 !important;
-	}
-	.add-stru .v-card__title {
-		background: #388E3C;
-		color: white;
-		padding: 10px 15px;
-		box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);
-		background: linear-gradient(45deg, #388E3C, #81C784);
-		margin-bottom: 10px;
-		font-size: 18px;
-		font-weight: normal;
-	}
-	.v-application--is-ltr .v-text-field--outlined fieldset {
-		background: #f2f2f2;
-		border-color: #bfbfbf;
-	}
-	.gel {
-		padding-bottom: 0;
-	}
-	.gel div:last-child {
-		margin-bottom: 0 !important;
-	}
+    .gel > div {
+        margin-bottom: 15px !important;
+    }
+
+    .gel .col-md-6.col-12 {
+        padding: 0 12px;
+    }
+
+    .v-menu__content {
+        margin-top: 40px !important;
+    }
+
+    .v-menu__content.v-autocomplete__content {
+        margin-top: 0 !important;
+    }
+
+    .v-menu__content.gdate {
+        margin-top: 0 !important;
+    }
+
+    .add-stru .v-card__title {
+        background: #388E3C;
+        color: white;
+        padding: 10px 15px;
+        box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);
+        background: linear-gradient(45deg, #388E3C, #81C784);
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: normal;
+    }
+
+    .v-application--is-ltr .v-text-field--outlined fieldset {
+        background: #f2f2f2;
+        border-color: #bfbfbf;
+    }
+
+    .gel {
+        padding-bottom: 0;
+    }
+
+    .gel div:last-child {
+        margin-bottom: 0 !important;
+    }
 </style>

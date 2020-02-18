@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/UtentiCreateComponent.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/emails/user/password-reset.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/utenti/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/utenti/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/utenti/utenti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gestionale.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gestionale.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/superadmin/settings/scadenza_contrato.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SettingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/AddStrutureComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddStrutureComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/UtentiCreateComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/UtentiCreateComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/left-nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/struture/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/struture/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/superadmin/superadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/superadmin/superadmin.php" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,7 +196,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="editor.config.ad.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/superadmin/settings" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -213,31 +210,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\gestionale\resources\views\superadmin\settings" />
+      <recent name="C:\xamppp\htdocs\gestionale\resources\views" />
+      <recent name="C:\xamppp\htdocs\gestionale\resources\views\auth" />
+      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
+      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xamppp\htdocs\gestionale\app\Models" />
       <recent name="C:\xampp\htdocs\gestionale\app\Http\Controllers\Admin" />
       <recent name="C:\xampp\htdocs\gestionale\resources\views" />
       <recent name="C:\xampp\htdocs\gestionale" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xamppp\htdocs\gestionale\resources\views" />
-      <recent name="C:\xamppp\htdocs\gestionale\resources\views\auth" />
-      <recent name="C:\xampp\htdocs\gestionale\app\Traits" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\components" />
-      <recent name="C:\xampp\htdocs\gestionale\resources\js\datatables" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="PHPUnit.phpunit.xml">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -250,7 +235,7 @@
       <scripts>
         <script value="dev" />
       </scripts>
-      <node-interpreter value="project" />
+      <node-interpreter value="C:/Program Files/nodejs/node" />
       <envs />
       <method v="2" />
     </configuration>
@@ -264,8 +249,19 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="watch" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="C:/Program Files/nodejs/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.watch" />
         <item itemvalue="npm.dev" />
         <item itemvalue="npm.development" />
       </list>
@@ -429,7 +425,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
     <MESSAGE value="Fixes for Document Categories and Redesign of Login + Responsive" />
     <MESSAGE value="Fix auth pages" />
     <MESSAGE value="Create Markup for Struture create, and testing for vuetify datatables" />
@@ -438,44 +433,70 @@
     <option name="LAST_COMMIT_MESSAGE" value="Struture list and controller/model" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="432" y="162" key="#Deployment" />
-    <state x="432" y="162" key="#Deployment/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
-    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" />
-    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="740" y="274" key="FileChooserDialogImpl" />
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" />
-    <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state width="200" height="539" key="HiddenNamespacesPopup" />
-    <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="675" y="423" key="NewPhpFileDialog" />
-    <state x="675" y="423" key="NewPhpFileDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="609" y="141" key="RollbackChangesDialog" />
-    <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="341" y="136" key="SettingsEditor" />
-    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog" />
-    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog/0.0.1920.1040@0.0.1920.1040" />
-    <state x="570" y="309" key="com.intellij.database.dbimport.ImportUtil.MyDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" />
-    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" />
-    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1" />
-    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" />
-    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="657" y="125" width="606" height="789" key="find.popup" />
-    <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" />
-    <state x="545" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" />
-    <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" />
+    <state x="432" y="162" key="#Deployment" timestamp="1581972258472" />
+    <state x="432" y="162" key="#Deployment/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1581972258472" />
+    <state x="494" y="167" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="432" y="162" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1581972258472" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1581972258472" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="604" y="266" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="554" y="186" key="#dev" timestamp="1581973142505">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="554" y="186" key="#dev/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581973142505" />
+    <state x="554" y="186" key="#watch" timestamp="1581972591027">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="554" y="186" key="#watch/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972591027" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1581972258472" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state width="1636" height="244" key="GridCell.Tab.0.bottom" timestamp="1581977940781">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="244" key="GridCell.Tab.0.bottom/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581977940781" />
+    <state width="1636" height="244" key="GridCell.Tab.0.center" timestamp="1581977940781">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="244" key="GridCell.Tab.0.center/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581977940781" />
+    <state width="1636" height="244" key="GridCell.Tab.0.left" timestamp="1581977940781">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="244" key="GridCell.Tab.0.left/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581977940781" />
+    <state width="1636" height="244" key="GridCell.Tab.0.right" timestamp="1581977940781">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="244" key="GridCell.Tab.0.right/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581977940781" />
+    <state width="200" height="539" key="HiddenNamespacesPopup" timestamp="1581972258472" />
+    <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="675" y="423" key="NewPhpFileDialog" timestamp="1581972258472" />
+    <state x="675" y="423" key="NewPhpFileDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="609" y="141" key="RollbackChangesDialog" timestamp="1581972258472" />
+    <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="341" y="136" key="SettingsEditor" timestamp="1581972258472" />
+    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog" timestamp="1581972258472" />
+    <state x="651" y="318" key="com.intellij.database.dbimport.ImportUtil.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="570" y="309" key="com.intellij.database.dbimport.ImportUtil.MyDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581972258472" />
+    <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581972258472" />
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1" timestamp="1581972258472" />
+    <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" timestamp="1581972258472" />
+    <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="657" y="125" width="606" height="789" key="find.popup" timestamp="1581972258472" />
+    <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1581981335343">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581981335343" />
+    <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1581972258472" />
   </component>
 </project>
