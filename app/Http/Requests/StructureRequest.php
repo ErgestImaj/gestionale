@@ -20,12 +20,15 @@ class StructureRequest extends FormRequest
      * Prepare data for validation
      */
     public function prepareForValidation() {
+
         $this->merge(
-            json_decode($this->get('structure'),true)
+	        json_decode($this->get('structure'),true)
         );
     }
 
-    /**
+
+
+	/**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -34,7 +37,7 @@ class StructureRequest extends FormRequest
     {
 
         return [
-           'nome'=>'required|string|min:2|max:191',
+           'nome'=>'bail|required|string|min:2|max:191',
            'legal_name'=>'required|string|min:2|max:191',
            'piva'=>'required|string|max:191',
            'tax_code'=>'required|string|min:2|max:191',
@@ -58,7 +61,7 @@ class StructureRequest extends FormRequest
            'website'=>'sometimes|url',
            'rappresentante_cognome'=>'required|string|min:2|max:191',
            'rappresentante_nome'=>'required|string|min:2|max:191',
-           'rappresentante_email'=>'required|email|unique:users',
+           'rappresentante_email'=>'required|email|unique:users,email',
            'accredit'=>'required|array',
            'doc_file3'=>'nullable|mimes:jpeg,png,jpg',
            'doc_file2'=>'required|mimes:jpeg,png,jpg,pdf',
@@ -67,6 +70,7 @@ class StructureRequest extends FormRequest
     }
 
     public function attributes() {
+
         return [
             'nome'=>strtolower(trans('form.nome_strutura')),
             'legal_name'=>strtolower(trans('form.ragione_sociale')),
@@ -75,7 +79,7 @@ class StructureRequest extends FormRequest
             'operational_region'=>'regione',
             'legal_country'=>strtolower(trans('form.country')),
             'operational_country'=>strtolower(trans('form.country')),
-            'legal_town'=>strtolower(trans('form.city')),
+            'legal_town'=>'città',
             'operational_town'=>strtolower(trans('form.city')),
             'legal_prov'=>strtolower(trans('form.state')),
             'operational_prov'=>strtolower(trans('form.state')),

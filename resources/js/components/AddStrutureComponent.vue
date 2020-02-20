@@ -432,8 +432,8 @@
         data() {
             return {
                 strutura: {},
-                doc1: null,
-                doc2: null,
+                doc1:'',
+                doc2:'',
                 doc3: '',
 							  lrn:false,
 							  mf:false,
