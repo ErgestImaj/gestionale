@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Accreditation;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StructureRequest extends FormRequest
@@ -36,7 +37,7 @@ class StructureRequest extends FormRequest
     public function rules()
     {
 
-        return [
+        $rules =  [
            'nome'=>'bail|required|string|min:2|max:191',
            'legal_name'=>'required|string|min:2|max:191',
            'piva'=>'required|string|max:191',
@@ -59,14 +60,35 @@ class StructureRequest extends FormRequest
            'email'=>'required|email|unique:users',
            'pec'=>'sometimes|email',
            'website'=>'sometimes|url',
-           'rappresentante_cognome'=>'required|string|min:2|max:191',
-           'rappresentante_nome'=>'required|string|min:2|max:191',
-           'rappresentante_email'=>'required|email|unique:users,email',
            'accredit'=>'required|array',
            'doc_file3'=>'nullable|mimes:jpeg,png,jpg',
            'doc_file2'=>'required|mimes:jpeg,png,jpg,pdf',
            'doc_file1'=>'required|mimes:jpeg,png,jpg,pdf',
         ];
+        if (is_array($this->get('accredit'))){
+            foreach ($this->get('accredit') as $acredit){
+                switch ($acredit){
+                    case Accreditation::MIUR:
+                        $rules['accredit_miur']='required|date';
+                        break;
+                    case Accreditation::MF:
+                        $rules['accredit_mf']='required|date';
+                        break;
+                    case Accreditation::IIQ:
+                        $rules['accredit_iiq']='required|date';
+                        break;
+                    case Accreditation::LRN:
+                        $rules['accredit_lrn']='required|date';
+                        break;
+                    case Accreditation::DILE:
+                        $rules['accredit_dile']='required|date';
+                        break;
+                }
+            }
+        }
+
+
+        return $rules;
     }
 
     public function attributes() {
@@ -92,7 +114,50 @@ class StructureRequest extends FormRequest
             'doc_file1'=>'domanda accreditamento',
             'doc_file2'=>'visura camerale',
             'doc_file3'=>'logo struttura',
-
+            'accredit_miur'=>'data accreditamento MIUR',
+            'accredit_mf'=>'data accreditamento MF',
+            'accredit_lrn'=>'data accreditamento LRN',
+            'accredit_dile'=>'data accreditamento DILE',
+            'accredit_iiq'=>'data accreditamento IIQ',
         ];
+    }
+
+    public function fillStructure(){
+        return [
+            'nome'=>$this->nome,
+            'legal_name'=>$this->legal_name,
+            'tax_code'=>$this->tax_code,
+            'piva'=>$this->piva,
+            'codice_destinatario'=>$this->codice_destinatario,
+            'legal_region'=>$this->legal_region,
+            'operational_region'=>$this->operational_region,
+            'legal_country'=>$this->legal_country,
+            'operational_country'=>$this->operational_country,
+            'legal_town'=>$this->legal_town,
+            'operational_town'=>$this->operational_town,
+            'legal_prov'=>$this->legal_prov,
+            'operational_prov'=>$this->operational_prov,
+            'legal_zipcode'=>$this->legal_zipcode,
+            'operational_zipcode'=>$this->operational_zipcode,
+            'legal_address'=>$this->legal_address,
+            'operational_address'=>$this->operational_address,
+            'phone'=>$this->phone,
+            'fax'=>$this->fax,
+            'email'=>$this->email,
+            'pec'=>$this->pec,
+            'website'=>$this->website,
+            'doc_file1'=>$this->doc_file1,
+            'doc_file2'=>$this->doc_file2,
+            'doc_file3'=>$this->doc_file2,
+        ];
+    }
+
+    public function fillStructureInfo(){
+
+    }
+
+    public function fillStructureUser(){
+
+
     }
 }

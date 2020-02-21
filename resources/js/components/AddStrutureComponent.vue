@@ -339,30 +339,6 @@
                 </v-col>
             </v-row>
             <v-row >
-                <v-col   cols="12" md="6">
-                    <v-card outlined flat>
-                        <v-card-title>{{trans('form.rap_legale')}}</v-card-title>
-                        <v-card-text>
-                            <v-row>
-                                <v-col cols="12" sm="12" >
-                                    <v-text-field :label="trans('form.last_name')" outlined
-                                                  :error-messages="errors.rappresentante_cognome ? errors.rappresentante_cognome[0] : []"
-                                                  v-model="strutura.rappresentante_cognome" dense></v-text-field>
-                                </v-col>
-                                 <v-col cols="12" sm="12" >
-                                    <v-text-field :label="trans('form.name')" outlined
-                                                  :error-messages="errors.rappresentante_nome ? errors.rappresentante_nome[0] : []"
-                                                  v-model="strutura.rappresentante_nome" dense></v-text-field>
-                                 </v-col>
-                                 <v-col cols="12" sm="12" >
-                                    <v-text-field :label="trans('form.email')" outlined
-                                                  :error-messages="errors.rappresentante_email ? errors.rappresentante_email[0] : []"
-                                                  v-model="strutura.rappresentante_email" dense></v-text-field>
-                                </v-col>
-                            </v-row>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
                 <v-col cols="12" md="6">
                     <v-card outlined flat>
                         <v-card-title>{{'Altre informazioni'}}</v-card-title>
