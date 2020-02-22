@@ -384,6 +384,22 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
+						  	<v-col cols="12" md="6">
+								<v-card outlined flat>
+									<v-card-title>{{'Accessi di login'}}</v-card-title>
+									<v-card-text>
+										<v-row>
+											<v-col cols="12" >
+												<v-switch
+													v-model="strutura.login"
+													label="Spedire via e-mail i credenziali di accesso"
+													value="1"
+												></v-switch>
+											</v-col>
+										</v-row>
+									</v-card-text>
+								</v-card>
+							</v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" sm="12">
@@ -480,7 +496,7 @@
                     formData.append('doc_file2', this.doc2);
                     formData.append('doc_file3', this.doc3);
                     formData.append('structure', JSON.stringify(this.strutura))
-                    axios.post(`/amministrazione/api/structure/store`,
+                    axios.post(`/amministrazione/api/structure/${getUrlData(3)}/store`,
                         formData,
                         {
                             headers: {

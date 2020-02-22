@@ -5,6 +5,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\DocumentCategories;
 use App\Models\MassMailHistory;
+use App\Models\Structure;
 use App\Models\UsersInfo;
 
 trait UserRelationships{
@@ -37,5 +38,9 @@ trait UserRelationships{
 
     public function massMailsHistories(){
         return $this->hasMany(MassMailHistory::class);
+    }
+
+    public function structure(){
+    	return $this->hasOne(Structure::class,'user_id');
     }
 }

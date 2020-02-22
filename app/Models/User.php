@@ -27,6 +27,9 @@ class User extends Authenticatable
     const SUPERADMIN = 'superadmin';
     const ADMIN = 'amministrazione';
     const SEGRETERIA = 'segreteria';
+    const PARTNER = 'partner';
+    const MASTER = 'master';
+    const AFFILIATI = 'affiliati';
 
 
     /**

@@ -2353,14 +2353,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2455,7 +2447,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('doc_file2', this.doc2);
         formData.append('doc_file3', this.doc3);
         formData.append('structure', JSON.stringify(this.strutura));
-        axios.post("/amministrazione/api/structure/store", formData, {
+        axios.post("/amministrazione/api/structure/".concat(getUrlData(3), "/store"), formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -52408,129 +52400,6 @@ var render = function() {
                     { attrs: { outlined: "", flat: "" } },
                     [
                       _c("v-card-title", [
-                        _vm._v(_vm._s(_vm.trans("form.rap_legale")))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-text",
-                        [
-                          _c(
-                            "v-row",
-                            [
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", sm: "12" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.last_name"),
-                                      outlined: "",
-                                      "error-messages": _vm.errors
-                                        .rappresentante_cognome
-                                        ? _vm.errors.rappresentante_cognome[0]
-                                        : [],
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.strutura.rappresentante_cognome,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura,
-                                          "rappresentante_cognome",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentante_cognome"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", sm: "12" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.name"),
-                                      outlined: "",
-                                      "error-messages": _vm.errors
-                                        .rappresentante_nome
-                                        ? _vm.errors.rappresentante_nome[0]
-                                        : [],
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.rappresentante_nome,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura,
-                                          "rappresentante_nome",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "strutura.rappresentante_nome"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-col",
-                                { attrs: { cols: "12", sm: "12" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      label: _vm.trans("form.email"),
-                                      outlined: "",
-                                      "error-messages": _vm.errors
-                                        .rappresentante_email
-                                        ? _vm.errors.rappresentante_email[0]
-                                        : [],
-                                      dense: ""
-                                    },
-                                    model: {
-                                      value: _vm.strutura.rappresentante_email,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.strutura,
-                                          "rappresentante_email",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "strutura.rappresentante_email"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-col",
-                { attrs: { cols: "12", md: "6" } },
-                [
-                  _c(
-                    "v-card",
-                    { attrs: { outlined: "", flat: "" } },
-                    [
-                      _c("v-card-title", [
                         _vm._v(_vm._s("Altre informazioni"))
                       ]),
                       _vm._v(" "),
@@ -52645,6 +52514,56 @@ var render = function() {
                                       change: function($event) {
                                         return _vm.handleFileUpload($event, 1)
                                       }
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-col",
+                { attrs: { cols: "12", md: "6" } },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { outlined: "", flat: "" } },
+                    [
+                      _c("v-card-title", [_vm._v(_vm._s("Accessi di login"))]),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-text",
+                        [
+                          _c(
+                            "v-row",
+                            [
+                              _c(
+                                "v-col",
+                                { attrs: { cols: "12" } },
+                                [
+                                  _c("v-switch", {
+                                    attrs: {
+                                      label:
+                                        "Spedire via e-mail i credenziali di accesso",
+                                      value: "1"
+                                    },
+                                    model: {
+                                      value: _vm.strutura.login,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.strutura, "login", $$v)
+                                      },
+                                      expression: "strutura.login"
                                     }
                                   })
                                 ],

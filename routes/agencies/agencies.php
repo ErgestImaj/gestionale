@@ -27,7 +27,7 @@ Route::group([
 });
 
 Route::group([
-	'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master' ],
+	'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master','can:create,App\Models\Structure'],
 	'prefix'=>'amministrazione','as'=>'structure.',
 	'namespace'=>'Structures'
 ],function() {
@@ -35,8 +35,8 @@ Route::group([
      * Affiliati Routes
      */
     Route::view('/struture/{type}/create', 'struture.create')->name('struture.create');
-    Route::post('/api/structure/store', 'StructureController@store')->name('struture.store');
-	Route::get('/struture/affiliati', 'StructureController@affiliatiIndex')->name('struture.affiliati');
+    Route::post('/api/structure/{type}/store', 'StructureController@store')->name('struture.store');
+	  Route::get('/struture/affiliati', 'StructureController@affiliatiIndex')->name('struture.affiliati');
 
 });
 
