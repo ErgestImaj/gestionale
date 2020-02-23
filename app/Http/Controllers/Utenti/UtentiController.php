@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Utenti;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class Utenti extends Controller
+class UtentiController extends Controller
 {
     public function CreateEsaminatore() {
 		return view('utenti.create',[
@@ -18,7 +18,7 @@ class Utenti extends Controller
 			'type'=> 'docente'
 		]);
 	}
-	
+
 	public function CreateSupervisore() {
 		return view('utenti.create',[
 			'type'=> 'supervisore'
@@ -30,7 +30,7 @@ class Utenti extends Controller
 			'type'=> 'formatori'
 		]);
 	}
-	
+
 	public function CreateStudenti() {
 		return view('utenti.create',[
 			'type'=> 'studenti'
@@ -58,7 +58,7 @@ class Utenti extends Controller
 			'type'=> 'docente'
 		]);
 	}
-	
+
 	public function ViewSupervisore() {
 		return view('utenti.index',[
 			'type'=> 'supervisore'
@@ -70,7 +70,7 @@ class Utenti extends Controller
 			'type'=> 'formatori'
 		]);
 	}
-	
+
 	public function ViewStudenti() {
 		return view('utenti.index',[
 			'type'=> 'studenti'
@@ -83,7 +83,7 @@ class Utenti extends Controller
 		]);
 	}
 
-	
+
 	public function ViewInspectori() {
 		return view('utenti.index',[
 			'type'=> 'inspector'

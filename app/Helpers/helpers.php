@@ -78,3 +78,12 @@ if (!function_exists('price_formater')){
     }
 }
 
+if (!function_exists('json_validate')){
+	function json_validate($string) {
+		if (is_string($string)) {
+			@json_decode($string);
+			return (json_last_error() === JSON_ERROR_NONE);
+		}
+		return false;
+	}
+}

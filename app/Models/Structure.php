@@ -6,12 +6,13 @@ use App\Traits\HashIdAttribute;
 use App\Traits\HasLocation;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
 class Structure extends Model
 {
-	use HasUserRelationships, HasHashid, HashidRouting, HashIdAttribute, HasLocation;
+	use HasUserRelationships, HasHashid, HashidRouting, HashIdAttribute, HasLocation,SoftDeletes;
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
@@ -19,6 +20,8 @@ class Structure extends Model
     const TYPE_PARTNER = 1;
     const TYPE_MASTER = 2;
     const TYPE_AFFILIATE = 3;
+
+  	const CONTENT_PATH = 'structure';
 
     protected $table = 'structures_structures';
 
@@ -30,6 +33,9 @@ class Structure extends Model
 
 	public function status(){
 	    return $this->hasOne(StructureStatus::class,'structure_id');
-    }
+  }
+  public function owner(){
+		return $this->belongsTo(User::class);
+  }
 
 }
