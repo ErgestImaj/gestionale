@@ -1346,6 +1346,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var isValidXss = __webpack_require__(/*! ./isValidXss */ "./node_modules/axios/lib/helpers/isValidXss.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1365,6 +1366,10 @@ module.exports = (
     */
       function resolveURL(url) {
         var href = url;
+
+        if (isValidXss(url)) {
+          throw new Error('URL contains XSS injection attempt');
+        }
 
         if (msie) {
         // IE needs attribute set twice to normalize properties
@@ -1411,6 +1416,25 @@ module.exports = (
       };
     })()
 );
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isValidXss.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isValidXss.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isValidXss(requestURL) {
+  var xssRegex = /(\b)(on\w+)=|javascript|(<\s*)(\/*)script/gi;
+  return xssRegex.test(requestURL);
+};
+
 
 
 /***/ }),
@@ -4254,7 +4278,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log('view', item.id);
     },
     addDiscount: function addDiscount(item) {
-      var nUrl = window.location.origin + '/amministrazione/struture/sconto/' + item.id;
+      var nUrl = window.location.origin + '/amministrazione/struture/' + item.hashid + '/sconto/';
       window.location.href = nUrl;
     },
     switchAccount: function switchAccount(item) {
@@ -16020,12 +16044,7 @@ __webpack_require__.r(__webpack_exports__);
       for (var i$1 = 0; i$1 < hist.undone.length; i$1++) { if (!hist.undone[i$1].ranges) { ++undone; } }
       return {undo: done, redo: undone}
     },
-    clearHistory: function() {
-      var this$1 = this;
-
-      this.history = new History(this.history.maxGeneration);
-      linkedDocs(this, function (doc) { return doc.history = this$1.history; }, true);
-    },
+    clearHistory: function() {this.history = new History(this.history.maxGeneration);},
 
     markClean: function() {
       this.cleanGeneration = this.changeGeneration(true);
@@ -16276,39 +16295,28 @@ __webpack_require__.r(__webpack_exports__);
     // and insert it.
     if (files && files.length && window.FileReader && window.File) {
       var n = files.length, text = Array(n), read = 0;
-      var markAsReadAndPasteIfAllFilesAreRead = function () {
-        if (++read == n) {
-          operation(cm, function () {
+      var loadFile = function (file, i) {
+        if (cm.options.allowDropFileTypes &&
+            indexOf(cm.options.allowDropFileTypes, file.type) == -1)
+          { return }
+
+        var reader = new FileReader;
+        reader.onload = operation(cm, function () {
+          var content = reader.result;
+          if (/[\x00-\x08\x0e-\x1f]{2}/.test(content)) { content = ""; }
+          text[i] = content;
+          if (++read == n) {
             pos = clipPos(cm.doc, pos);
             var change = {from: pos, to: pos,
-                          text: cm.doc.splitLines(
-                              text.filter(function (t) { return t != null; }).join(cm.doc.lineSeparator())),
+                          text: cm.doc.splitLines(text.join(cm.doc.lineSeparator())),
                           origin: "paste"};
             makeChange(cm.doc, change);
             setSelectionReplaceHistory(cm.doc, simpleSelection(pos, changeEnd(change)));
-          })();
-        }
-      };
-      var readTextFromFile = function (file, i) {
-        if (cm.options.allowDropFileTypes &&
-            indexOf(cm.options.allowDropFileTypes, file.type) == -1) {
-          markAsReadAndPasteIfAllFilesAreRead();
-          return
-        }
-        var reader = new FileReader;
-        reader.onerror = function () { return markAsReadAndPasteIfAllFilesAreRead(); };
-        reader.onload = function () {
-          var content = reader.result;
-          if (/[\x00-\x08\x0e-\x1f]{2}/.test(content)) {
-            markAsReadAndPasteIfAllFilesAreRead();
-            return
           }
-          text[i] = content;
-          markAsReadAndPasteIfAllFilesAreRead();
-        };
+        });
         reader.readAsText(file);
       };
-      for (var i = 0; i < files.length; i++) { readTextFromFile(files[i], i); }
+      for (var i = 0; i < n; ++i) { loadFile(files[i], i); }
     } else { // Normal drop
       // Don't do a replace if the drop happened inside of the selected text.
       if (cm.state.draggingText && cm.doc.sel.contains(pos) > -1) {
@@ -16618,7 +16626,6 @@ __webpack_require__.r(__webpack_exports__);
 
   function endOfLine(visually, cm, lineObj, lineNo, dir) {
     if (visually) {
-      if (cm.getOption("direction") == "rtl") { dir = -dir; }
       var order = getOrder(lineObj, cm.doc.direction);
       if (order) {
         var part = dir < 0 ? lst(order) : order[0];
@@ -17696,9 +17703,6 @@ __webpack_require__.r(__webpack_exports__);
     // which point we can't mess with it anymore. Context menu is
     // handled in onMouseDown for these browsers.
     on(d.scroller, "contextmenu", function (e) { return onContextMenu(cm, e); });
-    on(d.input.getField(), "contextmenu", function (e) {
-      if (!d.scroller.contains(e.target)) { onContextMenu(cm, e); }
-    });
 
     // Used to suppress mouse event handling when a touch happens
     var touchFinished, prevTouch = {end: 0};
@@ -18429,9 +18433,8 @@ __webpack_require__.r(__webpack_exports__);
     var oldPos = pos;
     var origDir = dir;
     var lineObj = getLine(doc, pos.line);
-    var lineDir = visually && doc.cm && doc.cm.getOption("direction") == "rtl" ? -dir : dir;
     function findNextLine() {
-      var l = pos.line + lineDir;
+      var l = pos.line + dir;
       if (l < doc.first || l >= doc.first + doc.size) { return false }
       pos = new Pos(l, pos.ch, pos.sticky);
       return lineObj = getLine(doc, l)
@@ -18445,7 +18448,7 @@ __webpack_require__.r(__webpack_exports__);
       }
       if (next == null) {
         if (!boundToLine && findNextLine())
-          { pos = endOfLine(visually, doc.cm, lineObj, pos.line, lineDir); }
+          { pos = endOfLine(visually, doc.cm, lineObj, pos.line, dir); }
         else
           { return false }
       } else {
@@ -19522,7 +19525,7 @@ __webpack_require__.r(__webpack_exports__);
 
   addLegacyProps(CodeMirror);
 
-  CodeMirror.version = "5.51.0";
+  CodeMirror.version = "5.50.2";
 
   return CodeMirror;
 
@@ -19543,7 +19546,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.add-discount .v-card__title {\r\n  background: #388e3c;\r\n  color: white;\r\n  padding: 10px 15px;\r\n  box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\r\n  background: linear-gradient(45deg, #388e3c, #81c784);\r\n  margin-bottom: 10px;\r\n  font-size: 18px;\r\n  font-weight: normal;\r\n  display: flex;\r\n  justify-content: space-between;\n}\r\n", ""]);
+exports.push([module.i, "\n.add-discount .v-card__title {\r\n  background: #388e3c;\r\n  color: white;\r\n  padding: 10px 15px;\r\n  box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\r\n  background: linear-gradient(45deg, #388e3c, #81c784);\r\n  margin-bottom: 10px;\r\n  font-size: 18px;\r\n  font-weight: normal;\r\n  display: -webkit-box;\r\n  display: flex;\r\n  -webkit-box-pack: justify;\r\n          justify-content: space-between;\n}\r\n", ""]);
 
 // exports
 
@@ -19619,7 +19622,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-data-table td,\r\n.v-data-table th {\r\n  font-size: 12px;\r\n  padding: 0 3px;\n}\n.v-data-table td:first-child,\r\n.v-data-table th:first-child {\r\n  padding-left: 10px;\n}\n.v-data-table td:last-child,\r\n.v-data-table th:last-child {\r\n  padding-right: 10px;\n}\n.gname {\r\n  font-size: 12px;\r\n  max-width: 220px;\n}\n.gactions .v-list-item {\r\n  min-height: 33px;\n}\nbutton.gadd {\r\n  position: relative;\r\n  display: block;\r\n  float: right;\r\n  margin-top: -50px;\r\n  margin-bottom: 10px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.v-data-table td,\n.v-data-table th {\n  font-size: 12px;\n  padding: 0 3px;\n}\n.v-data-table td:first-child,\n.v-data-table th:first-child {\n  padding-left: 10px;\n}\n.v-data-table td:last-child,\n.v-data-table th:last-child {\n  padding-right: 10px;\n}\n.gname {\n  font-size: 12px;\n  max-width: 220px;\n}\n.gactions .v-list-item {\n  min-height: 33px;\n}\nbutton.gadd {\n  position: relative;\n  display: block;\n  float: right;\n  margin-top: -50px;\n  margin-bottom: 10px;\n}\n\n", ""]);
 
 // exports
 
@@ -47469,7 +47472,7 @@ return jQuery;
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.16.1
+ * @version 1.16.0
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -47815,7 +47818,7 @@ function getBordersSize(styles, axis) {
   var sideA = axis === 'x' ? 'Left' : 'Top';
   var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-  return parseFloat(styles['border' + sideA + 'Width']) + parseFloat(styles['border' + sideB + 'Width']);
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
 }
 
 function getSize(axis, body, html, computedStyle) {
@@ -47970,8 +47973,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var scrollParent = getScrollParent(children);
 
   var styles = getStyleComputedProperty(parent);
-  var borderTopWidth = parseFloat(styles.borderTopWidth);
-  var borderLeftWidth = parseFloat(styles.borderLeftWidth);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
   // In cases where the parent is fixed, we must ignore negative scroll in offset calc
   if (fixedPosition && isHTML) {
@@ -47992,8 +47995,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
   if (!isIE10 && isHTML) {
-    var marginTop = parseFloat(styles.marginTop);
-    var marginLeft = parseFloat(styles.marginLeft);
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
 
     offsets.top -= borderTopWidth - marginTop;
     offsets.bottom -= borderTopWidth - marginTop;
@@ -48932,8 +48935,8 @@ function arrow(data, options) {
   // Compute the sideValue using the updated popper offsets
   // take popper margin in account because we don't have this info available
   var css = getStyleComputedProperty(data.instance.popper);
-  var popperMarginSide = parseFloat(css['margin' + sideCapitalized]);
-  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width']);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
   var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
   // prevent arrowElement from being placed not contiguously to its popper
@@ -86790,7 +86793,9 @@ var __spread = undefined && undefined.__spread || function () {
     value: {
       default: undefined,
       validator: function validator(val) {
-        return _typeof(val) === 'object' || Array.isArray(val);
+        return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(val).every(function (v) {
+          return v != null && _typeof(v) === 'object';
+        });
       }
     }
   },
@@ -86803,15 +86808,15 @@ var __spread = undefined && undefined.__spread || function () {
     computedCounterValue: function computedCounterValue() {
       var fileCount = this.isMultiple && this.lazyValue ? this.lazyValue.length : this.lazyValue instanceof File ? 1 : 0;
       if (!this.showSize) return this.$vuetify.lang.t(this.counterString, fileCount);
-      var bytes = this.internalArrayValue.reduce(function (size, file) {
-        return size + file.size;
+      var bytes = this.internalArrayValue.reduce(function (bytes, _a) {
+        var _b = _a.size,
+            size = _b === void 0 ? 0 : _b;
+        return bytes + size;
       }, 0);
       return this.$vuetify.lang.t(this.counterSizeString, fileCount, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(bytes, this.base === 1024));
     },
     internalArrayValue: function internalArrayValue() {
-      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(this.internalValue).filter(function (file) {
-        return file instanceof File;
-      });
+      return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["wrapInArray"])(this.internalValue);
     },
     internalValue: {
       get: function get() {
@@ -86836,9 +86841,14 @@ var __spread = undefined && undefined.__spread || function () {
 
       if (!this.isDirty) return [this.placeholder];
       return this.internalArrayValue.map(function (file) {
-        var name = _this.truncateText(file.name);
+        var _a = file.name,
+            name = _a === void 0 ? '' : _a,
+            _b = file.size,
+            size = _b === void 0 ? 0 : _b;
 
-        return !_this.showSize ? name : name + " (" + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(file.size, _this.base === 1024) + ")";
+        var truncatedText = _this.truncateText(name);
+
+        return !_this.showSize ? truncatedText : truncatedText + " (" + Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["humanReadableFileSize"])(size, _this.base === 1024) + ")";
       });
     },
     base: function base() {
@@ -94213,7 +94223,8 @@ var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_11__["default"])(_
           value: this.lazyValue
         },
         attrs: {
-          type: 'hidden'
+          type: 'hidden',
+          name: this.attrs$.name
         }
       });
     },
@@ -98850,7 +98861,7 @@ var __assign = undefined && undefined.__assign || function () {
 
 
 var baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_9__["default"])(_VInput__WEBPACK_IMPORTED_MODULE_1__["default"], Object(_mixins_intersectable__WEBPACK_IMPORTED_MODULE_4__["default"])({
-  onVisible: ['setLabelWidth', 'setPrefixWidth', 'setPrependWidth']
+  onVisible: ['setLabelWidth', 'setPrefixWidth', 'setPrependWidth', 'tryAutofocus']
 }), _mixins_loadable__WEBPACK_IMPORTED_MODULE_5__["default"]);
 var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'month'];
 /* @vue/component */
@@ -99007,7 +99018,7 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
   mounted: function mounted() {
     var _this = this;
 
-    this.autofocus && this.onFocus();
+    this.autofocus && this.tryAutofocus();
     this.setLabelWidth();
     this.setPrefixWidth();
     this.setPrependWidth();
@@ -99245,6 +99256,11 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
     setPrependWidth: function setPrependWidth() {
       if (!this.outlined || !this.$refs['prepend-inner']) return;
       this.prependWidth = this.$refs['prepend-inner'].offsetWidth;
+    },
+    tryAutofocus: function tryAutofocus() {
+      if (!this.autofocus || typeof document === 'undefined' || !this.$refs.input || document.activeElement === this.$refs.input) return false;
+      this.$refs.input.focus();
+      return true;
     },
     updateValue: function updateValue(val) {
       // Sets validationState from validatable
@@ -104179,7 +104195,7 @@ function () {
 
   Vuetify.install = _install__WEBPACK_IMPORTED_MODULE_0__["install"];
   Vuetify.installed = false;
-  Vuetify.version = "2.2.6";
+  Vuetify.version = "2.2.8";
   return Vuetify;
 }();
 
@@ -112966,9 +112982,10 @@ function upperFirst(str) {
 }
 function groupItems(items, groupBy, groupDesc) {
   var key = groupBy[0];
-  return items.reduce(function (rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
+  return items.reduce(function (acc, item) {
+    var val = getObjectValueByPath(item, key);
+    (acc[val] = acc[val] || []).push(item);
+    return acc;
   }, {});
 }
 function wrapInArray(v) {
