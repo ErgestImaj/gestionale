@@ -32,6 +32,16 @@ class StructureController extends Controller {
 		] );
 	}
 
+	public function sconto(Request $request, $id) {
+		if ( empty( $id ) ) {
+			return null;
+		}
+
+		return view('struture.sconto', [
+			'id' => $id
+		]);
+	}
+
 	// TODO: check user permission
 	public function getStructure( Request $request ) {
 

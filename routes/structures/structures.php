@@ -12,6 +12,7 @@ Route::group([
 
 	Route::get('/api/struture/{type}', 'StructureController@getStructure')->name('struture.all');
 	Route::get('/struture', 'StructureController@partnerIndex')->name('struture.partner');
+	Route::get('/struture/sconto/{id}', 'StructureController@sconto')->name('struture.sconto');
 
 });
 

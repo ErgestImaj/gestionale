@@ -112,7 +112,8 @@
                 console.log('view', item.id);
             },
             addDiscount(item) {
-                console.log('add discount', item.id);
+                let nUrl = window.location.origin + '/amministrazione/struture/sconto/' + item.id;
+                window.location.href = nUrl;
             },
             switchAccount(item) {
                 console.log('switch', item.id);
