@@ -25,7 +25,7 @@ require_once __DIR__ .'/superadmin/superadmin.php';
  * Partner, Master, Affiliati routes
  */
 
-require_once __DIR__ .'/agencies/agencies.php';
+require_once __DIR__ .'/structures/structures.php';
 
 
 /**

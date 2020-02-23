@@ -42,6 +42,16 @@ class StructureController extends Controller {
 		return Structure::where( 'type', $request->type )->with( 'province' )->latest()->get();
 	}
 
+	public function getStructureParent($type){
+    if(empty($type)) return [];
+    if(auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)){
+	      return Structure::where( 'type', (int)$type - 1 )->latest()->get(['id','legal_name']);
+    }
+    elseif (auth()->user()->hasRole(User::PARTNER)){
+	    return Structure::where( 'type', (int)$type - 1 )->where('created_by',auth()->id())->latest()->get(['id','legal_name']);
+    }
+	}
+
 	public function store( StructureRequest $request,$type ) {
 
 		//create struture user

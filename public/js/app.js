@@ -2353,6 +2353,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2360,6 +2370,7 @@ __webpack_require__.r(__webpack_exports__);
       doc1: '',
       doc2: '',
       doc3: '',
+      show: false,
       lrn: false,
       mf: false,
       iiq: false,
@@ -2376,6 +2387,7 @@ __webpack_require__.r(__webpack_exports__);
       date: new Date().toISOString().substr(0, 10),
       nazioni: [],
       regions: [],
+      parents: [],
       accredit: [{
         id: 1,
         value: 'MIUR'
@@ -2398,6 +2410,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getLocations();
+    this.showParentStructure();
   },
   methods: {
     getLocations: function getLocations() {
@@ -2408,6 +2421,18 @@ __webpack_require__.r(__webpack_exports__);
         _this.province = response.data.provinces;
         _this.towns = response.data.towns;
         _this.regions = response.data.regions;
+      })["catch"](function (error) {});
+    },
+    showParentStructure: function showParentStructure() {
+      var _this2 = this;
+
+      if (getUrlData(3) == 1) {
+        return false;
+      }
+
+      axios.get("/amministrazione/api/struture/".concat(getUrlData(3), "/parent")).then(function (response) {
+        _this2.parents = response.data;
+        _this2.show = true;
       })["catch"](function (error) {});
     },
     getValues: function getValues(val) {
@@ -2438,7 +2463,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     save: function save() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.submiting) {
         this.submiting = true;
@@ -2452,12 +2477,12 @@ __webpack_require__.r(__webpack_exports__);
             'Content-Type': 'multipart/form-data'
           }
         }).then(function (response) {
-          _this2.submiting = false;
+          _this3.submiting = false;
 
           if (response.data.status == 'success') {
             swal("Good job!", response.data.msg, "success");
-            _this2.doc = {};
-            _this2.doc_file = null;
+            _this3.doc = {};
+            _this3.doc_file = null;
           } else if (response.data.status === 'error') {
             swal({
               title: "Whoops!",
@@ -2465,11 +2490,11 @@ __webpack_require__.r(__webpack_exports__);
               icon: "warning",
               dangerMode: true
             });
-            _this2.submiting = false;
+            _this3.submiting = false;
           }
         })["catch"](function (error) {
-          _this2.submiting = false;
-          _this2.errors = error.response.data.errors;
+          _this3.submiting = false;
+          _this3.errors = error.response.data.errors;
         });
       }
     },
@@ -19432,7 +19457,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.gel > div {\n    margin-bottom: 15px !important;\n}\n.gel .col-md-6.col-12 {\n    padding: 0 12px;\n}\n.v-menu__content {\n    margin-top: 40px !important;\n}\n.v-menu__content.v-autocomplete__content {\n    margin-top: 0 !important;\n}\n.v-menu__content.gdate {\n    margin-top: 0 !important;\n}\n.add-stru .v-card__title {\n    background: #388E3C;\n    color: white;\n    padding: 10px 15px;\n    box-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\n    background: linear-gradient(45deg, #388E3C, #81C784);\n    margin-bottom: 10px;\n    font-size: 18px;\n    font-weight: normal;\n}\n.v-application--is-ltr .v-text-field--outlined fieldset {\n    background: #f2f2f2;\n    border-color: #bfbfbf;\n}\n.gel {\n    padding-bottom: 0;\n}\n.gel div:last-child {\n    margin-bottom: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n.gel > div {\n\tmargin-bottom: 15px !important;\n}\n.gel .col-md-6.col-12 {\n\tpadding: 0 12px;\n}\n.v-menu__content {\n\tmargin-top: 40px !important;\n}\n.v-menu__content.v-autocomplete__content {\n\tmargin-top: 0 !important;\n}\n.v-menu__content.gdate {\n\tmargin-top: 0 !important;\n}\n.add-stru .v-card__title {\n\tbackground: #388E3C;\n\tcolor: white;\n\tpadding: 10px 15px;\n\tbox-shadow: 0 19px 20px -12px rgba(0, 0, 0, 0.25);\n\tbackground: linear-gradient(45deg, #388E3C, #81C784);\n\tmargin-bottom: 10px;\n\tfont-size: 18px;\n\tfont-weight: normal;\n}\n.v-application--is-ltr .v-text-field--outlined fieldset {\n\tbackground: #f2f2f2;\n\tborder-color: #bfbfbf;\n}\n.gel {\n\tpadding-bottom: 0;\n}\n.gel div:last-child {\n\tmargin-bottom: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -52518,7 +52543,41 @@ var render = function() {
                                   })
                                 ],
                                 1
-                              )
+                              ),
+                              _vm._v(" "),
+                              _vm.show
+                                ? _c(
+                                    "v-col",
+                                    { attrs: { cols: "12" } },
+                                    [
+                                      _c("v-autocomplete", {
+                                        attrs: {
+                                          dense: "",
+                                          items: _vm.parents,
+                                          "item-text": "legal_name",
+                                          "item-value": "id",
+                                          "error-messages": _vm.errors.parent
+                                            ? _vm.errors.parent[0]
+                                            : [],
+                                          label: "Struttura madre",
+                                          outlined: ""
+                                        },
+                                        model: {
+                                          value: _vm.strutura.parent,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.strutura,
+                                              "parent",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "strutura.parent"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
                             ],
                             1
                           )
@@ -52609,11 +52668,7 @@ var render = function() {
                         }
                       }
                     },
-                    [
-                      _vm._v(
-                        "\n                        Salva\n                    "
-                      )
-                    ]
+                    [_vm._v("\n\t\t\t\t\tSalva\n\t\t\t\t")]
                   )
                 ],
                 1

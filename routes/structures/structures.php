@@ -24,6 +24,7 @@ Route::group([
         * Master Routes
         */
 	Route::get('/struture/master', 'StructureController@masterIndex')->name('struture.master');
+	Route::get('/api/struture/{type}/parent', 'StructureController@getStructureParent')->name('struture.parent');
 });
 
 Route::group([
