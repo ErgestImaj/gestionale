@@ -53,6 +53,7 @@ class StructureRequest extends FormRequest {
 			'operational_region'  => 'sometimes|numeric|exists:location_regions,id',
 			'operational_prov'    => 'sometimes|numeric|exists:location_provs,id',
 			'operational_country' => 'sometimes|numeric|exists:location_countries,id',
+			'parent'              => 'sometimes|numeric|exists:structures_structures,id',
 			'phone'               => 'required|string',
 			'fax'                 => 'sometimes|string',
 			'email'               => 'required|email|unique:users',
@@ -117,6 +118,7 @@ class StructureRequest extends FormRequest {
 			'accredit_lrn'        => 'data accreditamento LRN',
 			'accredit_dile'       => 'data accreditamento DILE',
 			'accredit_iiq'        => 'data accreditamento IIQ',
+			'parent'              => 'struttura madre',
 		];
 	}
 
@@ -175,6 +177,7 @@ class StructureRequest extends FormRequest {
 			'validation_request'  => $validation_request,
 			'image'               => $image,
 			'token'               => $token,
+			'parent_structure_id' => $this->parent,
 			'created_by'          => auth()->id()
 		];
 	}
