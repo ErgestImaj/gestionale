@@ -127,4 +127,8 @@ class StructureController extends Controller {
 		] );
 
 	}
+
+	public function show(Structure $structure){
+		return $structure->load(['status','owner','town','operationalTown','region','operationalRegion','province','operationalProvince','country','operationalCountry']);
+	}
 }
