@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="12" md="12">
           <v-card outlined flat>
-            <v-card-title>
+            <v-card-title class="addd">
               <span>Sconti</span>
               <v-btn color="white" class="ma-0 primary--text" v-if="sconti.length != 1" @click="addNew">Add</v-btn>
             </v-card-title>
@@ -43,6 +43,35 @@
           >Salva</v-btn>
         </v-col>
       </v-row>
+
+      <v-row>
+          <v-col cols="12" md="12">
+          <v-card>
+            <v-card-title>
+                Sconti Precendenti
+                <v-spacer></v-spacer>
+                <v-text-field
+                    v-model="search"
+                    label="Cerca"
+                    single-line
+                    hide-details
+                ></v-text-field>
+            </v-card-title>
+            <v-data-table
+                :headers="headers"
+                :items="prevSconti"
+                :search="search"
+                :loading="loading"
+            >
+                <template v-slot:item.actions="{ item }">
+                    <v-btn icon>
+                        <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                </template>
+            </v-data-table>
+        </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-form>
 </template>
@@ -52,12 +81,30 @@ export default {
   data() {
     return {
         submiting: false,
-        sconti: []
+        sconti: [],
+        prevSconti: [],
+        search: '',
+        headers: [
+            {text: '#', value: 'id'},
+            {text: 'Nr Corsi', value: 'corsi'},
+            {text: 'Sconto', value: 'sconto'},
+            {text: 'Creation Date', value: 'created'},
+            {text: 'Creato da', value: 'created_by'},
+            {text: 'actions', value: 'actions', sortable: false, align: 'right'},
+        ],
+        loading: true,
     };
   },
   mounted() {
     this.addNew();
-    console.log(this.stuctureId);
+    this.getSconti();
+    this.prevSconti = [{
+        id: 1,
+        corsi: 5,
+        sconto: '50%',
+        created: '10/10/2010',
+        created_by: 'U'
+    }]
   },
   methods: {
     addNew() {
@@ -71,12 +118,15 @@ export default {
     },
     send() {
         //
+    },
+    getSconti() {
+        this.loading = false;
     }
   }
 };
 </script>
 <style>
-.add-discount .v-card__title {
+.add-discount .v-card__title.addd {
   background: #388e3c;
   color: white;
   padding: 10px 15px;
