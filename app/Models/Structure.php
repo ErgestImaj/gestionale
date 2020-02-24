@@ -35,7 +35,7 @@ class Structure extends Model
 	    return $this->hasOne(StructureStatus::class,'structure_id');
   }
   public function owner(){
-		return $this->belongsTo(User::class);
+		return $this->belongsTo(User::class,'user_id');
   }
 
 }

@@ -112,7 +112,7 @@
                 console.log('view', item.id);
             },
             addDiscount(item) {
-                let nUrl = window.location.origin + '/amministrazione/struture/sconto/' + item.id;
+                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/sconto/';
                 window.location.href = nUrl;
             },
             switchAccount(item) {

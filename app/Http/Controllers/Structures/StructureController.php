@@ -10,6 +10,7 @@ use App\Models\UserGroups;
 use Illuminate\Http\Request;
 use App\Models\Structure;
 use Illuminate\Support\Facades\Password;
+use Psy\Util\Str;
 
 
 class StructureController extends Controller {
@@ -32,13 +33,10 @@ class StructureController extends Controller {
 		] );
 	}
 
-	public function sconto(Request $request, $id) {
-		if ( empty( $id ) ) {
-			return null;
-		}
+	public function sconto(Structure $structure) {
 
-		return view('struture.sconto', [
-			'id' => $id
+		return view('struture.sconto')->with([
+			'structure'=>$structure
 		]);
 	}
 
@@ -126,5 +124,9 @@ class StructureController extends Controller {
 			'msg'    => trans( 'messages.success' )
 		] );
 
+	}
+
+	public function show(Structure $structure){
+		return $structure->load(['status','owner','town','operationalTown','region','operationalRegion','province','operationalProvince','country','operationalCountry']);
 	}
 }
