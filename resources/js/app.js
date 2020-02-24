@@ -51,6 +51,7 @@ Vue.component('utenti-create', require('./components/UtentiCreateComponent').def
 Vue.component('utenti-view', require('./components/UtentiViewComponent').default);
 Vue.component('utenti-basic-create', require('./components/BasicUserCreateComponent').default);
 Vue.component('add-discount', require('./components/AddDiscountComponent').default);
+Vue.component('structure-details', require('./components/StructureDetailsComponent').default);
 
 
 /**

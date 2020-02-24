@@ -109,7 +109,8 @@
                 console.log('edit', item.hashid);
             },
             view(item) {
-                console.log('view', item.id);
+                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/view/';
+                window.location.href = nUrl;
             },
             addDiscount(item) {
                 let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/sconto/';
