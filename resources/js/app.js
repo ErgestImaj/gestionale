@@ -15,7 +15,9 @@ import Multiselect from 'vue-multiselect'
 
 import swal from 'sweetalert';
 import summernote from './summernote/summernote-bs4.min.js';
+import moment from 'moment'
 
+Vue.prototype.moment = moment
 /**
  * Global filters
  */

@@ -1,5 +1,33 @@
 <template>
   <div class="st-det">
+    <v-row class="statuses" v-if="!loading">
+      <v-col cols="12" md="3" :class="details.statuses.status == 1 ? 'active' : 'inactive'">
+        <h4>MEDIAFORM</h4>
+        <p>{{details.statuses.date | moment}}</p>
+        <v-icon>{{details.statuses.date ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+      </v-col>
+      <v-col cols="12" md="3" :class="details.statuses.status_lrn == 1 ? 'active' : 'inactive'">
+        <h4>LRN</h4>
+        <p>{{details.statuses.date_lrn | moment}}</p>
+        <v-icon>{{details.statuses.date_lrn ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+      </v-col>
+      <v-col cols="12" md="3" :class="details.statuses.status_dile == 1 ? 'active' : 'inactive'">
+        <h4>DILE</h4>
+        <p>{{details.statuses.date_dile | moment}}</p>
+        <v-icon>{{details.statuses.date_dile ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+      </v-col>
+      <v-col cols="12" md="3" :class="details.statuses.status_iiq == 1 ? 'active' : 'inactive'">
+        <h4>IIQ</h4>
+        <p>{{details.statuses.date_iiq | moment}}</p>
+        <v-icon>{{details.statuses.date_iiq ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+      </v-col>
+      <v-col cols="12" md="3" :class="details.statuses.status_miur == 1 ? 'active' : 'inactive'">
+        <h4>MIUR</h4>
+        <p>{{details.statuses.date_miur | moment}}</p>
+        <v-icon>{{details.statuses.date_miur ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+      </v-col>
+    </v-row>
+
     <v-row>
       <v-col cols="12" md="6">
         <v-list two-line subheader v-if="!loading">
@@ -81,29 +109,25 @@
         </v-list>
         </v-col>
     </v-row>
-
-    <v-row class="statuses" v-if="!loading">
-      <v-col cols="12" md="3" :class="details.statuses.status_lrn == 1 ? 'active' : 'inactive'">
-        <h4>LRN</h4>
-        <p>{{details.statuses.date_lrn ? details.statuses.date_lrn : '-'}}</p>
-      </v-col>
-      <v-col cols="12" md="3" :class="details.statuses.status_dile == 1 ? 'active' : 'inactive'">
-        <h4>DILE</h4>
-        <p>{{details.statuses.date_dile ? details.statuses.date_dile : '-'}}</p>
-      </v-col>
-      <v-col cols="12" md="3" :class="details.statuses.status_iiq == 1 ? 'active' : 'inactive'">
-        <h4>IIQ</h4>
-        <p>{{details.statuses.date_iiq ? details.statuses.date_iiq : '-'}}</p>
-      </v-col>
-      <v-col cols="12" md="3" :class="details.statuses.status_miur == 1 ? 'active' : 'inactive'">
-        <h4>MIUR</h4>
-        <p>{{details.statuses.date_miur ? details.statuses.date_miur : '-'}}</p>
+    <v-row>
+      <v-col cols="12" md="6">
+        <v-list two-line subheader v-if="!loading">
+          <v-subheader class="yl">User Details</v-subheader>
+          <v-list-item v-for="item in details.user" v-bind:key="item.n">
+            <v-list-item-content>
+              <v-list-item-title>{{item.n}}</v-list-item-title>
+              <v-list-item-subtitle>{{item.v ? item.v : '-'}}</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-col>
     </v-row>
+
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: ["structure"],
   data() {
@@ -167,9 +191,25 @@ export default {
             validation_request: data.validation_request,
             visura_camerale: data.visura_camerale
         },
-        statuses: data.status
+        statuses: data.status,
+        user: [
+          {n: 'Creato da', v: data.created_by},
+          {n: 'Created Data', v: data.created},
+          {n: 'Last Login Ip', v: data.last_login_ip},
+          {n: 'Aggiornato da', v: data.updated_by},
+          {n: 'Data Aggiornato', v: data.updated}
+        ]
       
       };
+    },
+    moment: function () {
+      return moment();
+    }
+  },
+  filters: {
+    moment: function (date) {
+      if (!date) { return '-' }
+      return moment(date).format('YYYY/MM/DD');
     }
   }
 };
@@ -180,6 +220,10 @@ export default {
     border-color: #66BB6A;
 }
 
+.statuses > div.inactive {
+    border-color: #ef5350;
+}
+
 .statuses > div h4 {
     font-size: 18px;
 }
@@ -187,7 +231,7 @@ export default {
     margin: 0;
 }
 .row.statuses {
-    margin: 10px -10px 0;
+    margin: 10px -10px;
     flex-wrap: nowrap;
 }
 .statuses > div {
@@ -215,5 +259,16 @@ export default {
 .st-det .v-subheader.pr {
     border-color: #AB47BC;
     background: #F3E5F5;
+}
+.statuses > div i {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+.statuses > div i.mdi-checkbox-marked-circle-outline {
+  color: #66BB6A;
+}
+.statuses > div i.mdi-minus-circle-outline {
+  color: #ef5350;
 }
 </style>
