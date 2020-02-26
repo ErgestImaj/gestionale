@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d4409755-d241-44a6-8b47-5c4669d29210" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/Models/Structure.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Structure.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
@@ -11,6 +12,12 @@
       <change beforePath="$PROJECT_DIR$/resources/js/components/AddStrutureComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/AddStrutureComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/struture/sconto.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/struture/sconto.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/structures/structures.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/structures/structures.php" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+>>>>>>> dev-ergis
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +207,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -242,6 +249,26 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="install" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="install" />
+      </scripts>
+      <node-interpreter value="C:/Program Files/nodejs/node" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="watch-poll" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch-poll" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="watch" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -254,6 +281,12 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
+=======
+        <item itemvalue="npm.install" />
+        <item itemvalue="npm.watch-poll" />
+        <item itemvalue="npm.dev" />
+>>>>>>> dev-ergis
         <item itemvalue="npm.watch" />
         <item itemvalue="npm.dev" />
         <item itemvalue="npm.development" />
@@ -364,8 +397,16 @@
       <workItem from="1582385887088" duration="496000" />
       <workItem from="1582400142845" duration="12436000" />
       <workItem from="1582451610981" duration="7750000" />
+<<<<<<< HEAD
       <workItem from="1582583390552" duration="1203000" />
       <workItem from="1582666533845" duration="10041000" />
+=======
+      <workItem from="1582678549398" duration="400000" />
+      <workItem from="1582750027869" duration="1156000" />
+      <workItem from="1582751210441" duration="245000" />
+      <workItem from="1582751472809" duration="106000" />
+      <workItem from="1582751599360" duration="1122000" />
+>>>>>>> dev-ergis
     </task>
     <task id="LOCAL-00001" summary="Fixes for Document Categories and Redesign of Login + Responsive">
       <created>1580676638377</created>
@@ -452,12 +493,31 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="554" y="186" key="#dev/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581973142505" />
+    <state x="554" y="186" key="#development" timestamp="1582678616030">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="554" y="186" key="#development/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678616030" />
+    <state x="554" y="186" key="#install" timestamp="1582678749066">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="554" y="186" key="#install/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678749066" />
+    <state x="501" y="160" width="691" height="689" key="#phpunit.xml" timestamp="1582752462745">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="501" y="160" width="691" height="689" key="#phpunit.xml/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582752462745" />
     <state x="554" y="186" key="#watch" timestamp="1581972591027">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state x="554" y="186" key="#watch-poll" timestamp="1582678666057">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="554" y="186" key="#watch-poll/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678666057" />
     <state x="554" y="186" key="#watch/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972591027" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1581972258472" />
+    <state x="648" y="266" key="FileChooserDialogImpl" timestamp="1582752719055">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
+<<<<<<< HEAD
     <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
     <state width="1636" height="221" key="GridCell.Tab.0.bottom" timestamp="1582670247253">
       <screen x="0" y="0" width="1680" height="1010" />
@@ -475,15 +535,38 @@
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state width="1636" height="221" key="GridCell.Tab.0.right/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582670247253" />
+=======
+    <state x="648" y="266" key="FileChooserDialogImpl/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582752719055" />
+    <state width="1636" height="582" key="GridCell.Tab.0.bottom" timestamp="1582678946555">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="582" key="GridCell.Tab.0.bottom/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678946555" />
+    <state width="1636" height="582" key="GridCell.Tab.0.center" timestamp="1582678946554">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="582" key="GridCell.Tab.0.center/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678946554" />
+    <state width="1636" height="582" key="GridCell.Tab.0.left" timestamp="1582678946554">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="582" key="GridCell.Tab.0.left/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678946554" />
+    <state width="1636" height="582" key="GridCell.Tab.0.right" timestamp="1582678946554">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state width="1636" height="582" key="GridCell.Tab.0.right/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582678946554" />
+>>>>>>> dev-ergis
     <state width="200" height="539" key="HiddenNamespacesPopup" timestamp="1581972258472" />
     <state width="200" height="539" key="HiddenNamespacesPopup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
     <state x="675" y="423" key="NewPhpFileDialog" timestamp="1581972258472" />
     <state x="675" y="423" key="NewPhpFileDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
-    <state x="609" y="141" key="RollbackChangesDialog" timestamp="1581972258472" />
+    <state x="609" y="141" key="RollbackChangesDialog" timestamp="1582752450854">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
     <state x="696" y="145" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
-    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
-    <state x="341" y="136" key="SettingsEditor" timestamp="1581972258472" />
-    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="609" y="141" key="RollbackChangesDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582752450854" />
+    <state x="341" y="136" key="SettingsEditor" timestamp="1582752721342">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="341" y="136" key="SettingsEditor/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582752721342" />
     <state x="432" y="233" key="Vcs.Push.Dialog.v2" timestamp="1582411216988">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
@@ -493,23 +576,34 @@
     <state x="570" y="309" key="com.intellij.database.dbimport.ImportUtil.MyDialog/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
     <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1581972258472" />
     <state x="454" y="134" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
-    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1581972258472" />
-    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582752442246">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="647" y="416" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582752442246" />
     <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1" timestamp="1581972258472" />
     <state x="1680" y="0" width="1192" height="770" maximized="true" key="dock-window-1/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
     <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2" timestamp="1581972258472" />
     <state x="1680" y="0" width="905" height="689" maximized="true" key="dock-window-2/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1581972258472" />
     <state x="657" y="125" width="606" height="789" key="find.popup" timestamp="1581972258472" />
     <state x="657" y="125" width="606" height="789" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1581972258472" />
-    <state x="496" y="227" key="run.anything.popup" timestamp="1582405696356">
+    <state x="496" y="227" width="672" height="677" key="run.anything.popup" timestamp="1582752702201">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
+<<<<<<< HEAD
     <state x="496" y="227" key="run.anything.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582405696356" />
     <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1582677336658">
       <screen x="0" y="0" width="1680" height="1010" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582288737666" />
     <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582677336658" />
+=======
+    <state x="496" y="227" width="672" height="677" key="run.anything.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582752702201" />
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup" timestamp="1582750718013">
+      <screen x="0" y="0" width="1680" height="1010" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1582288737666" />
+    <state x="503" y="217" width="672" height="678" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@0.0.1680.1010" timestamp="1582750718013" />
+>>>>>>> dev-ergis
     <state x="2225" y="219" width="672" height="659" key="search.everywhere.popup/1680.0.1680.1010/0.0.1680.1010@1680.0.1680.1010" timestamp="1582383347710" />
   </component>
 </project>
