@@ -38,6 +38,6 @@ class Structure extends Model
 		return $this->belongsTo(User::class,'user_id');
   }
   public function discounts(){
-		return $this->hasMany(Discount::class,'structure_id');
+		return $this->hasMany(Discount::class,'structure_id')->orderByDesc('corsi');
   }
 }

@@ -69,7 +69,7 @@
                 :loading="loading"
             >
                 <template v-slot:item.actions="{ item }">
-								  	<a icon class="delete-btn" :data-content="trans('messages.delete_confirm')" :data-action="5" href="#">
+								  	<a icon class="delete-btn" :data-content="trans('messages.delete_record')" :data-action="`/amministrazione/api/sconto/${item.hashid}`" href="#">
                         <v-icon>mdi-delete</v-icon>
                     </a>
                 </template>
@@ -93,10 +93,10 @@ export default {
         headers: [
             {text: '#', value: 'id'},
             {text: 'Nr Corsi', value: 'corsi'},
-            {text: 'Sconto', value: 'sconto'},
-            {text: 'Creation Date', value: 'created_at'},
+            {text: 'Sconto %', value: 'sconto'},
+            {text: 'Creato a', value: 'created_at'},
             {text: 'Creato da', value: 'user.display_name'},
-            {text: 'actions', value: 'actions', sortable: false, align: 'right'},
+            {text: 'Azioni', value: 'actions', sortable: false, align: 'right'},
         ],
         loading: true,
     };
@@ -140,10 +140,9 @@ export default {
 			}
     },
     getSconti() {
-			axios.get(`/amministrazione//api/${this.stuctureId}/sconto/`)
+			axios.get(`/amministrazione/api/${this.stuctureId}/sconto/`)
 				.then(response => {
 					this.loading = false;
-					console.log(response.data.discounts)
 				  this.prevSconti = response.data.discounts
 				})
 				.catch(error => {

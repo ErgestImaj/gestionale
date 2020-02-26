@@ -42,7 +42,7 @@
         </v-list>
       </v-col>
 
-      
+
       <v-col cols="12" md="6">
         <v-list two-line subheader v-if="!loading">
           <v-subheader class="bl">Informazioni di contatto</v-subheader>
@@ -71,7 +71,7 @@
         </v-list>
       </v-col>
 
-      
+
       <v-col cols="12" md="6">
         <v-list two-line subheader v-if="!loading">
           <v-subheader class="pr">Sede Legale</v-subheader>
@@ -97,7 +97,7 @@
           </v-list-item>
         </v-list>
         </v-col>
-        
+
         <v-col cols="12" md="6">
         <v-list two-line subheader v-if="!loading">
           <v-list-item>
@@ -194,12 +194,12 @@ export default {
         statuses: data.status,
         user: [
           {n: 'Creato da', v: data.created_by},
-          {n: 'Created Data', v: data.created},
+          {n: 'Creato a', v: data.created},
           {n: 'Last Login Ip', v: data.last_login_ip},
           {n: 'Aggiornato da', v: data.updated_by},
           {n: 'Data Aggiornato', v: data.updated}
         ]
-      
+
       };
     },
     moment: function () {

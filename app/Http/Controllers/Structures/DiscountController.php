@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DiscountRequest;
 use App\Models\Discount;
 use App\Models\Structure;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -49,14 +50,21 @@ class DiscountController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param \Illuminate\Http\Request $request
 	 * @param Discount $discount
 	 *
 	 * @return void
 	 */
-    public function update(Request $request, Discount $discount)
+    public function destroy(Discount $discount)
     {
-        //
+
+	    $discount->update([
+		    'updated_by'=>auth()->id(),
+		    'deleted_at' => Carbon::now()->toDateTimeString()
+	    ]);
+	    return response( [
+		    'status' => 'success',
+		    'msg'    => trans( 'messages.delete' )
+	    ] );
     }
 
 }
