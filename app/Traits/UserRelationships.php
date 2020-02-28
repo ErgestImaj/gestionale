@@ -40,7 +40,11 @@ trait UserRelationships{
         return $this->hasMany(MassMailHistory::class);
     }
 
-    public function structure(){
-    	return $this->hasOne(Structure::class,'user_id');
-    }
+		/**
+		 * @return mixed
+		 */
+		public function structure(){
+	      return $this->hasOne(Structure::class,'user_id');
+	  }
+
 }

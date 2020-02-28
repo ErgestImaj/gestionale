@@ -127,7 +127,7 @@ class StructureController extends Controller {
 	}
 
 	public function show(Structure $structure){
-		return $structure->load(['status','owner','town','operationalTown','region','operationalRegion','province','operationalProvince','country','operationalCountry']);
+		return $structure->load(['status','updatedByUser','user','owner','town','operationalTown','region','operationalRegion','province','operationalProvince','country','operationalCountry']);
 	}
 
 	public function details(Structure $structure) {

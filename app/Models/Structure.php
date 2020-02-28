@@ -37,5 +37,7 @@ class Structure extends Model
   public function owner(){
 		return $this->belongsTo(User::class,'user_id');
   }
-
+  public function discounts(){
+		return $this->hasMany(Discount::class,'structure_id')->orderByDesc('corsi');
+  }
 }

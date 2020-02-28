@@ -536,8 +536,10 @@
 						this.submiting = false
 						if (response.data.status == 'success') {
 							swal("Good job!", response.data.msg, "success");
-							this.doc = {};
-							this.doc_file = null;
+							this.doc1 = {};
+							this.doc2 = {};
+							this.doc3 = {};
+							this.strutura = null;
 						} else if (response.data.status === 'error') {
 							swal({
 								title: "Whoops!",

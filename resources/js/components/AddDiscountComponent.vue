@@ -6,15 +6,20 @@
           <v-card outlined flat>
             <v-card-title class="addd">
               <span>Sconti</span>
-              <v-btn color="white" class="ma-0 primary--text" v-if="sconti.length != 1" @click="addNew">Add</v-btn>
+              <v-btn color="white" class="ma-0 primary--text" v-if="sconti.length != 1" @click="addNew">Aggiungi</v-btn>
             </v-card-title>
             <v-card-text>
               <v-row v-for="(s, index) in sconti" v-bind:key="index" class="justify-space-between">
                 <v-col cols="12" md="5" class="gel">
-                  <v-text-field label="Corsi" outlined dense v-model="sconti[index].corsi"></v-text-field>
+                  <v-text-field label="Corsi" outlined dense
+																v-model="sconti[index].corsi"
+																:error-messages="errors[index+'.corsi'] ?errors[index+'.corsi'] : []"
+									></v-text-field>
                 </v-col>
                 <v-col cols="12" md="5" class="gel">
-                  <v-text-field label="Sconto" outlined dense v-model="sconti[index].sconto" 
+                  <v-text-field label="Sconto" outlined dense
+																v-model="sconti[index].sconto"
+																:error-messages="errors[index+'.sconto'] ?errors[index+'.sconto'] : []"
                     suffix="%" type="number" min="0" max="100"
                   ></v-text-field>
                 </v-col>
@@ -64,9 +69,9 @@
                 :loading="loading"
             >
                 <template v-slot:item.actions="{ item }">
-                    <v-btn icon>
+								  	<a icon class="delete-btn" :data-content="trans('messages.delete_record')" :data-action="`/amministrazione/api/sconto/${item.hashid}`" href="#">
                         <v-icon>mdi-delete</v-icon>
-                    </v-btn>
+                    </a>
                 </template>
             </v-data-table>
         </v-card>
@@ -84,13 +89,14 @@ export default {
         sconti: [],
         prevSconti: [],
         search: '',
+	  		errors: {},
         headers: [
             {text: '#', value: 'id'},
             {text: 'Nr Corsi', value: 'corsi'},
-            {text: 'Sconto', value: 'sconto'},
-            {text: 'Creation Date', value: 'created'},
-            {text: 'Creato da', value: 'created_by'},
-            {text: 'actions', value: 'actions', sortable: false, align: 'right'},
+            {text: 'Sconto %', value: 'sconto'},
+            {text: 'Creato a', value: 'created_at'},
+            {text: 'Creato da', value: 'user.display_name'},
+            {text: 'Azioni', value: 'actions', sortable: false, align: 'right'},
         ],
         loading: true,
     };
@@ -98,13 +104,6 @@ export default {
   mounted() {
     this.addNew();
     this.getSconti();
-    this.prevSconti = [{
-        id: 1,
-        corsi: 5,
-        sconto: '50%',
-        created: '10/10/2010',
-        created_by: 'U'
-    }]
   },
   methods: {
     addNew() {
@@ -117,10 +116,40 @@ export default {
         this.sconti = this.sconti.filter((s, index) => index !== i );
     },
     send() {
-        //
+			if (!this.submiting) {
+				this.submiting = true;
+				axios.post(`/amministrazione/api/${this.stuctureId}/sconto/store`,this.sconti)
+					.then(response => {
+					this.submiting = false
+					if (response.data.status == 'success') {
+						swal("Good job!", response.data.msg, "success");
+						location.reload()
+					} else if (response.data.status === 'error') {
+						swal({
+							title: "Whoops!",
+							text: response.data.msg,
+							icon: "warning",
+							dangerMode: true,
+						});
+						this.submiting = false
+					}
+				}).catch(error => {
+					this.submiting = false
+					this.errors = error.response.data.errors
+				})
+			}
     },
     getSconti() {
-        this.loading = false;
+			axios.get(`/amministrazione/api/${this.stuctureId}/sconto/`)
+				.then(response => {
+					this.loading = false;
+				  this.prevSconti = response.data.discounts
+				})
+				.catch(error => {
+					this.loading = false;
+				});
+
+
     }
   }
 };

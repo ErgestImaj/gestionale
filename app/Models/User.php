@@ -69,7 +69,7 @@ class User extends Authenticatable
         'state'              => 'boolean'
 
     ];
-    protected $appends = ['avatar_url'];
+    protected $appends = ['avatar_url','display_name'];
 
 
     /**
@@ -93,6 +93,9 @@ class User extends Authenticatable
     public function displayName(){
         $names = explode(' ', $this->full_name);
         return $names[0]." ".substr($names[1], 0,1).".";
+    }
+    public function getDisplayNameAttribute(){
+    	return $this->displayName();
     }
 
     /**
