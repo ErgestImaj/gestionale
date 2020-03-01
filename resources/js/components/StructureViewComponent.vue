@@ -106,7 +106,8 @@
                 }
             },
             edit(item) {
-                console.log('edit', item.hashid);
+							let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/edit/';
+							window.location.href = nUrl;
             },
             view(item) {
                 let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/view/';

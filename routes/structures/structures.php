@@ -15,9 +15,12 @@ Route::group([
 	Route::get('/struture/{structure}/sconto/', 'StructureController@sconto')->name('struture.sconto');
 	Route::get('/struture/{structure}/show/', 'StructureController@show')->name('struture.show');
 	Route::get('/struture/{structure}/view/', 'StructureController@details')->name('struture.details');
+	Route::view('/struture/{structure}/edit/', 'struture.edit')->name('struture.edit');
+	Route::get('/api/struture/{structure}/edit/', 'StructureController@edit');
 	Route::post('/api/{structure}/sconto/store','DiscountController@store')->name('struture.sconto.store');
 	Route::get('/api/{structure}/sconto/', 'DiscountController@index')->name('struture.sconto.index');
 	Route::delete('/api/sconto/{discount}/', 'DiscountController@destroy')->name('struture.sconto.destroy');
+	Route::post('/api/structure/{structure}/update', 'StructureController@update')->name('struture.update');
 });
 
 Route::group([

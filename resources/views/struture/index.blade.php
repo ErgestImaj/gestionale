@@ -14,3 +14,6 @@
 		<structure-view structure-type="{{$type}}"></structure-view>
 	</v-app>
 @endsection
+@push('scripts')
+	<script src="{{asset('js/actions.js')}}"></script>
+@endpush
