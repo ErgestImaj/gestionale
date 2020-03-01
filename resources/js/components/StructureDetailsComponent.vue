@@ -1,30 +1,30 @@
 <template>
   <div class="st-det">
     <v-row class="statuses" v-if="!loading">
-      <v-col cols="12" md="3" :class="details.statuses.status == 1 ? 'active' : 'inactive'">
+      <v-col cols="12" md="3" :class="details.statuses.status_mf == 1 ? 'active' : 'inactive'">
         <h4>MEDIAFORM</h4>
-        <p>{{details.statuses.date | moment}}</p>
-        <v-icon>{{details.statuses.date ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+        <p>{{details.statuses.data_mf}}</p>
+        <v-icon>{{details.statuses.data_mf != 'non disponibile' ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
       </v-col>
       <v-col cols="12" md="3" :class="details.statuses.status_lrn == 1 ? 'active' : 'inactive'">
         <h4>LRN</h4>
-        <p>{{details.statuses.date_lrn | moment}}</p>
-        <v-icon>{{details.statuses.date_lrn ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+        <p>{{details.statuses.data_lrn}}</p>
+        <v-icon>{{details.statuses.data_lrn != 'non disponibile' ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
       </v-col>
       <v-col cols="12" md="3" :class="details.statuses.status_dile == 1 ? 'active' : 'inactive'">
         <h4>DILE</h4>
-        <p>{{details.statuses.date_dile | moment}}</p>
-        <v-icon>{{details.statuses.date_dile ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+        <p>{{details.statuses.data_dile}}</p>
+        <v-icon>{{details.statuses.data_dile != 'non disponibile' ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
       </v-col>
       <v-col cols="12" md="3" :class="details.statuses.status_iiq == 1 ? 'active' : 'inactive'">
         <h4>IIQ</h4>
-        <p>{{details.statuses.date_iiq | moment}}</p>
-        <v-icon>{{details.statuses.date_iiq ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+        <p>{{details.statuses.data_iiq}}</p>
+        <v-icon>{{details.statuses.data_iiq != 'non disponibile' ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
       </v-col>
       <v-col cols="12" md="3" :class="details.statuses.status_miur == 1 ? 'active' : 'inactive'">
         <h4>MIUR</h4>
-        <p>{{details.statuses.date_miur | moment}}</p>
-        <v-icon>{{details.statuses.date_miur ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+        <p>{{details.statuses.data_miur}}</p>
+        <v-icon>{{details.statuses.data_miur != 'non disponibile' ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
       </v-col>
     </v-row>
 
@@ -146,7 +146,6 @@ export default {
       axios
         .get(`/amministrazione/struture/${this.structure}/show/`)
         .then(response => {
-        	console.log(response.data)
           this.formatData(response.data);
         })
         .catch(error => {
@@ -157,48 +156,50 @@ export default {
         });
     },
     formatData(data) {
+      let sd = data.structure_details;
+      let ud = data.user_details;
       this.details = {
         info: [
-          { n: "Nome", v: data.name },
-          { n: "Ragione", v: data.legal_name },
-          { n: "PIVA", v: data.piva },
-          { n: "Codice Fiscale", v: data.tax_code },
-          { n: "Codice Destionario", v: data.codice_destinatario }
+          { n: "Nome", v: sd.name },
+          { n: "Ragione", v: sd.legal_name },
+          { n: "PIVA", v: sd.piva },
+          { n: "Codice Fiscale", v: sd.tax_code },
+          { n: "Codice Destionario", v: sd.codice_destinatario }
         ],
         legal: [
-            {n: 'Nazione', v: data.country.name},
-            {n: 'Citta', v: data.town.title},
-            {n: 'Regione', v: data.region.title},
-            {n: 'Provinca', v: data.province.title},
-            {n: 'Cap', v: data.legal_zipcode},
-            {n: 'Indirizzo', v: data.legal_address},
+            {n: 'Nazione', v: sd.legal_country},
+            {n: 'Citta', v: sd.legal_town},
+            {n: 'Regione', v: sd.legal_region},
+            {n: 'Provinca', v: sd.legal_prov},
+            {n: 'Cap', v: sd.legal_zipcode},
+            {n: 'Indirizzo', v: sd.legal_address},
         ],
         exam: [
-            {n: 'Nazione', v: data.operational_country.name},
-            {n: 'Citta', v: data.operational_town.title},
-            {n: 'Regione', v: data.operational_region.title},
-            {n: 'Provinca', v: data.operational_province.title},
-            {n: 'Cap', v: data.operational_zipcode},
-            {n: 'Indirizzo', v: data.operational_address},
+            {n: 'Nazione', v: sd.operational_country},
+            {n: 'Citta', v: sd.operational_town},
+            {n: 'Regione', v: sd.operational_region},
+            {n: 'Provinca', v: sd.operational_province},
+            {n: 'Cap', v: sd.operational_zipcode},
+            {n: 'Indirizzo', v: sd.operational_address},
         ],
         contact: [
-            {n: 'Telefono', v: data.phone},
-            {n: 'Fax', v: data.fax},
-            {n: 'Email', v: data.email},
-            {n: 'PEC', v: data.pec},
-            {n: 'Sito', v: data.website},
+            {n: 'Telefono', v: sd.phone},
+            {n: 'Fax', v: sd.fax},
+            {n: 'Email', v: sd.email},
+            {n: 'PEC', v: sd.pec},
+            {n: 'Sito', v: sd.website},
         ],
         files: {
-            validation_request: data.validation_request,
-            visura_camerale: data.visura_camerale
+            validation_request: sd.validation_request,
+            visura_camerale: sd.visura_camerale
         },
-        statuses: data.status,
+        statuses: data.status_details,
         user: [
-          {n: 'Creato da', v: data.created_by},
-          {n: 'Creato a', v: data.created},
-          {n: 'Last Login Ip', v: data.last_login_ip},
-          {n: 'Aggiornato da', v: data.updated_by},
-          {n: 'Data Aggiornato', v: data.updated}
+          {n: 'Creato da', v: ud.created_by},
+          {n: 'Creato a', v: ud.created},
+          {n: 'Last Login Ip', v: ud.last_login_ip},
+          {n: 'Aggiornato da', v: ud.updated_by},
+          {n: 'Data Aggiornato', v: ud.updated}
         ]
 
       };
@@ -209,7 +210,7 @@ export default {
   },
   filters: {
     moment: function (date) {
-      if (!date) { return '-' }
+      if (!date || date === 'non disponibile') { return '-' }
       return moment(date).format('YYYY/MM/DD');
     }
   }
