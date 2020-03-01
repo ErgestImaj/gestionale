@@ -11,10 +11,10 @@ trait HasUserRelationships{
     }
 
     public function updatedByUser(){
-        return $this->belongsTo(User::class,'updated_by');
+        return $this->belongsTo(User::class,'updated_by','id','updated_by');
     }
     public function lockedByUser(){
-        return $this->belongsTo(User::class,'locked_by');
+        return $this->belongsTo(User::class,'locked_by','id','locked_by');
     }
 
 }

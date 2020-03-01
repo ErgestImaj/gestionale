@@ -146,6 +146,7 @@ export default {
       axios
         .get(`/amministrazione/struture/${this.structure}/show/`)
         .then(response => {
+        	console.log(response.data)
           this.formatData(response.data);
         })
         .catch(error => {

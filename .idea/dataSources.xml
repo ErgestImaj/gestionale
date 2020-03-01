@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="gestionaledata@localhost" uuid="bcaca32f-d226-4b17-812e-9a1decde99dd">
-      <driver-ref>mysql</driver-ref>
+    <data-source source="LOCAL" name="MySQL - gest@localhost" uuid="a3c13849-dfeb-443a-8647-3a3280c7b58f">
+      <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/gestionaledata</jdbc-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/gest</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="@localhost" uuid="44cd58a1-f310-485c-a13d-8db85895b99d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
     </data-source>
   </component>
 </project>

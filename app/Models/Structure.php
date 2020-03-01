@@ -31,13 +31,24 @@ class Structure extends Model
         'hashid'
     ];
 
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 */
 	public function status(){
 	    return $this->hasOne(StructureStatus::class,'structure_id');
   }
-  public function owner(){
-		return $this->belongsTo(User::class,'user_id');
-  }
-  public function discounts(){
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function discounts(){
 		return $this->hasMany(Discount::class,'structure_id')->orderByDesc('corsi');
   }
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasOne
+	 */
+	public function parent(){
+		return $this->belongsTo(Structure::class,'parent_structure_id','id');
+	}
 }
