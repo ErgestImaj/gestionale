@@ -30,6 +30,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateAttribute($val)
 	{
+		if (empty($val)) return $val;
 		return (new Carbon($val))->format('Y-m-d');
 	}
 
@@ -40,6 +41,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateLrnAttribute($val)
 	{
+		if (empty($val)) return $val;
 		return (new Carbon($val))->format('Y-m-d');
 	}
 
@@ -50,6 +52,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateIiqAttribute($val)
 	{
+		if (empty($val)) return $val;
 		return (new Carbon($val))->format('Y-m-d');
 	}
 
@@ -60,6 +63,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateMiurAttribute($val)
 	{
+		if (empty($val)) return $val;
 		return (new Carbon($val))->format('Y-m-d');
 	}
 
@@ -70,6 +74,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateDileAttribute($val)
 	{
+		if (empty($val)) return $val;
 		return (new Carbon($val))->format('Y-m-d');
 	}
 

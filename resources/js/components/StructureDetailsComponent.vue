@@ -164,7 +164,8 @@ export default {
           { n: "Ragione", v: sd.legal_name },
           { n: "PIVA", v: sd.piva },
           { n: "Codice Fiscale", v: sd.tax_code },
-          { n: "Codice Destionario", v: sd.codice_destinatario }
+          { n: "Codice Destionario", v: sd.codice_destinatario },
+          { n: "Codice LRN", v: sd.lrn_code }
         ],
         legal: [
             {n: 'Nazione', v: sd.legal_country},
@@ -188,6 +189,7 @@ export default {
             {n: 'Email', v: sd.email},
             {n: 'PEC', v: sd.pec},
             {n: 'Sito', v: sd.website},
+            {n: 'Strutura Madre', v: sd.structura_madre},
         ],
         files: {
             validation_request: sd.validation_request,
@@ -196,10 +198,12 @@ export default {
         statuses: data.status_details,
         user: [
           {n: 'Creato da', v: ud.created_by},
-          {n: 'Creato a', v: ud.created},
+          {n: 'Creato a', v: ud.created_at},
+          {n: 'Username', v: ud.username},
+          {n: 'Last Login', v: ud.last_login},
           {n: 'Last Login Ip', v: ud.last_login_ip},
           {n: 'Aggiornato da', v: ud.updated_by},
-          {n: 'Data Aggiornato', v: ud.updated}
+          {n: 'Data Aggiornato', v: ud.updated_at}
         ]
 
       };
