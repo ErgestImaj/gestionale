@@ -50,8 +50,8 @@
             var btn = $(this);
             btn.addClass('evolve_btn--loading').attr("disabled", true);
             $('#sendemailform input').removeClass('is-invalid')
-            let actionurl = $('#sendemailform').attr('action');
-            let data = getFormData(
+            var actionurl = $('#sendemailform').attr('action');
+            var data = getFormData(
                 $("#sendemailform")
             );
 

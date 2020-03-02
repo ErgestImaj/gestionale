@@ -36,7 +36,7 @@ module.exports = {
     mounted:function () {
         {
             (function($,_this){
-                let config = {
+                var config = {
                     height: _this.height,
                     toolbar: [
                         ['style', ['style']],
@@ -50,7 +50,7 @@ module.exports = {
                     ],
                 };
 
-                let vm = _this;
+                var vm = _this;
 
                 config.callbacks = {
 

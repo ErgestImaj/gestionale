@@ -1,7 +1,7 @@
 $(document).on('click', '.delete-btn', function (e) {
     e.preventDefault();
-    let actionurl = $(this).data('action');
-    let msg = $(this).data('content');
+    var actionurl = $(this).data('action');
+    var msg = $(this).data('content');
     swal({
         title: "Sei sicuro?",
         text: msg,
@@ -52,7 +52,7 @@ $(document).on('click', '.delete-btn', function (e) {
 });
 $(document).on('click', '.update-btn', function (e) {
     e.preventDefault();
-    let actionurl = $(this).data('action');
+    var actionurl = $(this).data('action');
     axios.patch(actionurl)
         .then(response => {
             if (response.data.status == 'success'){
@@ -78,8 +78,8 @@ $(document).on('click', '.update-btn', function (e) {
 
 $(document).on('click', '.post-action', function (e) {
     e.preventDefault();
-    let actionurl = $(this).data('action');
-    let msg = $(this).data('content');
+    var actionurl = $(this).data('action');
+    var msg = $(this).data('content');
     swal({
         title: "Sei sicuro?",
         text: msg,
@@ -112,7 +112,7 @@ $(document).on('click', '.post-action', function (e) {
 
 $(document).on('click', '.sender-email', function (e) {
     e.preventDefault();
-    let actionurl = $(this).data('action');
+    var actionurl = $(this).data('action');
     $('#email-settings').toggleClass('open')
     $('#sendemailform').attr('action',actionurl);
 });

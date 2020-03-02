@@ -2,6 +2,7 @@
     <div class="d-sm-flex justify-content-center justify-content-sm-between">
         <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © {{\Carbon\Carbon::now()->format('Y')}} <a href="#" target="_blank">Mediaform Srl.</a> Tutti i diritti riservati.</span>
     </div>
+    @jquery
     <!-- Scripts -->
     <script>
 
@@ -9,8 +10,8 @@
          * Get data from url
          */
         function getUrlData(key) {
-            let str = window.location.pathname;
-            let res = str.split("/");
+            var str = window.location.pathname;
+            var res = str.split("/");
             return res[key];
         }
 
@@ -24,7 +25,7 @@
     <script src="{{asset('js/config.js')}}"></script>
 @stack('scripts')
     <script>
-        jQuery(function () {
+        jQuery(document).ready(function($) {
 
            $('.toggleefect').on('click',function () {
                $('body').toggleClass('sidebar-icon-only')
@@ -59,7 +60,7 @@
         })
 
     </script>
-    @jquery
+    
     @toastr_js
     @toastr_render
 </footer>
