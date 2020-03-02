@@ -63,6 +63,7 @@ class StructureRequest extends FormRequest {
 			'phone'               => 'required|string',
 			'fax'                 => 'sometimes|string',
 			'pec'                 => 'sometimes|email',
+			'email'               => 'required|email|unique:users,email,'.$this->userId,
 			'website'             => 'sometimes|string',
 			'accredit'            => 'required|array',
 			'doc_file3'           => 'nullable|mimes:jpeg,png,jpg',
@@ -95,7 +96,6 @@ class StructureRequest extends FormRequest {
 		}else{
 			$rules['doc_file2'] = 'required|mimes:jpeg,png,jpg,pdf';
 			$rules['doc_file1'] = 'required|mimes:jpeg,png,jpg,pdf';
-			$rules['email'] = 'required|email|unique:users,email';
 		}
 
 
