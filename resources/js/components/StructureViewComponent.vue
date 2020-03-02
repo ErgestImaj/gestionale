@@ -106,14 +106,15 @@
                 }
             },
             edit(item) {
-                console.log('edit', item.hashid);
+							let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/edit';
+							window.location.href = nUrl;
             },
             view(item) {
-                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/view/';
+                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/view';
                 window.location.href = nUrl;
             },
             addDiscount(item) {
-                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/sconto/';
+                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/sconto';
                 window.location.href = nUrl;
             },
             switchAccount(item) {

@@ -176,6 +176,7 @@ class StructureController extends Controller {
 			'created_at'=>format_date($structure->created) ?? '',
 			'updated_at'=>format_date($structure->updated) ?? '',
 			'state'=>$structure->user->state,
+			'username'=>$structure->owner->username,
 			'locked'=>format_date($structure->user->locked) ?? '',
 			'locked_by'=>format_date($structure->user->locked) ?? '',
 			'last_login_id'=>$structure->user->last_login_ip,
@@ -194,4 +195,26 @@ class StructureController extends Controller {
 			'structure'=>$structure
 		]);
 	}
+	public function edit(Structure $structure){
+		return $structure->load('status');
+	}
+	public function update(StructureRequest $request, Structure $structure){
+
+		try {
+			$structure->status()->update($request->fillStructureStatus());
+			$structure->user()->update($request->fillStructureUser());
+			$structure->update($request->fillStructure());
+		} catch ( \Exception $exception ) {
+			logger( $exception->getMessage() );
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.error' )
+			] );
+		}
+		return response( [
+			'status' => 'success',
+			'msg'    => trans( 'messages.success' )
+		] );
+	}
+
 }

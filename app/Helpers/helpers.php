@@ -5,7 +5,8 @@
  */
 if (!function_exists('format_date')){
     function format_date($date){
-        if (!empty($date) && $date != "0000-00-00 00:00:00" && $date != "0000-00-00"){
+
+        if (!empty($date) && $date != "0000-00-00 00:00:00" && $date != "0000-00-00" ){
             return \Carbon\Carbon::parse($date)->format('d M Y');
         }
         return 'non disponibile';

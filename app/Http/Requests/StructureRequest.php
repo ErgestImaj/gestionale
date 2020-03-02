@@ -6,8 +6,13 @@ use App\Helpers\Upload;
 use App\Models\Accreditation;
 use App\Models\Structure;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 
 class StructureRequest extends FormRequest {
+
+	public $userId;
+	public $structureId;
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -23,7 +28,7 @@ class StructureRequest extends FormRequest {
 	public function prepareForValidation() {
 
 		$this->merge(
-			json_decode( $this->get( 'structure' ), true )
+			json_decode( $this->input( 'structure' ), true )
 		);
 	}
 
@@ -34,13 +39,14 @@ class StructureRequest extends FormRequest {
 	 * @return array
 	 */
 	public function rules() {
-
+		$this->structureId =  $this->id ??  null;
+		$this->userId =  $this->user_id ??  null;
 		$rules = [
 			'nome'                => 'bail|required|string|min:2|max:191',
 			'legal_name'          => 'required|string|min:2|max:191',
 			'piva'                => 'required|string|max:191',
 			'tax_code'            => 'required|string|min:2|max:191',
-			'codice_destinatario' => 'sometimes|string|min:7|max:7',
+			'codice_destinatario' => 'sometimes|min:7|max:7',
 			'legal_zipcode'       => 'required|string',
 			'legal_address'       => 'required|string',
 			'legal_region'        => 'required|numeric|exists:location_regions,id',
@@ -56,13 +62,11 @@ class StructureRequest extends FormRequest {
 			'parent'              => 'sometimes|numeric|exists:structures_structures,id',
 			'phone'               => 'required|string',
 			'fax'                 => 'sometimes|string',
-			'email'               => 'required|email|unique:users',
 			'pec'                 => 'sometimes|email',
-			'website'             => 'sometimes|url',
+			'email'               => 'required|email|unique:users,email,'.$this->userId,
+			'website'             => 'sometimes|string',
 			'accredit'            => 'required|array',
 			'doc_file3'           => 'nullable|mimes:jpeg,png,jpg',
-			'doc_file2'           => 'required|mimes:jpeg,png,jpg,pdf',
-			'doc_file1'           => 'required|mimes:jpeg,png,jpg,pdf',
 		];
 		if ( is_array( $this->get( 'accredit' ) ) ) {
 			foreach ( $this->get( 'accredit' ) as $acredit ) {
@@ -84,6 +88,14 @@ class StructureRequest extends FormRequest {
 						break;
 				}
 			}
+		}
+
+		if ($this->structureId){
+			$rules['doc_file2'] = 'nullable|mimes:jpeg,png,jpg,pdf';
+			$rules['doc_file1'] = 'nullable|mimes:jpeg,png,jpg,pdf';
+		}else{
+			$rules['doc_file2'] = 'required|mimes:jpeg,png,jpg,pdf';
+			$rules['doc_file1'] = 'required|mimes:jpeg,png,jpg,pdf';
 		}
 
 
@@ -147,9 +159,9 @@ class StructureRequest extends FormRequest {
 			}
 		}
 
-		return [
+		$structure = [
 			'name'                => $this->nome,
-			'type'                => $this->route( 'type' ),
+			'type'                => $this->structureId ? $this->type : $this->route( 'type' ),
 			'legal_name'          => $this->legal_name,
 			'tax_code'            => $this->tax_code,
 			'piva'                => $this->piva,
@@ -173,42 +185,56 @@ class StructureRequest extends FormRequest {
 			'pec'                 => $this->pec,
 			'website'             => $this->website,
 			'state'               => 1,
-			'visura_camerale'     => $visura_camerale,
-			'validation_request'  => $validation_request,
-			'image'               => $image,
-			'token'               => $token,
+			'visura_camerale'     => $this->hasFile( 'doc_file2' ) ? $visura_camerale : $this->visura_camerale,
+			'validation_request'  => $this->hasFile( 'doc_file1' ) ? $validation_request : $this->validation_request,
+			'image'               => $this->hasFile( 'doc_file3' ) ? $image : $this->image,
+			'token'               => $this->token ?: $token,
 			'parent_structure_id' => $this->parent,
-			'created_by'          => auth()->id()
 		];
+		if (!$this->structureId){
+			$structure['created_by'] = auth()->id();
+		}
+		return $structure;
 	}
 
 	public function fillStructureStatus() {
-		$status = [];
+		$status = [
+			'state'=>1,
+			'status_miur'=>null,
+			'date_miur'=>null,
+			'status'=>null,
+			'date'=>null,
+			'status_iiq'=>null,
+			'date_iiq'=>null,
+			'status_lrn'=>null,
+			'date_lrn'=>null,
+			'status_dile'=>null,
+			'date_dile'=>null
+		];
 		foreach ( $this->get( 'accredit' ) as $acredit ) {
 			switch ( $acredit ) {
 				case Accreditation::MIUR:
-					$status['status_miur'] = 1;
-					$status['date_miur']   = $this->accredit_miur;
+				  Arr::set($status,'status_miur',1);
+				  Arr::set($status,'date_miur', $this->accredit_miur);
 					break;
 				case Accreditation::MF:
-					$status['status'] = 1;
-					$status['date']   = $this->accredit_mf;
+					Arr::set($status,'status',1);
+					Arr::set($status,'date', $this->accredit_mf);
 					break;
 				case Accreditation::IIQ:
-					$status['status_iiq'] = 1;
-					$status['date_iiq']   = $this->accredit_iiq;
+					Arr::set($status,'status_iiq',1);
+					Arr::set($status,'date_iiq', $this->accredit_iiq);
 					break;
 				case Accreditation::LRN:
-					$status['status_lrn'] = 1;
-					$status['date_lrn']   = $this->accredit_lrn;
+					Arr::set($status,'status_lrn',1);
+					Arr::set($status,'date_lrn', $this->accredit_lrn);
 					break;
 				case Accreditation::DILE:
-					$status['status_dile'] = 1;
-					$status['date_dile']   = $this->accredit_dile;
+					Arr::set($status,'status_dile',1);
+					Arr::set($status,'date_dile', $this->accredit_dile);
 					break;
 			}
 		}
-		$status['state']=1;
 		return $status;
 	}
 
@@ -221,13 +247,17 @@ class StructureRequest extends FormRequest {
 				$avatar = $avatar['basename'];
 			}
 		}
-		return [
+		$user =  [
 			'firstname' => $this->nome,
 			'lastname'  => $this->nome,
 			'email'     => $this->email,
-			'password'  => uniqid(),
-			'avatar'      => $avatar
+			'avatar'    => $this->hasFile('doc_file3') ?  $avatar : $this->image
 		];
+		if (!$this->structureId){
+			$user['password'] = uniqid();
+		}
+		return $user;
 
 	}
+
 }
