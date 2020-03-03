@@ -13,7 +13,9 @@
         </div>
         <div class="card mb-5">
             <div class="card-body">
-                <workshop></workshop>
+                <v-app class="workshop">
+                    <workshop></workshop>
+                </v-app>
             </div>
         </div>
         <div class="page-header">

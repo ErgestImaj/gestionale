@@ -1,4 +1,6 @@
 <template>
+    <v-form>
+	<v-container>
     <div class="row">
         <div class="col-12">
             <form action="">
@@ -22,45 +24,54 @@
                     </div>
                     <div class="form-group col-md-9">
                         <label class="form-control-label"  for="target">{{trans('form.target')}}</label>
-                        <multiselect
+                        <v-combobox
+                            dense
+                            chips
+                            :deletable-chips="true"
                             v-model="workshop.partecipants"
-                            :options="roles"
-                            :multiple="true"
-                            openDirection="bottom"
-                            track-by="name"
-                            label="name"
-                            id="target"
-                            :class="{'border border-danger rounded': errors.partecipants}">
-                        </multiselect>
+                            :items="roles"
+                            outlined
+                            multiple
+                            item-text="name"
+                            item-value="target"
+                            :error-messages="errors.partecipants ? errors.partecipants[0] : []"
+                            attach
+                        ></v-combobox>
                         <div class="invalid-feedback d-block" v-if="errors.partecipants">{{errors.partecipants[0]}}</div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="description">{{trans('form.description')}}</label>
-                    <summernote
-                        id="description"
-                        name="editor"
-                        :model="workshop.note"
-                        v-on:change="value => { workshop.note = value }"
-                        :config="config"
-                    ></summernote>
+
+                    <tiptap-vuetify
+                        v-model="workshop.note"
+                        :extensions="extensions"
+                        />
+                    
                     <div class="invalid-feedback d-block" v-if="errors.note">{{errors.note[0]}}</div>
                 </div>
 
 
-                <div class="col-lg-12">
-                    <a class="btn btn-info text-uppercase mt-5" href="#" :disabled="submiting" @click.prevent="create">
-                        <i class="fas fa-spinner fa-spin" v-if="submiting"></i>
-                        <span class="ml-1">{{trans('form.save')}}</span>
-                    </a>
+                <div>
+                    <v-btn
+                        :loading="submiting"
+                        :disabled="submiting"
+                        color="primary"
+                        class="ma-0 white--text"
+                        @click="create"
+                    >{{trans('form.save')}}</v-btn>
                 </div>
             </form>
         </div>
     </div>
+	</v-container>
+    </v-form>
 </template>
 
 <script>
     import Datepicker from 'vuejs-datepicker';
+    import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList, ListItem, Link, Blockquote, HardBreak, HorizontalRule, History } from 'tiptap-vuetify'
+
     export default {
         data(){
             return{
@@ -71,11 +82,33 @@
                 config: {
                     height: 100
                 },
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem,
+                    BulletList,
+                    OrderedList,
+                    [Heading, {
+                        options: {
+                        levels: [1, 2, 3]
+                        }
+                    }],
+                    Bold,
+                    Code,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak
+                ],
             }
         },
         components: {
             'summernote' : require('./Summernote'),
-            'datepicker':  Datepicker
+            'datepicker':  Datepicker,
+             TiptapVuetify 
         },
         mounted() {
             this.getRoles();
@@ -111,7 +144,14 @@
                    })
                }
            },
-       }
+       },
+        beforeDestroy() {
+            this.editor.destroy()
+        },
     }
 </script>
-
+<style>
+#app.workshop .v-application--wrap {
+    min-height: 0 !important;
+}
+</style>
