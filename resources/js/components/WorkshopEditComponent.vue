@@ -1,88 +1,149 @@
 <template>
-    <div class="row">
-        <div class="col-12">
-            <form action="">
-                <div class="form-group">
-                    <label for="data">{{trans('form.data')}}</label>
-                    <datepicker v-model="workshop.date" input-class="form-control" id="data" name="data"></datepicker>
-                    <div class="invalid-feedback d-block" v-if="errors.date">{{errors.date[0]}}</div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label class="form-control-label">{{trans('form.preferenze')}}</label>
-                        <div class="custom-control custom-radio">
-                            <input type="radio" v-model="workshop.when" :value="0" name="when"  class="custom-control-input" id="customControlValidation2">
-                            <label class="custom-control-label pt-1" for="customControlValidation2">{{trans('form.morning')}}</label>
-                        </div>
-                        <div class="custom-control custom-radio mb-3">
-                            <input type="radio" v-model="workshop.when" :value="1" name="when" class="custom-control-input" id="customControlValidation3">
-                            <label class="custom-control-label pt-1" for="customControlValidation3">{{trans('form.afternoon')}}</label>
-                            <div class="invalid-feedback d-block" v-if="errors.when">{{errors.when[0]}}</div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-9">
-                        <label class="form-control-label"  for="target">{{trans('form.target')}}</label>
-                        <multiselect
-                                v-model="workshop.partecipants"
-                                :options="roles"
-                                :multiple="true"
-                                openDirection="bottom"
-                                track-by="name"
-                                label="name"
-                                id="target"
-                                :class="{'border border-danger rounded': errors.partecipants}">
-                        </multiselect>
-                        <div class="invalid-feedback d-block" v-if="errors.partecipants">{{errors.partecipants[0]}}</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="description">{{trans('form.description')}}</label>
-                    <summernote
-                            id="description"
-                            name="note"
-                            ref="description"
-                            :model="workshop.note"
-                            v-on:change="value => { workshop.note = value }"
-                            :config="config"
-                    ></summernote>
-                    <div class="invalid-feedback d-block" v-if="errors.note">{{errors.note[0]}}</div>
-                </div>
+<v-form>
+    <v-card outlined flat class="mb-4">
+      <v-card-text class="pa-5">
+        <v-menu
+          content-class="gdate"
+          v-model="datePicker1"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="290px"
+          attach
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              v-model="momentDate"
+              :label="trans('form.data')"
+              readonly
+              outlined
+              v-on="on"
+              :error-messages="errors.date ? errors.date[0] : []"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="workshop.date" @input="datePicker1 = false"></v-date-picker>
+        </v-menu>
 
+        <v-row>
+          <v-col cols="12" md="4">
+            <p style="margin-bottom: 5px;">{{trans('form.preferenze')}}</p>
+            <v-radio-group
+              v-model="workshop.when"
+              :mandatory="false"
+              :error-messages="errors.when ? errors.when[0] : []"
+              row
+              dense
+            >
+              <v-radio :label="trans('form.morning')" :value="0"></v-radio>
+              <v-radio :label="trans('form.afternoon')" :value="1"></v-radio>
+            </v-radio-group>
+          </v-col>
+          <v-col cols="12" md="8">
+            <v-combobox
+              chips
+              :deletable-chips="true"
+              v-model="workshop.partecipants"
+              :items="roles"
+              outlined
+              multiple
+              item-text="name"
+              item-value="target"
+              :error-messages="errors.partecipants ? errors.partecipants[0] : []"
+              attach
+              :label="trans('form.target')"
+            ></v-combobox>
+            <div
+              class="invalid-feedback d-block"
+              v-if="errors.partecipants"
+            >{{errors.partecipants[0]}}</div>
+          </v-col>
+        </v-row>
 
-                <div class="col-lg-12">
-                    <a class="btn btn-info text-uppercase mt-5" href="#" :disabled="submiting" @click.prevent="updateWorkshop">
-                        <i class="fas fa-spinner fa-spin" v-if="submiting"></i>
-                        <span class="ml-1">{{trans('form.save')}}</span>
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
+        <label>{{trans('form.description')}}</label>
+        <tiptap-vuetify v-model="workshop.note" :extensions="extensions" />
+
+        <div class="invalid-feedback d-block" v-if="errors.note">{{errors.note[0]}}</div>
+
+        <v-btn
+          :loading="submiting"
+          :disabled="submiting"
+          color="primary"
+          class="mt-4 ml-0 white--text"
+          @click="updateWorkshop"
+        >{{trans('form.save')}}</v-btn>
+      </v-card-text>
+    </v-card>
+  </v-form>
 </template>
 
 <script>
-    import Datepicker from 'vuejs-datepicker';
+import Datepicker from 'vuejs-datepicker';
+import {
+  TiptapVuetify,
+  Heading,
+  Bold,
+  Italic,
+  Strike,
+  Underline,
+  Code,
+  Paragraph,
+  BulletList,
+  OrderedList,
+  ListItem,
+  Link,
+  Blockquote,
+  HardBreak,
+  HorizontalRule,
+  History
+} from "tiptap-vuetify";
+import moment from "moment";
     export default {
         props:['note'],
         data(){
             return{
                 roles:[],
-                workshop:{},
+                workshop: {},
                 errors: {},
                 submiting: false,
+                datePicker1: false,
                 config: {
                     height: 100
                 },
+                extensions: [
+                    History,
+                    Blockquote,
+                    Link,
+                    Underline,
+                    Strike,
+                    Italic,
+                    ListItem,
+                    BulletList,
+                    OrderedList,
+                    [
+                    Heading,
+                    {
+                        options: {
+                        levels: [1, 2, 3]
+                        }
+                    }
+                    ],
+                    Bold,
+                    Code,
+                    HorizontalRule,
+                    Paragraph,
+                    HardBreak
+                ]
 
             }
         },
         components: {
             'summernote' : require('./Summernote'),
-            'datepicker':  Datepicker
+            'datepicker':  Datepicker,
+            TiptapVuetify
         },
         mounted() {
             this.getWorkshop();
-            this.$refs.description.run('code',this.note);
+            // this.$refs.description.run('code',this.note);
             this.getRoles();
         },
 
@@ -133,8 +194,21 @@
                             this.errors = error.response.data.errors
                         })
                 }
+            },
+            moment: function() {
+                return moment();
             }
-       }
+       },
+        beforeDestroy() {
+            this.editor.destroy();
+        },
+        computed: {
+            momentDate() {
+            return this.workshop.date
+                ? moment(this.workshop.date).format("DD MMM YYYY")
+                : "";
+            }
+        }
     }
 </script>
 

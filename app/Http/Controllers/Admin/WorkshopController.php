@@ -45,15 +45,22 @@ class WorkshopController extends Controller
                                 {
                                     return optional($row->updatedByUser)->displayName();
                                 } )
-                               ->addColumn( 'actions', function ( $row )
+                               ->addColumn( 'hashid', function ( $row )
                                {
-                                   $html ='<a class="py-2 px-3 btn block-btn btn-dark mb-1" data-tooltip="'.trans('form.edit').'" href="'.route('admin.workshop.edit',$row->hashid()).'">
-                                                       <i class="fas fa-pencil-alt"></i>
-                                                  </a>
-                                               <a class="delete-btn py-2 px-3  btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'workshop']).'" data-action="'.route('admin.workshop.destroy',$row->hashid()).'" href="#">
-                                                       <i class="fas fa-trash-alt"></i> </a>';
-
-                                   return $html;
+                                   return $row->hashid();
+                               } )
+                               ->addColumn( 'editlink', function ( $row )
+                               {
+                                   return route('admin.workshop.edit',$row->hashid());
+                               } )
+                               ->addColumn( 'remlink', function ( $row )
+                               {
+                                   return route('admin.workshop.destroy',$row->hashid());
+                               } )
+                               
+                               ->addColumn( 'remMessage', function ( $row )
+                               {
+                                   return trans('messages.delete_confirm', ['record'=>'workshop']);
                                } )
                                ->rawColumns( ['actions','description','data'] )
                                ->make( true );

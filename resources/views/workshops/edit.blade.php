@@ -11,11 +11,10 @@
                 <span class="text-semibold"><i class="fas fa-list"></i>@lang('menu.workshop')</span>
             </h3>
         </div>
-        <div class="card mb-5">
-            <div class="card-body">
-                <workshop-edit note="{!! e($workshop->note) !!}"></workshop-edit>
-            </div>
-        </div>
+
+        <v-app class="workshop">
+            <workshop-edit note="{!! e($workshop->note) !!}"></workshop-edit>
+        </v-app>
 
     </div>
 @endsection
