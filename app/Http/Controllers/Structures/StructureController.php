@@ -7,6 +7,7 @@ use App\Http\Requests\StructureRequest;
 use App\Models\StructureStatus;
 use App\Models\User;
 use App\Models\UserGroups;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Structure;
 use Illuminate\Support\Facades\Password;
@@ -47,7 +48,7 @@ class StructureController extends Controller {
 			return null;
 		}
 
-		return Structure::where( 'type', $request->type )->with( 'province' )->latest()->get();
+		return Structure::where( 'type', $request->type )->with( ['province','owner'] )->latest()->get();
 	}
 
 	public function getStructureParent($type){
@@ -214,6 +215,29 @@ class StructureController extends Controller {
 		return response( [
 			'status' => 'success',
 			'msg'    => trans( 'messages.success' )
+		] );
+	}
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param Discount $discount
+	 *
+	 * @return void
+	 */
+	public function destroy(Structure $structure)
+	{
+
+		$structure->owner()->update([
+			'updated_by'=>auth()->id(),
+			'deleted_at' => Carbon::now()->toDateTimeString()
+		]);
+		$structure->update([
+			'updated_by'=>auth()->id(),
+			'deleted_at' => Carbon::now()->toDateTimeString()
+		]);
+		return response( [
+			'status' => 'success',
+			'msg'    => trans( 'messages.delete' )
 		] );
 	}
 
