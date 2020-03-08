@@ -71,7 +71,8 @@
                     {title: 'View'},
                     {title: 'Add Discount'},
                     {title: 'Switch Account'},
-                    {title: '---'},
+                    {title: 'Enable'},
+                    {title: 'Delete Account'},
                 ],
             }
         },
@@ -103,6 +104,12 @@
                     case 'Switch Account':
                         this.switchAccount(item);
                         break;
+                    case 'Enable Account':
+                        this.switchAccount(item);
+                        break;
+                    case 'Delete Account':
+                        this.deleteAccount(item);
+                        break;
                 }
             },
             edit(item) {
@@ -118,6 +125,11 @@
                 window.location.href = nUrl;
             },
             switchAccount(item) {
+            	console.log(item)
+							let nUrl = window.location.origin + '/amministrazione/login-as-user/'+item.owner.hashid;
+							window.location.href = nUrl;
+            },
+					  deleteAccount(item) {
                 console.log('switch', item.id);
             },
             addStrutura() {

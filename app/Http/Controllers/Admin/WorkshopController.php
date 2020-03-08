@@ -57,7 +57,7 @@ class WorkshopController extends Controller
                                {
                                    return route('admin.workshop.destroy',$row->hashid());
                                } )
-                               
+
                                ->addColumn( 'remMessage', function ( $row )
                                {
                                    return trans('messages.delete_confirm', ['record'=>'workshop']);

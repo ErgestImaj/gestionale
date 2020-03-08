@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\InvitationEmailNotification;
+use App\Traits\HashIdAttribute;
 use App\Traits\HasRoles;
 use App\Traits\HasStatus;
 use App\Traits\UserRelationships;
@@ -15,7 +16,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class User extends Authenticatable
 {
-    use  Notifiable, UserRelationships, HasRoles,HasHashid, HashidRouting,SoftDeletes, HasStatus;
+    use  Notifiable, UserRelationships,HashIdAttribute, HasRoles,HasHashid, HashidRouting,SoftDeletes, HasStatus;
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
@@ -69,7 +70,7 @@ class User extends Authenticatable
         'state'              => 'boolean'
 
     ];
-    protected $appends = ['avatar_url','display_name'];
+    protected $appends = ['avatar_url','display_name','hashid'];
 
 
     /**
