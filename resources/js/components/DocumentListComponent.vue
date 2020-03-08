@@ -51,10 +51,6 @@
                     {text: this.trans('form.actions'), value: 'actions', sortable: false, align: 'right'},
                 ],
                 loading: true,
-                menuItems: [
-                    {title: 'Edit'},
-                    {title: 'View'},
-                ],
             }
         },
         mounted() {
@@ -64,31 +60,12 @@
             getDocs() {
                 axios.get(`/amministrazione/area-download/`)
                     .then(response => {
-                        console.log(response);
                         this.documents = response.data.data;
                     })
                     .catch(error => {
                     }).finally(() => {
                     this.loading = false;
                 });
-            },
-            menuClick(name, item) {
-                switch (name) {
-                    case 'Edit':
-                        this.edit(item);
-                        break;
-                    case 'View':
-                        this.view(item);
-                        break;
-                }
-            },
-            edit(item) {
-				let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/edit';
-				window.location.href = nUrl;
-            },
-            view(item) {
-                let nUrl = window.location.origin + '/amministrazione/struture/'+item.hashid+'/view';
-                window.location.href = nUrl;
             },
             addDoc() {
                 let nUrl = window.location.origin + '/amministrazione/download/create';
