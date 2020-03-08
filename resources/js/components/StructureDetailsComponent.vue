@@ -236,10 +236,16 @@ export default {
 .statuses > div p {
     margin: 0;
 }
-.row.statuses {
+@media all and (min-width: 900px) {
+  .row.statuses {
     margin: 10px -10px;
     flex-wrap: nowrap;
+  }
 }
+.row.statuses > div {
+  margin-bottom: 10px;
+}
+
 .statuses > div {
     background: white;
     box-sizing: border-box;
@@ -267,7 +273,7 @@ export default {
     background: #F3E5F5;
 }
 .statuses > div i {
-    position: absolute;
+    position: absolute !important;
     bottom: 10px;
     right: 10px;
 }

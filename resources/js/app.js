@@ -56,6 +56,7 @@ Vue.component('workshop-edit', require('./components/WorkshopEditComponent').def
 Vue.component('document-create', require('./components/DocumentComponent').default);
 Vue.component('document-edit', require('./components/DocumentEditComponent').default);
 Vue.component('document-categories', require('./components/DocumentCategoriesComponent').default);
+Vue.component('document-list', require('./components/DocumentListComponent').default);
 Vue.component('corsi-table', require('./components/CorsiTableComponent').default);
 Vue.component('struture-create', require('./components/AddStrutureComponent').default);
 Vue.component('struture-edit', require('./components/EditStrutureComponent').default);

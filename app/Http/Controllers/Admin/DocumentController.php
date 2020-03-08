@@ -44,15 +44,18 @@ class DocumentController extends Controller
                                {
                                    return optional($row->user)->displayName();
                                } )
-                               ->addColumn( 'actions', function ( $row )
+                               ->addColumn( 'editlink', function ( $row )
                                {
-                                   $html ='<a class=" py-2 px-3 btn block-btn btn-dark mb-1" data-tooltip="'.trans('form.edit').'" href="'.route('admin.download.edit',$row->hashid()).'">
-                                                       <i class="fas fa-pencil-alt"></i>
-                                                  </a>
-                                                  <a class="delete-btn py-2 px-3 btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'record']).'" data-action="'.route('admin.download.destroy',$row->hashid()).'" href="#">
-                                                       <i class="fas fa-trash-alt"></i> </a>';
+                                   return route('admin.download.edit',$row->hashid());
+                               } )
+                               ->addColumn( 'remlink', function ( $row )
+                               {
+                                   return route('admin.download.destroy',$row->hashid());
+                               } )
 
-                                   return $html;
+                               ->addColumn( 'remMessage', function ( $row )
+                               {
+                                   return trans('messages.delete_confirm', ['record'=>'record']);
                                } )
                                ->rawColumns( ['actions','description'] )
                                ->make( true );
