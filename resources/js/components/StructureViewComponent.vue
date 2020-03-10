@@ -33,13 +33,33 @@
                         </template>
 
                         <v-list>
-                            <v-list-item
-                                v-for="(m, i) in menuItems"
-                                :key="i"
-                                @click="menuClick(m.title, item)"
-                            >
-                                <v-list-item-title>{{ m.title }}</v-list-item-title>
-                            </v-list-item>
+                           <template  v-for="(m, i) in menuItems">
+														 <v-list-item
+															 v-if="m.id == 5"
+															 :key="i"
+															 @click="menuClick(m.id, item)"
+														 >
+															 <a  icon class="update-btn"  :data-action="`/amministrazione/structure/${item.hashid}`" href="#">
+																 <v-list-item-title>{{ item.owner.state ? m.title2 :  m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+														 <v-list-item
+															 v-else-if="m.id == 6"
+															 :key="i"
+														 >
+															 <a  icon class="delete-btn" :data-content="trans('messages.delete_record')" :data-action="`/amministrazione/structure/${item.hashid}`" href="#">
+																 <v-list-item-title>{{ m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+
+														 <v-list-item
+															 v-else
+															 :key="i"
+															 @click="menuClick(m.id, item)"
+														 >
+															 <v-list-item-title>{{ m.title }}</v-list-item-title>
+														 </v-list-item>
+													 </template>
                         </v-list>
                     </v-menu>
                 </template>
@@ -67,12 +87,12 @@
                 ],
                 loading: true,
                 menuItems: [
-                    {title: 'Edit'},
-                    {title: 'View'},
-                    {title: 'Add Discount'},
-                    {title: 'Switch Account'},
-                    {title: 'Enable'},
-                    {title: 'Delete Account'},
+                    {id:1,title: 'Edit'},
+                    {id:2,title: 'View'},
+                    {id:3,title: 'Add Discount'},
+                    {id:4,title: 'Switch Account'},
+                    {id:5,title: 'Enable', title2: 'Disable'},
+                    {id:6,title: 'Delete Account'},
                 ],
             }
         },
@@ -90,25 +110,19 @@
                     this.loading = false;
                 });
             },
-            menuClick(name, item) {
-                switch (name) {
-                    case 'Edit':
+            menuClick(id, item) {
+                switch (id) {
+                    case 1:
                         this.edit(item);
                         break;
-                    case 'View':
+                    case 2:
                         this.view(item);
                         break;
-                    case 'Add Discount':
+                    case 3:
                         this.addDiscount(item);
                         break;
-                    case 'Switch Account':
+                    case 4:
                         this.switchAccount(item);
-                        break;
-                    case 'Enable Account':
-                        this.switchAccount(item);
-                        break;
-                    case 'Delete Account':
-                        this.deleteAccount(item);
                         break;
                 }
             },
@@ -125,12 +139,8 @@
                 window.location.href = nUrl;
             },
             switchAccount(item) {
-            	console.log(item)
 							let nUrl = window.location.origin + '/amministrazione/login-as-user/'+item.owner.hashid;
 							window.location.href = nUrl;
-            },
-					  deleteAccount(item) {
-                console.log('switch', item.id);
             },
             addStrutura() {
                 let nUrl = window.location.origin + '/amministrazione/struture/'+this.structureType+'/create';

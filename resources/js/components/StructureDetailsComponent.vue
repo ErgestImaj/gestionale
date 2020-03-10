@@ -165,7 +165,8 @@ export default {
           { n: "PIVA", v: sd.piva },
           { n: "Codice Fiscale", v: sd.tax_code },
           { n: "Codice Destionario", v: sd.codice_destinatario },
-          { n: "Codice LRN", v: sd.lrn_code }
+          { n: "Codice LRN", v: sd.lrn_code },
+          { n: "Ordine Minimo", v: sd.minimum_order }
         ],
         legal: [
             {n: 'Nazione', v: sd.legal_country},

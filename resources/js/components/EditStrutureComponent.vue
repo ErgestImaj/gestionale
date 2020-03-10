@@ -390,6 +390,15 @@
 										outlined
 									></v-autocomplete>
 								</v-col>
+							   <v-col cols="12">
+									 <v-text-field
+										 dense
+										 v-model="strutura.minimum_order"
+										 :error-messages="errors.minimum_order ? errors.minimum_order[0] : []"
+										 label="Ordine minimo"
+										 outlined
+									 ></v-text-field>
+								 </v-col>
 							</v-row>
 						</v-card-text>
 					</v-card>

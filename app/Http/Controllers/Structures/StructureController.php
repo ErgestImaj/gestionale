@@ -168,7 +168,8 @@ class StructureController extends Controller {
 			'lrn_code'=>$structure->lrn,
 			'profile_img'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->image,
 			'visura_camerale'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->visura_camerale,
-			'validation_request'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->validation_request
+			'validation_request'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->validation_request,
+			'minimum_order'=>$structure->minimum_order
 
 		];
 		$user_details=[
@@ -224,6 +225,18 @@ class StructureController extends Controller {
 	 *
 	 * @return void
 	 */
+	public function updateStatus(Structure $structure)
+	{
+      $user = User::findOrFail($structure->user_id);
+		 $user->isActive() ? $user->disable() : $user->enable();
+	  	$structure->isActive() ? $structure->disable() : $structure->enable();
+
+			return response( [
+				'status' => 'success',
+				'msg'    => trans('messages.change_status')
+			] );
+
+	}
 	public function destroy(Structure $structure)
 	{
 
