@@ -35,6 +35,14 @@ class DocumentController extends Controller
                                    }
                                    return  Str::replaceLast(',','', $names);
                                } )
+					                     ->addColumn( 'shared_with', function ( $row )
+                               {
+                                   $rules = '';
+                                   foreach ($row->share_with as $role){
+                                       $rules.= ucfirst(UserGroups::find($role)->name).', ';
+                                   }
+                                   return  Str::replaceLast(',','', $rules);
+                               } )
 
                                ->addColumn( 'created', function ( $row )
                                {
@@ -43,6 +51,10 @@ class DocumentController extends Controller
                                ->addColumn( 'created_by', function ( $row )
                                {
                                    return optional($row->user)->displayName();
+                               } )
+					                    ->addColumn( 'updated_by', function ( $row )
+                               {
+                                   return optional($row->updatedByUser)->displayName();
                                } )
                                ->addColumn( 'editlink', function ( $row )
                                {

@@ -146,6 +146,8 @@ return [
 		'accredit' => 'Accreditamento corsi',
 		'nome_strutura' => 'Nome Strutura',
 		'ragione_sociale' => 'Ragione Sociale',
-		'codice_destinatario' => 'Codice Destinatario'
+		'codice_destinatario' => 'Codice Destinatario',
+		'shared_with' => 'Shared with',
+
 ];
 
