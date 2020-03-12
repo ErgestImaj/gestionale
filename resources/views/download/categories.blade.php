@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('title',trans('form.doc_cat'))
-@section('pagestyle')
-	<link rel="stylesheet" href="{{asset('css/addons.css')}}">
-	<link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
-@endsection
 @section('content')
 	<div class="page-header">
 		<h3 class="page-title">

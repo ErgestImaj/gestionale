@@ -2,6 +2,7 @@
 @section('title','Struture')
 @section('pagestyle')
     <link rel="stylesheet" href="{{asset('css/addons.css')}}">
+		<link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
 @endsection
 @section('content')
 

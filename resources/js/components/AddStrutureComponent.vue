@@ -614,10 +614,9 @@ export default {
             this.submiting = false;
             if (response.data.status == "success") {
               swal("Good job!", response.data.msg, "success");
-              this.doc1 = {};
-              this.doc2 = {};
-              this.doc3 = {};
-              this.strutura = null;
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
             } else if (response.data.status === "error") {
               swal({
                 title: "Whoops!",
@@ -625,7 +624,6 @@ export default {
                 icon: "warning",
                 dangerMode: true
               });
-              this.submiting = false;
             }
           })
           .catch(error => {

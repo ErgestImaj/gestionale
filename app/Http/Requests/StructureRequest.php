@@ -138,25 +138,25 @@ class StructureRequest extends FormRequest {
 	}
 
 	public function fillStructure() {
-		$token = uniqid();
+		$token = $this->token ?: uniqid();
 		$validation_request = $visura_camerale = $image = null;
 		if ( $this->hasFile( 'doc_file1' ) ) {
 			if ( $this->file( 'doc_file1' )->isValid() ) {
 				$upload = new Upload();
-				$validation_request   = $upload->upload( $this->file( 'doc_file1' ), 'public/' . Structure::CONTENT_PATH.'/'.$token )->getData();
+				$validation_request   = $upload->upload( $this->file( 'doc_file1' ), 'public'.DIRECTORY_SEPARATOR.Structure::CONTENT_PATH.DIRECTORY_SEPARATOR.$token )->getData();
 				$validation_request   = $validation_request['basename'];
 			}
 		}
 		if ( $this->hasFile( 'doc_file2' ) ) {
 			if ( $this->file( 'doc_file2' )->isValid() ) {
 				$upload = new Upload();
-				$visura_camerale   = $upload->upload( $this->file( 'doc_file2' ), 'public/' . Structure::CONTENT_PATH.'/'.$token )->getData();
+				$visura_camerale   = $upload->upload( $this->file( 'doc_file2' ), 'public'.DIRECTORY_SEPARATOR.Structure::CONTENT_PATH.DIRECTORY_SEPARATOR.$token )->getData();
 				$visura_camerale   = $visura_camerale['basename'];
 			}
 		}
 		if ( $this->hasFile( 'doc_file3' ) ) {
 			if ( $this->file( 'doc_file3' )->isValid() ) {
-			 	$upload = new Upload();
+			   $upload = new Upload();
 				 $image   = $upload->upload( $this->file( 'doc_file3' ), 'public/' . Structure::CONTENT_PATH.'/'.$token )->getData();
 				 $image   =  $image['basename'];
 			}
@@ -191,7 +191,7 @@ class StructureRequest extends FormRequest {
 			'visura_camerale'     => $this->hasFile( 'doc_file2' ) ? $visura_camerale : $this->visura_camerale,
 			'validation_request'  => $this->hasFile( 'doc_file1' ) ? $validation_request : $this->validation_request,
 			'image'               => $this->hasFile( 'doc_file3' ) ? $image : $this->image,
-			'token'               => $this->token ?: $token,
+			'token'               => $token,
 			'parent_structure_id' => $this->parent ,
 			'minimum_order'       => $this->minimum_order,
 		];

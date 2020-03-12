@@ -92,7 +92,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Domanda Accreditamento</v-list-item-title>
-              <v-list-item-subtitle>{{details.files.validation_request}}</v-list-item-subtitle>
+							<v-btn class="mt-3" large color="success"  elevation="2" :href="details.files.validation_request" target="_blank">Vedi</v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -103,7 +103,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Visura Camerale</v-list-item-title>
-              <v-list-item-subtitle>{{details.files.visura_camerale}}</v-list-item-subtitle>
+							<v-btn class="mt-3" large color="success"  elevation="2" :href="details.files.visura_camerale" target="_blank">Vedi</v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -146,6 +146,7 @@ export default {
       axios
         .get(`/amministrazione/struture/${this.structure}/show/`)
         .then(response => {
+        	console.log(response.data)
           this.formatData(response.data);
         })
         .catch(error => {
@@ -226,7 +227,9 @@ export default {
 .statuses > div.active {
     border-color: #66BB6A;
 }
-
+a.v-btn {
+	text-decoration: none;
+}
 .statuses > div.inactive {
     border-color: #ef5350;
 }

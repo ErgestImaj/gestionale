@@ -10,7 +10,9 @@ use App\Models\UserGroups;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Structure;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
+use mysql_xdevapi\Exception;
 use Psy\Util\Str;
 
 
@@ -63,51 +65,41 @@ class StructureController extends Controller {
 
 	public function store( StructureRequest $request,$type ) {
 
-		//create struture user
-		$user = new User;
-		$user->fill( $request->fillStructureUser() );
+		DB::beginTransaction();
+
 		try {
+
+			//create struture user
+			$user = new User;
+			$user->fill( $request->fillStructureUser() );
 			$user->save();
-		} catch ( \Exception $exception ) {
-			logger( $exception->getMessage() );
-			return response( [
-				'status' => 'error',
-				'msg'    => trans( 'messages.error' )
-			] );
-		}
-		//assign role to user
-		if($type == Structure::TYPE_PARTNER):
-	  	$user->roles()->sync(UserGroups::where('name', User::PARTNER)->firstOrFail()->id);
-		elseif ($type == Structure::TYPE_MASTER):
-			$user->roles()->sync(UserGroups::where('name', User::MASTER)->firstOrFail()->id);
-		elseif ($type == Structure::TYPE_AFFILIATE):
-			$user->roles()->sync(UserGroups::where('name', User::AFFILIATI)->firstOrFail()->id);		//create structure statuses
-    endif;
 
-		//create structure
+			//assign role to user
+			if($type == Structure::TYPE_PARTNER):
+				$user->roles()->sync(UserGroups::where('name', User::PARTNER)->firstOrFail()->id);
+			elseif ($type == Structure::TYPE_MASTER):
+				$user->roles()->sync(UserGroups::where('name', User::MASTER)->firstOrFail()->id);
+			elseif ($type == Structure::TYPE_AFFILIATE):
+				$user->roles()->sync(UserGroups::where('name', User::AFFILIATI)->firstOrFail()->id);		//create structure statuses
+			endif;
 
-		$structure  = new Structure;
-		$structure->user_id = $user->id;
-		$structure->fill($request->fillStructure());
-		$structure->code = $user->username;
-		try {
+			//create structure
+			$structure  = new Structure;
+			$structure->user_id = $user->id;
+			$structure->fill($request->fillStructure());
+			$structure->code = $user->username;
 			$structure->save();
-		} catch ( \Exception $exception ) {
-			logger( $exception->getMessage() );
-			return response( [
-				'status' => 'error',
-				'msg'    => trans( 'messages.error' )
-			] );
-		}
 
-		//create structure status
-
-		$status  = new StructureStatus;
-		$status->structure_id = $structure->id;
-		$status->fill($request->fillStructureStatus());
-		try {
+			//create structure status
+			$status  = new StructureStatus;
+			$status->structure_id = $structure->id;
+			$status->fill($request->fillStructureStatus());
 			$status->save();
+			DB::commit();
+
 		} catch ( \Exception $exception ) {
+
+			DB::rollBack();
 			logger( $exception->getMessage() );
 			return response( [
 				'status' => 'error',
@@ -115,9 +107,13 @@ class StructureController extends Controller {
 			] );
 		}
 
-		if ($request->input('login')){
-			$token = Password::broker()->createToken($user);
-			$user->sendPasswordResetNotification($token);
+		try{
+			if ($request->input('login')){
+				$token = Password::broker()->createToken($user);
+				$user->sendPasswordResetNotification($token);
+			}
+		}catch (Exception $exception){
+			logger('Send login access via email '.$exception->getMessage());
 		}
 
 		return response( [
@@ -166,9 +162,9 @@ class StructureController extends Controller {
 			'codice_destinatario'=>$structure->codice_destinatario,
 			'structura_madre'=>$structure->parent->legal_name ?? '',
 			'lrn_code'=>$structure->lrn,
-			'profile_img'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->image,
-			'visura_camerale'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->visura_camerale,
-			'validation_request'=>Structure::CONTENT_PATH.'/'.$structure->token.'/'.$structure->validation_request,
+			'profile_img'=>$structure->content_path.$structure->token.DIRECTORY_SEPARATOR.$structure->image,
+			'visura_camerale'=>$structure->content_path.$structure->token.DIRECTORY_SEPARATOR.$structure->visura_camerale,
+			'validation_request'=>$structure->content_path.$structure->token.DIRECTORY_SEPARATOR.$structure->validation_request,
 			'minimum_order'=>$structure->minimum_order
 
 		];

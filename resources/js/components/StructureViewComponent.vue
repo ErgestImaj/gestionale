@@ -48,6 +48,22 @@
 															 v-else-if="m.id == 6"
 															 :key="i"
 														 >
+															 <a  icon class="post-action" :data-content="trans('messages.send_reset_link_confirm')" :data-action="`/amministrazione/send-invitation-link/${item.owner.hashid}`" href="#">
+																 <v-list-item-title>{{ m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+														 <v-list-item
+															 v-else-if="m.id == 7"
+															 :key="i"
+														 >
+															 <a  icon class="sender-email"  :data-action="`/amministrazione/send-email-to-single-user/${item.owner.hashid}`" href="#">
+																 <v-list-item-title>{{ m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+														 <v-list-item
+															 v-else-if="m.id ==8"
+															 :key="i"
+														 >
 															 <a  icon class="delete-btn" :data-content="trans('messages.delete_record')" :data-action="`/amministrazione/structure/${item.hashid}`" href="#">
 																 <v-list-item-title>{{ m.title }}</v-list-item-title>
 															 </a>
@@ -94,7 +110,9 @@
                     {id:3,title: 'Add Discount'},
                     {id:4,title: 'Switch Account'},
                     {id:5,title: 'Enable', title2: 'Disable'},
-                    {id:6,title: 'Delete Account'},
+                    {id:6,title: 'Invia link di accesso'},
+                    {id:7,title: 'Invia Email'},
+                    {id:8,title: 'Delete Account'},
                 ],
             }
         },
@@ -197,7 +215,7 @@ button.gadd {
 .text-start .mdi-minus-circle-outline {
 	color: #ef5350;
 }
-.update-btn,.delete-btn{
+.update-btn,.delete-btn,.post-action,.sender-email{
 	color: rgba(0, 0, 0, 0.87) !important;
 }
 </style>
