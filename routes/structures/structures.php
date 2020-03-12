@@ -22,7 +22,7 @@ Route::group([
 	Route::delete('/api/sconto/{discount}/', 'DiscountController@destroy')->name('struture.sconto.destroy');
 	Route::post('/api/structure/{structure}/update', 'StructureController@update')->name('struture.update');
 	Route::delete('/structure/{structure}','StructureController@destroy')->name('struture.destroy');
-	Route::patch('/structure/{structure}','StructureController@updateStatus')->name('struture.status');
+	Route::patch('/structure/{structure}/status','StructureController@updateStatus')->name('struture.status');
 });
 
 Route::group([

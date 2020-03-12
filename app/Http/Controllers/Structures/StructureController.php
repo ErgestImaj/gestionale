@@ -206,6 +206,10 @@ class StructureController extends Controller {
 			$structure->status()->update($request->fillStructureStatus());
 			$structure->user()->update($request->fillStructureUser());
 			$structure->update($request->fillStructure());
+			return response( [
+				'status' => 'success',
+				'msg'    => trans( 'messages.success' )
+			] );
 		} catch ( \Exception $exception ) {
 			logger( $exception->getMessage() );
 			return response( [
@@ -213,10 +217,7 @@ class StructureController extends Controller {
 				'msg'    => trans( 'messages.error' )
 			] );
 		}
-		return response( [
-			'status' => 'success',
-			'msg'    => trans( 'messages.success' )
-		] );
+
 	}
 	/**
 	 * Update the specified resource in storage.
@@ -227,14 +228,26 @@ class StructureController extends Controller {
 	 */
 	public function updateStatus(Structure $structure)
 	{
-      $user = User::findOrFail($structure->user_id);
-		 $user->isActive() ? $user->disable() : $user->enable();
-	  	$structure->isActive() ? $structure->disable() : $structure->enable();
+		try {
+			$user = User::findOrFail($structure->user_id);
 
-			return response( [
+			$user->isActive() ? $user->disable() : $user->enable();
+
+			$structure->isActive() ? $structure->disable() : $structure->enable();
+			return response([
 				'status' => 'success',
-				'msg'    => trans('messages.change_status')
-			] );
+				'msg' => trans('messages.change_status')
+			]);
+		} catch (\Exception $exception) {
+			logger($exception->getMessage());
+			return response([
+				'status' => 'error',
+				'msg' => trans('messages.error')
+			]);
+		}
+
+
+
 
 	}
 	public function destroy(Structure $structure)
