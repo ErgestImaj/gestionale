@@ -92,7 +92,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Domanda Accreditamento</v-list-item-title>
-							<v-btn class="mt-3" large color="success"  elevation="2" :href="details.files.validation_request" target="_blank">Vedi</v-btn>
+							<v-btn class="mt-3" large color="success"  elevation="2" :href="details.files.validation_request" target="_blank">Vedi File</v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -103,7 +103,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Visura Camerale</v-list-item-title>
-							<v-btn class="mt-3" large color="success"  elevation="2" :href="details.files.visura_camerale" target="_blank">Vedi</v-btn>
+							<v-btn class="mt-3" large color="success"  elevation="2" :href="details.files.visura_camerale" target="_blank">Vedi File</v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>

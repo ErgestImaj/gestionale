@@ -60,7 +60,7 @@ class StructureRequest extends FormRequest {
 			'operational_prov'    => 'sometimes|numeric|exists:location_provs,id',
 			'operational_country' => 'sometimes|numeric|exists:location_countries,id',
 			'parent'              => 'sometimes|nullable|numeric|exists:structures_structures,id',
-			'minimum_order'       => 'sometimes|numeric',
+			'minimum_order'       => 'sometimes|nullable|numeric',
 			'phone'               => 'required|string',
 			'fax'                 => 'sometimes|string',
 			'pec'                 => 'sometimes|email',
@@ -192,7 +192,7 @@ class StructureRequest extends FormRequest {
 			'validation_request'  => $this->hasFile( 'doc_file1' ) ? $validation_request : $this->validation_request,
 			'image'               => $this->hasFile( 'doc_file3' ) ? $image : $this->image,
 			'token'               => $token,
-			'parent_structure_id' => $this->parent ,
+			'parent_structure_id' => $this->parent,
 			'minimum_order'       => $this->minimum_order,
 		];
 		if (!$this->structureId){
