@@ -1,5 +1,4 @@
 <?php
-//Superadmin and admin routes
 
 use App\Http\Controllers\Utenti;
 
@@ -9,19 +8,19 @@ Route::group([
 	'namespace'=>'Utenti'
 ],function() {
 
-	Route::get('/utenti/esaminatore/create', 'UtentiController@CreateEsaminatore')->name('esaminatore.create');
-	Route::get('/utenti/docente/create', 'UtentiController@CreateDocente')->name('docente.create');
-	Route::get('/utenti/supervisore/create', 'UtentiController@CreateSupervisore')->name('supervisore.create');
-	Route::get('/utenti/formatori/create', 'UtentiController@CreateFormatori')->name('fomatori.create');
-	Route::get('/utenti/studenti/create', 'UtentiController@CreateStudenti')->name('studenti.create');
-	Route::get('/utenti/tutor/create', 'UtentiController@CreateTutor')->name('tutor.create');
-	Route::get('/utenti/inspector/create', 'UtentiController@CreateInspector')->name('inspector.create');
+	Route::get('/utenti/esaminatore/create', 'UtentiController@createEsaminatore')->name('esaminatore.create');
+	Route::get('/utenti/docente/create', 'UtentiController@createDocente')->name('docente.create');
+	Route::get('/utenti/supervisore/create', 'UtentiController@createSupervisore')->name('supervisore.create');
+	Route::get('/utenti/formatori/create', 'UtentiController@createFormatori')->name('fomatori.create');
+	Route::get('/utenti/studenti/create', 'UtentiController@createStudenti')->name('studenti.create');
+	Route::get('/utenti/tutor/create', 'UtentiController@createTutor')->name('tutor.create');
+	Route::get('/utenti/inspector/create', 'UtentiController@createInspector')->name('inspector.create');
 
-	Route::get('/utenti/esaminatore', 'UtentiController@ViewEsaminatore')->name('esaminatore.view');
-	Route::get('/utenti/docente', 'UtentiController@ViewDocente')->name('docente.view');
-	Route::get('/utenti/supervisore', 'UtentiController@ViewSupervisore')->name('supervisore.view');
-	Route::get('/utenti/formatori', 'UtentiController@ViewFormatori')->name('fomatori.view');
-	Route::get('/utenti/studenti', 'UtentiController@ViewStudenti')->name('studenti.view');
-	Route::get('/utenti/tutor', 'UtentiController@ViewTutori')->name('tutor.view');
-	Route::get('/utenti/inspector', 'UtentiController@ViewInspectori')->name('inspector.view');
+	Route::get('/utenti/esaminatore', 'UtentiController@viewEsaminatore')->name('esaminatore.view');
+	Route::get('/utenti/docente', 'UtentiController@viewDocente')->name('docente.view');
+	Route::get('/utenti/supervisore', 'UtentiController@viewSupervisore')->name('supervisore.view');
+	Route::get('/utenti/formatori', 'UtentiController@viewFormatori')->name('fomatori.view');
+	Route::get('/utenti/studenti', 'UtentiController@viewStudenti')->name('studenti.view');
+	Route::get('/utenti/tutor', 'UtentiController@viewTutori')->name('tutor.view');
+	Route::get('/utenti/inspector', 'UtentiController@viewInspectori')->name('inspector.view');
 });

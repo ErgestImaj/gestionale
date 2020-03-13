@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-btn @click="addUtente()" class="gadd">Add Utente</v-btn>
+    <v-btn @click="addUtente()" class="gadd">Aggiungi {{userType}}</v-btn>
     <v-card>
       <v-card-title>
-        Utenti - {{userType}}
+         {{userType | capitalize}}
         <v-spacer></v-spacer>
         <v-text-field v-model="search" label="Cerca" single-line hide-details></v-text-field>
       </v-card-title>

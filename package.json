@@ -1,42 +1,42 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "watch-poll": "npm run watch -- --watch-poll"
-  },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
-    "codemirror": "^5.52.0",
-    "font-awesome": "^4.7.0",
-    "material-design-icons-iconfont": "^5.0.1",
-    "moment": "^2.24.0",
-    "sweetalert": "^2.1.2",
-    "tiptap": "^1.26.6",
-    "tiptap-extensions": "^1.28.6",
-    "tiptap-vuetify": "^2.13.2",
-    "vue-multiselect": "^2.1.6",
-    "vuejs-datepicker": "^1.6.2",
-    "vuetify": "^2.2.15"
-  },
-  "devDependencies": {
-    "axios": "^0.19",
-    "bootstrap": "^4.0.0",
-    "cross-env": "^5.1",
-    "jquery": "^3.2",
-    "laravel-mix": "^4.0.7",
-    "lodash": "^4.17.13",
-    "popper.js": "^1.12",
-    "resolve-url-loader": "2.3.1",
-    "sass": "^1.26.2",
-    "sass-loader": "7.*",
-    "vue": "^2.5.17",
-    "vue-cli-plugin-vuetify": "^2.0.5",
-    "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.3.0"
-  }
+	"private": true,
+	"scripts": {
+		"dev": "npm run development",
+		"development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"prod": "npm run production",
+		"production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+		"watch": "npm run development -- --watch",
+		"watch-poll": "npm run watch -- --watch-poll"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "^5.12.1",
+		"codemirror": "^5.52.0",
+		"font-awesome": "^4.7.0",
+		"material-design-icons-iconfont": "^5.0.1",
+		"moment": "^2.24.0",
+		"sweetalert": "^2.1.2",
+		"tiptap": "^1.26.6",
+		"tiptap-extensions": "^1.28.6",
+		"tiptap-vuetify": "^2.13.2",
+		"vue-multiselect": "^2.1.6",
+		"vuejs-datepicker": "^1.6.2",
+		"vuetify": "^2.2.15"
+	},
+	"devDependencies": {
+		"axios": "^0.19",
+		"bootstrap": "^4.0.0",
+		"cross-env": "^5.1",
+		"jquery": "^3.2",
+		"laravel-mix": "^4.0.7",
+		"lodash": "^4.17.13",
+		"popper.js": "^1.12",
+		"resolve-url-loader": "2.3.1",
+		"sass": "^1.26.2",
+		"sass-loader": "7.*",
+		"vue": "^2.5.17",
+		"vue-cli-plugin-vuetify": "^2.0.5",
+		"vue-template-compiler": "^2.6.10",
+		"vuetify-loader": "^1.3.0"
+	}
 }

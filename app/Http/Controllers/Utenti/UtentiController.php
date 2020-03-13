@@ -7,84 +7,83 @@ use App\Http\Controllers\Controller;
 
 class UtentiController extends Controller
 {
-    public function CreateEsaminatore() {
+	public function createStudenti() {
+		return view('utenti.create',[
+			'type'=> 'studenti'
+		]);
+	}
+   public function  createEsaminatore() {
 		return view('utenti.create',[
 			'type'=> 'esaminatore'
 		]);
 	}
 
-	public function CreateDocente() {
+	public function  createDocente() {
 		return view('utenti.create',[
 			'type'=> 'docente'
 		]);
 	}
 
-	public function CreateSupervisore() {
+	public function  createSupervisore() {
 		return view('utenti.create',[
 			'type'=> 'supervisore'
 		]);
 	}
 
-	public function CreateFormatori() {
+	public function  createFormatori() {
 		return view('utenti.create',[
 			'type'=> 'formatori'
 		]);
 	}
 
-	public function CreateStudenti() {
-		return view('utenti.create',[
-			'type'=> 'studenti'
-		]);
-	}
-
-	public function CreateTutor() {
+	public function  createTutor() {
 		return view('utenti.create',[
 			'type'=> 'tutor'
 		]);
 	}
-	public function CreateInspector() {
+	public function  createInspector() {
 		return view('utenti.create',[
 			'type'=> 'inspector'
 		]);
 	}
-	public function ViewEsaminatore() {
+	public function viewEsaminatore() {
 		return view('utenti.index',[
 			'type'=> 'esaminatore'
 		]);
 	}
 
-	public function ViewDocente() {
+	public function viewDocente() {
 		return view('utenti.index',[
 			'type'=> 'docente'
 		]);
 	}
 
-	public function ViewSupervisore() {
+	public function viewSupervisore() {
 		return view('utenti.index',[
 			'type'=> 'supervisore'
 		]);
 	}
 
-	public function ViewFormatori() {
+	public function viewFormatori() {
 		return view('utenti.index',[
 			'type'=> 'formatori'
 		]);
 	}
 
-	public function ViewStudenti() {
+	public function viewStudenti() {
 		return view('utenti.index',[
 			'type'=> 'studenti'
 		]);
 	}
 
-	public function ViewTutori() {
+	public function viewTutori() {
 		return view('utenti.index',[
 			'type'=> 'tutor'
 		]);
 	}
 
 
-	public function ViewInspectori() {
+	public function viewInspectori() {
 		return view('utenti.index',[
 			'type'=> 'inspector'
 		]);

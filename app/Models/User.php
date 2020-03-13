@@ -14,7 +14,11 @@ use Illuminate\Support\Facades\Storage;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class User extends Authenticatable
+class
+
+
+
+User extends Authenticatable
 {
     use  Notifiable, UserRelationships,HashIdAttribute, HasRoles,HasHashid, HashidRouting,SoftDeletes, HasStatus;
 
