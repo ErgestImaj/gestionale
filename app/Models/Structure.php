@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasLocation;
+use App\Traits\HasStatus;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,10 +14,14 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class Structure extends Model
 {
-	use HasUserRelationships, HasHashid, HashidRouting, HashIdAttribute, HasLocation, SoftDeletes;
+	use HasUserRelationships, HasHashid, HashidRouting,
+	  	HasStatus, HashIdAttribute, HasLocation,HasContentPath, SoftDeletes;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
+
+	const  IS_ACTIVE = 1;
+	const  NOT_ACTIVE = 0;
 
 	const TYPE_PARTNER = 1;
 	const TYPE_MASTER = 2;
@@ -28,7 +34,7 @@ class Structure extends Model
 	protected $guarded = [];
 
 	protected $appends = [
-		'hashid'
+		'hashid','content_path'
 	];
 
 	/**

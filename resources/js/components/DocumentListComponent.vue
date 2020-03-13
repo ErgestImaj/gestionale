@@ -46,7 +46,9 @@
                     {text: '#', value: 'id'},
                     {text: this.trans('form.name'), value: 'name'},
                     {text: this.trans('form.category'), value: 'category'},
+                    {text: this.trans('form.shared_with'), value: 'shared_with'},
                     {text: this.trans('form.created'), value: 'created'},
+                    {text: this.trans('form.created_by'), value: 'created_by'},
                     {text: this.trans('form.updated_by'), value: 'updated_by'},
                     {text: this.trans('form.actions'), value: 'actions', sortable: false, align: 'right'},
                 ],
@@ -60,7 +62,7 @@
             getDocs() {
                 axios.get(`/amministrazione/area-download/`)
                     .then(response => {
-                        this.documents = response.data.data;
+											this.documents = response.data.data;
                     })
                     .catch(error => {
                     }).finally(() => {

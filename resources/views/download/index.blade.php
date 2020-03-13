@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('title',trans('form.doc_list'))
-@section('pagestyle')
-    <link rel="stylesheet" href="{{asset('css/addons.css')}}">
-@endsection
 @section('content')
     <div class="page-header">
         <h3 class="page-title">

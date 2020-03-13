@@ -59,7 +59,8 @@ class StructureRequest extends FormRequest {
 			'operational_region'  => 'sometimes|numeric|exists:location_regions,id',
 			'operational_prov'    => 'sometimes|numeric|exists:location_provs,id',
 			'operational_country' => 'sometimes|numeric|exists:location_countries,id',
-			'parent'              => 'sometimes|numeric|exists:structures_structures,id',
+			'parent'              => 'sometimes|nullable|numeric|exists:structures_structures,id',
+			'minimum_order'       => 'sometimes|nullable|numeric',
 			'phone'               => 'required|string',
 			'fax'                 => 'sometimes|string',
 			'pec'                 => 'sometimes|email',
@@ -131,29 +132,31 @@ class StructureRequest extends FormRequest {
 			'accredit_dile'       => 'data accreditamento DILE',
 			'accredit_iiq'        => 'data accreditamento IIQ',
 			'parent'              => 'struttura madre',
+			'minimum_order'       => 'ordine minimo',
+
 		];
 	}
 
 	public function fillStructure() {
-		$token = uniqid();
+		$token = $this->token ?: uniqid();
 		$validation_request = $visura_camerale = $image = null;
 		if ( $this->hasFile( 'doc_file1' ) ) {
 			if ( $this->file( 'doc_file1' )->isValid() ) {
 				$upload = new Upload();
-				$validation_request   = $upload->upload( $this->file( 'doc_file1' ), 'public/' . Structure::CONTENT_PATH.'/'.$token )->getData();
+				$validation_request   = $upload->upload( $this->file( 'doc_file1' ), 'public'.DIRECTORY_SEPARATOR.Structure::CONTENT_PATH.DIRECTORY_SEPARATOR.$token )->getData();
 				$validation_request   = $validation_request['basename'];
 			}
 		}
 		if ( $this->hasFile( 'doc_file2' ) ) {
 			if ( $this->file( 'doc_file2' )->isValid() ) {
 				$upload = new Upload();
-				$visura_camerale   = $upload->upload( $this->file( 'doc_file2' ), 'public/' . Structure::CONTENT_PATH.'/'.$token )->getData();
+				$visura_camerale   = $upload->upload( $this->file( 'doc_file2' ), 'public'.DIRECTORY_SEPARATOR.Structure::CONTENT_PATH.DIRECTORY_SEPARATOR.$token )->getData();
 				$visura_camerale   = $visura_camerale['basename'];
 			}
 		}
 		if ( $this->hasFile( 'doc_file3' ) ) {
 			if ( $this->file( 'doc_file3' )->isValid() ) {
-			 	$upload = new Upload();
+			   $upload = new Upload();
 				 $image   = $upload->upload( $this->file( 'doc_file3' ), 'public/' . Structure::CONTENT_PATH.'/'.$token )->getData();
 				 $image   =  $image['basename'];
 			}
@@ -188,8 +191,9 @@ class StructureRequest extends FormRequest {
 			'visura_camerale'     => $this->hasFile( 'doc_file2' ) ? $visura_camerale : $this->visura_camerale,
 			'validation_request'  => $this->hasFile( 'doc_file1' ) ? $validation_request : $this->validation_request,
 			'image'               => $this->hasFile( 'doc_file3' ) ? $image : $this->image,
-			'token'               => $this->token ?: $token,
+			'token'               => $token,
 			'parent_structure_id' => $this->parent,
+			'minimum_order'       => $this->minimum_order,
 		];
 		if (!$this->structureId){
 			$structure['created_by'] = auth()->id();

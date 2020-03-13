@@ -459,6 +459,15 @@
                     outlined
                   ></v-autocomplete>
                 </v-col>
+								<v-col cols="12">
+									<v-text-field
+										dense
+										v-model="strutura.minimum_order"
+										:error-messages="errors.minimum_order ? errors.minimum_order[0] : []"
+										label="Ordine minimo"
+										outlined
+									></v-text-field>
+                </v-col>
               </v-row>
             </v-card-text>
           </v-card>
@@ -605,10 +614,9 @@ export default {
             this.submiting = false;
             if (response.data.status == "success") {
               swal("Good job!", response.data.msg, "success");
-              this.doc1 = {};
-              this.doc2 = {};
-              this.doc3 = {};
-              this.strutura = null;
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
             } else if (response.data.status === "error") {
               swal({
                 title: "Whoops!",
@@ -616,7 +624,6 @@ export default {
                 icon: "warning",
                 dangerMode: true
               });
-              this.submiting = false;
             }
           })
           .catch(error => {

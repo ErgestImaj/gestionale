@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('title',trans('menu.workshop'))
-@section('pagestyle')
-    <link rel="stylesheet" href="{{asset('css/addons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
-@endsection
 @section('content')
     <div class="content-single">
         <div class="page-header">
@@ -18,7 +14,5 @@
     </div>
 @endsection
 @push('scripts')
-
     <script src="{{asset('js/actions.js')}}"></script>
-
 @endpush

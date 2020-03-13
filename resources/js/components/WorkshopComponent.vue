@@ -52,10 +52,6 @@
               attach
               :label="trans('form.target')"
             ></v-combobox>
-            <div
-              class="invalid-feedback d-block"
-              v-if="errors.partecipants"
-            >{{errors.partecipants[0]}}</div>
           </v-col>
         </v-row>
 
@@ -221,11 +217,12 @@ export default {
         axios
           .post(`/amministrazione/workshop`, this.workshop)
           .then(response => {
-            console.log(response.data);
             this.submiting = false;
             if (response.data.status == "success") {
               swal("Good job!", response.data.msg, "success");
-              this.workshop = {};
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
             } else if (response.data.status == "error") {
               swal("Woops!", response.data.msg, "error");
               this.workshop = {};

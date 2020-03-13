@@ -21,6 +21,9 @@
                 <template v-slot:item.legal_name="{ item }">
                     <div v-html="item.legal_name" class="gname"></div>
                 </template>
+							<template v-slot:item.state="{ item }">
+								<v-icon>{{item.state == 1 ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+                </template>
                 <template v-slot:item.actions="{ item }">
                     <v-menu bottom left content-class="gactions">
                         <template v-slot:activator="{ on }">
@@ -33,13 +36,47 @@
                         </template>
 
                         <v-list>
-                            <v-list-item
-                                v-for="(m, i) in menuItems"
-                                :key="i"
-                                @click="menuClick(m.title, item)"
-                            >
-                                <v-list-item-title>{{ m.title }}</v-list-item-title>
-                            </v-list-item>
+                           <template  v-for="(m, i) in menuItems">
+														 <v-list-item
+															 v-if="m.id == 5"
+														 >
+															 <a  icon class="update-btn"  :data-action="`/amministrazione/structure/${item.hashid}/status`" href="#">
+																 <v-list-item-title>{{ item.owner.state ? m.title2 :  m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+														 <v-list-item
+															 v-else-if="m.id == 6"
+															 :key="i"
+														 >
+															 <a  icon class="post-action" :data-content="trans('messages.send_reset_link_confirm')" :data-action="`/amministrazione/send-invitation-link/${item.owner.hashid}`" href="#">
+																 <v-list-item-title>{{ m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+														 <v-list-item
+															 v-else-if="m.id == 7"
+															 :key="i"
+														 >
+															 <a  icon class="sender-email"  :data-action="`/amministrazione/send-email-to-single-user/${item.owner.hashid}`" href="#">
+																 <v-list-item-title>{{ m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+														 <v-list-item
+															 v-else-if="m.id ==8"
+															 :key="i"
+														 >
+															 <a  icon class="delete-btn" :data-content="trans('messages.delete_record')" :data-action="`/amministrazione/structure/${item.hashid}`" href="#">
+																 <v-list-item-title>{{ m.title }}</v-list-item-title>
+															 </a>
+														 </v-list-item>
+
+														 <v-list-item
+															 v-else
+															 :key="i"
+															 @click="menuClick(m.id, item)"
+														 >
+															 <v-list-item-title>{{ m.title }}</v-list-item-title>
+														 </v-list-item>
+													 </template>
                         </v-list>
                     </v-menu>
                 </template>
@@ -57,22 +94,25 @@
                 search: '',
                 headers: [
                     {text: '#', value: 'id'},
-                    {text: 'piva', value: 'piva'},
-                    {text: 'legal_name', value: 'legal_name'},
-                    {text: 'code', value: 'code'},
-                    {text: 'email', value: 'email'},
-                    {text: 'phone', value: 'phone'},
-                    {text: 'legal_prov', value: 'province.title'},
+                    {text: 'Partita IVA', value: 'piva'},
+                    {text: 'Ragione sociale', value: 'legal_name'},
+                    {text: 'Codice', value: 'code'},
+                    {text: 'Email', value: 'email'},
+                    {text: 'Telefono', value: 'phone'},
+                    {text: 'Provincia', value: 'province.title'},
+                    {text: 'Stato', value: 'state'},
                     {text: 'actions', value: 'actions', sortable: false, align: 'right'},
                 ],
                 loading: true,
                 menuItems: [
-                    {title: 'Edit'},
-                    {title: 'View'},
-                    {title: 'Add Discount'},
-                    {title: 'Switch Account'},
-                    {title: 'Enable'},
-                    {title: 'Delete Account'},
+                    {id:1,title: 'Edit'},
+                    {id:2,title: 'View'},
+                    {id:3,title: 'Add Discount'},
+                    {id:4,title: 'Switch Account'},
+                    {id:5,title: 'Enable', title2: 'Disable'},
+                    {id:6,title: 'Invia link di accesso'},
+                    {id:7,title: 'Invia Email'},
+                    {id:8,title: 'Delete Account'},
                 ],
             }
         },
@@ -90,25 +130,19 @@
                     this.loading = false;
                 });
             },
-            menuClick(name, item) {
-                switch (name) {
-                    case 'Edit':
+            menuClick(id, item) {
+                switch (id) {
+                    case 1:
                         this.edit(item);
                         break;
-                    case 'View':
+                    case 2:
                         this.view(item);
                         break;
-                    case 'Add Discount':
+                    case 3:
                         this.addDiscount(item);
                         break;
-                    case 'Switch Account':
+                    case 4:
                         this.switchAccount(item);
-                        break;
-                    case 'Enable Account':
-                        this.switchAccount(item);
-                        break;
-                    case 'Delete Account':
-                        this.deleteAccount(item);
                         break;
                 }
             },
@@ -125,12 +159,8 @@
                 window.location.href = nUrl;
             },
             switchAccount(item) {
-            	console.log(item)
 							let nUrl = window.location.origin + '/amministrazione/login-as-user/'+item.owner.hashid;
 							window.location.href = nUrl;
-            },
-					  deleteAccount(item) {
-                console.log('switch', item.id);
             },
             addStrutura() {
                 let nUrl = window.location.origin + '/amministrazione/struture/'+this.structureType+'/create';
@@ -179,5 +209,13 @@ button.gadd {
   margin-top: -50px;
   margin-bottom: 10px;
 }
-
+.text-start .mdi-checkbox-marked-circle-outline {
+	color: #66BB6A;
+}
+.text-start .mdi-minus-circle-outline {
+	color: #ef5350;
+}
+.update-btn,.delete-btn,.post-action,.sender-email{
+	color: rgba(0, 0, 0, 0.87) !important;
+}
 </style>

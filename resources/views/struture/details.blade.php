@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'View')
+@section('title', $structure->name)
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
