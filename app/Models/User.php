@@ -35,6 +35,12 @@ User extends Authenticatable
     const PARTNER = 'partner';
     const MASTER = 'master';
     const AFFILIATI = 'affiliati';
+    const STUDENTI = 'studenti';
+    const DOCENTE = 'docente';
+    const FORMATORE = 'formatore';
+    const SUPERVISORE = 'supervisore';
+    const ESAMINATORE = 'esaminatore';
+    const INVIGILATOR = 'invigilator';
 
 
     /**

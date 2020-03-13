@@ -63,16 +63,18 @@ export default {
               value: 'email'
             },{
               text: 'Codice Fiscale',
-              value: 'fiscal_code'
+              value: 'user_info.fiscal_code'
             }, {
               text: 'Sesso',
-              value: 'gender'
+              value: 'user_info.gender'
             },
             { text: "Actions", value: "actions", sortable: false, align: "right" }
         ],
     };
   },
   mounted() {
+		this.getUserType();
+
     if (this.userType === "docente") {
       this.isDocente = true;
     } else if (this.userType === "supervisore") {
@@ -96,6 +98,17 @@ export default {
           break;
       }
     },
+		getUserType(){
+				axios
+					.get(`/utenti/api/get-user/${this.userType}`)
+					.then(response => {
+						this.utenti = response.data;
+					})
+					.catch(error => {})
+					.finally(() => {
+						this.loading = false;
+					});
+		},
     edit(item) {
       console.log("edit", item.id);
     },
@@ -103,12 +116,10 @@ export default {
       console.log("view", item.id);
     },
     addUtente() {
-      let nUrl = window.location.origin + "/amministrazione/utenti/"+ this.userType +"/create";
+      let nUrl = window.location.origin + "/utenti/"+ this.userType +"/create";
       window.location.href = nUrl;
     }
   }
 };
 </script>
 
-<style>
-</style>

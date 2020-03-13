@@ -47,9 +47,7 @@ class StructureController extends Controller {
 	// TODO: check user permission
 	public function getStructure( Request $request ) {
 
-		if ( empty( $request->type ) ) {
-			return null;
-		}
+		if ( empty( $request->type ) ) return[];
 
 		return Structure::where( 'type', $request->type )->with( ['province','owner'] )->latest()->get();
 	}
