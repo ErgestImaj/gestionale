@@ -121,6 +121,9 @@ export default {
             }, {
               text: 'Sesso',
               value: 'user_info.gender'
+            },{
+              text: 'Creato da',
+              value: 'user.display_name'
             }, {
               text: 'Stato',
               value: 'state'

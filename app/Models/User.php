@@ -6,6 +6,7 @@ use App\Notifications\InvitationEmailNotification;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasRoles;
 use App\Traits\HasStatus;
+use App\Traits\HasUserRelationships;
 use App\Traits\UserRelationships;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +21,7 @@ class
 
 User extends Authenticatable
 {
-	use  Notifiable, UserRelationships, HashIdAttribute, HasRoles, HasHashid, HashidRouting, SoftDeletes, HasStatus;
+	use  Notifiable, UserRelationships,HasUserRelationships, HashIdAttribute, HasRoles, HasHashid, HashidRouting, SoftDeletes, HasStatus;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';

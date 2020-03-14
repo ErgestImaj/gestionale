@@ -2,53 +2,33 @@
 
 namespace App\Http\Controllers\Utenti;
 
+use App\Helpers\UserHelper;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UtentiController extends Controller
 {
-	public function createStudenti() {
+	public function createUtente($type){
 
+		$role = UserHelper::getUserRoleLabel($type);
 		return view('utenti.create',[
-			'type'=> User::$roles[User::STUDENTI]
-		]);
-	}
-
-   public function  createEsaminatore() {
-		return view('utenti.create',[
-			'type'=> User::$roles[User::ESAMINATORE]
+			'type'=> $role
 		]);
 	}
 
-	public function  createDocente() {
-		return view('utenti.create',[
-			'type'=> User::$roles[User::DOCENTE]
+	public function viewAdmins() {
+		return view('utenti.index',[
+			'type'=> User::$roles[User::ADMIN]
 		]);
 	}
 
-	public function  createSupervisore() {
-		return view('utenti.create',[
-			'type'=> User::$roles[User::SUPERVISORE]
+	public function viewSegreteria() {
+		return view('utenti.index',[
+			'type'=> User::$roles[User::SEGRETERIA]
 		]);
 	}
 
-	public function  createFormatori() {
-		return view('utenti.create',[
-			'type'=> User::$roles[User::FORMATORE]
-		]);
-	}
-
-	public function  createTutor() {
-		return view('utenti.create',[
-			'type'=> User::$roles[User::TUTOR]
-		]);
-	}
-	public function  createInspector() {
-		return view('utenti.create',[
-			'type'=> User::$roles[User::TUTOR]
-		]);
-	}
 	public function viewEsaminatore() {
 		return view('utenti.index',[
 			'type'=> User::$roles[User::ESAMINATORE]
@@ -81,7 +61,7 @@ class UtentiController extends Controller
 
 	public function viewTutori() {
 		return view('utenti.index',[
-			'type'=> User::$roles[User::FORMATORE]
+			'type'=> User::$roles[User::TUTOR]
 		]);
 	}
 
@@ -94,27 +74,9 @@ class UtentiController extends Controller
 
 	public function getUserType($type){
 		if ( empty( $type ) ) return [];
-		$role = '';
-		switch ($type){
-			case User::$roles[User::STUDENTI]:
-				$role = User::STUDENTI;
-				break;
-			case User::$roles[User::DOCENTE]:
-				$role = User::DOCENTE;
-				break;
-			case User::$roles[User::FORMATORE]:
-				$role = User::FORMATORE;
-				break;
-			case User::$roles[User::SUPERVISORE]:
-				$role = User::SUPERVISORE;
-				break;
-			case User::$roles[User::ESAMINATORE]:
-				$role = User::ESAMINATORE;
-				break;
-			case User::$roles[User::INVIGILATOR]:
-				$role = User::INVIGILATOR;
-				break;
-		}
+
+		$role = UserHelper::getUserRole($type);
+
 		if (empty($role)) return [];
 
 		if(auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)){
@@ -122,7 +84,9 @@ class UtentiController extends Controller
 				$query->where('name',$role);
 			})->with(['userInfo'=>function($query){
 				$query->select(['user_id','gender','fiscal_code']);
-			}])->get(['id','username','firstname','lastname','email','state']);
+			},'user'=>function($query){
+				$query->select(['id','firstname','lastname']);
+			}])->get(['id','username','firstname','lastname','email','state','created_by']);
 			return $users;
 		}
 		elseif (auth()->user()->hasRole(User::PARTNER)){

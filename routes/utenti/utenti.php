@@ -8,14 +8,15 @@ Route::group([
 	'namespace'=>'Utenti'
 ],function() {
 
-	Route::get('/esaminatore/create', 'UtentiController@createEsaminatore')->name('esaminatore.create');
-	Route::get('/docente/create', 'UtentiController@createDocente')->name('docente.create');
-	Route::get('/supervisore/create', 'UtentiController@createSupervisore')->name('supervisore.create');
-	Route::get('/formatori/create', 'UtentiController@createFormatori')->name('fomatori.create');
-	Route::get('/studenti/create', 'UtentiController@createStudenti')->name('studenti.create');
-	Route::get('/tutor/create', 'UtentiController@createTutor')->name('tutor.create');
-	Route::get('/inspector/create', 'UtentiController@createInspector')->name('inspector.create');
+	Route::get('/{type}/create', 'UtentiController@createUtente')->name('utenti.create');
 
+	// Admin
+	Route::get('/admins','UtentiController@viewAdmins')->name('admins.index');
+	Route::get('/segreteria','UtentiController@viewSegreteria')->name('segreteria.index');
+	Route::get('/admins/index','AdminController@index');
+	Route::post('/admins/store','AdminController@store')->name('admins.store');
+	Route::patch('/admin/{user}','AdminController@update')->name('admins.update');
+	Route::delete('/admin/delete/{user?}','AdminController@destroy')->name('admins.destroy');
 	Route::get('/esaminatore', 'UtentiController@viewEsaminatore')->name('esaminatore.view');
 	Route::get('/docente', 'UtentiController@viewDocente')->name('docente.view');
 	Route::get('/supervisore', 'UtentiController@viewSupervisore')->name('supervisore.view');
