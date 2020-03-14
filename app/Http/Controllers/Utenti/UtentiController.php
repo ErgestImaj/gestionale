@@ -9,85 +9,86 @@ use App\Http\Controllers\Controller;
 class UtentiController extends Controller
 {
 	public function createStudenti() {
+
 		return view('utenti.create',[
-			'type'=> User::STUDENTI
+			'type'=> User::$roles[User::STUDENTI]
 		]);
 	}
 
    public function  createEsaminatore() {
 		return view('utenti.create',[
-			'type'=> User::ESAMINATORE
+			'type'=> User::$roles[User::ESAMINATORE]
 		]);
 	}
 
 	public function  createDocente() {
 		return view('utenti.create',[
-			'type'=> User::DOCENTE
+			'type'=> User::$roles[User::DOCENTE]
 		]);
 	}
 
 	public function  createSupervisore() {
 		return view('utenti.create',[
-			'type'=> User::SUPERVISORE
+			'type'=> User::$roles[User::SUPERVISORE]
 		]);
 	}
 
 	public function  createFormatori() {
 		return view('utenti.create',[
-			'type'=> 'formatori'
+			'type'=> User::$roles[User::FORMATORE]
 		]);
 	}
 
 	public function  createTutor() {
 		return view('utenti.create',[
-			'type'=> 'tutor'
+			'type'=> User::$roles[User::TUTOR]
 		]);
 	}
 	public function  createInspector() {
 		return view('utenti.create',[
-			'type'=> 'ispettore'
+			'type'=> User::$roles[User::TUTOR]
 		]);
 	}
 	public function viewEsaminatore() {
 		return view('utenti.index',[
-			'type'=> User::ESAMINATORE
+			'type'=> User::$roles[User::ESAMINATORE]
 		]);
 	}
 
 	public function viewDocente() {
 		return view('utenti.index',[
-			'type'=> User::DOCENTE
+			'type'=> User::$roles[User::DOCENTE]
 		]);
 	}
 
 	public function viewSupervisore() {
 		return view('utenti.index',[
-			'type'=> User::SUPERVISORE
+			'type'=> User::$roles[User::SUPERVISORE]
 		]);
 	}
 
 	public function viewFormatori() {
 		return view('utenti.index',[
-			'type'=> 'formatori'
+			'type'=> User::$roles[User::FORMATORE]
 		]);
 	}
 
 	public function viewStudenti() {
 		return view('utenti.index',[
-			'type'=> User::STUDENTI
+			'type'=> User::$roles[User::STUDENTI]
 		]);
 	}
 
 	public function viewTutori() {
 		return view('utenti.index',[
-			'type'=> 'tutor'
+			'type'=> User::$roles[User::FORMATORE]
 		]);
 	}
 
 
 	public function viewInspectori() {
 		return view('utenti.index',[
-			'type'=> 'ispettore'
+			'type'=> User::$roles[User::INVIGILATOR]
 		]);
 	}
 
@@ -95,22 +96,22 @@ class UtentiController extends Controller
 		if ( empty( $type ) ) return [];
 		$role = '';
 		switch ($type){
-			case User::STUDENTI:
+			case User::$roles[User::STUDENTI]:
 				$role = User::STUDENTI;
 				break;
-			case User::DOCENTE:
+			case User::$roles[User::DOCENTE]:
 				$role = User::DOCENTE;
 				break;
-			case 'formatori':
+			case User::$roles[User::FORMATORE]:
 				$role = User::FORMATORE;
 				break;
-			case User::SUPERVISORE:
+			case User::$roles[User::SUPERVISORE]:
 				$role = User::SUPERVISORE;
 				break;
-			case User::ESAMINATORE:
+			case User::$roles[User::ESAMINATORE]:
 				$role = User::ESAMINATORE;
 				break;
-			case 'ispettore':
+			case User::$roles[User::INVIGILATOR]:
 				$role = User::INVIGILATOR;
 				break;
 		}
@@ -121,7 +122,7 @@ class UtentiController extends Controller
 				$query->where('name',$role);
 			})->with(['userInfo'=>function($query){
 				$query->select(['user_id','gender','fiscal_code']);
-			}])->get(['id','username','firstname','lastname','email']);
+			}])->get(['id','username','firstname','lastname','email','state']);
 			return $users;
 		}
 		elseif (auth()->user()->hasRole(User::PARTNER)){

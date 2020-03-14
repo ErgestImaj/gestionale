@@ -49,7 +49,15 @@ class StructureController extends Controller {
 
 		if ( empty( $request->type ) ) return[];
 
-		return Structure::where( 'type', $request->type )->with( ['province','owner'] )->latest()->get();
+		return Structure::where( 'type', $request->type )
+			      ->with( [
+			      	'province'=>function($query){
+							$query->select('id','title');
+					  	},
+					  	'owner'=>function($query){
+							$query->select('id','state');
+						},
+						] )->latest()->get(['id','user_id','legal_prov','piva','legal_name','code','email','phone','state']);
 	}
 
 	public function getStructureParent($type){

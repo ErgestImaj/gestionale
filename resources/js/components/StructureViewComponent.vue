@@ -24,15 +24,15 @@
 
             <v-list dense>
               <template v-for="(m, i) in menuItems">
-                <v-list-item 
-                    class="update-btn" v-if="m.id == 5" :key="i" 
+                <v-list-item
+                    class="update-btn" v-if="m.id == 5" :key="i"
                     link :data-action="`/amministrazione/structure/${item.hashid}/status`">
                     <v-list-item-icon>
-                        <v-icon>{{item.owner.state ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
+                        <v-icon>{{item.state   ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>{{ item.owner.state ? m.title2 : m.title }}</v-list-item-title>
+                    <v-list-item-title>{{ item.state ? m.title2 : m.title }}</v-list-item-title>
                 </v-list-item>
-                <v-list-item 
+                <v-list-item
                     v-else-if="m.id == 6" :key="i"
                     class="post-action"
                     :data-content="trans('messages.send_reset_link_confirm')"
@@ -58,7 +58,7 @@
                     class="delete-btn"
                     :data-content="trans('messages.delete_record')"
                     :data-action="`/amministrazione/structure/${item.hashid}`"
-                    link                
+                    link
                 >
                     <v-list-item-icon>
                         <v-icon v-text="m.icon"></v-icon>
