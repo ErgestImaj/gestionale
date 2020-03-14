@@ -50,6 +50,7 @@ Vue.filter('capitalize', function (s) {
 Vue.component('multiselect',Multiselect);
 Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
 Vue.component('module-content', require('./components/ModuleContentComponent').default);
+Vue.component('add-lms', require('./components/AddLmsComponent').default);
 Vue.component('mass-emails', require('./components/MassEmailsComponent').default);
 Vue.component('workshop', require('./components/WorkshopComponent').default);
 Vue.component('workshop-edit', require('./components/WorkshopEditComponent').default);

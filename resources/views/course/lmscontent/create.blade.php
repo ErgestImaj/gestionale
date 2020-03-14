@@ -10,7 +10,9 @@
             <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_content')</span>
         </h3>
     </div>
-       <module-content></module-content>
-
+    <v-app>
+        <add-lms></add-lms>
+    </v-app>
+    
 @endsection
 
