@@ -80,14 +80,14 @@ class UtentiController extends Controller
 		if (empty($role)) return [];
 
 		if(auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)){
-			$users =  User::whereHas('roles',function ($query) use ($role){
+		return  User::whereHas('roles',function ($query) use ($role){
 				$query->where('name',$role);
 			})->with(['userInfo'=>function($query){
 				$query->select(['user_id','gender','fiscal_code']);
 			},'user'=>function($query){
 				$query->select(['id','firstname','lastname']);
 			}])->get(['id','username','firstname','lastname','email','state','created_by']);
-			return $users;
+
 		}
 		elseif (auth()->user()->hasRole(User::PARTNER)){
 

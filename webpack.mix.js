@@ -20,6 +20,5 @@ mix.js('resources/js/app.js', 'public/js')
    .copy('resources/sass/addons.css','public/css/')
    .copy('resources/sass/summernote/summernote-bs4.css','public/css/')
    .copy('resources/fonts','public/fonts')
-   .copy('resources/fonts','public/fonts')
    .copy('resources/images/','public/images')
    .copy('resources/sass/summernote/fonts','public/css/font');
