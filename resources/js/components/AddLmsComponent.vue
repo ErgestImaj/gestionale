@@ -139,6 +139,7 @@ import {
   History
 } from "tiptap-vuetify";
 export default {
+  props: ['isEdit'],
   data() {
     return {
       content: {
@@ -196,6 +197,7 @@ export default {
     TiptapVuetify
   },
   mounted() {
+    console.log(this.isEdit);
     this.getCourses();
   },
   methods: {
@@ -205,9 +207,21 @@ export default {
         this.submiting = true;
 
         let formData = new FormData();
+        let content = JSON.parse(JSON.stringify(this.content));
+        this.courses.forEach(i => {
+          if (i.hashid === this.content.course) {
+            content.course = i;
+          }
+        });
+        this.modules.forEach(i => {
+          if (i.hashid === this.content.module) {
+            content.module = i;
+          }
+        });
 
         formData.append("lms_file", this.content.lms_file);
-        formData.append("content", JSON.stringify(this.content));
+        formData.append("content", JSON.stringify(content));
+
         axios
           .post(`/lms-content`, formData, {
             headers: {
@@ -258,10 +272,12 @@ export default {
     }
   },
   watch: {
-    selCourse() {
+    selCourse(val) {
       this.content.module = null;
       this.modules = [];
-      this.getCourseModules(this.content.course);
+      if (!!val) {
+        this.getCourseModules(val);
+      }
     },
     selType(val) {
       this.content.lms_file = null;
