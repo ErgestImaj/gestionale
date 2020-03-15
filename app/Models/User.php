@@ -42,6 +42,7 @@ User extends Authenticatable
 	const SUPERVISORE = 'supervisore';
 	const ESAMINATORE = 'esaminatore';
 	const INVIGILATOR = 'invigilator';
+	const ISPETTORI = 'ispettori';
 	const TUTOR = 'tutor';
 
 	public static $roles = [
@@ -56,7 +57,8 @@ User extends Authenticatable
 		self::FORMATORE => 'formatori',
 		self::SUPERVISORE => 'supervisori',
 		self::ESAMINATORE => 'esaminatori',
-		self::INVIGILATOR => 'ispettori',
+		self::INVIGILATOR => 'invigilatori',
+		self::ISPETTORI => 'ispettori',
 		self::TUTOR => 'tutori',
 	];
 	/**

@@ -29,6 +29,9 @@ class UserHelper
 			case User::$roles[User::INVIGILATOR]:
 				$type = User::INVIGILATOR;
 				break;
+			case User::$roles[User::ISPETTORI]:
+				$type = User::ISPETTORI;
+				break;
 			case User::$roles[User::TUTOR]:
 				$type = User::TUTOR;
 				break;
@@ -61,6 +64,9 @@ class UserHelper
 				break;
 			case User::$roles[User::INVIGILATOR]:
 				$label = User::$roles[User::INVIGILATOR];
+				break;
+			case User::$roles[User::ISPETTORI]:
+				$label = User::$roles[User::ISPETTORI];
 				break;
 			case User::$roles[User::TUTOR]:
 				$label = User::$roles[User::TUTOR];

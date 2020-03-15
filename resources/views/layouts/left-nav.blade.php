@@ -38,8 +38,9 @@
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.fomatori.view')}}">Formatori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.supervisore.view')}}">Supervisori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.esaminatore.view')}}">Esaminatori</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.tutor.view')}}">Tutori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.invigilatori.view')}}">Invigilatori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.inspector.view')}}">Ispettori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.tutor.view')}}">Tutori</a></li>
                 </ul>
             </div>
         </li>

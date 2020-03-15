@@ -118,6 +118,9 @@ export default {
             },{
               text: 'Codice Fiscale',
               value: 'user_info.fiscal_code'
+            },{
+              text: 'Tipo',
+              value: 'user_info.type'
             }, {
               text: 'Sesso',
               value: 'user_info.gender'

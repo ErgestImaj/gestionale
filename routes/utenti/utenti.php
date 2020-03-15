@@ -24,6 +24,7 @@ Route::group([
 	Route::get('/studenti', 'UtentiController@viewStudenti')->name('studenti.view');
 	Route::get('/tutor', 'UtentiController@viewTutori')->name('tutor.view');
 	Route::get('/inspector', 'UtentiController@viewInspectori')->name('inspector.view');
+	Route::get('/invigilatori', 'UtentiController@viewInvigilatori')->name('invigilatori.view');
 
 	Route::get('/api/get-user/{type}', 'UtentiController@getUserType')->name('utenti.type');
 });

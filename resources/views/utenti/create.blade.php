@@ -7,8 +7,7 @@
         </h3>
     </div>
 		<v-app>
-
-            @if ($type == User::$roles[User::ADMIN] || $type == User::$roles[User::SEGRETERIA] || $type == User::$roles[User::TUTOR] || $type == User::$roles[User::INVIGILATOR])
+            @if ($type == User::$roles[User::ADMIN] || $type == User::$roles[User::SEGRETERIA] || $type == User::$roles[User::TUTOR] || $type == User::$roles[User::ISPETTORI])
                 <utenti-basic-create user-type="{{$type}}"></utenti-basic-create>
             @else
                 <utenti-create user-type="{{$type ?? ''}}"></utenti-create>

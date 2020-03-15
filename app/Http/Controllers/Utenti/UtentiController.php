@@ -65,8 +65,12 @@ class UtentiController extends Controller
 		]);
 	}
 
-
 	public function viewInspectori() {
+		return view('utenti.index',[
+			'type'=> User::$roles[User::ISPETTORI]
+		]);
+	}
+	public function viewInvigilatori() {
 		return view('utenti.index',[
 			'type'=> User::$roles[User::INVIGILATOR]
 		]);
@@ -83,7 +87,7 @@ class UtentiController extends Controller
 		return  User::whereHas('roles',function ($query) use ($role){
 				$query->where('name',$role);
 			})->with(['userInfo'=>function($query){
-				$query->select(['user_id','gender','fiscal_code']);
+				$query->select(['user_id','gender','fiscal_code','lrn_user']);
 			},'user'=>function($query){
 				$query->select(['id','firstname','lastname']);
 			}])->get(['id','username','firstname','lastname','email','state','created_by']);
