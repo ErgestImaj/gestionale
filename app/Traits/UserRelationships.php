@@ -33,8 +33,9 @@ trait UserRelationships{
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function userInfo(){
-        return $this->hasOne(UsersInfo::class);
+        return $this->hasOne(UsersInfo::class,'user_id','id');
     }
+
 
     public function massMailsHistories(){
         return $this->hasMany(MassMailHistory::class);

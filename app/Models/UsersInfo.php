@@ -10,6 +10,20 @@ class UsersInfo extends Model
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
 
+		#types
+		const TYPE_MF = 0;
+		const TYPE_LRN = 1;
+		const TYPE_IIQ = 2;
+		const TYPE_DILE = 3;
+		const TYPE_MIUR = 4;
+
+		public static $typeLabels = [
+			self::TYPE_MF => 'MF',
+			self::TYPE_LRN => 'LRN',
+			self::TYPE_DILE => 'DILE',
+			self::TYPE_IIQ => 'IIQ',
+			self::TYPE_MIUR => 'MIUR',
+		];
     /**
      * The table associated with the model.
      *
@@ -17,6 +31,10 @@ class UsersInfo extends Model
      */
 
     protected $table = 'users_userinfo';
+
+    public $appends = [
+    	'type'
+		];
 
     /**
      * The attributes that aren't mass assignable.
@@ -46,4 +64,8 @@ class UsersInfo extends Model
     public function owner(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function getTypeAttribute(){
+         return self::$typeLabels[$this->lrn_user];
+		}
 }

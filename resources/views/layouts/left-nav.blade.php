@@ -30,16 +30,17 @@
             <div class="collapse" id="employers">
                 <ul class="nav flex-column sub-menu">
                     @hasrole('superadmin')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('superadmin.admins.index')}}">{{trans('menu.admin')}}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.admins.index')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
-                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.segreteria.index')}}">{{trans('menu.segreteria')}}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.segreteria.index')}}">{{trans('menu.segreteria')}}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.studenti.view')}}">Studenti</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.docente.view')}}">Docenti</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.fomatori.view')}}">Formatori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.supervisore.view')}}">Supervisori</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.esaminatore.view')}}">Esaminatore</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.tutor.view')}}">Tutor</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.inspector.view')}}">Inspector</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.esaminatore.view')}}">Esaminatori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.invigilatori.view')}}">Invigilatori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.inspector.view')}}">Ispettori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.tutor.view')}}">Tutori</a></li>
                 </ul>
             </div>
         </li>

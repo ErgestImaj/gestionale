@@ -420,7 +420,7 @@
                       :error-messages="errors.corsi ? errors.corsi[0] : []"
                     ></v-select>
                  </v-col>
-                 
+
                  <v-col cols='12' md='6'>
                     <v-select
                       dense outlined label="Type"
@@ -430,7 +430,7 @@
                     ></v-select>
                  </v-col>
                </v-row>
-             
+
              </v-card-text>
           </v-card>
         </v-col>
@@ -526,11 +526,11 @@ export default {
     };
   },
   mounted() {
-    if (this.userType === "docente") {
+    if (this.userType === "docenti") {
       this.isDocente = true;
-    } else if (this.userType === "supervisore") {
+    } else if (this.userType === "supervisori") {
       this.isSupervisore = true;
-    } else if (this.userType === "esaminatore") {
+    } else if (this.userType === "esaminatori") {
       this.isEsaminatore = true;
     } else if (this.userType === "formatori") {
       this.isFormatore = true;

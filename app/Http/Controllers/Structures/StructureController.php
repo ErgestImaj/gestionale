@@ -47,11 +47,17 @@ class StructureController extends Controller {
 	// TODO: check user permission
 	public function getStructure( Request $request ) {
 
-		if ( empty( $request->type ) ) {
-			return null;
-		}
+		if ( empty( $request->type ) ) return[];
 
-		return Structure::where( 'type', $request->type )->with( ['province','owner'] )->latest()->get();
+		return Structure::where( 'type', $request->type )
+			      ->with( [
+			      	'province'=>function($query){
+							$query->select('id','title');
+					  	},
+					  	'owner'=>function($query){
+							$query->select('id','state');
+						},
+						] )->latest()->get(['id','user_id','legal_prov','piva','type','legal_name','code','email','phone','state']);
 	}
 
 	public function getStructureParent($type){
@@ -159,7 +165,7 @@ class StructureController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param Discount $discount
+	 * @param Structure $structure
 	 *
 	 * @return void
 	 */
@@ -183,10 +189,35 @@ class StructureController extends Controller {
 			]);
 		}
 
+	}
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param Structure $structure
+	 *
+	 * @return void
+	 */
+	public function updateHierarchy(Structure $structure,Request $request)
+	{
 
-
+		try {
+			$structure->update([
+				'type'=>$request->input('type')
+			]);
+			return response([
+				'status' => 'success',
+				'msg' => trans('messages.change_status')
+			]);
+		} catch (\Exception $exception) {
+			logger($exception->getMessage());
+			return response([
+				'status' => 'error',
+				'msg' => trans('messages.error')
+			]);
+		}
 
 	}
+
 	public function destroy(Structure $structure)
 	{
 

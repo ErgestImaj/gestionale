@@ -8,10 +8,11 @@ use Mtvs\EloquentHashids\HashidRouting;
 class Provinces extends Model
 {
 
-     protected $table = 'location_provs';
-     public $timestamps = false;
+	protected $table = 'location_provs';
+	public $timestamps = false;
 
-     public function regione(){
-         return $this->belongsTo(Regions::class,'regione_id');
-     }
+	public function regione()
+	{
+		return $this->belongsTo(Regions::class, 'regione_id');
+	}
 }

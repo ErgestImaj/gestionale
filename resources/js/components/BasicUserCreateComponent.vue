@@ -76,9 +76,9 @@ export default {
     };
   },
   mounted() {
-    if (this.userType === "inspector") {
+    if (this.userType === "ispettori") {
       this.isInspector = true;
-    } else if (this.userType === "tutor") {
+    } else if (this.userType === "tutori") {
       this.isTutor = true;
     } else {
       return;

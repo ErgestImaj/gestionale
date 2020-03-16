@@ -24,15 +24,15 @@
 
             <v-list dense>
               <template v-for="(m, i) in menuItems">
-                <v-list-item 
-                    class="update-btn" v-if="m.id == 5" :key="i" 
+                <v-list-item
+                    class="update-btn" v-if="m.id == 5" :key="i"
                     link :data-action="`/amministrazione/structure/${item.hashid}/status`">
                     <v-list-item-icon>
-                        <v-icon>{{item.owner.state ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
+                        <v-icon>{{item.state   ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
                     </v-list-item-icon>
-                    <v-list-item-title>{{ item.owner.state ? m.title2 : m.title }}</v-list-item-title>
+                    <v-list-item-title>{{ item.state ? m.title2 : m.title }}</v-list-item-title>
                 </v-list-item>
-                <v-list-item 
+                <v-list-item
                     v-else-if="m.id == 6" :key="i"
                     class="post-action"
                     :data-content="trans('messages.send_reset_link_confirm')"
@@ -58,7 +58,7 @@
                     class="delete-btn"
                     :data-content="trans('messages.delete_record')"
                     :data-action="`/amministrazione/structure/${item.hashid}`"
-                    link                
+                    link
                 >
                     <v-list-item-icon>
                         <v-icon v-text="m.icon"></v-icon>
@@ -78,6 +78,38 @@
         </template>
       </v-data-table>
     </v-card>
+		<v-dialog v-model="editDialog" persistent max-width="600px">
+			<v-card v-if="edit">
+				<v-card-title>
+					<span class="headline">{{'Cambia gerarchia'}}</span>
+				</v-card-title>
+				<v-card-text>
+					<v-container>
+						<v-form>
+							<v-row>
+								<v-col cols="12" sm="12">
+									<v-radio-group v-model="structur.type">
+										<v-radio
+											v-for="n in types"
+											:key="n.id"
+											:label="n.value"
+											:value="n.id"
+										></v-radio>
+									</v-radio-group>
+								</v-col>
+							</v-row>
+						</v-form>
+					</v-container>
+				</v-card-text>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn color="grey darken-1" text @click="closeEdit()">{{trans('form.doc_close')}}</v-btn>
+					<v-btn color="primary darken-1"  @click="updateStructure(structur.hashid)">
+						{{trans('form.save')}}
+					</v-btn>
+				</v-card-actions>
+			</v-card>
+		</v-dialog>
   </div>
 </template>
 
@@ -88,6 +120,8 @@ export default {
     return {
       struture: [],
       search: "",
+			editDialog: false,
+			structur:{},
       headers: [
         { text: "#", value: "id" },
         { text: "Partita IVA", value: "piva" },
@@ -108,8 +142,14 @@ export default {
         { id: 5, title: "Enable", title2: "Disable", icon: "" },
         { id: 6, title: "Invia link di accesso", icon: "mdi-account-key-outline" },
         { id: 7, title: "Invia Email", icon: "mdi-email-send-outline" },
-        { id: 8, title: "Delete Account", icon: "mdi-trash-can-outline" }
-      ]
+        { id: 8, title: "Delete Account", icon: "mdi-trash-can-outline" },
+        { id: 9, title: "Cambia Gerarchia", icon: "mdi-arrow-split-horizontal" }
+      ],
+			types:[
+				{id: 1, value: 'Partner'},
+				{id: 2, value: 'Master'},
+				{id: 3, value: 'Affiliati'},
+			],
     };
   },
   mounted() {
@@ -141,8 +181,39 @@ export default {
         case 4:
           this.switchAccount(item);
           break;
+        case 9:
+					this.openEdit(item);
       }
     },
+		openEdit(record) {
+			this.structur = record;
+			this.editDialog = true;
+		},
+		closeEdit() {
+			this.editDialog = false
+			this.structur = null
+		},
+		updateStructure(record) {
+				axios.patch(`/amministrazione/api/${record}/hirearcy/`, this.structur)
+					.then(response => {
+						this.editDialog = false
+						if (response.data.status === 'success') {
+							swal("Good job!", response.data.msg, "success");
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
+						} else if (response.data.status === 'error') {
+							swal({
+								title: "Whoops!",
+								text: response.data.msg,
+								icon: "warning",
+								dangerMode: true,
+							});
+						}
+					})
+					.catch(error => {
+					})
+		},
     edit(item) {
       let nUrl =
         window.location.origin +

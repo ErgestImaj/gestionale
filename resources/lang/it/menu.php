@@ -2,7 +2,7 @@
 
 return [
     'dashboard'                         => 'Dashboard',
-    'mf_users'                          => 'Utenti MF',
+    'mf_users'                          => 'Utenti',
     'user'                              => 'Utente',
     'admin'                             => 'Amministratori',
     'segreteria'                        => 'Segreteria',

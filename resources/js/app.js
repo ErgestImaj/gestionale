@@ -11,7 +11,7 @@ window.Vue = require('vue');
 import Vuetify from 'vuetify';
 const vuetify = new Vuetify()
 import { TiptapVuetifyPlugin } from 'tiptap-vuetify'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
+
 Vue.use(Vuetify);
 Vue.use(TiptapVuetifyPlugin, {
 	// the next line is important! You need to provide the Vuetify Object to this place.
