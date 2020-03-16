@@ -53,5 +53,8 @@ class Course extends Model
         return $this->hasMany(CourseModule::class);
     }
 
+    public function tutor(){
+				return $this->belongsToMany(User::class,'course_user','course_id','user_id');
+		}
 
 }

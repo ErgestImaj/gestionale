@@ -10,8 +10,6 @@ Route::group([
               'namespace'=>'Admin'
              ],function() {
 
-
-
         //Settings
 
        Route::get('/settings/permission','SettingsController@permissionSettings')->name('permission');
@@ -56,10 +54,6 @@ Route::group([
 
     Route::get('/admin/{user}','AdminController@edit')->name('admins.edit');
     Route::patch('/admin/status/{user}','AdminController@updateStatus')->name('users.status');
-    //Segreteria
-
-    Route::post('/segretaria/store','AdminController@storeSegreteria')->name('segreteria.store');
-
 
     /*
      * Course and categorie routes

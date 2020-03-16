@@ -11,16 +11,16 @@
                   <v-text-field
                     label="Nome"
                     outlined
-                    v-model="user.firstname"
+                    v-model="user.first_name"
                     dense
-                    :error-messages="errors.firstname ? errors.firstname[0] : []"
+                    :error-messages="errors.first_name ? errors.first_name[0] : []"
                   ></v-text-field>
                   <v-text-field
                     label="Cognome"
                     outlined
-                    v-model="user.lastname"
+                    v-model="user.last_name"
                     dense
-                    :error-messages="errors.lastname ? errors.lastname[0] : []"
+                    :error-messages="errors.last_name ? errors.last_name[0] : []"
                   ></v-text-field>
                   <v-text-field
                     label="Email"
@@ -29,12 +29,38 @@
                     dense
                     :error-messages="errors.email ? errors.email[0] : []"
                   ></v-text-field>
+									<v-text-field
+                    label="Password"
+                    outlined
+										type="password"
+                    v-model="user.password"
+                    dense
+                    :error-messages="errors.password ? errors.password[0] : []"
+                  ></v-text-field>
+									<v-text-field
+										dense
+										readonly
+										label="Immagine Profilo"
+										outlined
+										@click="pickFile()"
+										:error-messages="errors.image ? errors.image[0] : []"
+										prepend-inner-icon="mdi-cloud-upload"
+										:value="image ? image.name : '' "
+									></v-text-field>
+									<input
+										type="file"
+										style="display: none"
+										ref="file"
+										@change="handleFileUpload($event)"
+									/>
                     <v-select
                         v-if="isTutor"
                         dense outlined label="Corsi" multiple
                         v-model="user.corsi"
                         :items="corsi"
-                        :error-messages="errors.structure_id ? errors.structure_id[0] : []"
+												item-text="name"
+												item-value="id"
+                        :error-messages="errors.corsi ? errors.corsi[0] : []"
                     ></v-select>
                 </v-col>
               </v-row>
@@ -49,8 +75,8 @@
             :disabled="submiting"
             color="primary"
             class="ma-0 white--text"
-            @click="send"
-          >Add User</v-btn>
+            @click="save"
+          >Aggiungi utente</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -62,32 +88,76 @@ export default {
   props: ["userType"],
   data() {
     return {
-      isInspector: false,
       isTutor: false,
       submiting: false,
+			image:'',
       user: {
         type: this.userType,
-        firstname: "",
-        lastname: "",
-        email: ""
       },
-      corsi: ['cors1', 'cors2', 'cors3'],
+      corsi: [],
       errors: {}
     };
   },
   mounted() {
-    if (this.userType === "ispettori") {
-      this.isInspector = true;
-    } else if (this.userType === "tutori") {
+    if (this.userType === "tutori") {
       this.isTutor = true;
-    } else {
-      return;
+      this.getCourses()
     }
+
   },
   methods: {
-    send() {
-        //
-    }
+    save() {
+			if (!this.submiting) {
+				this.submiting = true;
+				let formData = new FormData();
+				formData.append("image", this.image);
+				formData.append("user", JSON.stringify(this.user));
+				axios.post(`/utenti/storebasicuser`,formData,
+						{
+							headers: {
+								"Content-Type": "multipart/form-data"
+							}
+						}
+					)
+					.then(response => {
+						this.submiting = false;
+						if (response.data.status == "success") {
+							swal("Good job!", response.data.msg, "success");
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
+						} else if (response.data.status === "error") {
+							swal({
+								title: "Whoops!",
+								text: response.data.msg,
+								icon: "warning",
+								dangerMode: true
+							});
+						}
+					})
+					.catch(error => {
+						this.submiting = false;
+						this.errors = error.response.data.errors;
+					});
+			}
+		},
+		pickFile() {
+				this.$refs.file.click();
+		},
+		handleFileUpload(e, i) {
+				this.image = e.target.files[0];
+		},
+		getCourses(){
+			axios.get(`/filter-courses`)
+				.then(response => {
+					if (response.data) {
+						this.corsi = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		}
   }
 };
 </script>

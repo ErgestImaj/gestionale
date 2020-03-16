@@ -11,12 +11,11 @@ Route::group([
 	Route::get('/{type}/create', 'UtentiController@createUtente')->name('utenti.create');
 
 	// Admin
-	Route::get('/admins','UtentiController@viewAdmins')->name('admins.index');
-	Route::get('/segreteria','UtentiController@viewSegreteria')->name('segreteria.index');
-	Route::get('/admins/index','AdminController@index');
-	Route::post('/admins/store','AdminController@store')->name('admins.store');
+	Route::post('/storebasicuser','UtentiController@storeBasicUser')->name('utenti.store');
 	Route::patch('/admin/{user}','AdminController@update')->name('admins.update');
 	Route::delete('/admin/delete/{user?}','AdminController@destroy')->name('admins.destroy');
+	Route::get('/admins', 'UtentiController@viewAdmins')->name('admins.view');
+	Route::get('/segreteria', 'UtentiController@viewSegreteria')->name('segreteria.view');
 	Route::get('/esaminatore', 'UtentiController@viewEsaminatore')->name('esaminatore.view');
 	Route::get('/docente', 'UtentiController@viewDocente')->name('docente.view');
 	Route::get('/supervisore', 'UtentiController@viewSupervisore')->name('supervisore.view');

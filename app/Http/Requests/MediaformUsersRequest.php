@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class MediaformUsersRequest extends FormRequest
 {
@@ -14,9 +14,17 @@ class MediaformUsersRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
+		/**
+		 * Prepare data for validation
+		 */
+		public function prepareForValidation() {
 
+			$this->merge(
+				json_decode( $this->input( 'user' ), true )
+			);
+		}
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +32,7 @@ class MediaformUsersRequest extends FormRequest
      */
     public function rules()
     {
-        $userId =  $this->user->id ??  null;
+       $userId =  $this->user->id ??  null;
        $rules =  [
             'first_name'=>'required|string|max:191',
             'last_name'=>'required|string|max:191',
@@ -32,7 +40,7 @@ class MediaformUsersRequest extends FormRequest
             'image'=>'nullable|sometimes|mimes:jpg,png,jpeg'
         ];
         $userId ? $rules['password']='nullable|sometimes|min:6' : $rules['password']='required|min:6';
-
+        if ($this->input('type') == User::$roles[User::TUTOR]) $rules['corsi'] = 'required|array';
         return $rules;
     }
     /**

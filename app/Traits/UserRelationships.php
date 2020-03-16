@@ -29,6 +29,9 @@ trait UserRelationships{
         return $this->hasMany(Course::class,'created_by');
     }
 
+    public function tutorCourses(){
+    	return $this->belongsToMany(Course::class,'course_user','user_id','course_id');
+		}
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
