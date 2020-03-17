@@ -49,6 +49,7 @@ Vue.filter('capitalize', function (s) {
 
 Vue.component('multiselect',Multiselect);
 Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
+Vue.component('add-course', require('./components/CourseCreateComponent.vue').default);
 Vue.component('module-content', require('./components/ModuleContentComponent').default);
 Vue.component('add-lms', require('./components/AddLmsComponent').default);
 Vue.component('view-lms', require('./components/LmsViewComponent').default);
