@@ -62,8 +62,10 @@ Vue.component('struture-create', require('./components/AddStrutureComponent').de
 Vue.component('struture-edit', require('./components/EditStrutureComponent').default);
 Vue.component('structure-view', require('./components/StructureViewComponent').default);
 Vue.component('utenti-create', require('./components/UtentiCreateComponent').default);
+Vue.component('utenti-edit', require('./components/UtentiEditComponent').default);
 Vue.component('utenti-view', require('./components/UtentiViewComponent').default);
 Vue.component('utenti-basic-create', require('./components/BasicUserCreateComponent').default);
+Vue.component('utenti-basic-edit', require('./components/BasicUserEditComponent').default);
 Vue.component('add-discount', require('./components/AddDiscountComponent').default);
 Vue.component('structure-details', require('./components/StructureDetailsComponent').default);
 

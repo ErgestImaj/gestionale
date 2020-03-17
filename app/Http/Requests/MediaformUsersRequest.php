@@ -21,9 +21,11 @@ class MediaformUsersRequest extends FormRequest
 		 */
 		public function prepareForValidation() {
 
-			$this->merge(
-				json_decode( $this->input( 'user' ), true )
-			);
+		  if (!empty($this->input( 'user' )))
+				$this->merge(
+					json_decode( $this->input( 'user' ), true )
+				);
+
 		}
     /**
      * Get the validation rules that apply to the request.
@@ -32,7 +34,7 @@ class MediaformUsersRequest extends FormRequest
      */
     public function rules()
     {
-       $userId =  $this->user->id ??  null;
+       $userId =  $this->id ??  null;
        $rules =  [
             'first_name'=>'required|string|max:191',
             'last_name'=>'required|string|max:191',

@@ -51,8 +51,6 @@ Route::group([
     Route::get('/login-as-user/{user}','LoginController@loginAsUser')->name('loginasuser');
     Route::get('/re-login-as-admin','LoginController@reLoginAsAdmin')->name('relogin');
 
-
-    Route::get('/admin/{user}','AdminController@edit')->name('admins.edit');
     Route::patch('/admin/status/{user}','AdminController@updateStatus')->name('users.status');
 
     /*

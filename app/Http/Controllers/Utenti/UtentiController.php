@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MediaformUsersRequest;
 use App\Models\User;
 use App\Models\UserGroups;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UtentiController extends Controller
@@ -120,7 +122,7 @@ class UtentiController extends Controller
 	 * @param MediaformUsersRequest $request
 	 * @return Response
 	 */
-	public function storeBasicUser(MediaformUsersRequest $request)
+	public function store(MediaformUsersRequest $request)
 	{
 
      $type = $request->input('type');
@@ -130,6 +132,7 @@ class UtentiController extends Controller
 				'msg'    => trans( 'messages.error' )
 			] );
 		}
+		DB::beginTransaction();
 		try {
 
 			$avatar = '';
@@ -155,8 +158,9 @@ class UtentiController extends Controller
 			if ( $type == User::$roles[User::TUTOR]) {
 				$user->tutorCourses()->sync($request->input('corsi'));
 			}
-
+     DB::commit();
 		}catch (\Exception $exception){
+			DB::rollback();
 			logger('Cant create user with role  '.$type.': '.$exception->getMessage());
 			return response( [
 				'status' => 'error',
@@ -168,4 +172,100 @@ class UtentiController extends Controller
 			'msg'    => trans( 'messages.success' )
 		] );
 	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(User $user)
+	{
+		if (!auth()->user()->can('edit',$user)) {
+			toastr()->error(trans('messages.unauthorized'));
+			return back();
+		}
+
+    $type = User::$roles[$user->getUserRole()];
+
+		return view('utenti.edit',compact('type'));
+	}
+
+	public function editUser(User $user){
+		$corsi = [];
+		if($user->getUserRole() == User::TUTOR){
+		   $corsi = $user->tutorCourses()->pluck('id');
+		}
+		$user_data =[
+			'first_name'=>$user->firstname,
+			'last_name'=>$user->lastname,
+			'email'=>$user->email,
+			'id'=>$user->id
+		];
+		return [
+			'corsi'=>$corsi,
+			'user'=>$user_data
+		];
+	}
+
+	public function update(User $user, MediaformUsersRequest $request){
+		if (!auth()->user()->can('update',$user)) {
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.unauthorized' )
+			] );
+		}
+
+		try {
+			$user->firstname = $request->first_name;
+			$user->lastname  = $request->last_name;
+			$user->email     = $request->email;
+
+			if ($request->hasFile('image')) {
+				if ($request->file('image')->isValid()) {
+					$user->removeAvatar();
+					$upload = new Upload();
+					$avatar = $upload->upload($request->file('image'), 'public/avatars')->resize(100, 100)->getData();
+					$user->avatar = $avatar['basename'];
+				}
+			}
+			if ($request->password !='')
+				$user->password = Hash::make($request->password);
+
+			$user->update();
+
+			if ( $user->getUserRole() == User::TUTOR) {
+				$user->tutorCourses()->sync($request->input('corsi'));
+			}
+
+			return response( [
+				'status' => 'success',
+				'msg'    => trans( 'messages.success' )
+			] );
+
+		}catch (\Exception $exception){
+			logger('Cant update user with id: '.$user->id.','.auth()->id().': '.$exception->getMessage());
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.error' )
+			] );
+		}
+
+	}
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(User $user)
+	{
+		$user->delete();
+		return response( [
+			'status' => 'success',
+			'msg'    => trans('messages.delete_msg',['record'=>trans('menu.user')])
+		] );
+
+	}
+
 }

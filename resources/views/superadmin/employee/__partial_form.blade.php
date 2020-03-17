@@ -66,6 +66,7 @@
             </div>
         </div>
         <div class="col-lg-12">
+					<input type="hidden" name="id" value="{{$user->id ?? ''}}">
             <button class="btn-info btn" type="submit ">{{trans('form.save')}}</button>
         </div>
     </div>

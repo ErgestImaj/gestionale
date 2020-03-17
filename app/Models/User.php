@@ -42,7 +42,7 @@ User extends Authenticatable
 	const SUPERVISORE = 'supervisore';
 	const ESAMINATORE = 'esaminatore';
 	const INVIGILATOR = 'invigilator';
-	const ISPETTORI = 'ispettori';
+	const ISPETTORI = 'inspettore';
 	const TUTOR = 'tutor';
 
 	public static $roles = [

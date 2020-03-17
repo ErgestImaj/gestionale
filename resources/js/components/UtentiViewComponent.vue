@@ -54,7 +54,7 @@
 								<v-list-item v-else-if="m.id ==7" :key="i"
 														 class="delete-btn"
 														 :data-content="trans('messages.delete_record')"
-														 :data-action="`/amministrazione/admin/delete/${item.hashid}`"
+														 :data-action="`/utenti/delete/${item.hashid}`"
 														 link
 								>
 									<v-list-item-icon>
@@ -178,7 +178,7 @@ export default {
 		edit(item) {
 			let nUrl =
 				window.location.origin +
-				"/amministrazione/struture/" +
+				"/utenti/" +
 				item.hashid +
 				"/edit";
 			window.location.href = nUrl;
