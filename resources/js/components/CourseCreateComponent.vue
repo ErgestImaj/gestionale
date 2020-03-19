@@ -160,8 +160,10 @@
     } from "tiptap-vuetify";
     export default {
         props: ['oldCourse', 'categories', 'expirations', 'vatrates'],
+        dependencies: 'globalService',
         data() {
             return {
+                rrp: null,
                 course: {
                     vat_rate: this.vatrates[0],
 								},
@@ -199,6 +201,7 @@
             TiptapVuetify
         },
 				mounted() {
+
             if (this.isEdit() ) {
                 this.course = this.oldCourse;
                 this.categories.forEach(item => {

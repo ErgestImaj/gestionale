@@ -12,6 +12,7 @@
 				:items="lmss"
 				:search="search"
 				:loading="loading"
+				:footer-props="footerProps"
 				class="pa-4"
 			>
 				<template v-slot:item.status="{ item }">
@@ -61,8 +62,10 @@
 
 <script>
     export default {
+        dependencies: 'globalService',
         data() {
             return {
+                footerProps: null,
                 search: '',
 								loading: true,
                 headers: [
@@ -90,6 +93,7 @@
 						}
 				},
 				mounted() {
+            this.footerProps = this.globalService.tableConfig().footerProps;
             this.getLmss();
 				},
 				methods: {

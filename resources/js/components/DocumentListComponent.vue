@@ -17,6 +17,8 @@
                 :items="documents"
                 :search="search"
                 :loading="loading"
+								:footer-props="footerProps"
+								class="pa-4"
             >
                 <template v-slot:item.actions="{ item }">
                     <a icon :href="item.editlink">
@@ -37,9 +39,11 @@
 </template>
 <script>
     export default {
+        dependencies: 'globalService',
         props: ['structureType'],
         data() {
             return {
+                footerProps: null,
                 documents: [],
                 search: '',
                 headers: [
@@ -56,6 +60,7 @@
             }
         },
         mounted() {
+            this.footerProps = this.globalService.tableConfig().footerProps;
             this.getDocs();
         },
         methods: {

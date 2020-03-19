@@ -5,20 +5,21 @@
  */
 
 require('./bootstrap');
-
+require('./globalService');
 window.Vue = require('vue');
-
-import Vuetify from 'vuetify';
-const vuetify = new Vuetify()
-import { TiptapVuetifyPlugin } from 'tiptap-vuetify'
+import injector from 'vue-inject'
+import Vuetify from 'vuetify'
+const vuetify = new Vuetify();
+import { TiptapVuetifyPlugin } from 'tiptap-vuetify';
 
 Vue.use(Vuetify);
+Vue.use(injector);
 Vue.use(TiptapVuetifyPlugin, {
 	// the next line is important! You need to provide the Vuetify Object to this place.
 	vuetify, // same as "vuetify: vuetify"
 	// optional, default to 'md' (default vuetify icons before v2.0.0)
 	iconsGroup: 'md'
-  })
+  });
 
 Vue.prototype.trans = string => _.get(window.i18n, string);
 import Multiselect from 'vue-multiselect'
@@ -82,13 +83,13 @@ Vue.component('structure-details', require('./components/StructureDetailsCompone
 
 const app = new Vue({
     el: '#app',
-	vuetify: new Vuetify({
-		theme: {
-			themes: {
-				light: {
-					primary: '#388e3c',
+		vuetify: new Vuetify({
+			theme: {
+				themes: {
+					light: {
+						primary: '#388e3c',
+					},
 				},
 			},
-		},
-	})
+		})
 });
