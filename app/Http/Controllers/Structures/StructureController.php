@@ -217,7 +217,9 @@ class StructureController extends Controller {
 		}
 
 	}
-
+	public function listActiveStructures(){
+		return Structure::active()->get(['id','legal_name']);
+	}
 	public function destroy(Structure $structure)
 	{
 

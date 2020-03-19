@@ -10,20 +10,25 @@ Route::group([
 		 * Partner Routes
 		 */
 
-	Route::get('/api/struture/{type}', 'StructureController@getStructure')->name('struture.all');
 	Route::get('/struture', 'StructureController@partnerIndex')->name('struture.partner');
 	Route::get('/struture/{structure}/sconto/', 'StructureController@sconto')->name('struture.sconto');
 	Route::get('/struture/{structure}/show/', 'StructureController@show')->name('struture.show');
 	Route::get('/struture/{structure}/view/', 'StructureController@details')->name('struture.details');
 	Route::view('/struture/{structure}/edit/', 'struture.edit')->name('struture.edit');
-	Route::get('/api/struture/{structure}/edit/', 'StructureController@edit');
-	Route::post('/api/{structure}/sconto/store','DiscountController@store')->name('struture.sconto.store');
-	Route::get('/api/{structure}/sconto/', 'DiscountController@index')->name('struture.sconto.index');
-	Route::delete('/api/sconto/{discount}/', 'DiscountController@destroy')->name('struture.sconto.destroy');
-	Route::post('/api/structure/{structure}/update', 'StructureController@update')->name('struture.update');
 	Route::delete('/structure/{structure}','StructureController@destroy')->name('struture.destroy');
 	Route::patch('/structure/{structure}/status','StructureController@updateStatus')->name('struture.status');
-	Route::patch('/api/{structure}/hirearcy/','StructureController@updateHierarchy')->name('struture.hierarchy');
+
+
+		Route::group( ['prefix' => 'api'], function ()
+		{
+			Route::get('/struture/{type}', 'StructureController@getStructure')->name('struture.all');
+			Route::get('/struture/{structure}/edit/', 'StructureController@edit');
+			Route::post('/{structure}/sconto/store','DiscountController@store')->name('struture.sconto.store');
+			Route::get('/{structure}/sconto/', 'DiscountController@index')->name('struture.sconto.index');
+			Route::delete('/sconto/{discount}/', 'DiscountController@destroy')->name('struture.sconto.destroy');
+			Route::post('/structure/{structure}/update', 'StructureController@update')->name('struture.update');
+			Route::patch('/{structure}/hirearcy/','StructureController@updateHierarchy')->name('struture.hierarchy');
+		});
 });
 
 Route::group([
@@ -35,7 +40,11 @@ Route::group([
         * Master Routes
         */
 	Route::get('/struture/master', 'StructureController@masterIndex')->name('struture.master');
-	Route::get('/api/struture/{type}/parent', 'StructureController@getStructureParent')->name('struture.parent');
+
+		Route::group( ['prefix' => 'api'], function ()
+		{
+			Route::get('/struture/{type}/parent', 'StructureController@getStructureParent')->name('struture.parent');
+		});
 });
 
 Route::group([
@@ -47,18 +56,27 @@ Route::group([
      * Affiliati Routes
      */
     Route::view('/struture/{type}/create', 'struture.create')->name('struture.create');
-    Route::post('/api/structure/{type}/store', 'StructureController@store')->name('struture.store');
 	  Route::get('/struture/affiliati', 'StructureController@affiliatiIndex')->name('struture.affiliati');
 
+
+			Route::group( ['prefix' => 'api'], function ()
+			{
+				Route::get('/active-structures', 'StructureController@listActiveStructures');
+				Route::post('/structure/{type}/store', 'StructureController@store')->name('struture.store');
+			});
 });
 
 Route::group([
-    'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master' ],
+    'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master|affiliati' ],
     'prefix'=>'amministrazione','as'=>'location',
 ],function() {
     /*
      * Location
      */
-
-    Route::get('/api/locations', 'LocationController@getLocations');
+		Route::group( ['prefix' => 'api'], function ()
+		{
+			Route::get('/locations', 'LocationController@getLocations');
+			Route::get('/educations', 'EducationsController@getEducations');
+			Route::get('/document-types', 'DocumentTypesController@getDocumentTypes');
+		});
 });

@@ -15,16 +15,16 @@ class LocationController extends Controller
     public function getLocations(){
 
         $countries = Cache::remember('countries',Carbon::now()->addMinutes(60),function (){
-            return Countries::all();
+            return Countries::all(['id','name']);
         });
         $regions = Cache::remember('regions',Carbon::now()->addMinutes(60),function (){
-            return Regions::all();
+            return Regions::all(['id','title']);
         });
         $provinces = Cache::remember('provinces',Carbon::now()->addMinutes(60),function (){
-            return Provinces::all();
+            return Provinces::all(['id','title']);
         });
         $towns = Cache::remember('towns',Carbon::now()->addMinutes(60),function (){
-            return Towns::all();
+            return Towns::all(['id','title']);
         });
 
         return [

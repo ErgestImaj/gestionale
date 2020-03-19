@@ -6,6 +6,7 @@ use App\Helpers\Upload;
 use App\Helpers\UserHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MediaformUsersRequest;
+use App\Http\Requests\UsersRequest;
 use App\Models\User;
 use App\Models\UserGroups;
 use Carbon\Carbon;
@@ -122,7 +123,7 @@ class UtentiController extends Controller
 	 * @param MediaformUsersRequest $request
 	 * @return Response
 	 */
-	public function store(MediaformUsersRequest $request)
+	public function storeBasicUser(MediaformUsersRequest $request)
 	{
 
      $type = $request->input('type');
@@ -172,7 +173,62 @@ class UtentiController extends Controller
 			'msg'    => trans( 'messages.success' )
 		] );
 	}
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param MediaformUsersRequest $request
+	 * @return Response
+	 */
+	public function store(UsersRequest $request)
+	{
+    dd($request->all());
+		$type = $request->input('type');
+		if (empty($type)){
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.error' )
+			] );
+		}
+		DB::beginTransaction();
+		try {
 
+			$avatar = '';
+			if ($request->hasFile('image')) {
+				if ($request->file('image')->isValid()) {
+					$upload = new Upload();
+					$avatar = $upload->upload($request->file('image'), 'public/avatars')->resize(100, 100)->getData();
+					$avatar = $avatar['basename'];
+				}
+			}
+			$user = User::forceCreate([
+				'firstname' => $request->input('first_name'),
+				'lastname' => $request->input('last_name'),
+				'email' => $request->input('email'),
+				'password' => Hash::make($request->input('password')),
+				'avatar' => $avatar
+			]);
+
+			$user->roles()->sync(UserGroups::where('name',
+				array_search( $type,User::$roles)
+			)->firstOrFail()->id);
+
+			if ( $type == User::$roles[User::TUTOR]) {
+				$user->tutorCourses()->sync($request->input('corsi'));
+			}
+			DB::commit();
+		}catch (\Exception $exception){
+			DB::rollback();
+			logger('Cant create user with role  '.$type.': '.$exception->getMessage());
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.error' )
+			] );
+		}
+		return response( [
+			'status' => 'success',
+			'msg'    => trans( 'messages.success' )
+		] );
+	}
 	/**
 	 * Show the form for editing the specified resource.
 	 *

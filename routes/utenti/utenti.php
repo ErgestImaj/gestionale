@@ -19,10 +19,16 @@ Route::group([
 	Route::get('/tutor', 'UtentiController@viewTutori')->name('tutor.view');
 	Route::get('/inspector', 'UtentiController@viewInspectori')->name('inspector.view');
 	Route::get('/invigilatori', 'UtentiController@viewInvigilatori')->name('invigilatori.view');
-	Route::get('/api/get-user/{type}', 'UtentiController@getUserType')->name('utenti.type');
-	Route::post('/storebasicuser','UtentiController@store')->name('utenti.store');
+	Route::post('/storebasicuser','UtentiController@storeBasicUser')->name('utenti.store');
 	Route::get('/{user}/edit','UtentiController@edit')->name('edit');
 	Route::delete('/delete/{user?}','UtentiController@destroy')->name('admins.destroy');
-	Route::get('/api/{user}/edit','UtentiController@editUser')->name('edit-user');
-	Route::post('/api/{user}/update','UtentiController@update')->name('update');
+
+
+		Route::group( ['prefix' => 'api'], function ()
+		{
+			Route::get('/{user}/edit','UtentiController@editUser')->name('edit-user');
+			Route::post('/{user}/update','UtentiController@update')->name('update');
+			Route::get('/get-user/{type}', 'UtentiController@getUserType')->name('utenti.type');
+			Route::post('/store','UtentiController@store');
+		});
 });

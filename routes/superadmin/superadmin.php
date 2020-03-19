@@ -71,18 +71,11 @@ Route::group([
      * Area Download
      */
     Route::view('/download/create', 'download.create')->name('download.create');
-    Route::post('/api/download/store','DocumentController@store')->name('download.store');
     Route::view('/download/', 'download.index')->name('download.index');
     Route::view('/download/{document}', 'download.edit')->name('download.edit');
-    Route::get('/api/download/{document}','DocumentController@edit')->name('download.getdoc');
-    Route::post('/api/download/{document}/update','DocumentController@update')->name('download.update');
     Route::get('/area-download/', 'DocumentController@index')->name('download.datatable');
     Route::delete('/area-download/{document}','DocumentController@destroy')->name('download.destroy');
     Route::view('/area-download/categories', 'download.categories')->name('download.categories');
-    Route::get('/api/download/category/index','DocumentCategoriesController@index')->name('download.categories.index');
-    Route::get('/api/download/category/list','DocumentCategoriesController@listCategories')->name('download.categories.list');
-    Route::post('/api/download/category/create','DocumentCategoriesController@store')->name('download.categories.create');
-    Route::patch('/api/download/category/{category}','DocumentCategoriesController@update')->name('download.categories.update');
     Route::delete('/download/categories/{category}','DocumentCategoriesController@destroy')->name('download.category.destroy');
 
 
@@ -91,9 +84,6 @@ Route::group([
      * Mass emails
      */
     Route::view( '/messaggi', 'superadmin.messages.index' )->name( 'massemail' );
-    Route::get( '/api/getroles', 'EmailsController@getRoles' )->name( 'getRoles' );
-    Route::get( '/api/getemails/{email}', 'EmailsController@getEmails' )->name( 'getEmails' );
-    Route::get( '/api/messaggi', 'EmailsController@massEmailApi' )->name( 'apimassemail' );
     Route::post( '/messaggi', 'EmailsController@sendMassEmail' )->name( 'sendmassemail' );
     Route::delete( '/messaggi/{log}/elimina', 'EmailsController@deleteMassEmail' )->name( 'deletemassemail' );
 
@@ -101,11 +91,35 @@ Route::group([
      * Workshop
      */
     Route::view( '/workshops', 'workshops.index' )->name( 'workshops.index' );
-    Route::get( '/api/getworkshops', 'WorkshopController@getWorkshops' )->name( 'workshop.data' );
+
     Route::post('/workshop','WorkshopController@store');
     Route::get('/workshop/{workshop}','WorkshopController@show')->name('workshop.edit');
-    Route::get('/api/workshop/{workshop}/show','WorkshopController@edit')->name('workshop.edit-data');
     Route::patch('/workshop/{workshop}/update','WorkshopController@update')->name('workshop.update');
     Route::delete( '/workshop/{workshop}/elimina', 'WorkshopController@destroy' )->name( 'workshop.destroy' );
+
+		Route::group( ['prefix' => 'api'], function ()
+		{
+			/*
+		   * Area Download
+		   */
+			Route::get('/download/{document}','DocumentController@edit')->name('download.getdoc');
+			Route::post('/download/{document}/update','DocumentController@update')->name('download.update');
+			Route::post('/download/store','DocumentController@store')->name('download.store');
+			Route::get('/download/category/index','DocumentCategoriesController@index')->name('download.categories.index');
+			Route::get('/download/category/list','DocumentCategoriesController@listCategories')->name('download.categories.list');
+			Route::post('/download/category/create','DocumentCategoriesController@store')->name('download.categories.create');
+			Route::patch('/download/category/{category}','DocumentCategoriesController@update')->name('download.categories.update');
+			/*
+			 * Mass emails
+			 */
+			Route::get( '/getroles', 'EmailsController@getRoles' )->name( 'getRoles' );
+			Route::get( '/getemails/{email}', 'EmailsController@getEmails' )->name( 'getEmails' );
+			Route::get( '/messaggi', 'EmailsController@massEmailApi' )->name( 'apimassemail' );
+			/*
+			 * Workshop
+			 */
+			Route::get( '/getworkshops', 'WorkshopController@getWorkshops' )->name( 'workshop.data' );
+			Route::get('/workshop/{workshop}/show','WorkshopController@edit')->name('workshop.edit-data');
+		});
 
 });
