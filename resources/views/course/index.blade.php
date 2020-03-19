@@ -50,8 +50,13 @@
 
             </div>
         </div>
-        <div class="card">
+
+				<v-app>
 					<corsi-table></corsi-table>
+				</v-app>
+
+        <div class="card">
+
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">

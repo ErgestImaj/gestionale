@@ -6040,3 +6040,7 @@ span.gcount {
   }
 }
 
+.tiptap-vuetify-editor__content img {
+  max-width: 100%;
+}
+

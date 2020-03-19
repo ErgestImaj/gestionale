@@ -53,11 +53,11 @@
 									<v-select
 										dense outlined
 										:label="trans('form.expiry')"
-										v-model="course.expiration"
+										v-model="course.expiry"
 										item-value="id"
 										item-text="name"
 										:items="expirations"
-										:error-messages="getError('expiration')"
+										:error-messages="getError('expiry')"
 									></v-select>
 								</v-col>
 							</v-row>
@@ -109,11 +109,11 @@
 									></v-text-field>
 									<v-select dense outlined
 										:label="trans('form.vat_rate')"
-										v-model="course.vatRate"
+										v-model="course.vat_rate"
 										item-value="id"
 										item-text="name"
 										:items="vatrates"
-										:error-messages="getError('vatRate')"
+										:error-messages="getError('vat_rate')"
 									></v-select>
 
 								</v-col>
@@ -155,14 +155,15 @@
         Blockquote,
         HardBreak,
         HorizontalRule,
-        History
+        History,
+        Image,
     } from "tiptap-vuetify";
     export default {
-        props: ['categories', 'expirations', 'vatrates'],
+        props: ['oldCourse', 'categories', 'expirations', 'vatrates'],
         data() {
             return {
                 course: {
-                    vatRate: 1,
+                    vat_rate: this.vatrates[0],
 								},
 								errors: {},
 								loading: true,
@@ -189,7 +190,8 @@
                 Code,
                 HorizontalRule,
                 Paragraph,
-                HardBreak
+                HardBreak,
+                    Image,
             ],
 						}
     		},
@@ -197,14 +199,58 @@
             TiptapVuetify
         },
 				mounted() {
-            console.log(this.categories);
+            if (this.isEdit() ) {
+                this.course = this.oldCourse;
+                this.categories.forEach(item => {
+                    if (item.id === this.course.category_id) {
+                        this.course.category = item;
+										}
+								});
+                this.expirations.forEach(item => {
+                    if (item.id === this.course.expiry) {
+                        this.course.expiry = item;
+										}
+								});
+                this.vatrates.forEach(item => {
+                    if (item.id === this.course.vat_rate) {
+                        this.course.vat_rate = item;
+										}
+								});
+						}
 				},
         methods: {
             send() {
+                if (this.isEdit()) {
+                    console.log(this.course.hashid);
+                    if (!this.submiting) {
+                        this.submiting = true;
+                        let data = JSON.parse(JSON.stringify(this.course));
+                        data.course_name = data.name;
+                        data.course_code = data.code;
+                        data.category = data.category.hashid;
+                        data.expiry = data.expiry.hashid;
+                        data.vat_rate = data.vat_rate.hashid;
+                        data.course_description = data.description;
+                        axios.patch(`/amministrazione/courses/${this.course.hashid}`, data)
+                            .then(response => {
+                                console.log(response);
+                            })
+                            .catch(error => {
+                                this.errors = error.response.data.errors
+                            })
+														.finally(() => {
+														    this.submiting = false;
+														})
+                    }
+								}
                 //
             },
+
 						getError(field) {
                 return this.errors[field] ? this.errors[field][0] : []
+						},
+						isEdit() {
+                return this.oldCourse && this.oldCourse.hashid
 						}
         }
     }

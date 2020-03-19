@@ -16,20 +16,50 @@
 			:items="corsi"
 			:search="search"
 			:loading="loading"
+			class="pa-4"
 		>
-			<template v-slot:header.code="{ header }"> {{ trans('form.code') }}</template>
-			<template v-slot:header.category="{ header }" style="text-transform: capitalize">{{ trans('form.category') }}</template>
-			<template v-slot:header.name="{ header }"> {{ trans('form.name') }}</template>
-			<template v-slot:header.costo="{ header }"> {{ trans('form.costo') }}</template>
-			<template v-slot:header.status="{ header }"> {{ trans('form.status') }}</template>
-			<template v-slot:header.created_by="{ header }"> {{ trans('form.created_by') }}</template>
-			<template v-slot:header.updated_by="{ header }"> {{ trans('form.updated_by') }}</template>
-			<template v-slot:header.actions="{ header }"> {{ trans('form.actions') }}</template>
 			<template v-slot:item.status="{ item }">
-				<div v-html="item.status"></div>
+				<v-icon>{{ !!item.status ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
 			</template>
 			<template v-slot:item.name="{ item }">
 				<div v-html="item.name" class="gname"></div>
+			</template>
+			<template v-slot:item.actions="{ item }">
+				<v-menu bottom left content-class="gactions">
+					<template v-slot:activator="{ on }">
+						<v-btn icon v-on="on">
+							<v-icon>mdi-dots-vertical</v-icon>
+						</v-btn>
+					</template>
+
+					<v-list dense>
+						<template v-for="(m, i) in menuItems">
+							<v-list-item
+								class="update-btn" v-if="m.id == 3" :key="i"
+								link :data-action="`/amministrazione/course/status/${item.hashid}`">
+								<v-list-item-icon>
+									<v-icon>{{ !!item.status ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
+								</v-list-item-icon>
+								<v-list-item-title>{{ !!item.state ? m.title2 : m.title }}</v-list-item-title>
+							</v-list-item>
+							<v-list-item v-else-if="m.id == 4" :key="i" class="delete-btn" link
+													 :data-content="trans('messages.delete_record')"
+													 :data-action="`/amministrazione/courses/${item.hashid}`"
+							>
+								<v-list-item-icon>
+									<v-icon v-text="m.icon"></v-icon>
+								</v-list-item-icon>
+								<v-list-item-title>{{ m.title }}</v-list-item-title>
+							</v-list-item>
+							<v-list-item v-else :key="i" @click="menuClick(m.id, item)">
+								<v-list-item-icon>
+									<v-icon v-text="m.icon"></v-icon>
+								</v-list-item-icon>
+								<v-list-item-title>{{ m.title }}</v-list-item-title>
+							</v-list-item>
+						</template>
+					</v-list>
+				</v-menu>
 			</template>
 		</v-data-table>
 	</v-card>
@@ -45,17 +75,23 @@
                         text: '#',
                         value: 'id',
                     },
-                    { text: 'code', value: 'code' },
-                    { text: 'category', value: 'category' },
-                    { text: 'name', value: 'name' },
-                    { text: 'costo', value: 'costo' },
-                    { text: 'status', value: 'status' },
-                    { text: 'created_by', value: 'created_by' },
-                    { text: 'updated_by', value: 'updated_by' },
-                    { text: 'actions', sortable: false, align: 'right' },
+                    { text: this.trans('form.code'), value: 'code' },
+                    { text: this.trans('form.category'), value: 'category' },
+                    { text: this.trans('form.name'), value: 'name' },
+                    { text: this.trans('form.costo'), value: 'costo' },
+                    { text: this.trans('profile.status'), value: 'status' },
+                    { text: this.trans('form.created_by'), value: 'created_by' },
+                    { text: this.trans('form.updated_by'), value: 'updated_by' },
+                    { text: this.trans('form.actions'), value: "actions", sortable: false, align: 'right' },
                 ],
                 corsi: [],
 								loading: true,
+                menuItems: [
+                    { id: 1, title: "Edit", icon: "mdi-pencil-outline" },
+                    { id: 2, title: "Module", icon: "mdi-eye-outline" },
+                    { id: 3, title: "Enable", title2: "Disable", icon: "" },
+                    { id: 4, title: "Delete", icon: "mdi-trash-can-outline" }
+                ],
             }
         },
 				mounted() {
@@ -65,15 +101,30 @@
             getCorsi() {
                 axios.get(`/amministrazione/courses`)
                     .then(response => {
-                        console.log(response.data);
                         this.corsi = response.data.data;
                     })
-                    .catch(error => {
-                        console.log(error);
-                    }).finally(() => {
+										.finally(() => {
                         this.loading = false;
-								});
-						}
+										});
+						},
+            menuClick(id, item) {
+                switch (id) {
+                    case 1:
+                        this.edit(item);
+                        break;
+                    case 2:
+                        this.viewModule(item);
+                        break;
+                }
+            },
+            edit(item) {
+                let nUrl = window.location.origin + "/amministrazione/courses/" + item.hashid + "/edit";
+                window.location.href = nUrl;
+            },
+            viewModule(item) {
+                let nUrl = window.location.origin + "/course/" + item.hashid + '/module';
+                window.location.href = nUrl;
+            }
 				}
     }
 </script>

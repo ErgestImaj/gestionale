@@ -48,7 +48,7 @@ class CourseRequest extends FormRequest
             'course_name'=>'required|string|max:191',
             'category'=>'required|exists:categories,id',
             'course_code'=>'required|string',
-            'duration'=>'required|numeric',
+            'duration'=>'required|string',
             'expiry'=>'required|exists:expiries,id',
             'course_description'=>'required',
             'skills'=>'required',
@@ -82,7 +82,6 @@ class CourseRequest extends FormRequest
 
     public function fillFormData()
     {
-
         return [
             'name'=>$this->course_name,
             'category_id'=>$this->category,

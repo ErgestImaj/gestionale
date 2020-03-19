@@ -10,6 +10,7 @@ use App\Models\Expiry;
 use App\Models\VatRate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class CourseController extends Controller
@@ -54,8 +55,7 @@ class CourseController extends Controller
             } )
             ->addColumn( 'status', function ( $row )
             {
-                return $row->isActive() ? '<span class="badge badge-success">'.trans('form.active').'</span>'
-                    : '<span class="badge badge-secondary">'.trans('form.disabled').'</span>';
+                return $row->isActive();
             } )
 
             ->addColumn( 'created_by', function ( $row )
@@ -65,6 +65,10 @@ class CourseController extends Controller
             ->addColumn( 'updated_by', function ( $row )
             {
                 return  optional($row->updatedByUser)->displayName();
+            } )
+            ->addColumn( 'hashid', function ( $row )
+            {
+                return $row->hashid();
             } )
             ->addColumn( 'actions', function ( $row )
             {
@@ -169,7 +173,8 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        $categories = Category::all();
+//        $categories = Category::all();
+				$categories = Category::all();
         $expirations = Expiry::all();
         $vatrates = VatRate::all();
         return view('course.edit',[
@@ -195,12 +200,16 @@ class CourseController extends Controller
 
         try {
             $course->update();
-            toastr()->success(trans('messages.success'));
-            return redirect()->route('admin.courses.list');
+						return response( [
+							'status' => 'success',
+							'msg'    => trans('messages.success')
+						] );
         }catch (\Exception $exception){
             logger($exception->getMessage());
-            toastr()->success(trans('messages.error'));
-            return back();
+						return response( [
+							'status' => 'error',
+							'msg'    => trans('messages.error')
+						] );
         }
 
     }
