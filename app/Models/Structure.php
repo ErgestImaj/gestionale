@@ -68,4 +68,11 @@ class Structure extends Model
 	{
 		return $this->belongsTo(Structure::class, 'parent_structure_id', 'id');
 	}
+	/**
+	 * Scopes
+	 */
+	public function scopeActive($query,$value = 1){
+
+		return $query->where('state',$value);
+	}
 }

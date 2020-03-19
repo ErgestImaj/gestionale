@@ -43,6 +43,20 @@
                     dense
                     :error-messages="errors.mobile ? errors.mobile[0] : []"
                   ></v-text-field>
+										<v-select
+											dense outlined label="Corsi" multiple
+											v-model="user.corsi"
+											:items="corsi"
+											item-text="name"
+											item-value="id"
+											:error-messages="errors.corsi ? errors.corsi[0] : []"
+										></v-select>
+										<v-select
+											dense outlined label="Type"
+											v-model="user.utype"
+											:items="types"
+											:error-messages="errors.corsi ? errors.corsi[0] : []"
+										></v-select>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -95,13 +109,17 @@
                     v-model="user.nationality"
                     :items="nazionalita"
                     label="Nazionalità"
+										item-text="name"
+										item-value="id"
                     outlined
                     :error-messages="errors.nationality ? errors.nationality[0] : []"
                   ></v-select>
                   <v-select
                     dense
                     v-model="user.birth_place"
-                    :items="luogo"
+                    :items="towns"
+										item-text="title"
+										item-value="id"
                     label="Luogo di nascita"
                     outlined
                     :error-messages="errors.birth_place ? errors.birth_place[0] : []"
@@ -122,35 +140,43 @@
                   <v-select
                     dense
                     v-model="user.state"
-                    :items="stati"
+                    :items="nazionalita"
                     label="Stato"
+										item-text="name"
+										item-value="id"
                     outlined
                     :error-messages="errors.state ? errors.state[0] : []"
                   ></v-select>
                   <v-select
                     dense
                     v-model="user.town"
-                    :items="citta"
+                    :items="towns"
                     label="Città"
+										item-text="title"
+										item-value="id"
                     outlined
                     :error-messages="errors.town ? errors.town[0] : []"
                   ></v-select>
-                  <v-text-field
-                    v-model="user.region"
-                    label="Regione"
-                    readonly
-                    outlined
-                    dense
-                    :error-messages="errors.region ? errors.region[0] : []"
-                  ></v-text-field>
-                  <v-text-field
-                    v-model="user.prov"
-                    label="Provincia"
-                    readonly
-                    outlined
-                    dense
-                    :error-messages="errors.prov ? errors.prov[0] : []"
-                  ></v-text-field>
+									<v-select
+										dense
+										v-model="user.region"
+										:items="regione"
+										label="Regione"
+										item-text="title"
+										item-value="id"
+										outlined
+										:error-messages="errors.region ? errors.region[0] : []"
+									></v-select>
+									<v-select
+										dense
+										v-model="user.prov"
+										:items="prov"
+										label="Provincia"
+										item-text="title"
+										item-value="id"
+										outlined
+										:error-messages="errors.prov ? errors.prov[0] : []"
+									></v-select>
                   <v-text-field
                     v-model="user.address"
                     label="Indirizzo"
@@ -205,6 +231,8 @@
                     dense
                     v-model="user.education"
                     :items="titoloStudio"
+										item-text="title"
+										item-value="id"
                     label="Titolo di studio"
                     outlined
                     :error-messages="errors.fiscal_code ? errors.fiscal_code[0] : []"
@@ -241,6 +269,8 @@
                     dense
                     v-model="user.document_type"
                     :items="tipoDocument"
+										item-text="name"
+										item-value="id"
                     label="Tipo di documento"
                     outlined
                     :error-messages="errors.document_type ? errors.document_type[0] : []"
@@ -292,11 +322,12 @@
                     ref="file1"
                     @change="handleFileUpload($event, 1)"
                   />
-
                   <v-select
                     dense
                     v-model="user.structure_id"
-                    :items="struture"
+                    :items="activeStrutures"
+										item-text="legal_name"
+										item-value="id"
                     label="Struttura"
                     outlined
                     :error-messages="errors.structure_id ? errors.structure_id[0] : []"
@@ -408,42 +439,14 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" sm="12" class="gel">
-          <v-card outlined flat>
-             <v-card-text>
-               <v-row>
-                 <v-col cols='12' md='6'  v-if="isStudente">
-                    <v-select
-                      dense outlined label="Corsi" multiple
-                      v-model="user.corsi"
-                      :items="corsi"
-                      :error-messages="errors.corsi ? errors.corsi[0] : []"
-                    ></v-select>
-                 </v-col>
-
-                 <v-col cols='12' md='6'>
-                    <v-select
-                      dense outlined label="Type"
-                      v-model="user.utype"
-                      :items="types"
-                      :error-messages="errors.corsi ? errors.corsi[0] : []"
-                    ></v-select>
-                 </v-col>
-               </v-row>
-
-             </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row>
         <v-col cols="12" sm="12">
           <v-btn
             :loading="submiting"
             :disabled="submiting"
             color="primary"
             class="ma-0 white--text"
-            @click="send"
-          >Add User</v-btn>
+            @click="save"
+          >Aggungi utente</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -470,57 +473,18 @@ export default {
       doc2: null,
       user: {
         type: this.userType,
-        firstname: "",
-        lastname: "",
-        email: "",
-        lrn_user: "",
-        fiscal_code: "",
-        gender: "",
-        birth_date: "",
-        birth_place: "",
-        nationality: "",
-        phone: "",
-        mobile: "",
-        country: "",
-        region: "",
-        prov: "",
-        town: "",
-        address: "",
-        zipcode: "",
-        education: "",
-        employment: "",
-        school_region: "",
-        school_name: "",
-        school_codice_meccanografico: "",
-        english_level: "",
-        english_level_declaration: "",
-        cv: "", //file
-        document_type: "",
-        document: "", //file
-        document_number: "",
-        document_expire_date: "",
-        high_school_diploma_name: "",
-        high_school_diploma_date: "",
-        high_school_diploma_institute: "",
-        university_degree_faculty: "",
-        university_degree_name: "",
-        university_degree_date: "",
-        university_degree_institute: "",
-        structure_id: "",
-        token: "",
-        state: ""
       },
       sesso: ["M", "F"],
       nazionalita: [],
-      luogo: [],
-      stati: [],
-      citta: [],
+      towns: [],
+			regione:[],
+			prov:[],
       regioneIstituto: [],
       titoloStudio: [],
       occupazione: [],
       tipoDocument: [],
-      struture: [],
-      corsi: ['1', '2', '3'],
+			activeStrutures: [],
+      corsi: [],
       types: ['MF', 'LRN', 'DILE', 'IIQ', 'MIUR'],
       errors: {}
     };
@@ -536,11 +500,26 @@ export default {
       this.isFormatore = true;
     } else if (this.userType === "studenti") {
       this.isStudente = true;
-    } else {
-      return;
     }
+
+		this.getLocations();
+    this.getCourses();
+    this.getEducations();
+    this.getDocumentTypes();
+    this.getActiveStructures();
   },
   methods: {
+		getLocations() {
+			axios
+				.get(`/amministrazione/api/locations`)
+				.then(response => {
+					this.nazionalita = response.data.countries;
+					this.towns = response.data.towns;
+					this.regione= response.data.regions;
+					this.prov = response.data.provinces;
+				})
+				.catch(error => {});
+		},
     pickFile(i) {
       if (i == 0) {
         this.$refs.file0.click();
@@ -555,9 +534,86 @@ export default {
         this.doc2 = e.target.files[0];
       }
     },
-    send() {
-      //
-    }
+    save() {
+			if (!this.submiting) {
+				this.submiting = true;
+				let formData = new FormData();
+				formData.append("cv", this.doc1);
+				formData.append("document", this.doc2);
+				formData.append("user", JSON.stringify(this.user));
+				axios.post(
+						`/utenti/api/store`,
+						formData,
+						{
+							headers: {
+								"Content-Type": "multipart/form-data"
+							}
+						}
+					)
+					.then(response => {
+						this.submiting = false;
+						if (response.data.status == "success") {
+							swal("Good job!", response.data.msg, "success");
+							setTimeout(function () {
+								location.reload();
+							}, 1500)
+						} else if (response.data.status === "error") {
+							swal({
+								title: "Whoops!",
+								text: response.data.msg,
+								icon: "warning",
+								dangerMode: true
+							});
+						}
+					})
+					.catch(error => {
+						this.submiting = false;
+						this.errors = error.response.data.errors;
+					});
+			}
+    },
+		getCourses(){
+			axios.get(`/filter-courses`)
+				.then(response => {
+					if (typeof(response.data) != "undefined") {
+						this.corsi = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		},
+		getEducations(){
+			axios.get(`/amministrazione/api/educations`)
+				.then(response => {
+					if (typeof(response.data) != "undefined") {
+						this.titoloStudio = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		},getDocumentTypes(){
+			axios.get(`/amministrazione/api/document-types`)
+				.then(response => {
+					if (response.data ) {
+						this.tipoDocument = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		},getActiveStructures(){
+			axios.get(`/amministrazione/api/active-structures`)
+				.then(response => {
+					if (typeof(response.data) != "undefined") {
+						this.activeStrutures = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		},
   }
 };
 </script>

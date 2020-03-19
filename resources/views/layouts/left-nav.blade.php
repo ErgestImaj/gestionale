@@ -30,9 +30,9 @@
             <div class="collapse" id="employers">
                 <ul class="nav flex-column sub-menu">
                     @hasrole('superadmin')
-                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.admins.index')}}">{{trans('menu.admin')}}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.admins.view')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
-                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.segreteria.index')}}">{{trans('menu.segreteria')}}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.segreteria.view')}}">{{trans('menu.segreteria')}}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.studenti.view')}}">Studenti</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.docente.view')}}">Docenti</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.fomatori.view')}}">Formatori</a></li>
