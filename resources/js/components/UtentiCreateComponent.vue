@@ -52,10 +52,10 @@
 											:error-messages="errors.corsi ? errors.corsi[0] : []"
 										></v-select>
 										<v-select
-											dense outlined label="Type"
+											dense outlined label="Tipo"
 											v-model="user.utype"
 											:items="types"
-											:error-messages="errors.corsi ? errors.corsi[0] : []"
+											:error-messages="errors.type ? errors.type[0] : []"
 										></v-select>
                 </v-col>
               </v-row>
@@ -124,6 +124,22 @@
                     outlined
                     :error-messages="errors.birth_place ? errors.birth_place[0] : []"
                   ></v-select>
+									<v-text-field
+										dense
+										readonly
+										label="Avatar"
+										outlined
+										@click="pickFile(2)"
+										prepend-inner-icon="mdi-cloud-upload"
+										:value="doc3 ? doc3.name : '' "
+										:error-messages="errors.image ? errors.image[0] : []"
+									></v-text-field>
+									<input
+										type="file"
+										style="display: none"
+										ref="file2"
+										@change="handleFileUpload($event, 2)"
+									/>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -235,7 +251,7 @@
 										item-value="id"
                     label="Titolo di studio"
                     outlined
-                    :error-messages="errors.fiscal_code ? errors.fiscal_code[0] : []"
+                    :error-messages="errors.education ? errors.education[0] : []"
                   ></v-select>
                   <v-select
                     v-if="!isStudente"
@@ -471,6 +487,7 @@ export default {
       datePicker4: false,
       doc1: null,
       doc2: null,
+      doc3: null,
       user: {
         type: this.userType,
       },
@@ -525,6 +542,8 @@ export default {
         this.$refs.file0.click();
       } else if (i == 1) {
         this.$refs.file1.click();
+      }else if (i == 2) {
+        this.$refs.file2.click();
       }
     },
     handleFileUpload(e, i) {
@@ -532,6 +551,8 @@ export default {
         this.doc1 = e.target.files[0];
       } else if (i == 1) {
         this.doc2 = e.target.files[0];
+      }else if (i == 2) {
+        this.doc3 = e.target.files[0];
       }
     },
     save() {
@@ -540,6 +561,7 @@ export default {
 				let formData = new FormData();
 				formData.append("cv", this.doc1);
 				formData.append("document", this.doc2);
+				formData.append("image", this.doc3);
 				formData.append("user", JSON.stringify(this.user));
 				axios.post(
 						`/utenti/api/store`,

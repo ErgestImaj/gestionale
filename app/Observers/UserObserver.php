@@ -45,7 +45,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        //
+		   	$user->updated_by = Auth::id();
     }
 
     /**

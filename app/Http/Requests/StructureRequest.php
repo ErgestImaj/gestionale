@@ -26,7 +26,7 @@ class StructureRequest extends FormRequest {
 	 * Prepare data for validation
 	 */
 	public function prepareForValidation() {
-
+    if (!empty($this->input( 'structure' )))
 		$this->merge(
 			json_decode( $this->input( 'structure' ), true )
 		);

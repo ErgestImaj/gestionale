@@ -147,7 +147,7 @@ class StructureController extends Controller {
 
 		try {
 			$structure->status()->update($request->fillStructureStatus());
-			$structure->user()->update($request->fillStructureUser());
+			$structure->owner()->update($request->fillStructureUser());
 			$structure->update($request->fillStructure());
 			return response( [
 				'status' => 'success',
