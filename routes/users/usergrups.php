@@ -12,6 +12,7 @@ Route::group([
     Route::view('/course/{course}/module','course.modules.index')->name('module.index');
 
     Route::post('/course/{course}/modules/filter','CourseModuleController@index')->name('module.all');
+    Route::get('/api/course/{course}/modules','CourseModuleController@getAll')->name('api.modules');
 
     Route::post('/course/{course}/module','CourseModuleController@store')->name('module.store');
     Route::get('/module/{courseModule}/edit','CourseModuleController@edit')->name('module.edit');

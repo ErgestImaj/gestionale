@@ -1,5 +1,7 @@
 <template>
-	<v-card>
+	<div>
+		<v-btn @click="addCourse()" class="gadd">{{ trans('form.add_course') }}</v-btn>
+		<v-card>
 		<v-card-title>
 			Corsi
 			<v-spacer></v-spacer>
@@ -64,6 +66,7 @@
 			</template>
 		</v-data-table>
 	</v-card>
+	</div>
 </template>
 
 <script>
@@ -102,6 +105,10 @@
             this.getCorsi();
 				},
 				methods: {
+            addCourse() {
+                let nUrl = window.location.origin + "/amministrazione/courses/create";
+                window.location.href = nUrl;
+						},
             getCorsi() {
                 axios.get(`/amministrazione/courses`)
                     .then(response => {

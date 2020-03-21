@@ -41,7 +41,7 @@ Vue.filter('percent', function (value) {
     return parseFloat(value).toFixed(2) + '%';
 });
 Vue.filter('capitalize', function (s) {
-        if (typeof s !== 'string') return ''
+        if (typeof s !== 'string') return '';
         return s.charAt(0).toUpperCase() + s.slice(1)
 });
 
@@ -52,6 +52,7 @@ Vue.component('multiselect',Multiselect);
 Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
 Vue.component('add-course', require('./components/CourseCreateComponent.vue').default);
 Vue.component('course-categories', require('./components/CourseCategoryComponent.vue').default);
+Vue.component('module-list', require('./components/ModuleListComponent.vue').default);
 Vue.component('module-content', require('./components/ModuleContentComponent').default);
 Vue.component('add-lms', require('./components/AddLmsComponent').default);
 Vue.component('view-lms', require('./components/LmsViewComponent').default);

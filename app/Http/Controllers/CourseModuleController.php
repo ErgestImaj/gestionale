@@ -6,13 +6,14 @@ use App\Http\Requests\CourseModuleRequest;
 use App\Models\Course;
 use App\Models\CourseModule;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CourseModuleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request, Course $course)
     {
@@ -24,6 +25,18 @@ class CourseModuleController extends Controller
         return  $modules;
 
     }
+
+	/**
+	 * API get all modules
+	 *
+	 * @param Course $course
+	 * @return Response
+	 */
+		public function getAll(Course $course)
+		{
+			$modules = $course->modules()->getResults();
+			return $modules;
+		}
 
 
     /**
@@ -50,7 +63,7 @@ class CourseModuleController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\CourseModule  $courseModule
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(CourseModule $courseModule)
     {
@@ -61,7 +74,7 @@ class CourseModuleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\CourseModule  $courseModule
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(CourseModule $courseModule)
     {
@@ -73,7 +86,7 @@ class CourseModuleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\CourseModule  $courseModule
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(CourseModuleRequest $request, CourseModule $courseModule)
     {
@@ -89,7 +102,7 @@ class CourseModuleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\CourseModule  $courseModule
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(CourseModule $courseModule)
     {
