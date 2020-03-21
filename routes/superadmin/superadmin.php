@@ -58,6 +58,9 @@ Route::group([
      */
 
     Route::get('/categories','CategoryController@index')->name('categories');
+    Route::get('/api/categories','CategoryController@getAll')->name('api.categories');
+    Route::post('/api/categories/create','CategoryController@apiCreate')->name('api.category.create');
+    Route::patch('/api/categories/update/{category}','CategoryController@apiUpdate')->name('api.category.update');
     Route::post('/categories','CategoryController@store')->name('category.new');
     Route::get('/category/{category}','CategoryController@edit')->name('category.edit');
     Route::patch('/categories/{category}','CategoryController@update')->name('category.update');
