@@ -141,7 +141,7 @@ import {
   History
 } from "tiptap-vuetify";
 export default {
-  props: ['isEdit', 'prevCourse', 'selModule'],
+  props: ['isEdit', 'editContent', 'prevCourse', 'selModule'],
   data() {
     return {
       content: {
@@ -199,7 +199,10 @@ export default {
     TiptapVuetify
   },
   mounted() {
-    this.getCourses();
+      if (this.isEdit) {
+          this.content = this.editContent
+      }
+    	this.getCourses();
   },
   methods: {
       handlePrevCourse(courseid) {
@@ -221,6 +224,7 @@ export default {
 					}
 			},
     send() {
+      // check if isEdit
       if (!this.submiting) {
         this.loading = true;
         this.submiting = true;

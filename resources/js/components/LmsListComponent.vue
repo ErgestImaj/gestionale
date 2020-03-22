@@ -57,6 +57,15 @@
 				</template>
 			</v-data-table>
 		</v-card>
+		<v-dialog v-model="editDialog" max-width="800px">
+			<div v-if="editData" style="background: white">
+				<v-btn class="ma-3 mb-0" @click="closeDialog()">Chiudi</v-btn>
+				<add-lms
+					:is-edit="true"
+					:edit-content="editData"
+				></add-lms>
+			</div>
+		</v-dialog>
 	</div>
 </template>
 
@@ -89,7 +98,9 @@
                     { id: 3, title: "Enable", title2: "Disable", icon: "" },
                     { id: 4, title: "Delete", icon: "mdi-trash-can-outline" }
                 ],
-								lmss: []
+								lmss: [],
+								editData: null,
+                editDialog: false,
 						}
 				},
 				mounted() {
@@ -97,6 +108,14 @@
             this.getLmss();
 				},
 				methods: {
+            openDialog(item) {
+                this.editData = item;
+                this.editDialog = true;
+            },
+            closeDialog() {
+                this.editData = null;
+                this.editDialog = false;
+            },
             getLmss() {
                 axios.get(`/lms-content`).then(res => {
                     this.lmss = res.data.data;
@@ -124,8 +143,7 @@
                 }
             },
 						edit(item) {
-                let nUrl = window.location.origin + "/lms-content/" + item.hashid + "/edit";
-                window.location.href = nUrl;
+                this.openDialog(item);
 						},
 						view(item) {
                 let nUrl = window.location.origin + "/lms-content/" + item.hashid;
