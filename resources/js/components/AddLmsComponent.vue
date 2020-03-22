@@ -41,6 +41,7 @@
                     item-text="name"
                     item-value="hashid"
                     :error-messages="errors.course ? errors.course[0] : []"
+										:disabled="!!prevCourse"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" md="6" class="gel">
@@ -53,6 +54,7 @@
                     item-text="module_name"
                     item-value="hashid"
                     :error-messages="errors.module ? errors.module[0] : []"
+										:disabled="!!selModule"
                   ></v-select>
                 </v-col>
               </v-row>
@@ -139,7 +141,7 @@ import {
   History
 } from "tiptap-vuetify";
 export default {
-  props: ['isEdit'],
+  props: ['isEdit', 'prevCourse', 'selModule'],
   data() {
     return {
       content: {
@@ -197,10 +199,27 @@ export default {
     TiptapVuetify
   },
   mounted() {
-    console.log(this.isEdit);
     this.getCourses();
   },
   methods: {
+      handlePrevCourse(courseid) {
+          if(courseid) {
+              this.courses.forEach(course => {
+                 if(course.id === courseid) {
+                     this.content.course = course.hashid;
+								 }
+							});
+					}
+			},
+      handlePrevModule(moduleid) {
+          if(moduleid) {
+              this.modules.forEach(module => {
+                 if(module.id === moduleid) {
+                     this.content.module = module.hashid;
+								 }
+							});
+					}
+			},
     send() {
       if (!this.submiting) {
         this.loading = true;
@@ -247,6 +266,7 @@ export default {
       axios.get(`/filter-courses`).then(response => {
         this.courses = response.data;
         this.loading = false;
+        this.handlePrevCourse(this.prevCourse);
       });
     },
     pickFile() {
@@ -257,6 +277,7 @@ export default {
       axios.get(`/course/${cHash}/modules`).then(response => {
         this.modules = response.data;
         this.loading = false;
+        this.handlePrevModule(this.selModule);
       });
     },
     handleFileUpload(e) {

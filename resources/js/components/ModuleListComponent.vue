@@ -43,7 +43,7 @@
 
 							<v-tooltip bottom>
 								<template v-slot:activator="{ on }">
-									<v-btn icon color="indigo" v-on="on">
+									<v-btn icon color="indigo" v-on="on" @click="openContent(item)">
 										<v-icon>mdi-plus-box-multiple</v-icon>
 									</v-btn>
 								</template>
@@ -185,6 +185,15 @@
 					</v-card-actions>
 				</v-card>
 			</v-dialog>
+			<v-dialog v-model="contentDialog" max-width="800px">
+				<div v-if="contentData" style="background: white">
+					<v-btn class="ma-3 mb-0" @click="closeContent()">Chiudi</v-btn>
+							<add-lms
+								:prev-course="contentData.course_id"
+								:sel-module="contentData.id"
+							></add-lms>
+				</div>
+			</v-dialog>
 		</v-row>
 	</div>
 </template>
@@ -216,6 +225,8 @@
                 errorsmodify: {},
                 submiting: false,
                 editDialog: false,
+                contentDialog: false,
+								contentData: null,
                 edit: null
             }
         },
@@ -232,6 +243,14 @@
                 this.editDialog = false;
                 this.edit = null;
             },
+						openContent(item) {
+                this.contentData = item;
+                this.contentDialog = true;
+						},
+						closeContent() {
+                this.contentData = null;
+                this.contentDialog = false;
+						},
             addModule() {
                 if (!this.submiting) {
                     this.submiting = true;
