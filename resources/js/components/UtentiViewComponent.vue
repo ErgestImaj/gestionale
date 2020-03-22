@@ -99,56 +99,34 @@ export default {
 					{ id: 6, title: "Invia Email", icon: "mdi-email-send-outline" },
 					{ id: 7, title: "Delete Account", icon: "mdi-trash-can-outline" }
 				],
-        headers: [
-            {
-                text: "#",
-                value: "id"
-            },
-            {
-              text: 'Nome',
-              value: 'firstname'
-            },
-            {
-              text: 'Cognome',
-              value: 'lastname'
-            },
-            {
-              text: 'Email',
-              value: 'email'
-            },{
-              text: 'Codice Fiscale',
-              value: 'user_info.fiscal_code'
-            },{
-              text: 'Tipo',
-              value: 'user_info.types'
-            }, {
-              text: 'Sesso',
-              value: 'user_info.gender'
-            },{
-              text: 'Creato da',
-              value: 'user.display_name'
-            }, {
-              text: 'Stato',
-              value: 'state'
-            },
-            { text: "Actions", value: "actions", sortable: false, align: "right" }
-        ],
+				hideCols: false,
     };
   },
   mounted() {
-		this.getUserType();
+			this.getUserType();
+      switch (this.userType) {
+          case "docenti":
+              this.isDocente = true;
+              break;
+          case "supervisori":
+              this.isSupervisore = true;
+              break;
+          case "esaminatori":
+              this.isEsaminatore = true;
+              break;
+          case "formatori":
+              this.isFormatore = true;
+              break;
+					case "segreteria":
+					case "amministrazione":
+					case "ispettori":
+					case "tutori":
+              this.hideCols = true;
+              break;
+          default:
+              return;
+      }
 
-    if (this.userType === "docenti") {
-      this.isDocente = true;
-    } else if (this.userType === "supervisori") {
-      this.isSupervisore = true;
-    } else if (this.userType === "esaminatori") {
-      this.isEsaminatore = true;
-    } else if (this.userType === "formatori") {
-      this.isFormatore = true;
-    } else {
-      return;
-    }
   },
   methods: {
 		menuClick(id, item) {
@@ -202,7 +180,32 @@ export default {
       let nUrl = window.location.origin + "/utenti/"+ this.userType +"/create";
       window.location.href = nUrl;
     }
-  }
+  },
+		computed: {
+        headers() {
+            let p1 = [
+                { text: "#", value: "id" },
+                { text: 'Nome', value: 'firstname' },
+                { text: 'Cognome', value: 'lastname' },
+                { text: 'Email', value: 'email' }
+						];
+            let p2 = [
+                { text: 'Codice Fiscale', value: 'user_info.fiscal_code' },
+                { text: 'Tipo', value: 'user_info.types' },
+                { text: 'Sesso', value: 'user_info.gender' }
+						];
+            let p3 = [
+                { text: 'Creato da', value: 'user.display_name' },
+                { text: 'Stato', value: 'state' },
+                { text: "Actions", value: "actions", sortable: false, align: "right" }
+						];
+            if (this.hideCols) {
+                return p1.concat(p3);
+            } else {
+                return p1.concat(p2).concat(p3);
+						}
+				}
+		}
 };
 </script>
 <style>
