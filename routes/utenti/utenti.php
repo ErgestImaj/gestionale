@@ -22,12 +22,14 @@ Route::group([
 	Route::post('/storebasicuser','UtentiController@storeBasicUser')->name('utenti.store');
 	Route::get('/{user}/edit','UtentiController@edit')->name('edit');
 	Route::delete('/delete/{user?}','UtentiController@destroy')->name('admins.destroy');
-
+	Route::get('/{user}/show','UtentiController@show')->name('show');
 
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			Route::get('/{user}/edit','UtentiController@editUser')->name('edit-user');
+			Route::get('/{user}/editadvanceduser','UtentiController@editAdancedUtenti')->name('edit-advanced-user');
 			Route::post('/{user}/update','UtentiController@update')->name('update');
+			Route::post('/{user}/updateadvanceduser','UtentiController@updateAdvancedUser')->name('update-advanced-user');
 			Route::get('/get-user/{type}', 'UtentiController@getUserType')->name('utenti.type');
 			Route::post('/store','UtentiController@store');
 		});

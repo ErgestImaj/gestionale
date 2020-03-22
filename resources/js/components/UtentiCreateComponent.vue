@@ -53,9 +53,11 @@
 										></v-select>
 										<v-select
 											dense outlined label="Tipo"
-											v-model="user.utype"
+											v-model="user.lrn_user"
 											:items="types"
-											:error-messages="errors.type ? errors.type[0] : []"
+											item-text="name"
+											item-value="id"
+											:error-messages="errors.lrn_user ? errors.lrn_user[0] : []"
 										></v-select>
                 </v-col>
               </v-row>
@@ -155,13 +157,13 @@
                 <v-col cols="12" sm="12" class="gel">
                   <v-select
                     dense
-                    v-model="user.state"
+                    v-model="user.country"
                     :items="nazionalita"
                     label="Stato"
 										item-text="name"
 										item-value="id"
                     outlined
-                    :error-messages="errors.state ? errors.state[0] : []"
+                    :error-messages="errors.country ? errors.country[0] : []"
                   ></v-select>
                   <v-select
                     dense
@@ -223,6 +225,8 @@
                     dense
                     v-model="user.school_region"
                     :items="regioneIstituto"
+										item-value="id"
+										item-text="title"
                     label="Regione istituto scolastico"
                     outlined
                     :error-messages="errors.school_region ? errors.school_region[0] : []"
@@ -258,6 +262,8 @@
                     dense
                     v-model="user.employment"
                     :items="occupazione"
+										item-text="title"
+										item-value="id"
                     label="Occupazione"
                     outlined
                     :error-messages="errors.employment ? errors.employment[0] : []"
@@ -502,7 +508,7 @@ export default {
       tipoDocument: [],
 			activeStrutures: [],
       corsi: [],
-      types: ['MF', 'LRN', 'DILE', 'IIQ', 'MIUR'],
+      types: [],
       errors: {}
     };
   },
@@ -524,6 +530,7 @@ export default {
     this.getEducations();
     this.getDocumentTypes();
     this.getActiveStructures();
+    this.getUserTypes()
   },
   methods: {
 		getLocations() {
@@ -533,6 +540,7 @@ export default {
 					this.nazionalita = response.data.countries;
 					this.towns = response.data.towns;
 					this.regione= response.data.regions;
+					this.regioneIstituto= response.data.regions;
 					this.prov = response.data.provinces;
 				})
 				.catch(error => {});
@@ -576,9 +584,9 @@ export default {
 						this.submiting = false;
 						if (response.data.status == "success") {
 							swal("Good job!", response.data.msg, "success");
-							setTimeout(function () {
-								location.reload();
-							}, 1500)
+							// setTimeout(function () {
+							// 	location.reload();
+							// }, 1500)
 						} else if (response.data.status === "error") {
 							swal({
 								title: "Whoops!",
@@ -615,11 +623,22 @@ export default {
 				.catch(error => {
 
 				})
+		},getUserTypes(){
+			axios.get(`/amministrazione/api/user-types`)
+				.then(response => {
+					if (typeof(response.data) != "undefined") {
+						this.types = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
 		},getDocumentTypes(){
 			axios.get(`/amministrazione/api/document-types`)
 				.then(response => {
 					if (response.data ) {
-						this.tipoDocument = response.data;
+						this.tipoDocument = response.data.document_types;
+						this.occupazione = response.data.jobs
 					}
 				})
 				.catch(error => {

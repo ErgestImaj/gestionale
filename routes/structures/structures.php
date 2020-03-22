@@ -78,5 +78,6 @@ Route::group([
 			Route::get('/locations', 'LocationController@getLocations');
 			Route::get('/educations', 'EducationsController@getEducations');
 			Route::get('/document-types', 'DocumentTypesController@getDocumentTypes');
+			Route::get('/user-types', 'EducationsController@userTypeLabels');
 		});
 });

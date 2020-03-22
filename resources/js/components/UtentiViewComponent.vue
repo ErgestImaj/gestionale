@@ -120,7 +120,7 @@ export default {
               value: 'user_info.fiscal_code'
             },{
               text: 'Tipo',
-              value: 'user_info.type'
+              value: 'user_info.types'
             }, {
               text: 'Sesso',
               value: 'user_info.gender'
@@ -186,9 +186,9 @@ export default {
 		view(item) {
 			let nUrl =
 				window.location.origin +
-				"/amministrazione/struture/" +
+				"/utenti/"+
 				item.hashid +
-				"/view";
+				"/show";
 			window.location.href = nUrl;
 		},
 		switchAccount(item) {

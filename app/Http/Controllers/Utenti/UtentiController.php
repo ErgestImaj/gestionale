@@ -9,6 +9,8 @@ use App\Http\Requests\MediaformUsersRequest;
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
 use App\Models\UserGroups;
+use App\Models\UsersInfo;
+use App\Services\UtentiServices;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -157,7 +159,7 @@ class UtentiController extends Controller
 				)->firstOrFail()->id);
 
 			if ( $type == User::$roles[User::TUTOR]) {
-				$user->tutorCourses()->sync($request->input('corsi'));
+				$user->userCourses()->sync($request->input('corsi'));
 			}
      DB::commit();
 		}catch (\Exception $exception){
@@ -181,9 +183,9 @@ class UtentiController extends Controller
 	 */
 	public function store(UsersRequest $request)
 	{
-    dd($request->all());
+
 		$type = $request->input('type');
-		if (empty($type)){
+		if (empty($type) || !in_array($type,User::$roles)){
 			return response( [
 				'status' => 'error',
 				'msg'    => trans( 'messages.error' )
@@ -191,30 +193,22 @@ class UtentiController extends Controller
 		}
 		DB::beginTransaction();
 		try {
-
-			$avatar = '';
-			if ($request->hasFile('image')) {
-				if ($request->file('image')->isValid()) {
-					$upload = new Upload();
-					$avatar = $upload->upload($request->file('image'), 'public/avatars')->resize(100, 100)->getData();
-					$avatar = $avatar['basename'];
-				}
-			}
-			$user = User::forceCreate([
-				'firstname' => $request->input('first_name'),
-				'lastname' => $request->input('last_name'),
-				'email' => $request->input('email'),
-				'password' => Hash::make($request->input('password')),
-				'avatar' => $avatar
-			]);
+			//create  user
+			$user = new User;
+			$user->fill( $request->fillUser() );
+			$user->save();
 
 			$user->roles()->sync(UserGroups::where('name',
 				array_search( $type,User::$roles)
 			)->firstOrFail()->id);
 
-			if ( $type == User::$roles[User::TUTOR]) {
-				$user->tutorCourses()->sync($request->input('corsi'));
+			if ( !empty($request->input('corsi')) && is_array($request->input('corsi'))) {
+				$user->userCourses()->sync($request->input('corsi'));
 			}
+			$userinfo = new UsersInfo;
+			$userinfo->fill($request->fillUserInfo());
+			$userinfo->user_id = $user->id;
+			$userinfo->save();
 			DB::commit();
 		}catch (\Exception $exception){
 			DB::rollback();
@@ -228,6 +222,11 @@ class UtentiController extends Controller
 			'status' => 'success',
 			'msg'    => trans( 'messages.success' )
 		] );
+	}
+	public function show(User $user){
+		return view('utenti.show')->with(
+			UtentiServices::advancedUserShowData($user)
+		);
 	}
 	/**
 	 * Show the form for editing the specified resource.
@@ -248,21 +247,10 @@ class UtentiController extends Controller
 	}
 
 	public function editUser(User $user){
-		$corsi = [];
-		if($user->getUserRole() == User::TUTOR){
-		   $corsi = $user->tutorCourses()->pluck('id');
-		}
-		$user_data =[
-			'first_name'=>$user->firstname,
-			'last_name'=>$user->lastname,
-			'email'=>$user->email,
-			'id'=>$user->id
-		];
-		return [
-			'corsi'=>$corsi,
-			'user'=>$user_data
-		];
+
+		  return UtentiServices::basicUserEditData($user);
 	}
+
 
 	public function update(User $user, MediaformUsersRequest $request){
 		if (!auth()->user()->can('update',$user)) {
@@ -291,7 +279,7 @@ class UtentiController extends Controller
 			$user->update();
 
 			if ( $user->getUserRole() == User::TUTOR) {
-				$user->tutorCourses()->sync($request->input('corsi'));
+				$user->userCourses()->sync($request->input('corsi'));
 			}
 
 			return response( [
@@ -307,6 +295,38 @@ class UtentiController extends Controller
 			] );
 		}
 
+	}
+	public function updateAdvancedUser(User $user, UsersRequest $request){
+		if (!auth()->user()->can('update',$user)) {
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.unauthorized' )
+			] );
+		}
+
+		try {
+
+			$user->update($request->fillUser());
+			$user->userInfo()->update($request->fillUserInfo());
+			if ( !empty($request->input('corsi')) && is_array($request->input('corsi'))) {
+				$user->userCourses()->sync($request->input('corsi'));
+			}
+
+			return response( [
+				'status' => 'success',
+				'msg'    => trans( 'messages.success' )
+			] );
+
+		}catch (\Exception $exception){
+			logger('Cant update user with id: '.$user->id.','.auth()->id().': '.$exception->getMessage());
+			return response( [
+				'status' => 'error',
+				'msg'    => trans( 'messages.error' )
+			] );
+		}
+	}
+	public function editAdancedUtenti(User $user){
+		return UtentiServices::advancedUserEditData($user);
 	}
 	/**
 	 * Remove the specified resource from storage.

@@ -37,22 +37,31 @@
                     dense
                     :error-messages="errors.password ? errors.password[0] : []"
                   ></v-text-field>
-									<v-text-field
-										dense
-										readonly
-										label="Immagine Profilo"
-										outlined
-										@click="pickFile()"
-										:error-messages="errors.image ? errors.image[0] : []"
-										prepend-inner-icon="mdi-cloud-upload"
-										:value="image ? image.name : '' "
-									></v-text-field>
-									<input
-										type="file"
-										style="display: none"
-										ref="file"
-										@change="handleFileUpload($event)"
-									/>
+									<v-row>
+										<v-col cols="10">
+											<v-text-field
+												dense
+												readonly
+												label="Immagine Profilo"
+												outlined
+												@click="pickFile()"
+												:error-messages="errors.image ? errors.image[0] : []"
+												prepend-inner-icon="mdi-cloud-upload"
+												:value="image ? image.name : '' "
+											></v-text-field>
+											<input
+												type="file"
+												style="display: none"
+												ref="file"
+												@change="handleFileUpload($event)"
+											/>
+										</v-col>
+										<v-col cols="2" v-if="user.avatar" class="text-right">
+											<v-btn class="icon-space" :href="user.avatar" color="primary" target="_blank" dark>
+												<v-icon dark>mdi-eye</v-icon>
+											</v-btn>
+										</v-col>
+									</v-row>
                     <v-select
                         v-if="isTutor"
                         dense outlined label="Corsi" multiple
@@ -184,5 +193,8 @@ export default {
   margin-bottom: 10px;
   font-size: 18px;
   font-weight: normal;
+}
+.icon-space {
+	margin-top: 2px;
 }
 </style>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\DatabaseDateFomat;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Carbon\Carbon;
@@ -11,7 +12,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class StructureStatus extends Model
 {
-	use HasUserRelationships, HasHashid, HashidRouting, HashIdAttribute;
+	use HasUserRelationships, DatabaseDateFomat, HasHashid, HashidRouting, HashIdAttribute;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
@@ -30,8 +31,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateAttribute($val)
 	{
-		if (empty($val)) return $val;
-		return (new Carbon($val))->format('Y-m-d');
+		return $this->databaseDateFormat($val);
 	}
 
 	/**
@@ -41,8 +41,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateLrnAttribute($val)
 	{
-		if (empty($val)) return $val;
-		return (new Carbon($val))->format('Y-m-d');
+		return $this->databaseDateFormat($val);
 	}
 
 	/**
@@ -52,8 +51,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateIiqAttribute($val)
 	{
-		if (empty($val)) return $val;
-		return (new Carbon($val))->format('Y-m-d');
+		return $this->databaseDateFormat($val);
 	}
 
 	/**
@@ -63,8 +61,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateMiurAttribute($val)
 	{
-		if (empty($val)) return $val;
-		return (new Carbon($val))->format('Y-m-d');
+		return $this->databaseDateFormat($val);
 	}
 
 	/**
@@ -74,8 +71,7 @@ class StructureStatus extends Model
 	 */
 	public function getDateDileAttribute($val)
 	{
-		if (empty($val)) return $val;
-		return (new Carbon($val))->format('Y-m-d');
+		return $this->databaseDateFormat($val);
 	}
 
 	/**
