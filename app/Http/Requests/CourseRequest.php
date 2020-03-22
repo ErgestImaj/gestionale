@@ -64,19 +64,19 @@ class CourseRequest extends FormRequest
     public function attributes()
     {
         return [
-            'course_name'=>strtolower(trans('form.name')),
-            'category'=>strtolower(trans('form.category')),
-            'course_code'=>strtolower(trans('form.code')),
-            'duration'=>strtolower(trans('form.duration')),
-            'expiry'=>strtolower(trans('form.expiry')),
-            'course_description'=>strtolower(trans('form.description')),
-            'skills'=>strtolower(trans('form.skills')),
-            'program_description'=>strtolower(trans('form.program_description')),
-            'price'=>strtolower(trans('form.costo')),
-            'min_order_partner'=>strtolower(trans('form.min_order_partner')),
-            'min_order_master'=>strtolower(trans('form.min_order_master')),
-            'min_order_affiliate'=>strtolower(trans('form.min_order_affiliate')),
-            'vat_rate'=>strtolower(trans('form.vat_rate')),
+            'course_name'=>mb_strtolower(trans('form.name'),'UTF-8'),
+            'category'=>mb_strtolower(trans('form.category'),'UTF-8'),
+            'course_code'=>mb_strtolower(trans('form.code'),'UTF-8'),
+            'duration'=>mb_strtolower(trans('form.duration'),'UTF-8'),
+            'expiry'=>mb_strtolower(trans('form.expiry'),'UTF-8'),
+            'course_description'=>mb_strtolower(trans('form.description'),'UTF-8'),
+            'skills'=>mb_strtolower(trans('form.skills'),'UTF-8'),
+            'program_description'=>mb_strtolower(trans('form.program_description'),'UTF-8'),
+            'price'=>mb_strtolower(trans('form.costo'),'UTF-8'),
+            'min_order_partner'=>mb_strtolower(trans('form.min_order_partner'),'UTF-8'),
+            'min_order_master'=>mb_strtolower(trans('form.min_order_master'),'UTF-8'),
+            'min_order_affiliate'=>mb_strtolower(trans('form.min_order_affiliate'),'UTF-8'),
+            'vat_rate'=>mb_strtolower(trans('form.vat_rate'),'UTF-8'),
         ];
     }
 

@@ -17,10 +17,5 @@
 				:vatrates="{{$vatrates}}"
 			></add-course>
 		</v-app>
-    {{--
-    <form action="{{route('admin.courses.store')}}" method="POST" enctype="multipart/form-data">
-    		@csrf
-        @include('course._course_form')
-    </form>
-    --}}
+
 @endsection

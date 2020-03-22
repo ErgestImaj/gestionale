@@ -129,7 +129,7 @@
 						:disabled="submiting"
 						color="primary"
 						class="ma-0 white--text"
-						@click="send"
+						@click="save"
 					>{{trans('form.save')}}</v-btn>
 				</v-col>
 			</v-row>
@@ -201,7 +201,6 @@
             TiptapVuetify
         },
 				mounted() {
-
             if (this.isEdit() ) {
                 this.course = this.oldCourse;
                 this.categories.forEach(item => {
@@ -222,29 +221,68 @@
 						}
 				},
         methods: {
-            send() {
-                if (this.isEdit()) {
-                    console.log(this.course.hashid);
-                    if (!this.submiting) {
-                        this.submiting = true;
-                        let data = JSON.parse(JSON.stringify(this.course));
-                        data.course_name = data.name;
-                        data.course_code = data.code;
-                        data.category = data.category.hashid;
-                        data.expiry = data.expiry.hashid;
-                        data.vat_rate = data.vat_rate.hashid;
-                        data.course_description = data.description;
-                        axios.patch(`/amministrazione/courses/${this.course.hashid}`, data)
-                            .then(response => {
-                                console.log(response);
-                            })
-                            .catch(error => {
-                                this.errors = error.response.data.errors
-                            })
-														.finally(() => {
-														    this.submiting = false;
-														})
-                    }
+           save() {
+                if (this.isEdit() && !this.submiting) {
+											this.submiting = true;
+											let data = JSON.parse(JSON.stringify(this.course));
+											data.course_name = data.name;
+											data.course_code = data.code;
+											data.category = data.category.hashid;
+											data.expiry = data.expiry.hashid;
+											data.vat_rate = data.vat_rate.hashid;
+											data.course_description = data.description;
+											axios.patch(`/amministrazione/courses/${this.course.hashid}`, data)
+													.then(response => {
+														if (response.data.status == "success") {
+															swal("Good job!", response.data.msg, "success");
+															// setTimeout(function () {
+															// 	location.reload();
+															// }, 1500)
+														} else if (response.data.status === "error") {
+															swal({
+																title: "Whoops!",
+																text: response.data.msg,
+																icon: "warning",
+																dangerMode: true
+															});
+														}
+													})
+													.catch(error => {
+															this.errors = error.response.data.errors
+													})
+													.finally(() => {
+															this.submiting = false;
+													})
+
+								}else{
+                   if (!this.submiting){
+										 this.submiting = true;
+										 let data = JSON.parse(JSON.stringify(this.course));
+										 axios.post(`/amministrazione/courses/store`,this.course)
+											 .then(response => {
+
+
+												 if (response.data.status == "success") {
+													 swal("Good job!", response.data.msg, "success");
+													 // setTimeout(function () {
+													 // 	location.reload();
+													 // }, 1500)
+												 } else if (response.data.status === "error") {
+													 swal({
+														 title: "Whoops!",
+														 text: response.data.msg,
+														 icon: "warning",
+														 dangerMode: true
+													 });
+												 }
+											 })
+											 .catch(error => {
+												 this.errors = error.response.data.errors
+											 })
+											 .finally(() => {
+												 this.submiting = false;
+											 })
+									 }
 								}
                 //
             },
