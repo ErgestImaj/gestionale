@@ -199,7 +199,7 @@ export default {
     TiptapVuetify
   },
   mounted() {
-      if (this.isEdit) {
+      if (this.isEdit === true) {
           this.content = this.editContent
       }
     	this.getCourses();
@@ -270,7 +270,9 @@ export default {
       axios.get(`/filter-courses`).then(response => {
         this.courses = response.data;
         this.loading = false;
-        this.handlePrevCourse(this.prevCourse);
+        if (this.prevCourse) {
+            this.handlePrevCourse(this.prevCourse);
+				}
       });
     },
     pickFile() {
@@ -281,7 +283,9 @@ export default {
       axios.get(`/course/${cHash}/modules`).then(response => {
         this.modules = response.data;
         this.loading = false;
-        this.handlePrevModule(this.selModule);
+        if (this.selModule) {
+            this.handlePrevModule(this.selModule);
+				}
       });
     },
     handleFileUpload(e) {
