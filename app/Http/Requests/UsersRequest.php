@@ -9,7 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UsersRequest extends FormRequest
 {
-	protected $userID;
+	protected $userId;
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -146,7 +146,7 @@ class UsersRequest extends FormRequest
 			'email' => $this->email
 		];
 		if (!empty($avatar)) $user['avatar'] = $avatar;
-		if (!$this->userID) $user['password'] = uniqid();
+		if (!$this->userId) $user['password'] = uniqid();
 
 		return $user;
 
@@ -168,7 +168,7 @@ class UsersRequest extends FormRequest
 		}
 		$userinfo = [
 			'lrn_user' => $this->input('lrn_user'),
-			'is_editable' => $this->userID ? UsersInfo::IS_NOT_EDITABLE : UsersInfo::IS_EDITABLE,
+			'is_editable' => $this->userId ? $this->input('is_editable') : UsersInfo::IS_EDITABLE,
 			'fiscal_code' => $this->input('fiscal_code'),
 			'gender' => $this->input('gender'),
 			'birth_date' => $this->input('birth_date'),

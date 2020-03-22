@@ -14,8 +14,7 @@
         </v-list>
       </v-col>
 
-
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="details.contact && details.contact.length">
         <v-list two-line subheader v-if="!loading">
           <v-subheader class="bl">Titoli di studio</v-subheader>
 
@@ -30,7 +29,7 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="details.exam && details.exam.length">
         <v-list two-line subheader v-if="!loading">
           <v-subheader class="yl">Informazioni personali</v-subheader>
 
@@ -44,7 +43,7 @@
       </v-col>
 
 
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="details.legal">
         <v-list two-line subheader v-if="!loading">
           <v-subheader class="pr">Informazioni di domicilio</v-subheader>
 
@@ -82,9 +81,9 @@
         </v-col>
     </v-row>
     <v-row>
-      <v-col cols="12" md="6">
+      <v-col cols="12" md="6" v-if="details.otherinfo">
         <v-list two-line subheader v-if="!loading">
-          <v-subheader class="yl">Altre informazioni</v-subheader>
+          <v-subheader class="tl">Altre informazioni</v-subheader>
           <v-list-item v-for="item in details.otherinfo" v-bind:key="item.n">
             <v-list-item-content>
               <v-list-item-title>{{item.n}}</v-list-item-title>
@@ -95,7 +94,7 @@
       </v-col>
       <v-col cols="12" md="6">
         <v-list two-line subheader v-if="!loading">
-          <v-subheader class="yl">User Details</v-subheader>
+          <v-subheader class="cl">User Details</v-subheader>
           <v-list-item v-for="item in details.user" v-bind:key="item.n">
             <v-list-item-content>
               <v-list-item-title>{{item.n}}</v-list-item-title>
@@ -105,7 +104,18 @@
         </v-list>
       </v-col>
     </v-row>
-
+		<v-row v-if="baseinfo.corsi && baseinfo.corsi.length">
+			<v-col cols="12" md="6">
+				<v-list two-line subheader v-if="!loading">
+					<v-subheader class="yl">Corsi</v-subheader>
+					<v-list-item v-for="item in baseinfo.corsi" v-bind:key="item">
+						<v-list-item-content>
+							<v-list-item-title>{{item}}</v-list-item-title>
+						</v-list-item-content>
+					</v-list-item>
+				</v-list>
+			</v-col>
+		</v-row>
   </div>
 </template>
 
@@ -146,7 +156,7 @@ export default {
 	},
 	methods: {
     formatData() {
-			console.log(this.userdetails)
+			console.log(this.baseinfo.corsi)
       this.details = {
         info: [
           { n: "Nome", v: this.userdetails.firstname },
@@ -269,6 +279,14 @@ a.v-btn {
 .st-det .v-subheader.yl {
     border-color: #FFEB3B;
     background: #F9FBE7;
+}
+.st-det .v-subheader.tl {
+    border-color: #009688;
+    background: #B2DFDB;
+}
+.st-det .v-subheader.cl {
+    border-color: #00BCD4;
+    background: #B2EBF2;
 }
 .st-det .v-subheader.pr {
     border-color: #AB47BC;

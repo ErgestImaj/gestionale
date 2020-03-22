@@ -46,11 +46,11 @@ class UtentiServices
 		}
 	public static function advancedUserShowData(User $user){
     $base_info = $personal_info = $address_info = $education = $other_info =[];
+    $base_info['corsi']=	$user->userCourses()->pluck('name');
     if ($user->userInfo()->exists()){
 			$base_info=[
 				'phone'=>$user->userInfo->phone,
 				'mobile'=>$user->userInfo->mobile,
-				'corsi'=>$user->userCourses()->pluck('name'),
 				'lrn_user'=>$user->userInfo->types,
 			];
 			$personal_info=[
