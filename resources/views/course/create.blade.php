@@ -10,8 +10,17 @@
             <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_course')</span>
         </h3>
     </div>
+		<v-app>
+			<add-course
+				:categories="{{$categories}}"
+				:expirations="{{$expirations}}"
+				:vatrates="{{$vatrates}}"
+			></add-course>
+		</v-app>
+    {{--
     <form action="{{route('admin.courses.store')}}" method="POST" enctype="multipart/form-data">
-    @csrf
+    		@csrf
         @include('course._course_form')
     </form>
+    --}}
 @endsection

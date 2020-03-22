@@ -5,20 +5,21 @@
  */
 
 require('./bootstrap');
-
+require('./globalService');
 window.Vue = require('vue');
-
-import Vuetify from 'vuetify';
-const vuetify = new Vuetify()
-import { TiptapVuetifyPlugin } from 'tiptap-vuetify'
+import injector from 'vue-inject'
+import Vuetify from 'vuetify'
+const vuetify = new Vuetify();
+import { TiptapVuetifyPlugin } from 'tiptap-vuetify';
 
 Vue.use(Vuetify);
+Vue.use(injector);
 Vue.use(TiptapVuetifyPlugin, {
 	// the next line is important! You need to provide the Vuetify Object to this place.
 	vuetify, // same as "vuetify: vuetify"
 	// optional, default to 'md' (default vuetify icons before v2.0.0)
 	iconsGroup: 'md'
-  })
+  });
 
 Vue.prototype.trans = string => _.get(window.i18n, string);
 import Multiselect from 'vue-multiselect'
@@ -40,7 +41,7 @@ Vue.filter('percent', function (value) {
     return parseFloat(value).toFixed(2) + '%';
 });
 Vue.filter('capitalize', function (s) {
-        if (typeof s !== 'string') return ''
+        if (typeof s !== 'string') return '';
         return s.charAt(0).toUpperCase() + s.slice(1)
 });
 
@@ -49,7 +50,13 @@ Vue.filter('capitalize', function (s) {
 
 Vue.component('multiselect',Multiselect);
 Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
+Vue.component('add-course', require('./components/CourseCreateComponent.vue').default);
+Vue.component('course-categories', require('./components/CourseCategoryComponent.vue').default);
+Vue.component('module-list', require('./components/ModuleListComponent.vue').default);
 Vue.component('module-content', require('./components/ModuleContentComponent').default);
+Vue.component('add-lms', require('./components/AddLmsComponent').default);
+Vue.component('view-lms', require('./components/LmsViewComponent').default);
+Vue.component('list-lms', require('./components/LmsListComponent').default);
 Vue.component('mass-emails', require('./components/MassEmailsComponent').default);
 Vue.component('workshop', require('./components/WorkshopComponent').default);
 Vue.component('workshop-edit', require('./components/WorkshopEditComponent').default);
@@ -79,13 +86,13 @@ Vue.component('user-details', require('./components/UserDetailsComponent').defau
 
 const app = new Vue({
     el: '#app',
-	vuetify: new Vuetify({
-		theme: {
-			themes: {
-				light: {
-					primary: '#388e3c',
+		vuetify: new Vuetify({
+			theme: {
+				themes: {
+					light: {
+						primary: '#388e3c',
+					},
 				},
 			},
-		},
-	})
+		})
 });

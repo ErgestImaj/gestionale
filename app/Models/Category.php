@@ -14,8 +14,16 @@ class Category extends Model
     use HashidRouting,HasHashid,SoftDeletes, HasUserRelationships;
 
     protected $fillable = ['created_by','name','updated_by'];
+		protected $appends = [
+			'hashid'
+		];
 
-    public function courses(){
+		public function getHashidAttribute()
+		{
+			return $this->hashid();
+		}
+
+		public function courses(){
         return $this->hasMany(Course::class);
     }
 

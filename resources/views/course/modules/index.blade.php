@@ -6,8 +6,9 @@
             <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_module')</span>
         </h3>
     </div>
-
-     <course-module></course-module>
+		<v-app>
+			<module-list></module-list>
+		</v-app>
 @endsection
 @push('scripts')
     <script src="{{asset('js/actions.js')}}"></script>

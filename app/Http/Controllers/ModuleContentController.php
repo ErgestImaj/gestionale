@@ -36,14 +36,16 @@ class ModuleContentController extends Controller {
 			                       return optional( $row->module )->course->code;
 		                       } )
 		                       ->addColumn( 'status', function ( $row ) {
-			                       return $row->isActive() ? '<span class="badge badge-success">' . trans( 'form.active' ) . '</span>'
-				                       : '<span class="badge badge-secondary">' . trans( 'form.disabled' ) . '</span>';
+			                       return $row->isActive();
 		                       } )
 		                       ->addColumn( 'created_by', function ( $row ) {
 			                       return $row->user->displayName();
 		                       } )
 		                       ->addColumn( 'updated_by', function ( $row ) {
 			                       return optional( $row->updatedByUser )->displayName();
+		                       } )
+		                       ->addColumn( 'hashid', function ( $row ) {
+			                       return $row->hashid();
 		                       } )
 		                       ->addColumn( 'actions', function ( $row ) {
 			                       $html = ' <a class=" action btn block-btn btn-dark mb-1" data-tooltip="' . trans( 'form.edit' ) . '" href="' . route( 'lms-content.edit', [ 'lms_content' => $row->hashid() ] ) . '">

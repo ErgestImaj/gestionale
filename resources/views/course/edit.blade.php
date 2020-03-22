@@ -10,13 +10,20 @@
             <span class="text-semibold"><i class="fas fa-list"></i>@lang('form.add_course')</span>
         </h3>
     </div>
-    <form action="{{route('admin.courses.update',['course'=>$course->hashid()])}}" method="POST" enctype="multipart/form-data">
+    {{--<form action="{{route('admin.courses.update',['course'=>$course->hashid()])}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         @include('course._course_form')
-    </form>
+    </form>--}}
+		<v-app>
+			<add-course
+				:categories="{{$categories}}"
+				:expirations="{{$expirations}}"
+				:vatrates="{{$vatrates}}"
+				:old-course="{{$course}}"
+			></add-course>
+		</v-app>
 @endsection
 @push('scripts')
-    <script src="{{asset('js/summernote-bs4.min.js')}}"></script>
     <script src="{{asset('js/config.js')}}"></script>
 @endpush

@@ -6040,5 +6040,12 @@ span.gcount {
   }
 }
 
+<<<<<<< HEAD
 
 /*# sourceMappingURL=app.css.map*/
+=======
+.tiptap-vuetify-editor__content img {
+  max-width: 100%;
+}
+
+>>>>>>> dev-ergis
