@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasContentPath;
+use App\Traits\HashIdAttribute;
 use App\Traits\HasStatus;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class ModuleContent extends Model
 {
-    use HasUserRelationships,HasStatus,HasHashid,HashidRouting,SoftDeletes,HasContentPath;
+    use HasUserRelationships,HasStatus,HasHashid,HashIdAttribute,HashidRouting,SoftDeletes,HasContentPath;
 
     const CONTENT_PATH = 'contentfiles';
 
@@ -24,7 +25,7 @@ class ModuleContent extends Model
 
     protected $dates = ['locked'];
 
-    protected $appends = ['content_path'];
+    protected $appends = ['content_path','hashid'];
 
 
     protected static function boot()

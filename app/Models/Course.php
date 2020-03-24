@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Traits\HashIdAttribute;
 use App\Traits\HasStatus;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class Course extends Model
 {
-    use HasHashid,HashidRouting,HasStatus,HasUserRelationships,SoftDeletes;
+    use HasHashid,HashidRouting,HasStatus,HasUserRelationships,HashIdAttribute,SoftDeletes;
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
@@ -31,18 +32,12 @@ class Course extends Model
         $query->where('state',self::IS_ACTIVE);
     }
 
-    public function getHashidAttribute()
-    {
-        return $this->hashid();
-    }
-
-
     public function category(){
-      return  $this->belongsTo(Category::class,'category_id');
+      return  $this->belongsTo(Category::class,'category_id','id');
     }
 
     public function vatRate(){
-        return $this->belongsTo(VatRate::class,'vat_rate');
+        return $this->belongsTo(VatRate::class,'vat_rate','id');
     }
 
     public function expiration(){
@@ -56,5 +51,4 @@ class Course extends Model
     public function tutor(){
 				return $this->belongsToMany(User::class,'course_user','course_id','user_id');
 		}
-
 }

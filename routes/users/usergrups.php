@@ -24,6 +24,7 @@ Route::group([
     Route::patch('/lms-content/status/{content}','ModuleContentController@updateStatus')->name('lmscontent.status');
 
     Route::get('/filter-courses','ModuleContentController@filterCourses');
+    Route::get('/filter-courses-by-category/{type}','ModuleContentController@filterCoursesByCategory');
     Route::get('/course/{course}/modules','ModuleContentController@filterCourseModules');
 
 });

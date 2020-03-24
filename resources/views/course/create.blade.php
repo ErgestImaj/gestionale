@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('title',trans('form.add_course'))
-@section('pagestyle')
-    <link rel="stylesheet" href="{{asset('css/addons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
-@endsection
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
@@ -17,5 +13,4 @@
 				:vatrates="{{$vatrates}}"
 			></add-course>
 		</v-app>
-
 @endsection

@@ -43,21 +43,23 @@
                     dense
                     :error-messages="errors.mobile ? errors.mobile[0] : []"
                   ></v-text-field>
+									<v-select
+										dense outlined label="Tipo"
+										v-model="user.lrn_user"
+										:items="types"
+										item-text="name"
+										item-value="id"
+										@change="getCourses()"
+										:error-messages="errors.lrn_user ? errors.lrn_user[0] : []"
+									></v-select>
 										<v-select
 											dense outlined label="Corsi" multiple
 											v-model="user.corsi"
+											:disabled="isDisabled"
 											:items="corsi"
 											item-text="name"
 											item-value="id"
 											:error-messages="errors.corsi ? errors.corsi[0] : []"
-										></v-select>
-										<v-select
-											dense outlined label="Tipo"
-											v-model="user.lrn_user"
-											:items="types"
-											item-text="name"
-											item-value="id"
-											:error-messages="errors.lrn_user ? errors.lrn_user[0] : []"
 										></v-select>
                 </v-col>
               </v-row>
@@ -483,6 +485,7 @@ export default {
       submiting: false,
       isDocente: false,
       isEsaminatore: false,
+			isDisabled:true,
       isSupervisore: false,
       isFormatore: false,
       isStudente: false,
@@ -526,7 +529,6 @@ export default {
     }
 
 		this.getLocations();
-    this.getCourses();
     this.getEducations();
     this.getDocumentTypes();
     this.getActiveStructures();
@@ -603,8 +605,9 @@ export default {
 			}
     },
 		getCourses(){
-			axios.get(`/filter-courses`)
+			axios.get(`/filter-courses-by-category/${this.user.lrn_user}`)
 				.then(response => {
+					this.isDisabled = false;
 					if (typeof(response.data) != "undefined") {
 						this.corsi = response.data;
 					}

@@ -44,20 +44,21 @@
 										:error-messages="errors.mobile ? errors.mobile[0] : []"
 									></v-text-field>
 									<v-select
+										dense outlined label="Tipo"
+										v-model="user.lrn_user"
+										:items="types"
+										item-text="name"
+										item-value="id"
+										@change="getCourse()"
+										:error-messages="errors.lrn_user ? errors.lrn_user[0] : []"
+									></v-select>
+									<v-select
 										dense outlined label="Corsi" multiple
 										v-model="user.corsi"
 										:items="corsi"
 										item-text="name"
 										item-value="id"
 										:error-messages="errors.corsi ? errors.corsi[0] : []"
-									></v-select>
-									<v-select
-										dense outlined label="Tipo"
-										v-model="user.lrn_user"
-										:items="types"
-										item-text="name"
-										item-value="id"
-										:error-messages="errors.lrn_user ? errors.lrn_user[0] : []"
 									></v-select>
 								</v-col>
 							</v-row>
@@ -651,15 +652,15 @@
 							this.user.lastname = response.data.user.lastname;
 							this.user.email = response.data.user.email;
 							this.user.avatar = response.data.user.avatar;
+							this.getCourses()
 						}
 					})
 					.catch(error => {
 
 					})
 			},
-
 			getCourses(){
-				axios.get(`/filter-courses`)
+				axios.get(`/filter-courses-by-category/${this.user.lrn_user}`)
 					.then(response => {
 						if (typeof(response.data) != "undefined") {
 							this.corsi = response.data;
@@ -669,6 +670,17 @@
 
 					})
 			},
+			// getCourses(){
+			// 	axios.get(`/filter-courses`)
+			// 		.then(response => {
+			// 			if (typeof(response.data) != "undefined") {
+			// 				this.corsi = response.data;
+			// 			}
+			// 		})
+			// 		.catch(error => {
+			//
+			// 		})
+			// },
 			getEducations(){
 				axios.get(`/amministrazione/api/educations`)
 					.then(response => {

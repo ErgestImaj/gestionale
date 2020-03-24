@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('title',trans('menu.lms_content'))
-@section('pagestyle')
-    <link rel="stylesheet" href="{{asset('css/addons.css')}}">
-@endsection
+
 @section('content')
 
     <div class="content-single">
@@ -19,8 +17,5 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="{{asset('js/addons.js')}}"></script>
-    <script src="{{asset('js/lmscontent.js')}}"></script>
     <script src="{{asset('js/actions.js')}}"></script>
-    <script src="{{asset('js/search.js')}}"></script>
 @endpush

@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Models\CourseModule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use PHPUnit\Exception;
 
 class CourseModuleController extends Controller
 {
@@ -15,15 +16,9 @@ class CourseModuleController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request, Course $course)
+    public function index( Course $course)
     {
-
-        $value  = $request->input('search') ?? '';
-
-        $modules = $course->modules()->search($value)->orderBy($request->input('orderBy.column'), $request->input('orderBy.direction'))
-                       ->paginate($request->input('pagination.per_page'));
-        return  $modules;
-
+        return $course->modules;
     }
 
 	/**
@@ -48,15 +43,23 @@ class CourseModuleController extends Controller
      */
     public function store(CourseModuleRequest $request,Course $course)
     {
+			try {
+				$module = new CourseModule();
+				$module->fill($request->fillFormData());
+				$module->course_id = $course->id;
+				$module->save();
+				return response( [
+					'status' => 'success',
+					'msg'    => trans('messages.success')
+				] );
+			} catch (\Exception $exception) {
+				logger($exception->getMessage());
+				return response([
+					'status' => 'error',
+					'msg' => trans('messages.error')
+				]);
+			}
 
-        $module = new CourseModule();
-        $module->fill($request->fillFormData());
-        $module->course_id = $course->id;
-        $module->save();
-        return response( [
-            'status' => 'success',
-            'msg'    => trans('messages.success')
-        ] );
     }
 
     /**
@@ -90,12 +93,21 @@ class CourseModuleController extends Controller
      */
     public function update(CourseModuleRequest $request, CourseModule $courseModule)
     {
-        $courseModule->fill($request->fillFormData());
-        $courseModule->update();
-        return response( [
-            'status' => 'success',
-            'msg'    => trans('messages.success')
-        ] );
+			try {
+				$courseModule->fill($request->fillFormData());
+				$courseModule->update();
+				return response( [
+					'status' => 'success',
+					'msg'    => trans('messages.success')
+				] );
+			} catch (\Exception $exception) {
+				logger($exception->getMessage());
+				return response([
+					'status' => 'error',
+					'msg' => trans('messages.error')
+				]);
+			}
+
     }
 
     /**
@@ -106,6 +118,7 @@ class CourseModuleController extends Controller
      */
     public function destroy(CourseModule $courseModule)
     {
+    	  $courseModule->contents()->delete();
         $courseModule->delete();
         return response( [
             'status' => 'success',

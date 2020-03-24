@@ -21,8 +21,8 @@
 			:footer-props="footerProps"
 			class="pa-4"
 		>
-			<template v-slot:item.status="{ item }">
-				<v-icon>{{ !!item.status ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+			<template v-slot:item.state="{ item }">
+				<v-icon>{{ !!item.state ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
 			</template>
 			<template v-slot:item.name="{ item }">
 				<div v-html="item.name" class="gname"></div>
@@ -41,7 +41,7 @@
 								class="update-btn" v-if="m.id == 3" :key="i"
 								link :data-action="`/amministrazione/course/status/${item.hashid}`">
 								<v-list-item-icon>
-									<v-icon>{{ !!item.status ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
+									<v-icon>{{ !!item.state ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
 								</v-list-item-icon>
 								<v-list-item-title>{{ !!item.state ? m.title2 : m.title }}</v-list-item-title>
 							</v-list-item>
@@ -82,12 +82,12 @@
                         value: 'id',
                     },
                     { text: this.trans('form.code'), value: 'code' },
-                    { text: this.trans('form.category'), value: 'category' },
+                    { text: this.trans('form.category'), value: 'category.name' },
                     { text: this.trans('form.name'), value: 'name' },
-                    { text: this.trans('form.costo'), value: 'costo' },
-                    { text: this.trans('profile.status'), value: 'status' },
-                    { text: this.trans('form.created_by'), value: 'created_by' },
-                    { text: this.trans('form.updated_by'), value: 'updated_by' },
+                    { text: this.trans('form.costo'), value: 'price' },
+                    { text: this.trans('profile.status'), value: 'state' },
+                    { text: this.trans('form.created_by'), value: 'user.display_name' },
+                    { text: this.trans('form.updated_by'), value: 'updated_by_user.display_name' },
                     { text: this.trans('form.actions'), value: "actions", sortable: false, align: 'right' },
                 ],
                 corsi: [],
@@ -112,7 +112,7 @@
             getCorsi() {
                 axios.get(`/amministrazione/courses`)
                     .then(response => {
-                        this.corsi = response.data.data;
+                        this.corsi = response.data;
                     })
 										.finally(() => {
                         this.loading = false;

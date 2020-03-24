@@ -15,8 +15,8 @@
 				:footer-props="footerProps"
 				class="pa-4"
 			>
-				<template v-slot:item.status="{ item }">
-					<v-icon>{{ !!item.status ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
+				<template v-slot:item.state="{ item }">
+					<v-icon>{{ !!item.state ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
 				</template>
 				<template v-slot:item.actions="{ item }">
 					<v-menu bottom left content-class="gactions">
@@ -32,7 +32,7 @@
 									class="update-btn" v-if="m.id == 3" :key="i"
 									link :data-action="`/lms-content/status/${item.hashid}`">
 									<v-list-item-icon>
-										<v-icon>{{ !!item.status ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
+										<v-icon>{{ !!item.state ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
 									</v-list-item-icon>
 									<v-list-item-title>{{ !!item.state ? m.title2 : m.title }}</v-list-item-title>
 								</v-list-item>
@@ -57,15 +57,6 @@
 				</template>
 			</v-data-table>
 		</v-card>
-		<v-dialog v-model="editDialog" max-width="800px">
-			<div v-if="editData" style="background: white">
-				<v-btn class="ma-3 mb-0" @click="closeDialog()">Chiudi</v-btn>
-				<add-lms
-					:is-edit="true"
-					:edit-content="editData"
-				></add-lms>
-			</div>
-		</v-dialog>
 	</div>
 </template>
 
@@ -80,11 +71,11 @@
                 headers: [
                     { text: "#", value: "id" },
                     { text: this.trans("form.code_module"), value: "code" },
-                    { text: this.trans("form.module"), value: "module" },
-                    { text: this.trans("form.code"), value: "course" },
-                    { text: this.trans("profile.status"), value: "status" },
-                    { text: this.trans("form.created_by"), value: "created_by" },
-                    { text: this.trans("form.updated_by"), value: "updated_by" },
+                    { text: this.trans("form.module"), value: "module.module_name" },
+                    { text: this.trans("form.code"), value: "module.course.code" },
+                    { text: this.trans("profile.status"), value: "state" },
+                    { text: this.trans("form.created_by"), value: "user.display_name" },
+                    { text: this.trans("form.updated_by"), value: "updated_by_user.display_name" },
                     {
                         text: this.trans("form.actions"),
                         value: "actions",
@@ -108,17 +99,9 @@
             this.getLmss();
 				},
 				methods: {
-            openDialog(item) {
-                this.editData = item;
-                this.editDialog = true;
-            },
-            closeDialog() {
-                this.editData = null;
-                this.editDialog = false;
-            },
             getLmss() {
-                axios.get(`/lms-content`).then(res => {
-                    this.lmss = res.data.data;
+                axios.get(`/lms-content`).then(response => {
+                    this.lmss = response.data;
                     this.loading = false;
                 });
 						},
@@ -143,7 +126,8 @@
                 }
             },
 						edit(item) {
-                this.openDialog(item);
+							let nUrl = window.location.origin + "/lms-content/" + item.hashid+"/edit";
+							window.location.href = nUrl;
 						},
 						view(item) {
                 let nUrl = window.location.origin + "/lms-content/" + item.hashid;

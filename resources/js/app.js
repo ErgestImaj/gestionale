@@ -53,7 +53,6 @@ Vue.component('course-module', require('./components/CourseModuleComponent.vue')
 Vue.component('add-course', require('./components/CourseCreateComponent.vue').default);
 Vue.component('course-categories', require('./components/CourseCategoryComponent.vue').default);
 Vue.component('module-list', require('./components/ModuleListComponent.vue').default);
-Vue.component('module-content', require('./components/ModuleContentComponent').default);
 Vue.component('add-lms', require('./components/AddLmsComponent').default);
 Vue.component('view-lms', require('./components/LmsViewComponent').default);
 Vue.component('list-lms', require('./components/LmsListComponent').default);

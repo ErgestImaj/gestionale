@@ -15,14 +15,14 @@
 				</v-toolbar>
 
 				<v-list two-line>
-					<v-list-item :key="item.title" v-for="item in categories">
+					<v-list-item :key="item.name" v-for="item in categories">
 						<template v-slot:default="{ active, toggle }">
 
 							<v-list-item-content>
-								<v-list-item-title v-text="item.name"></v-list-item-title>
+								<v-list-item-title>{{item.name}} <v-icon color="grey lighten-1">mdi-arrow-left-right</v-icon> {{item.type|filterType}}</v-list-item-title>
 								<v-list-item-subtitle class="text--primary">
-									<span>{{ 'Creato da: ' + item.created_by }}</span>
-									<span v-if="item.updated_by">{{ 'Modificato da: ' + item.updated_by }}</span>
+									<span>{{ 'Creato da: ' + item.user.display_name }}</span>
+									<span v-if="item.updated_by_user">{{ 'Modificato da: ' + item.updated_by_user.display_name }}</span>
 								</v-list-item-subtitle>
 							</v-list-item-content>
 
@@ -55,6 +55,14 @@
 								:error-messages="errors.name ? errors.name[0] : []"
 								outlined v-model="cat.name"
 							></v-text-field>
+							<v-select
+								 outlined label="Tipo"
+								v-model="cat.type"
+								:items="types"
+								item-text="name"
+								item-value="id"
+								:error-messages="errors.type ? errors.type[0] : []"
+							></v-select>
 						</v-col>
 					</v-row>
 					<v-row>
@@ -89,6 +97,14 @@
 										:error-messages="errorsmodify.name ? errorsmodify.name[0] : []"
 										outlined v-model="edit.name"
 									></v-text-field>
+									<v-select
+										outlined label="Tipo"
+										v-model="edit.type"
+										:items="types"
+										item-text="name"
+										item-value="id"
+										:error-messages="errorsmodify.type ? errorsmodify.type[0] : []"
+									></v-select>
 								</v-col>
 							</v-row>
 						</v-form>
@@ -113,16 +129,18 @@
                 categories: [],
                 cat: {},
                 errors: {},
+								types:[],
                 errorsmodify: {},
                 submiting: false,
                 noCategories: false,
                 loading: true,
                 editDialog: false,
-                edit: null
+                edit: {}
             }
         },
         mounted() {
             this.getCategories();
+            this.getUserTypes();
         },
         methods: {
             openEdit(record) {
@@ -136,7 +154,7 @@
                 this.loading = true;
                 axios.get(`/amministrazione/api/categories`)
                     .then(response => {
-                        this.categories = response.data.data;
+                        this.categories = response.data;
                         this.noCategories = response.data.length === 0;
                     })
 										.finally(() => {
@@ -144,6 +162,17 @@
 										})
 								;
 						},
+					getUserTypes(){
+						axios.get(`/amministrazione/api/user-types`)
+							.then(response => {
+								if (typeof(response.data) != "undefined") {
+									this.types = response.data;
+								}
+							})
+							.catch(error => {
+
+							})
+					},
             create() {
                 if (!this.submiting) {
                     this.submiting = true;
@@ -177,7 +206,22 @@
                     })
                 }
             }
-        }
+        },
+			filters:{
+			 	filterType:function (value) {
+					if (value==0){
+						return 'MF'
+					}else if (value == 1){
+						return 'LRN'
+					}else if (value == 2){
+						return 'IIQ'
+					}else if (value == 3){
+						return 'DILE'
+					}else if (value == 4){
+						return 'MIUR'
+					}
+				}
+			}
     }
 </script>
 

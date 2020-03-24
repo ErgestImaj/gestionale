@@ -19,11 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('course.category.index',
-            [
-              'categories'=>  $categories
-            ]);
+        return view('course.category.index');
     }
 
     /**
@@ -33,31 +29,16 @@ class CategoryController extends Controller
      */
     public function getAll()
     {
-        $categories = Category::all();
-				return response( [
-					'data' => $categories->jsonSerialize()
-				] );
+			return Category::with([
+				'user'=>function($query){
+					$query->select(['id','firstname','lastname']);
+				},
+				'updatedByUser'=>function($query){
+					$query->select(['id','firstname','lastname']);
+				},
+			])->get(['id','name','type','created_by','updated_by']);
     }
 
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
-     */
-    public function store(CategoriesRequest $request)
-    {
-        auth()->user()->categories()->create(
-          [
-              'name'=>$request->input('name')
-          ]
-        );
-        toastr()->success(trans('messages.success'));
-        return back();
-
-    }
 
     /**
      * API Create Category
@@ -69,48 +50,13 @@ class CategoryController extends Controller
     {
 				auth()->user()->categories()->create(
 					[
-						'name'=>$request->input('name')
+						'name'=>$request->input('name'),
+						'type'=>$request->input('type'),
 					]
 				);
 				return response( [
 					'message' => 'Category created!'
 				] );
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return Response
-     */
-    public function edit(Category $category)
-    {
-        $categories = Category::all();
-        return view('course.category.index',
-            [
-                'categories'=> $categories,
-                'category'=>  $category,
-            ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return Response
-     */
-    public function update(CategoriesRequest $request, Category $category)
-    {
-        $category->name = $request->input('name');
-        $category->updated_by = Auth::id();
-        if ($category->update()){
-            toastr()->success(trans('messages.success'));
-            return redirect()->route('admin.categories');
-        }
-        toastr()->success(trans('messages.error'));
-        return back();
     }
 
 
@@ -123,16 +69,21 @@ class CategoryController extends Controller
 		 */
 		public function apiUpdate(CategoriesRequest $request, Category $category)
 		{
-			$category->name = $request->input('name');
-			$category->updated_by = Auth::id();
-			if ($category->update()){
+
+			try {
+				$category->name = $request->input('name');
+				$category->type = $request->input('type');
+				$category->updated_by = Auth::id();
+				$category->update();
+					return response( [
+						'message' => trans('messages.success')
+					] );
+			}catch (\Exception $exception){
 				return response( [
-					'message' => trans('messages.success')
-				] );
+					'message' => trans('messages.error')
+				], 500 );
 			}
-			return response( [
-				'message' => trans('messages.error')
-			], 500 );
+
 		}
 
     /**

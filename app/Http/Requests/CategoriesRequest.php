@@ -24,14 +24,16 @@ class CategoriesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string'
+            'name'=>'required|string',
+            'type'=>'required|numeric'
         ];
     }
 
     public function attributes()
     {
         return [
-            'name'=>trans('form.category_name')
+            'name'=>trans('form.category_name'),
+					  'type'=>'tipo'
         ];
     }
 }

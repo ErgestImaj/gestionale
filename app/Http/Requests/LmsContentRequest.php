@@ -37,6 +37,7 @@ class LmsContentRequest extends FormRequest
             'module'=> isset($content['module']['id']) ? $content['module']['id'] : '',
             'content_type'=> isset($content['content_type']['value']) ? $content['content_type']['value'] : 'text',
             'file_path'=> isset($content['file_path']) ? $content['file_path'] : '',
+            'order'=> isset($content['order']) ? $content['order'] : 0,
         ]);
 
     }
@@ -53,6 +54,7 @@ class LmsContentRequest extends FormRequest
             'code'                         => 'bail|nullable|sometimes',
             'description'                  => 'required_if:content_type,text',
             'course'                       => 'bail|required|exists:courses_courses,id',
+			   		'order'                       =>'nullable|numeric',
             'module'                       => ['bail','required','exists:courses_course_modules,id',new CheckIfModuleBelongsToGivenCourse($this->course)],
 
         ];
@@ -90,7 +92,8 @@ class LmsContentRequest extends FormRequest
             'module_id'=>$this->module,
             'is_url'=>$this->is_url,
             'content_type'=>$this->content_type,
-            'state'=>ModuleContent::IS_ACTIVE
+            'state'=>ModuleContent::IS_ACTIVE,
+					   'order'=>$this->order ?? 0,
         ];
     }
 }

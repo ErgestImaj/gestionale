@@ -102,6 +102,11 @@
 															:error-messages="getError('module_credits_price')"
 															suffix="€"
 								></v-text-field>
+								<v-text-field dense outlined
+															label="Ordine"
+															v-model="newModule.order"
+															:error-messages="getError('order')"
+								></v-text-field>
 								<v-textarea dense outlined rows="2"
 														:label="trans('form.description')"
 														v-model="newModule.module_description"
@@ -163,6 +168,11 @@
 																	:error-messages="getError('module_credits_price', true)"
 																	suffix="€"
 										></v-text-field>
+										<v-text-field dense outlined
+																	label="Ordine"
+																	v-model="edit.order"
+																	:error-messages="getError('order', true)"
+										></v-text-field>
 										<v-textarea dense outlined rows="2"
 																:label="trans('form.description')"
 																v-model="edit.module_description"
@@ -215,6 +225,7 @@
                     { text: this.trans('form.module_credits'), value: 'module_credits' },
                     { text: this.trans('form.price'), value: 'module_credits_price' },
                     { text: this.trans('form.module_percentage'), value: 'module_percentage_success' },
+                    { text: 'Ordine', value: 'order' },
 
                     { text: this.trans('form.actions'), value: "actions", sortable: false, align: 'right' },
                 ],
@@ -294,6 +305,7 @@
                 axios.get(`/api/course/${getUrlData(2)}/modules`)
                     .then(response => {
                         this.modules = response.data;
+
                     })
                     .finally(() => {
                         this.loading = false;

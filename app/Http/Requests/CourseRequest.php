@@ -45,12 +45,12 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_name'=>'required|string|max:191',
+            'name'=>'required|string|max:191',
             'category'=>'required|exists:categories,id',
-            'course_code'=>'required|string',
+            'code'=>'required|string',
             'duration'=>'required|string',
             'expiry'=>'required|exists:expiries,id',
-            'course_description'=>'required',
+            'description'=>'required',
             'skills'=>'required',
             'program_description'=>'required',
             'price'=>'required|numeric',
@@ -64,12 +64,12 @@ class CourseRequest extends FormRequest
     public function attributes()
     {
         return [
-            'course_name'=>mb_strtolower(trans('form.name'),'UTF-8'),
+            'name'=>mb_strtolower(trans('form.name'),'UTF-8'),
             'category'=>mb_strtolower(trans('form.category'),'UTF-8'),
-            'course_code'=>mb_strtolower(trans('form.code'),'UTF-8'),
+            'code'=>mb_strtolower(trans('form.code'),'UTF-8'),
             'duration'=>mb_strtolower(trans('form.duration'),'UTF-8'),
             'expiry'=>mb_strtolower(trans('form.expiry'),'UTF-8'),
-            'course_description'=>mb_strtolower(trans('form.description'),'UTF-8'),
+            'description'=>mb_strtolower(trans('form.description'),'UTF-8'),
             'skills'=>mb_strtolower(trans('form.skills'),'UTF-8'),
             'program_description'=>mb_strtolower(trans('form.program_description'),'UTF-8'),
             'price'=>mb_strtolower(trans('form.costo'),'UTF-8'),

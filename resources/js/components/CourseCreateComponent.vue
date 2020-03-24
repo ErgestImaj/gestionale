@@ -23,7 +23,7 @@
 										dense outlined
 										:label="trans('form.cat_eipass')"
 										v-model="course.category"
-										item-value="id"
+										item-value="hashid"
 										item-text="name"
 										:items="categories"
 										:error-messages="getError('category')"
@@ -54,7 +54,7 @@
 										dense outlined
 										:label="trans('form.expiry')"
 										v-model="course.expiry"
-										item-value="id"
+										item-value="hashid"
 										item-text="name"
 										:items="expirations"
 										:error-messages="getError('expiry')"
@@ -64,17 +64,20 @@
 
 							<div class="mb-4">
 								<label>{{trans('form.description')}}</label>
-								<tiptap-vuetify v-model="course.description" :extensions="extensions" />
+								<tiptap-vuetify  v-model="course.description" :extensions="extensions" />
+								<div class="invalid-feedback d-block" v-if="errors.description">{{errors.description[0]}}</div>
 							</div>
 
 							<div class="mb-4">
 								<label>{{trans('form.skills')}}</label>
 								<tiptap-vuetify v-model="course.skills" :extensions="extensions" />
+								<div class="invalid-feedback d-block" v-if="errors.skills">{{errors.skills[0]}}</div>
 							</div>
 
 							<div class="mb-4">
 								<label>{{trans('form.program_description')}}</label>
-								<tiptap-vuetify v-model="course.program_description" :extensions="extensions" />
+								<tiptap-vuetify  v-model="course.program_description" :extensions="extensions" />
+								<div class="invalid-feedback d-block" v-if="errors.program_description">{{errors.program_description[0]}}</div>
 							</div>
 
 						</v-card-text>
@@ -110,7 +113,7 @@
 									<v-select dense outlined
 										:label="trans('form.vat_rate')"
 										v-model="course.vat_rate"
-										item-value="id"
+										item-value="hashid"
 										item-text="name"
 										:items="vatrates"
 										:error-messages="getError('vat_rate')"
@@ -202,6 +205,7 @@
         },
 				mounted() {
             if (this.isEdit() ) {
+            	console.log(this.oldCourse)
                 this.course = this.oldCourse;
                 this.categories.forEach(item => {
                     if (item.id === this.course.category_id) {
@@ -257,16 +261,13 @@
 								}else{
                    if (!this.submiting){
 										 this.submiting = true;
-										 let data = JSON.parse(JSON.stringify(this.course));
-										 axios.post(`/amministrazione/courses/store`,this.course)
+										 axios.post(`/amministrazione/courses`,this.course)
 											 .then(response => {
-
-
 												 if (response.data.status == "success") {
 													 swal("Good job!", response.data.msg, "success");
-													 // setTimeout(function () {
-													 // 	location.reload();
-													 // }, 1500)
+													 setTimeout(function () {
+														 window.location.href = response.data.redirect;
+													 }, 1500)
 												 } else if (response.data.status === "error") {
 													 swal({
 														 title: "Whoops!",

@@ -21,69 +21,25 @@ class ModuleContentController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$contents = ModuleContent::latest()->get();
+		$contents = ModuleContent::with(
+																			[
+																						'module'=>function($query){
+																							$query->select(['id','module_name','course_id']);
+																						},
+																						'module.course'=>function($query){
+																							$query->select(['id','code']);
+																						},
+																						'user'=>function($query){
+																							$query->select(['id','firstname','lastname']);
+																						},
+																						'updatedByUser'=>function($query){
+																							$query->select(['id','firstname','lastname']);
+																						},
+																				]
+																		)->get(['id','code','state','created_by','updated_by','module_id']);
 
+       return $contents;
 
-		$datatable = DataTables::of( $contents )
-		                       ->addIndexColumn()
-		                       ->addColumn( 'code', function ( $row ) {
-			                       return $row->code;
-		                       } )
-		                       ->addColumn( 'module', function ( $row ) {
-			                       return optional( $row->module )->module_name;
-		                       } )
-		                       ->addColumn( 'course', function ( $row ) {
-			                       return optional( $row->module )->course->code;
-		                       } )
-		                       ->addColumn( 'status', function ( $row ) {
-			                       return $row->isActive();
-		                       } )
-		                       ->addColumn( 'created_by', function ( $row ) {
-			                       return $row->user->displayName();
-		                       } )
-		                       ->addColumn( 'updated_by', function ( $row ) {
-			                       return optional( $row->updatedByUser )->displayName();
-		                       } )
-		                       ->addColumn( 'hashid', function ( $row ) {
-			                       return $row->hashid();
-		                       } )
-		                       ->addColumn( 'actions', function ( $row ) {
-			                       $html = ' <a class=" action btn block-btn btn-dark mb-1" data-tooltip="' . trans( 'form.edit' ) . '" href="' . route( 'lms-content.edit', [ 'lms_content' => $row->hashid() ] ) . '">
-                               <i class="fas fa-pencil-alt"></i>
-                          </a>';
-			                       $html .= '
-                          <div class="btn-group mb-1">
-                            <button type="button" class="btn block-btn dropdown-toggle" data-toggle="dropdown"><span class="caret ml-0"></span></button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-
-                                    <li>
-                                      <a class="d-block update-btn btn-link page-link" href="#" data-action="' . route( 'lmscontent.status', [ 'content' => $row->hashid() ] ) . '">';
-			                       if ( $row->isActive() ):
-				                       $html .= '  <i class="fas fa-times"></i>' . trans( 'messages.disable' );
-			                       else:
-				                       $html .= '  <i class="fas fa-ticket-alt"></i>' . trans( 'messages.active' );
-			                       endif;
-			                       $html .= ' </a>
-                                    </li>
-                                    <li>
-                                        <a class="d-block btn-link page-link" href="' . route( 'lms-content.show', [ 'lms_content' => $row->hashid() ] ) . '">
-                                           <i class="fas fa-eye"></i>' . trans( 'form.view' ) . '
-                                        </a>
-                                    </li>
-                                     <li>
-                                        <a class="d-block delete-btn btn-link page-link" data-content="' . trans( 'messages.delete_confirm', [ 'record' => trans( 'form.content' ) ] ) . '" data-action="' . route( 'lms-content.destroy', [ 'lms_content' => $row->hashid() ] ) . '" href="#">
-                                           <i class="fas fa-trash-alt"></i>' . trans( 'form.delete' ) . '
-                                        </a>
-                                    </li>
-                            </ul>
-                        </div>';
-
-			                       return $html;
-		                       } )
-		                       ->rawColumns( [ 'actions', 'status' ] )
-		                       ->make( true );
-
-		return $datatable;
 	}
 
 	/**
@@ -97,10 +53,15 @@ class ModuleContentController extends Controller {
 
 	public function filterCourses() {
 
-		$courses = Course::active()->get( [ 'id', 'name' ] );
-
-		return $courses;
+		return Course::active()->get( [ 'id', 'name' ] );
 	}
+	public function filterCoursesByCategory($type) {
+
+		return Course::active()->whereHas('category',function($query) use ($type){
+			    $query->where('type',$type);
+		     })->get( [ 'id', 'name' ] );
+	}
+
 
 	public function filterCourseModules( Course $course ) {
 
@@ -171,7 +132,7 @@ class ModuleContentController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit( ModuleContent $lms_content ) {
-		dd( $lms_content );
+		return view('course.lmscontent.edit',compact('lms_content'));
 	}
 
 	/**

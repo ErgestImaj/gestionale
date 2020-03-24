@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('title',trans('form.add_content'))
-@section('pagestyle')
-    <link rel="stylesheet" href="{{asset('css/addons.css')}}">
-    <link rel="stylesheet" href="{{asset('css/summernote-bs4.css')}}">
-@endsection
 @section('content')
     <div class="page-header">
         <h3 class="page-title">
@@ -13,6 +9,6 @@
     <v-app>
         <add-lms is-edit="false"></add-lms>
     </v-app>
-    
+
 @endsection
 

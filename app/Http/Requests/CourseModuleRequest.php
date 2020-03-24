@@ -30,6 +30,7 @@ class CourseModuleRequest extends FormRequest
             'module_credits'=>'nullable|numeric',
             'module_credits_price'=>'nullable|numeric',
             'module_code'=>'nullable|string',
+            'order'=>'nullable|numeric',
         ];
     }
 
@@ -42,6 +43,7 @@ class CourseModuleRequest extends FormRequest
             'module_credits'=>strtolower(trans('form.module_credits')),
             'module_credits_price'=>strtolower(trans('form.module_credits_price')),
             'module_description'=>strtolower(trans('form.description')),
+            'order'=>'ordine',
         ];
     }
 
@@ -55,6 +57,7 @@ class CourseModuleRequest extends FormRequest
             'module_percentage_success'=>$this->module_percentage_success ?? 0,
             'module_credits'=>$this->module_credits ??  0,
             'module_credits_price'=>$this->module_credits_price ?? 0,
+            'order'=>$this->order ?? 0,
         ];
     }
 }

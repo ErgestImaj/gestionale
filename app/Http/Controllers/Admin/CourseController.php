@@ -15,11 +15,7 @@ class CourseController extends Controller
 
 	public function filter()
 	{
-
-		$categories = Category::all();
-		return view('course.index', [
-			'categories' => $categories
-		]);
+		return view('course.index');
 	}
 
 	/**
@@ -32,71 +28,17 @@ class CourseController extends Controller
 	{
 		$this->authorize('index', Course::class);
 
-		$courses = Course::latest()->get();
-
-		$datatable = DataTables::of($courses)
-			->addIndexColumn()
-			->addColumn('code', function ($row) {
-				return $row->code;
-			})
-			->addColumn('category', function ($row) {
-				return optional($row->category)->name;
-			})
-			->addColumn('name', function ($row) {
-				return ucwords($row->name);
-			})
-			->addColumn('costo', function ($row) {
-				return price_formater($row->price);
-			})
-			->addColumn('status', function ($row) {
-				return $row->isActive();
-			})
-			->addColumn('created_by', function ($row) {
-				return $row->user->displayName();
-			})
-			->addColumn('updated_by', function ($row) {
-				return optional($row->updatedByUser)->displayName();
-			})
-			->addColumn('hashid', function ($row) {
-				return $row->hashid();
-			})
-			->addColumn('actions', function ($row) {
-				$html = ' <a class=" action btn block-btn btn-dark mb-1" data-tooltip="' . trans('headers.edit_course') . '" href="' . route('admin.courses.edit', ['course' => $row->hashid()]) . '">
-                               <i class="fas fa-pencil-alt"></i>
-                          </a>';
-				$html .= '
-                          <div class="btn-group mb-1">
-                            <button type="button" class="btn block-btn dropdown-toggle" data-toggle="dropdown"><span class="caret ml-0"></span></button>
-                            <ul class="dropdown-menu dropdown-menu-right">
-
-                                    <li>
-                                      <a class="d-block update-btn btn-link page-link" href="#" data-action="' . route('admin.course.status', ['course' => $row->hashid()]) . '">';
-				if ($row->isActive()):
-					$html .= '  <i class="fas fa-times"></i>' . trans('messages.disable');
-				else:
-					$html .= '  <i class="fas fa-ticket-alt"></i>' . trans('messages.active');
-				endif;
-				$html .= ' </a>
-                                    </li>
-                                    <li>
-                                        <a class="d-block btn-link page-link" href="' . route('module.index', ['course' => $row->hashid()]) . '">
-                                           <i class="fas fa-cubes"></i>' . trans('form.modul') . '
-                                        </a>
-                                    </li>
-                                     <li>
-                                        <a class="d-block delete-btn btn-link page-link" data-content="' . trans('messages.delete_confirm', ['record' => trans('form.course')]) . '" data-action="' . route('admin.courses.destroy', ['course' => $row->hashid()]) . '" href="#">
-                                           <i class="fas fa-trash-alt"></i>' . trans('form.delete') . '
-                                        </a>
-                                    </li>
-                            </ul>
-                        </div>';
-
-				return $html;
-			})
-			->rawColumns(['actions', 'status'])
-			->make(true);
-
-		return $datatable;
+	   return Course::with([
+														'user'=>function($query){
+															$query->select(['id','firstname','lastname']);
+														},
+														'updatedByUser'=>function($query){
+															$query->select(['id','firstname','lastname']);
+														},
+														'category'=>function($query){
+															$query->select(['id','name']);
+														},
+														])->get(['id','code','name','price','state','created_by','updated_by','category_id']);
 
 	}
 
@@ -135,7 +77,8 @@ class CourseController extends Controller
 			$course->save();
 			return response([
 				'status' => 'success',
-				'msg' => trans('messages.success')
+				'msg' => trans('messages.success'),
+				'redirect'=>route('admin.courses.list')
 			]);
 		} catch (\Exception $exception) {
 			logger($exception->getMessage());
@@ -166,7 +109,6 @@ class CourseController extends Controller
 	 */
 	public function edit(Course $course)
 	{
-//        $categories = Category::all();
 		$categories = Category::all();
 		$expirations = Expiry::all();
 		$vatrates = VatRate::all();
@@ -235,6 +177,11 @@ class CourseController extends Controller
 	 */
 	public function destroy(Course $course)
 	{
+		foreach ($course->modules as $module) {
+			$module->contents()->delete();
+		}
+
+		$course->modules()->delete();
 		$course->delete();
 		return response([
 			'status' => 'success',

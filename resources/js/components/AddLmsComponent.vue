@@ -98,10 +98,18 @@
                     :error-messages="errors.file_path ? errors.file_path[0] : []"
                   ></v-text-field>
                 </v-col>
+								<v-col cols="6">
+									<v-text-field dense outlined
+																label="Ordine"
+																v-model="content.order"
+																:error-messages="errors.order ? errors.order[0] : []"
+									></v-text-field>
+								</v-col>
               </v-row>
 
               <label>{{trans('form.description')}}</label>
               <tiptap-vuetify v-model="content.description" :extensions="extensions" />
+							<div class="invalid-feedback d-block" v-if="errors.description">{{errors.description[0]}}</div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -199,8 +207,9 @@ export default {
     TiptapVuetify
   },
   mounted() {
-      if (this.isEdit === true) {
-          this.content = this.editContent
+
+      if (this.isEdit == true) {
+          this.content = this.parsedContent
       }
     	this.getCourses();
   },
@@ -294,15 +303,20 @@ export default {
   },
   computed: {
     selCourse() {
-      return this.content.course;
+      return this.content.course_id;
     },
     selType() {
       return this.content.content_type;
-    }
+    },
+		parsedContent(){
+    	return JSON.parse(this.editContent);
+		}
+
   },
   watch: {
     selCourse(val) {
-      this.content.module = null;
+    	console.log(this.content,val)
+      this.content.module_id = null;
       this.modules = [];
       if (!!val) {
         this.getCourseModules(val);
