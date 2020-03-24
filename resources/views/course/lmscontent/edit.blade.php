@@ -9,8 +9,6 @@
 		<v-app>
 			<add-lms
 				is-edit="{{true}}"
-				prev-course="{{$lms_content->module->course->id}}"
-				sel-module="{{$lms_content->module_id}}"
 				edit-content="{!! e(json_encode($lms_content),true) !!}"
 		 	>
 			</add-lms>

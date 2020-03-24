@@ -303,7 +303,7 @@ export default {
   },
   computed: {
     selCourse() {
-      return this.content.course_id;
+      return this.content.course;
     },
     selType() {
       return this.content.content_type;
@@ -315,7 +315,6 @@ export default {
   },
   watch: {
     selCourse(val) {
-    	console.log(this.content,val)
       this.content.module_id = null;
       this.modules = [];
       if (!!val) {
