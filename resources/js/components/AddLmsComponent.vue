@@ -207,13 +207,20 @@ export default {
     TiptapVuetify
   },
   mounted() {
-
-      if (this.isEdit == true) {
-          this.content = this.parsedContent
-      }
-    	this.getCourses();
+      this.getCourses();
   },
   methods: {
+      handleEdit() {
+          if (!!this.isEdit) {
+              this.content = this.editContent[0];
+              let courseHash = this.editContent[1];
+              this.courses.forEach(course => {
+                  if (course.hashid === courseHash) {
+                      this.content.course = course;
+                  }
+              });
+          }
+			},
       handlePrevCourse(courseid) {
           if(courseid) {
               this.courses.forEach(course => {
@@ -278,10 +285,11 @@ export default {
       this.modules = [];
       axios.get(`/filter-courses`).then(response => {
         this.courses = response.data;
-        this.loading = false;
+        this.handleEdit();
         if (this.prevCourse) {
             this.handlePrevCourse(this.prevCourse);
 				}
+        this.loading = false;
       });
     },
     pickFile() {
@@ -309,7 +317,7 @@ export default {
       return this.content.content_type;
     },
 		parsedContent(){
-    	return JSON.parse(this.editContent);
+    	return JSON.parse(this.editContent.toString());
 		}
 
   },
@@ -318,7 +326,7 @@ export default {
       this.content.module_id = null;
       this.modules = [];
       if (!!val) {
-        this.getCourseModules(val);
+        this.getCourseModules(val.hashid);
       }
     },
     selType(val) {

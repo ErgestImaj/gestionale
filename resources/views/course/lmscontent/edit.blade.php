@@ -8,8 +8,8 @@
     </div>
 		<v-app>
 			<add-lms
-				is-edit="{{true}}"
-				edit-content="{!! e(json_encode($lms_content),true) !!}"
+				:is-edit="{{true}}"
+				:edit-content="{!! e(json_encode([$lms_content, $lms_content->module->course->hashid]),true) !!}"
 		 	>
 			</add-lms>
 		</v-app>
