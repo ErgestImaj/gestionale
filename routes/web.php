@@ -46,6 +46,11 @@ require_once  __DIR__ . '/users/usergrups.php';
 require __DIR__ . '/profile/profile.php';
 
 /**
+ * Exams routes
+*/
+require __DIR__ . '/exams/exams.php';
+
+/**
  * localization for VueJS
  */
 

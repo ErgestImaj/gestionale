@@ -3,6 +3,8 @@
 namespace App\Models;
 
 
+use App\Models\Exams\LrnExamSession;
+use App\Models\Exams\MediaformExamSession;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasStatus;
 use App\Traits\HasUserRelationships;
@@ -50,5 +52,12 @@ class Course extends Model
 
     public function tutor(){
 				return $this->belongsToMany(User::class,'course_user','course_id','user_id');
+		}
+
+		public function lrnExams(){
+    	return $this->hasMany(LrnExamSession::class,'course_id');
+		}
+		public function mfExams(){
+    	return $this->hasMany(MediaformExamSession::class,'course_id');
 		}
 }
