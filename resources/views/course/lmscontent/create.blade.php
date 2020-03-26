@@ -7,7 +7,7 @@
         </h3>
     </div>
     <v-app>
-        <add-lms is-edit="false"></add-lms>
+        <add-lms :is-edit="false"></add-lms>
     </v-app>
 
 @endsection

@@ -200,7 +200,8 @@ export default {
         HorizontalRule,
         Paragraph,
         HardBreak
-      ]
+      ],
+				initModule: true,
     };
   },
   components: {
@@ -213,12 +214,7 @@ export default {
       handleEdit() {
           if (this.isEdit == true) {
               this.content = this.editContent[0];
-              let courseHash = this.editContent[1];
-              this.courses.forEach(course => {
-                  if (course.hashid === courseHash) {
-                      this.content.course = course;
-                  }
-              });
+              this.$set(this.content, 'course', this.editContent[1]);
           }
 			},
       handlePrevCourse(courseid) {
@@ -344,10 +340,14 @@ export default {
   },
   watch: {
     selCourse(val) {
-      this.content.module_id = null;
+        console.log(val);
       this.modules = [];
       if (!!val) {
-        this.getCourseModules(val.hashid);
+          if (!this.initModule) {
+              this.content.module = null;
+          }
+					this.getCourseModules(val);
+          this.initModule = false;
       }
     },
     selType(val) {
