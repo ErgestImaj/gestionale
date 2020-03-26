@@ -21,6 +21,7 @@ Route::group([
 
     Route::view('/lms-contents','course.lmscontent.index')->name('lms_content');
     Route::resource('/lms-content','ModuleContentController');
+    Route::post('lms-content/{lms_content}/update','ModuleContentController@updateLms');
     Route::patch('/lms-content/status/{content}','ModuleContentController@updateStatus')->name('lmscontent.status');
 
     Route::get('/filter-courses','ModuleContentController@filterCourses');

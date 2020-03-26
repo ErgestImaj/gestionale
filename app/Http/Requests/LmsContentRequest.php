@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\FileExtensionsHelper;
+use App\Helpers\Upload;
+use App\Helpers\UploadToBox;
 use App\Models\Course;
 use App\Models\ModuleContent;
 use App\Rules\CheckIfModuleBelongsToGivenCourse;
@@ -35,7 +38,7 @@ class LmsContentRequest extends FormRequest
             'description'=>isset($content['description']) ? $content['description'] : '',
             'course'=> isset($content['course']['id']) ? $content['course']['id'] : '',
             'module'=> isset($content['module']['id']) ? $content['module']['id'] : '',
-            'content_type'=> isset($content['content_type']['value']) ? $content['content_type']['value'] : 'text',
+            'content_type'=> isset($content['content_type']) ? $content['content_type'] : 'text',
             'file_path'=> isset($content['file_path']) ? $content['file_path'] : '',
             'order'=> isset($content['order']) ? $content['order'] : 0,
         ]);
@@ -64,14 +67,12 @@ class LmsContentRequest extends FormRequest
             case 'video_url':
             case 'audio_url':
                 $rules['file_path'] = 'bail|required|active_url';
-                $this->is_url = true;
                 break;
             case 'file' :
-                $rules['lms_file'] = 'bail|required|mimes:jpeg,png,jpg,pdf';
+                $rules['lms_file'] = 'bail|required';
                 break;
             case 'video' :
                 $rules['lms_file'] = 'bail|required|mimetypes:video/avi,video/mpeg,video/quicktime,video/x-flv,video/3gpp,video/quicktime,video/mp4';
-                $this->file_path = $this->file('lms_file');
                 break;
             case 'audio' :
                 $rules['lms_file'] = 'bail|required';
@@ -90,7 +91,6 @@ class LmsContentRequest extends FormRequest
             'code'=>$this->code,
             'description'=>$this->description,
             'module_id'=>$this->module,
-            'is_url'=>$this->is_url,
             'content_type'=>$this->content_type,
             'state'=>ModuleContent::IS_ACTIVE,
 					   'order'=>$this->order ?? 0,

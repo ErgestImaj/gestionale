@@ -211,7 +211,7 @@ export default {
   },
   methods: {
       handleEdit() {
-          if (!!this.isEdit) {
+          if (this.isEdit == true) {
               this.content = this.editContent[0];
               let courseHash = this.editContent[1];
               this.courses.forEach(course => {
@@ -240,45 +240,66 @@ export default {
 					}
 			},
     send() {
-      // check if isEdit
-      if (!this.submiting) {
-        this.loading = true;
-        this.submiting = true;
+			if (!this.submiting) {
+				this.loading = true;
+				this.submiting = true;
+				if (this.isEdit==true){
+					let formData = new FormData();
+					formData.append("lms_file", this.content.lms_file);
+					formData.append("content", JSON.stringify(this.content));
+					axios
+						.post(`/lms-content/${this.content.hashid}/update`, formData, {
+							headers: {
+								"Content-Type": "multipart/form-data"
+							}
+						})
+						.then(response => {
+							if (response.data.status == "success") {
+								swal("Good job!", response.data.msg, "success");
+							}
+						})
+						.catch(error => {
+							this.errors = error.response.data.errors;
+						}).finally(() => {
+						this.submiting = false;
+						this.loading = false;
+					});
+				}else {
+					let formData = new FormData();
+					this.courses.forEach(i => {
+						if (i.hashid === this.content.course) {
+							content.course = i;
+						}
+					});
+					this.modules.forEach(i => {
+						if (i.hashid === this.content.module) {
+							content.module = i;
+						}
+					});
 
-        let formData = new FormData();
-        let content = JSON.parse(JSON.stringify(this.content));
-        this.courses.forEach(i => {
-          if (i.hashid === this.content.course) {
-            content.course = i;
-          }
-        });
-        this.modules.forEach(i => {
-          if (i.hashid === this.content.module) {
-            content.module = i;
-          }
-        });
+					formData.append("lms_file", this.content.lms_file);
+					formData.append("content", JSON.stringify(this.content));
 
-        formData.append("lms_file", this.content.lms_file);
-        formData.append("content", JSON.stringify(content));
+					axios
+						.post(`/lms-content`, formData, {
+							headers: {
+								"Content-Type": "multipart/form-data"
+							}
+						})
+						.then(response => {
+							if (response.data.status == "success") {
+								swal("Good job!", response.data.msg, "success");
+								this.content = {};
+							}
+						})
+						.catch(error => {
+							this.errors = error.response.data.errors;
+						}).finally(() => {
+						this.submiting = false;
+						this.loading = false;
+					});
+				}
 
-        axios
-          .post(`/lms-content`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data"
-            }
-          })
-          .then(response => {
-            if (response.data.status == "success") {
-              swal("Good job!", response.data.msg, "success");
-              this.content = {};
-            }
-          })
-          .catch(error => {
-            this.errors = error.response.data.errors;
-          }).finally(() => {
-              this.submiting = false;
-              this.loading = false;
-          });
       }
     },
     getCourses() {
