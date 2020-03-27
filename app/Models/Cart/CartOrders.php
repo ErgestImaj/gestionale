@@ -29,4 +29,8 @@ class CartOrders extends Model
 
 	];
 	protected $appends = ['hashid'];
+
+	public function cartCourseTransaction(){
+		return $this->hasMany(CartCourseTransactions::class,'order_id','id');
+	}
 }

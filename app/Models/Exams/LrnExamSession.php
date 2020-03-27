@@ -51,6 +51,9 @@ class LrnExamSession extends Model
 	 * Relationships
 	 */
 
+	public function owner(){
+		return $this->belongsTo(User::class,'user_id','id');
+	}
 	public function course(){
 		return $this->belongsTo(Course::class,'course_id','id');
 	}
@@ -67,6 +70,6 @@ class LrnExamSession extends Model
 		return $this->hasOne(LrnExamSessionData::class,'lrn_exam_session_id','id');
 	}
 	public function participants(){
-		return $this->belongsToMany(User::class,'utilities_lrn_exam_session_partecipants','user_id','lrn_exam_session_id')->withPivot('cm','voucher_id');
+		return $this->belongsToMany(User::class,'utilities_lrn_exam_session_partecipants','lrn_exam_session_id','user_id')->withPivot('cm','voucher_id');
 	}
 }

@@ -1,6 +1,8 @@
 <?php
 namespace App\Traits;
 
+use App\Models\Cart\CartCourseTransactions;
+use App\Models\Cart\FastTrack;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\DocumentCategories;
@@ -62,7 +64,14 @@ trait UserRelationships{
 		}
 
 		public function lrnexams(){
-			return $this->belongsToMany(LrnExamSession::class,'utilities_lrn_exam_session_partecipants','lrn_exam_session_id','user_id')->withPivot();
+			return $this->belongsToMany(LrnExamSession::class,'utilities_lrn_exam_session_partecipants','user_id','lrn_exam_session_id')->withPivot();
+		}
+
+		public function lrnExamSessions(){
+			return $this->hasMany(LrnExamSession::class,'user_id');
+		}
+		public function mfExamSessions(){
+			return $this->hasMany(MediaformExamSession::class,'user_id');
 		}
 
 		public function examinerMfExam(){
@@ -77,6 +86,20 @@ trait UserRelationships{
 		}
 
 		public function mfexams(){
-			return $this->belongsToMany(MediaformExamSession::class,'utilities_exam_session_partecipants','exam_session_id','user_id')->withPivot();
+			return $this->belongsToMany(MediaformExamSession::class,'utilities_exam_session_partecipants','user_id','exam_session_id')->withPivot();
 		}
+
+		public function fastTracks(){
+			return $this->hasMany(FastTrack::class,'user_id');
+		}
+
+		public function electronicInvoice(){
+			return $this->hasMany(FastTrack::class,'user_id');
+		}
+
+		public function cartCourseTransactions(){
+			return $this->hasMany(CartCourseTransactions::class,'user_id','id');
+		}
+
+
 }

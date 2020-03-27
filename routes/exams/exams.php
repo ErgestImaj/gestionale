@@ -1,5 +1,5 @@
 <?php
-//Superadmin and admin routes
+//Exams routes
 
 Route::group([
 	'middleware' => ['auth','check_user_role:superadmin' ],
@@ -8,5 +8,6 @@ Route::group([
 ],function() {
 
     Route::resource('lrn-exams','LrnExamsController');
+    Route::resource('mf-exams','MediaformExamsController');
 
 });

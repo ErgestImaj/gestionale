@@ -21,6 +21,9 @@ class MediaformExamSession extends Model
 	CONST SAME_LOCATION = 0;
 	CONST OTHER_LOCATION = 1;
 
+  CONST CERTIFICATO = 2;
+  CONST ATTESTATO = 3;
+
 	CONST POST_LAUREA_CSV_SENT = 1;
 
 	CONST STATUS_OPEN = 1;
@@ -52,7 +55,9 @@ class MediaformExamSession extends Model
 	/**
 	 * Relationships
 	 */
-
+	public function owner(){
+		return $this->belongsTo(User::class,'user_id','id');
+	}
 	public function course(){
 		return $this->belongsTo(Course::class,'course_id','id');
 	}
@@ -78,6 +83,6 @@ class MediaformExamSession extends Model
 	}
 
 	public function participants(){
-		return $this->belongsToMany(User::class,'utilities_exam_session_partecipants','user_id','exam_session_id')->withPivot();
+		return $this->belongsToMany(User::class,'utilities_exam_session_partecipants','exam_session_id','user_id')->withPivot('is_repeating');
 	}
 }

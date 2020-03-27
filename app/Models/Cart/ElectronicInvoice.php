@@ -8,28 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class FastTrack extends Model
+class ElectronicInvoice extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting;
 
-	protected $table = 'fast_track';
+	protected $table = 'electronic_invoice';
 	protected $guarded = [];
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 
-	const STATE_PAYED = 2;
-	const STATE_PENDING = 1;
-	const STATE_READY = 0;
-
-	const PAYPAL = 0;
-	const BANK_TRANSFER = 1;
+	const SUBSCRIPTION = 0;
+	const USER_VALIDATION = 1;
+	const PURCHASE = 2;
+	const CERTIFICATE_DUPLICATE_REQUEST = 3;
+	const CREDIT_PACK_PURCHASE = 4;
+	const FAST_TRACK = 5;
 
 	protected $casts = [
 		'created' => 'datetime',
 		'updated' => 'datetime',
-		'order_date' => 'datetime',
-		'exam_sessions' => 'array',
 	];
 
 	protected $appends = ['hashid'];

@@ -16,8 +16,8 @@ class LrnExamsController extends Controller
     public function index()
     {
        $lrnexams =  LrnExamSession::with([
-        	'user'=>function($query){
-        	 $query->select(['id','firstname','lastname']);
+        	'owner'=>function($query){
+        	 $query->select(['id','firstname']);
 					},
 					'course'=>function($query){
 						$query->select(['id','name']);
@@ -28,9 +28,12 @@ class LrnExamsController extends Controller
 					'invigilator'=>function($query){
 						$query->select(['id','firstname','lastname']);
 					},
-					'participants'
+					'participants'=>function($query){
+						$query->select();
+					},
 				])->get(['id','user_id','course_id','invigilator_id','examiner_id','date','start_hour','start_minute','state','location']);
-       
+
+       return $lrnexams;
     }
 
     /**

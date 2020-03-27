@@ -51,6 +51,11 @@ require __DIR__ . '/profile/profile.php';
 require __DIR__ . '/exams/exams.php';
 
 /**
+ * Cart routes
+*/
+require __DIR__ . '/cart/cart.php';
+
+/**
  * localization for VueJS
  */
 

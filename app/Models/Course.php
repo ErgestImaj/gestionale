@@ -3,6 +3,8 @@
 namespace App\Models;
 
 
+use App\Models\Cart\CartCourseTransactions;
+use App\Models\Cart\CourseRequestItems;
 use App\Models\Exams\LrnExamSession;
 use App\Models\Exams\MediaformExamSession;
 use App\Traits\HashIdAttribute;
@@ -59,5 +61,12 @@ class Course extends Model
 		}
 		public function mfExams(){
     	return $this->hasMany(MediaformExamSession::class,'course_id');
+		}
+
+		public function cartCourseTransactions(){
+			return $this->hasMany(CartCourseTransactions::class,'course_id','id');
+		}
+		public function requestItems(){
+    	return $this->hasMany(CourseRequestItems::class,'item_id','id');
 		}
 }

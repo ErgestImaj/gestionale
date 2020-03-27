@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart\CourseRequest;
 use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasLocation;
@@ -67,6 +68,9 @@ class Structure extends Model
 	public function parent()
 	{
 		return $this->belongsTo(Structure::class, 'parent_structure_id', 'id');
+	}
+	public function courseRequests(){
+		return $this->hasMany(CourseRequest::class,'structure_id','id');
 	}
 	/**
 	 * Scopes
