@@ -81,7 +81,7 @@
 						</li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame IIQ</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MIUR</a></li>
-						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame LRN</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('exams.lrn.index')}}">Sessione d'esame LRN</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame DILE</a></li>
 					</ul>
 				</div>

@@ -332,3 +332,19 @@ span.gcount {
 .tiptap-vuetify-editor__content img {
 	max-width: 100%;
 }
+.sidebar .nav.sub-menu .nav.sub-menu {
+	padding-left: 10px;
+}
+.gvm .v-menu__content {
+	margin-top: 0 !important;
+}
+span.gcc {
+	margin-left: 5px;
+	width: 16px;
+	text-align: center;
+	background: #eaeaea;
+	border-radius: 50%;
+	height: 16px;
+	line-height: 16px;
+	color: #6b6b6b;
+}

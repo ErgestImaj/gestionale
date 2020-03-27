@@ -75,6 +75,8 @@ Vue.component('utenti-basic-edit', require('./components/BasicUserEditComponent'
 Vue.component('add-discount', require('./components/AddDiscountComponent').default);
 Vue.component('structure-details', require('./components/StructureDetailsComponent').default);
 Vue.component('user-details', require('./components/UserDetailsComponent').default);
+Vue.component('sessione-essame-create', require('./components/sessione-esame/CreateComponent').default);
+Vue.component('sessione-essame-list', require('./components/sessione-esame/ListComponent').default);
 
 
 /**
