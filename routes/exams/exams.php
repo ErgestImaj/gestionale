@@ -10,6 +10,5 @@ Route::group([
     Route::resource('api/lrn-exams','LrnExamsController');
     Route::resource('mf-exams','MediaformExamsController');
 
-		Route::get('lrn-exams', 'SettingsController@permissionSettings')->name('permission');
 		Route::view('/lrn-exams', 'exams.index')->name('lrn.index');
 });
