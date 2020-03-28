@@ -45,4 +45,7 @@ class CartOrderItems extends Model
 	public function scopeType($query){
 		return $query->where('type',self::TYPE_COURSE);
 	}
+	public function course(){
+		return $this->belongsTo(Course::class,'item_id','id');
+	}
 }

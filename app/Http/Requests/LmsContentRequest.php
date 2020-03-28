@@ -30,16 +30,16 @@ class LmsContentRequest extends FormRequest
 
     protected function prepareForValidation()
     {
+			if (!empty($this->get('content')))
         $content = json_decode($this->get('content'),true);
-
         $this->merge([
-            'title' => isset( $content['title']) ? $content['title'] : '',
-            'code'=> isset($content['code']) ? $content['code'] : '',
-            'description'=>isset($content['description']) ? $content['description'] : '',
-            'course'=> isset($content['course']['id']) ? $content['course']['id'] : '',
-            'module'=> isset($content['module']['id']) ? $content['module']['id'] : '',
+            'title' => isset( $content['title']) ? $content['title'] : null,
+            'code'=> isset($content['code']) ? $content['code'] : null,
+            'description'=>isset($content['description']) ? $content['description'] : null,
+            'course'=> isset($content['course']['id']) ? $content['course']['id'] : null,
+            'module'=> isset($content['module']['id']) ? $content['module']['id'] : null,
             'content_type'=> isset($content['content_type']) ? $content['content_type'] : 'text',
-            'file_path'=> isset($content['file_path']) ? $content['file_path'] : '',
+            'file_path'=> isset($content['file_path']) ? $content['file_path'] : null,
             'order'=> isset($content['order']) ? $content['order'] : 0,
         ]);
 

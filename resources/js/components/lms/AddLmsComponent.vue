@@ -236,15 +236,14 @@ export default {
 					}
 			},
     send() {
+
 			if (!this.submiting) {
 				this.loading = true;
 				this.submiting = true;
 				if (this.isEdit==true){
 					let formData = new FormData();
-					let data = JSON.parse(JSON.stringify(this.content));
-					data.course_id = data.course.id;
 					formData.append("lms_file", this.content.lms_file);
-					formData.append("content", JSON.stringify(data));
+					formData.append("content", JSON.stringify(this.content));
 					axios
 						.post(`/lms-content/${this.content.hashid}/update`, formData, {
 							headers: {
@@ -262,18 +261,18 @@ export default {
 						this.submiting = false;
 						this.loading = false;
 					});
-				} else {
+				}else {
 					let formData = new FormData();
-					this.courses.forEach(i => {
-						if (i.hashid === this.content.course) {
-							this.content.course = i;
-						}
-					});
-					this.modules.forEach(i => {
-						if (i.hashid === this.content.module) {
-							this.content.module = i;
-						}
-					});
+						this.courses.forEach(i => {
+							if (i.hashid === this.content.course) {
+								this.content.course = i;
+							}
+						});
+						this.modules.forEach(i => {
+							if (i.hashid === this.content.module) {
+								this.content.module = i;
+							}
+						});
 
 					formData.append("lms_file", this.content.lms_file);
 					formData.append("content", JSON.stringify(this.content));
@@ -342,7 +341,6 @@ export default {
   },
   watch: {
     selCourse(val) {
-        console.log(val);
       this.modules = [];
       if (!!val) {
           if (!this.initModule) {
