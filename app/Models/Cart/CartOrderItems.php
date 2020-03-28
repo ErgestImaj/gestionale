@@ -2,6 +2,7 @@
 
 namespace App\Models\Cart;
 
+use App\Models\Course;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -39,5 +40,8 @@ class CartOrderItems extends Model
 
 	public function scopeType($query){
 		return $query->where('type',self::TYPE_COURSE);
+	}
+	public function course(){
+		return $this->belongsTo(Course::class,'item_id','id');
 	}
 }

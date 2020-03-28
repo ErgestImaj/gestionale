@@ -236,6 +236,7 @@ export default {
 					}
 			},
     send() {
+
 			if (!this.submiting) {
 				this.loading = true;
 				this.submiting = true;
@@ -262,16 +263,16 @@ export default {
 					});
 				}else {
 					let formData = new FormData();
-					this.courses.forEach(i => {
-						if (i.hashid === this.content.course) {
-							content.course = i;
-						}
-					});
-					this.modules.forEach(i => {
-						if (i.hashid === this.content.module) {
-							content.module = i;
-						}
-					});
+						this.courses.forEach(i => {
+							if (i.hashid === this.content.course) {
+								this.content.course = i;
+							}
+						});
+						this.modules.forEach(i => {
+							if (i.hashid === this.content.module) {
+								this.content.module = i;
+							}
+						});
 
 					formData.append("lms_file", this.content.lms_file);
 					formData.append("content", JSON.stringify(this.content));
@@ -340,7 +341,6 @@ export default {
   },
   watch: {
     selCourse(val) {
-        console.log(val);
       this.modules = [];
       if (!!val) {
           if (!this.initModule) {
