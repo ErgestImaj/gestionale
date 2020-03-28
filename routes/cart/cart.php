@@ -7,6 +7,8 @@ Route::group([
 ],function() {
 
 
+	  Route::get('/orders','OrdersController@index');
+
 	  Route::get('/courses-requests','CourseRequestController@index');
 
 	  Route::get('/fast-track','FastTrackController@index');

@@ -20,6 +20,10 @@ class CartOrderItems extends Model
 	const UPDATED_AT = 'updated';
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
+
+	const TYPE_COURSE = 0;
+	const TYPE_PROMO_PACK = 1;
+
 	protected $casts = [
 		'locked' => 'datetime',
 		'deleted_at' => 'datetime',
@@ -28,4 +32,12 @@ class CartOrderItems extends Model
 
 	];
 	protected $appends = ['hashid'];
+
+	public function order(){
+		return $this->belongsTo(CartOrders::class,'order_id','id');
+	}
+
+	public function scopeType($query){
+		return $query->where('type',self::TYPE_COURSE);
+	}
 }

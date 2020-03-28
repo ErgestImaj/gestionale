@@ -5,13 +5,12 @@ namespace App\Models\Cart;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
 class CartInvoices extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships;
 
 	protected $table = 'cart_invoices';
 	protected $guarded = [];
@@ -30,4 +29,8 @@ class CartInvoices extends Model
 
 	];
 	protected $appends = ['hashid'];
+
+	public function order(){
+		return $this->belongsTo(CartOrders::class,'order_id','id');
+	}
 }

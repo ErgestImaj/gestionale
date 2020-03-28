@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart\CartOrders;
 use App\Models\Cart\CourseRequest;
 use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
@@ -72,6 +73,7 @@ class Structure extends Model
 	public function courseRequests(){
 		return $this->hasMany(CourseRequest::class,'structure_id','id');
 	}
+
 	/**
 	 * Scopes
 	 */

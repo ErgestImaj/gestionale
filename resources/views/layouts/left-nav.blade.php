@@ -61,24 +61,13 @@
 			<!--Sessioni desame-->
 			<li class="nav-item @if(Request::is('orders/*'))active @endif">
 				<a class="nav-link" data-toggle="collapse" href="#sessione_di_esame" aria-expanded="false" aria-controls="sessione_di_esame">
-					<i class="fas fa-shopping-basket menu-icon"></i>
+					<i class="fas fa-pen-alt menu-icon"></i>
 					<span class="menu-title">Sessione d'esame</span>
 					<i class="menu-arrow"></i>
 				</a>
 				<div class="collapse" id="sessione_di_esame">
 					<ul class="nav flex-column sub-menu">
-						<li class="nav-item @if(Request::is('orders/*'))active @endif">
-							<a class="nav-link" data-toggle="collapse" href="#mediaform" aria-expanded="false" aria-controls="mediaform">
-								<span class="menu-title">Mediaform</span>
-								<i class="menu-arrow"></i>
-							</a>
-							<div class="collapse" id="mediaform">
-								<ul class="nav flex-column sub-menu">
-									<li class="nav-item"> <a class="nav-link" href="#">con attestato</a></li>
-									<li class="nav-item"> <a class="nav-link" href="#">con certificato</a></li>
-								</ul>
-							</div>
-						</li>
+						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MF</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame IIQ</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MIUR</a></li>
 						<li class="nav-item"> <a class="nav-link" href="{{route('exams.lrn.index')}}">Sessione d'esame LRN</a></li>
@@ -144,7 +133,7 @@
 					<div class="collapse" id="cart">
 						<ul class="nav flex-column sub-menu">
 							<li class="nav-item"> <a class="nav-link" href="#">Elenco Ordini</a></li>
-							<li class="nav-item"> <a class="nav-link" href="#">Ordini Affiliati</a></li>
+							<li class="nav-item"> <a class="nav-link" href="#">Ordini Strutture</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Fast Track</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Electronic Invoice</a></li>
 						</ul>

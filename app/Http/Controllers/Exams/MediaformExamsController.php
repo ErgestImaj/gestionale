@@ -42,7 +42,6 @@ class MediaformExamsController extends Controller
 					$query->select();
 				},
 			])->get(['id','user_id','course_id','former_id','supervisor_id','examiner_id','date','start_hour','start_minute','state','location']);
-
 			return $mfexams;
     }
 

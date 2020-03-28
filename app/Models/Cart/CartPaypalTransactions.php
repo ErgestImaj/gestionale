@@ -26,7 +26,13 @@ class CartPaypalTransactions extends Model
 		'created' => 'datetime',
 		'order_date' => 'datetime',
 		'state' => 'boolean',
+		'details' => 'json',
+		'params' => 'json',
 
 	];
 	protected $appends = ['hashid'];
+
+	public function order(){
+		return $this->belongsTo(CartOrders::class,'order_id','id');
+	}
 }

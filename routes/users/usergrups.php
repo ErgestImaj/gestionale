@@ -28,4 +28,8 @@ Route::group([
     Route::get('/filter-courses-by-category/{type}','ModuleContentController@filterCoursesByCategory');
     Route::get('/course/{course}/modules','ModuleContentController@filterCourseModules');
 
+    //Tracking Orders
+
+	  Route::resource('tracking','TrackingController');
+
 });

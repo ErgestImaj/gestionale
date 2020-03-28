@@ -17,6 +17,7 @@ class AlterTableCoursesCoursesRequestItems extends Migration
 					$table->dropColumn('locked');
 					$table->dropColumn('locked_by');
 					$table->unsignedBigInteger('updated_by')->nullable()->change();
+					$table->softDeletes();
         });
     }
 
