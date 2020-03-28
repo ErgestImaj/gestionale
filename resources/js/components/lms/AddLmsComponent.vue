@@ -260,16 +260,16 @@ export default {
 						this.submiting = false;
 						this.loading = false;
 					});
-				}else {
+				} else {
 					let formData = new FormData();
 					this.courses.forEach(i => {
 						if (i.hashid === this.content.course) {
-							content.course = i;
+							this.content.course = i;
 						}
 					});
 					this.modules.forEach(i => {
 						if (i.hashid === this.content.module) {
-							content.module = i;
+							this.content.module = i;
 						}
 					});
 
