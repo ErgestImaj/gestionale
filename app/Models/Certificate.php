@@ -42,7 +42,7 @@ class Certificate extends Model
 		'state' => 'boolean',
 
 	];
-	protected $appends = ['hashid'];
+	protected $appends = ['hashid','type_name'];
 
 	public function user(){
 		return $this->belongsTo(User::class,'user_id');
@@ -50,8 +50,8 @@ class Certificate extends Model
 	public function examSession(){
 		return $this->belongsTo(MediaformExamSession::class,'exam_session_id');
 	}
-	public function getTypeAttribute($value){
-		return static::typeName($value);
+	public function getTypeNameAttribute(){
+		return static::typeName($this->type);
 	}
 	public static function typeNames()
 	{

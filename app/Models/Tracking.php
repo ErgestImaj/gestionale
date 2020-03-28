@@ -37,7 +37,7 @@ class Tracking extends Model
 		'state' => 'boolean',
 
 	];
-	protected $appends = ['hashid'];
+	protected $appends = ['hashid','status_name'];
 
 	public function scopeActive($query){
 		return $query->where('state',self::IS_ACTIVE);
@@ -60,8 +60,8 @@ class Tracking extends Model
 	{
 		return $this->databaseDateFormat($val);
 	}
-	public function getStatusAttribute($value){
-		return static::statusName($value);
+	public function getStatusNameAttribute(){
+		return static::statusName($this->status);
 	}
 	public static function statusNames(){
 		return [
