@@ -123,6 +123,44 @@
 							</v-row>
 						</v-card-text>
 					</v-card>
+					<v-card outlined flat class="mt-5">
+						<v-card-title>Impostazioni</v-card-title>
+						<v-card-text>
+							<v-row>
+								<v-col cols="12" sm="12" class="gel">
+									<v-switch
+										v-model="course.face_id"
+										label="Riconoscimento Facciale"
+										value="1"
+									></v-switch>
+									<v-text-field dense outlined
+										:label="trans('form.min_order_partner')"
+										v-model="course.min_order_partner"
+										:error-messages="getError('min_order_partner')"
+									></v-text-field>
+									<v-text-field dense outlined
+										:label="trans('form.min_order_master')"
+										v-model="course.min_order_master"
+										:error-messages="getError('min_order_master')"
+									></v-text-field>
+									<v-text-field dense outlined
+										:label="trans('form.min_order_affiliate')"
+										v-model="course.min_order_affiliate"
+										:error-messages="getError('min_order_affiliate')"
+									></v-text-field>
+									<v-select dense outlined
+										:label="trans('form.vat_rate')"
+										v-model="course.vat_rate"
+										item-value="hashid"
+										item-text="name"
+										:items="vatrates"
+										:error-messages="getError('vat_rate')"
+									></v-select>
+
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
 				</v-col>
 			</v-row>
 			<v-row>

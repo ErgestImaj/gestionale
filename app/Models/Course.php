@@ -69,4 +69,7 @@ class Course extends Model
 		public function requestItems(){
     	return $this->hasMany(CourseRequestItems::class,'item_id','id');
 		}
+		public function settings(){
+    	return $this->hasOne(CourseSettings::class,'course_id');
+		}
 }
