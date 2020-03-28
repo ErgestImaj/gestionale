@@ -38,10 +38,11 @@ class CartOrderItems extends Model
 		return $this->belongsTo(CartOrders::class,'order_id','id');
 	}
 
-	public function scopeType($query){
-		return $query->where('type',self::TYPE_COURSE);
-	}
 	public function course(){
 		return $this->belongsTo(Course::class,'item_id','id');
+	}
+
+	public function scopeType($query){
+		return $query->where('type',self::TYPE_COURSE);
 	}
 }

@@ -49,34 +49,37 @@ Vue.filter('capitalize', function (s) {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('multiselect',Multiselect);
-Vue.component('course-module', require('./components/CourseModuleComponent.vue').default);
-Vue.component('add-course', require('./components/CourseCreateComponent.vue').default);
-Vue.component('course-categories', require('./components/CourseCategoryComponent.vue').default);
-Vue.component('module-list', require('./components/ModuleListComponent.vue').default);
-Vue.component('add-lms', require('./components/AddLmsComponent').default);
-Vue.component('view-lms', require('./components/LmsViewComponent').default);
-Vue.component('list-lms', require('./components/LmsListComponent').default);
+Vue.component('course-module', require('./components/course/CourseModuleComponent.vue').default);
+Vue.component('add-course', require('./components/course/CourseCreateComponent.vue').default);
+Vue.component('course-categories', require('./components/course/CourseCategoryComponent.vue').default);
+Vue.component('module-list', require('./components/module/ModuleListComponent.vue').default);
+Vue.component('add-lms', require('./components/lms/AddLmsComponent').default);
+Vue.component('view-lms', require('./components/lms/LmsViewComponent').default);
+Vue.component('list-lms', require('./components/lms/LmsListComponent').default);
 Vue.component('mass-emails', require('./components/MassEmailsComponent').default);
-Vue.component('workshop', require('./components/WorkshopComponent').default);
-Vue.component('workshop-edit', require('./components/WorkshopEditComponent').default);
-Vue.component('document-create', require('./components/DocumentComponent').default);
-Vue.component('document-edit', require('./components/DocumentEditComponent').default);
-Vue.component('document-categories', require('./components/DocumentCategoriesComponent').default);
-Vue.component('document-list', require('./components/DocumentListComponent').default);
-Vue.component('corsi-table', require('./components/CorsiTableComponent').default);
-Vue.component('struture-create', require('./components/AddStrutureComponent').default);
-Vue.component('struture-edit', require('./components/EditStrutureComponent').default);
-Vue.component('structure-view', require('./components/StructureViewComponent').default);
-Vue.component('utenti-create', require('./components/UtentiCreateComponent').default);
-Vue.component('utenti-edit', require('./components/UtentiEditComponent').default);
-Vue.component('utenti-view', require('./components/UtentiViewComponent').default);
-Vue.component('utenti-basic-create', require('./components/BasicUserCreateComponent').default);
-Vue.component('utenti-basic-edit', require('./components/BasicUserEditComponent').default);
-Vue.component('add-discount', require('./components/AddDiscountComponent').default);
-Vue.component('structure-details', require('./components/StructureDetailsComponent').default);
-Vue.component('user-details', require('./components/UserDetailsComponent').default);
+Vue.component('workshop', require('./components/workshop/WorkshopComponent').default);
+Vue.component('workshop-edit', require('./components/workshop/WorkshopEditComponent').default);
+Vue.component('document-create', require('./components/document/DocumentComponent').default);
+Vue.component('document-edit', require('./components/document/DocumentEditComponent').default);
+Vue.component('document-categories', require('./components/document/DocumentCategoriesComponent').default);
+Vue.component('document-list', require('./components/document/DocumentListComponent').default);
+Vue.component('corsi-table', require('./components/course/CorsiTableComponent').default);
+Vue.component('struture-create', require('./components/structure/AddStrutureComponent').default);
+Vue.component('struture-edit', require('./components/structure/EditStrutureComponent').default);
+Vue.component('structure-view', require('./components/structure/StructureViewComponent').default);
+Vue.component('utenti-create', require('./components/users/UtentiCreateComponent').default);
+Vue.component('utenti-edit', require('./components/users/UtentiEditComponent').default);
+Vue.component('utenti-view', require('./components/users/UtentiViewComponent').default);
+Vue.component('utenti-basic-create', require('./components/users/BasicUserCreateComponent').default);
+Vue.component('utenti-basic-edit', require('./components/users/BasicUserEditComponent').default);
+Vue.component('add-discount', require('./components/structure/AddDiscountComponent').default);
+Vue.component('structure-details', require('./components/structure/StructureDetailsComponent').default);
+Vue.component('user-details', require('./components/users/UserDetailsComponent').default);
 Vue.component('sessione-essame-create', require('./components/sessione-esame/CreateComponent').default);
 Vue.component('sessione-essame-list', require('./components/sessione-esame/ListComponent').default);
+Vue.component('tracking-list', require('./components/tracking/ListComponent').default);
+Vue.component('certificate-list', require('./components/certificate/ListComponent').default);
+Vue.component('elenco-ordini', require('./components/orders/ElencoOrdiniComponent').default);
 
 
 /**

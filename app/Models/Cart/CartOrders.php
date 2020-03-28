@@ -2,6 +2,7 @@
 
 namespace App\Models\Cart;
 
+use App\Models\Course;
 use App\Models\User;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;

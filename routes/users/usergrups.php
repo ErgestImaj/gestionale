@@ -30,6 +30,7 @@ Route::group([
 
     //Tracking Orders
 
-	  Route::resource('tracking','TrackingController');
+	  Route::resource('/api/tracking','TrackingController');
+	  Route::view('/tracking', 'tracking.index')->name('tracking.list');
 
 });

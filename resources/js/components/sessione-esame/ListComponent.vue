@@ -16,7 +16,7 @@
 				class="pa-4"
 			>
 				<template v-slot:item.participants="{ item }">
-					<v-menu bottom offset-y attach transition="scale-transition" class="gvm">
+					<v-menu bottom offset-y transition="scale-transition" class="gvm">
 						<template v-slot:activator="{ on }">
 							<v-btn small color="primary" text v-on="on" v-if="item.participants && item.participants.length > 0">
 								Vedi <span class="gcc">{{ candidati( item.participants ).length }}</span>
@@ -186,6 +186,8 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+	#app.exams .v-menu__content {
+		margin-top: 0 !important;
+	}
 </style>

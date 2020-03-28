@@ -7,12 +7,18 @@ Route::group([
 ],function() {
 
 
-	  Route::get('/orders','OrdersController@index');
+		Route::view('/orders','orders.index')->name('orders.list');
 
-	  Route::get('/courses-requests','CourseRequestController@index');
+		Route::group( ['prefix' => 'api'], function ()
+		{
+			Route::get('/orders','OrdersController@index');
+			Route::get('/courses-requests','CourseRequestController@index');
+			Route::get('/fast-track','FastTrackController@index');
+			Route::get('/electronic-invoice','ElectronicInvoiceController@index');
 
-	  Route::get('/fast-track','FastTrackController@index');
+		});
 
-	  Route::get('/electronic-invoice','ElectronicInvoiceController@index');
+
+
 
 });
