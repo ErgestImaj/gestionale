@@ -14,6 +14,7 @@ class Tracking extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,DatabaseDateFomat;
 
+
 	protected $table = 'utilities_trackings';
 	protected $guarded = [];
 
@@ -23,7 +24,7 @@ class Tracking extends Model
 	const STATUS_TO_SEND = 0;
 	const STATUS_DELIVERING = 1;
 	const STATUS_RECEIVD = 2;
-
+	const STATUS_EXPIERD = 3;
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
 
@@ -58,5 +59,21 @@ class Tracking extends Model
 	public function getExpiryDateAttribute($val)
 	{
 		return $this->databaseDateFormat($val);
+	}
+	public function getStatusAttribute($value){
+		return static::statusName($value);
+	}
+	public static function statusNames(){
+		return [
+			self::STATUS_TO_SEND =>'Da spedire',
+			self::STATUS_DELIVERING =>'In consegna',
+			self::STATUS_RECEIVD =>'Ricevuto',
+			self::STATUS_EXPIERD =>'Expired',
+		];
+	}
+	public static function statusName($type){
+		$statusNames = static::statusNames();
+		if (isset($statusNames[$type])) return $statusNames[$type];
+		return '';
 	}
 }

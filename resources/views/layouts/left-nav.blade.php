@@ -58,6 +58,14 @@
                 </ul>
             </div>
         </li>
+			<!--Certificates-->
+			<li class="nav-item @if(Request::is('amministrazione/certificates*'))active @endif">
+				<a class="nav-link" href="{{route('admin.certificates.index')}}">
+					<i class="fas fa-graduation-cap menu-icon"></i>
+					<span class="menu-title">Report formazione</span>
+				</a>
+			</li>
+			<!--.Certificates-->
 			<!--Sessioni desame-->
 			<li class="nav-item @if(Request::is('orders/*'))active @endif">
 				<a class="nav-link" data-toggle="collapse" href="#sessione_di_esame" aria-expanded="false" aria-controls="sessione_di_esame">

@@ -100,6 +100,14 @@ Route::group([
     Route::patch('/workshop/{workshop}/update','WorkshopController@update')->name('workshop.update');
     Route::delete( '/workshop/{workshop}/elimina', 'WorkshopController@destroy' )->name( 'workshop.destroy' );
 
+    /*
+     * Report formazione
+     */
+	  Route::get('certificates','CertificateController@index')->name('certificates.index');
+
+		/*
+		* Api
+		*/
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			/*

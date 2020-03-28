@@ -5,6 +5,7 @@ use App\Models\Cart\CartCourseTransactions;
 use App\Models\Cart\CartOrders;
 use App\Models\Cart\FastTrack;
 use App\Models\Category;
+use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\DocumentCategories;
 use App\Models\Exams\LrnExamSession;
@@ -107,6 +108,9 @@ trait UserRelationships{
 	}
 	public function tracking(){
 			return $this->hasMany(Tracking::class,'user_id','id');
+	}
+	public function certificate(){
+			return $this->hasMany(Certificate::class,'user_id');
 	}
 
 }
