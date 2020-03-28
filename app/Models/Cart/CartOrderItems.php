@@ -2,6 +2,7 @@
 
 namespace App\Models\Cart;
 
+use App\Models\Course;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +36,10 @@ class CartOrderItems extends Model
 
 	public function order(){
 		return $this->belongsTo(CartOrders::class,'order_id','id');
+	}
+
+	public function course(){
+		return $this->belongsTo(Course::class,'item_id','id');
 	}
 
 	public function scopeType($query){

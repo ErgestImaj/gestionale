@@ -11,7 +11,10 @@ class OrdersController extends Controller
 	{
 		$orders = CartOrders::with([
 			'orderItems' => function ($query) {
-				$query->type()->select(['id', 'order_id', 'qty', 'price', 'status'])->get();
+				$query->type()->select(['id', 'order_id', 'item_id', 'qty', 'price', 'status'])->get();
+			},
+			'orderItems.course' => function ($query) {
+				$query->select(['id', 'name'])->get();
 			},
 			'structure' => function ($query) {
 				$query->select(['id', 'firstname']);

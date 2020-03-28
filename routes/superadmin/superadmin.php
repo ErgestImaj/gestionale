@@ -103,7 +103,8 @@ Route::group([
     /*
      * Report formazione
      */
-	  Route::get('certificates','CertificateController@index')->name('certificates.index');
+	  Route::get('/api/certificates','CertificateController@index')->name('certificates.index');
+	  Route::view('certificates','certificate.index')->name('certificates.list');
 
 		/*
 		* Api

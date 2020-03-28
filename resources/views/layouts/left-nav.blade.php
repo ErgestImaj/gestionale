@@ -60,7 +60,7 @@
         </li>
 			<!--Certificates-->
 			<li class="nav-item @if(Request::is('amministrazione/certificates*'))active @endif">
-				<a class="nav-link" href="{{route('admin.certificates.index')}}">
+				<a class="nav-link" href="{{route('admin.certificates.list')}}">
 					<i class="fas fa-graduation-cap menu-icon"></i>
 					<span class="menu-title">Report formazione</span>
 				</a>
@@ -140,7 +140,7 @@
 					</a>
 					<div class="collapse" id="cart">
 						<ul class="nav flex-column sub-menu">
-							<li class="nav-item"> <a class="nav-link" href="#">Elenco Ordini</a></li>
+							<li class="nav-item"> <a class="nav-link" href="{{route('cart.orders.list')}}">Elenco Ordini</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Ordini Strutture</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Fast Track</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Electronic Invoice</a></li>
@@ -150,7 +150,7 @@
 				<!--.Orders-->
 			<!--Tracking-->
 			<li class="nav-item @if(Request::is('tracking/*'))active @endif">
-				<a class="nav-link" href="{{route('tracking.index')}}">
+				<a class="nav-link" href="{{route('tracking.list')}}">
 					<i class="fas fa-truck menu-icon"></i>
 					<span class="menu-title">Tracking</span>
 				</a>

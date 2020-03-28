@@ -241,8 +241,10 @@ export default {
 				this.submiting = true;
 				if (this.isEdit==true){
 					let formData = new FormData();
+					let data = JSON.parse(JSON.stringify(this.content));
+					data.course_id = data.course.id;
 					formData.append("lms_file", this.content.lms_file);
-					formData.append("content", JSON.stringify(this.content));
+					formData.append("content", JSON.stringify(data));
 					axios
 						.post(`/lms-content/${this.content.hashid}/update`, formData, {
 							headers: {
