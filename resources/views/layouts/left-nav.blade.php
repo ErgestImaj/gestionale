@@ -106,11 +106,11 @@
             </div>
         </li>
         <!--Messages-->
+
         <li class="nav-item @if(Request::is('amministrazione/messaggi*'))active @endif">
             <a class="nav-link" href="{{route('admin.massemail')}}" >
                 <i class="fas fa-envelope menu-icon"></i>
                 <span class="menu-title">{{trans('menu.mass_emails')}}</span>
-                <i class="menu-arrow"></i>
             </a>
         </li>
         <li class="nav-item @if(Request::is('amministrazione/workshops*'))active @endif">
@@ -140,6 +140,14 @@
 					</div>
 				</li>
 				<!--.Orders-->
+			<!--Tracking-->
+			<li class="nav-item @if(Request::is('tracking/*'))active @endif">
+				<a class="nav-link" href="{{route('tracking.index')}}">
+					<i class="fas fa-truck menu-icon"></i>
+					<span class="menu-title">Tracking</span>
+				</a>
+			</li>
+			<!--.Tracking-->
         <li class="nav-item @if(Request::is('amministrazione/settings*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                 <i class="fas fa-tools  menu-icon"></i>

@@ -11,6 +11,7 @@ use App\Models\Exams\LrnExamSession;
 use App\Models\Exams\MediaformExamSession;
 use App\Models\MassMailHistory;
 use App\Models\Structure;
+use App\Models\Tracking;
 use App\Models\UsersInfo;
 
 trait UserRelationships{
@@ -103,6 +104,9 @@ trait UserRelationships{
 		}
 	public function orders(){
 		return $this->hasMany(CartOrders::class,'user_id','id');
+	}
+	public function tracking(){
+			return $this->hasMany(Tracking::class,'user_id','id');
 	}
 
 }

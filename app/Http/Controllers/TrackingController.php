@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrackingRequest;
+use App\Models\Exams\LrnExamSession;
 use App\Models\Tracking;
 use Illuminate\Http\Request;
 
@@ -24,7 +26,7 @@ class TrackingController extends Controller
 					'structure'=>function($query){
 						$query->select(['id','firstname']);
 					},
-				])->get();
+				])->get(['user_id','lrn_exam_session_id','code','estimate_date','status','state','nr_certificates','send_date','expiry_date']);
 
     }
 
@@ -38,16 +40,46 @@ class TrackingController extends Controller
         //
     }
 
+    public function getLrnExamSessions(){
+
+    	return LrnExamSession::with([
+				'owner'=>function($query){
+					$query->select(['id','firstname']);
+				},
+				'course'=>function($query){
+					$query->select(['id','name']);
+				}
+			])->get(['id','user_id','course_id','date']);
+
+		}
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrackingRequest $request)
     {
-        //
-    }
+			try {
+        $tracking = new Tracking;
+				$tracking->created_by = auth()->id();
+			  $tracking->fill($request->fillFormFields());
+				$tracking->save();
+				return response( [
+					'status' => 'success',
+					'msg'    => trans( 'messages.success' ),
+					'redirect'=> route('tracking.index')
+				] );
+
+			}catch (\Exception $exception){
+				logger('Cant create tracking: '.auth()->id().': '.$exception->getMessage());
+				return response( [
+					'status' => 'error',
+					'msg'    => trans( 'messages.error' )
+				] );
+			}
+		}
+
 
     /**
      * Display the specified resource.
