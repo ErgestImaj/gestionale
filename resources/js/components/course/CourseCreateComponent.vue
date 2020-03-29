@@ -110,7 +110,8 @@
 										v-model="course.min_order_affiliate"
 										:error-messages="getError('min_order_affiliate')"
 									></v-text-field>
-									<v-select dense outlined
+									<v-select
+										dense outlined
 										:label="trans('form.vat_rate')"
 										v-model="course.vat_rate"
 										item-value="hashid"
@@ -131,32 +132,37 @@
 									<v-switch
 										v-model="course.face_id"
 										label="Riconoscimento Facciale"
-										value="1"
 									></v-switch>
-									<v-text-field dense outlined
-										:label="trans('form.min_order_partner')"
-										v-model="course.min_order_partner"
-										:error-messages="getError('min_order_partner')"
+									<v-switch
+										v-model="course.pause"
+										label="Pauza Del Corso"
+									></v-switch>
+									<v-text-field v-if="course.pause" dense outlined
+										label="Frequenca di pausa"
+										v-model="course.pause_frequency"
+										:error-messages="getError('pause_frequency')"
+										hint="in minuti esempio:15"
+										persistent-hint
+									></v-text-field>
+									<v-text-field v-if="course.pause" dense outlined
+										label="Tempo di pausa"
+										v-model="course.pause_time"
+										:error-messages="getError('pause_time')"
+										hint="in minuti esempio:15"
+										persistent-hint
+									></v-text-field>
+									<v-text-field v-if="course.pause" dense outlined
+										label="Massimo ore"
+										v-model="course.total_hours"
+										:error-messages="getError('total_hours')"
+										hint="in minuti esempio:120"
+										persistent-hint
 									></v-text-field>
 									<v-text-field dense outlined
-										:label="trans('form.min_order_master')"
-										v-model="course.min_order_master"
-										:error-messages="getError('min_order_master')"
+										label="Numero di studenti per corso"
+										v-model="course.student_nr"
+										:error-messages="getError('student_nr')"
 									></v-text-field>
-									<v-text-field dense outlined
-										:label="trans('form.min_order_affiliate')"
-										v-model="course.min_order_affiliate"
-										:error-messages="getError('min_order_affiliate')"
-									></v-text-field>
-									<v-select dense outlined
-										:label="trans('form.vat_rate')"
-										v-model="course.vat_rate"
-										item-value="hashid"
-										item-text="name"
-										:items="vatrates"
-										:error-messages="getError('vat_rate')"
-									></v-select>
-
 								</v-col>
 							</v-row>
 						</v-card-text>
@@ -200,13 +206,13 @@
         Image,
     } from "tiptap-vuetify";
     export default {
-        props: ['oldCourse', 'categories', 'expirations', 'vatrates'],
+        props: ['oldCourse','settings', 'categories', 'expirations', 'vatrates'],
         dependencies: 'globalService',
         data() {
             return {
                 rrp: null,
                 course: {
-                    vat_rate: this.vatrates[0],
+                    vat_rate: this.vatrates[0].hashid,
 								},
 								errors: {},
 								loading: true,
@@ -243,8 +249,7 @@
         },
 				mounted() {
             if (this.isEdit() ) {
-            	console.log(this.oldCourse)
-                this.course = this.oldCourse;
+               this.course = Object.assign({}, this.oldCourse, this.settings);
                 this.categories.forEach(item => {
                     if (item.id === this.course.category_id) {
                         this.course.category = item;

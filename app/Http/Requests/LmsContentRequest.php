@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Helpers\FileExtensionsHelper;
 use App\Helpers\Upload;
+use App\Helpers\UploadHelper;
 use App\Helpers\UploadToBox;
 use App\Models\Course;
 use App\Models\ModuleContent;
@@ -89,7 +90,7 @@ class LmsContentRequest extends FormRequest
         return [
             'title'=>$this->title,
             'code'=>$this->code,
-            'description'=>$this->description,
+            'description'=>UploadHelper::storeImagesFromEditor($this->description),
             'module_id'=>$this->module,
             'content_type'=>$this->content_type,
             'state'=>ModuleContent::IS_ACTIVE,

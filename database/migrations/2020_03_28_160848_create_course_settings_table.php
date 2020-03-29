@@ -18,8 +18,8 @@ class CreateCourseSettingsTable extends Migration
             $table->integer('student_nr')->nullable();
             $table->integer('course_id');
 			  		$table->boolean('pause')->default(0);
-			  		$table->integer('pause_time')->default(0);
-			  		$table->integer('total_hours')->default(0);
+			  		$table->integer('pause_time')->nullable();
+			  		$table->integer('total_hours')->nullable();
 			  		$table->integer('created_by');
 			  		$table->integer('updated_by')->nullable();
             $table->timestamps();

@@ -174,55 +174,44 @@ class ModuleContentController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function updateLms( LmsContentRequest $request, ModuleContent $lms_content ) {
-		dd($request->all());
-		$file = null;
-		if ($this->hasFile('lms_file')){
-			if ($this->file('lms_file')->isValid()) {
-				#file
-				$file = $this->file('lms_file');
-				#get file extension
-				$extension =  $file->getClientOriginalExtension();
-				#register file name
-				$name = $file->getClientOriginalName();
-				$name = microtime() . '_' . $name;
-				#take care of save
-				if (in_array($extension,FileExtensionsHelper::allowedExtensions())){
-					$upload = new Upload();
-					$file = $upload->upload($file, 'public/'.ModuleContent::CONTENT_PATH)->getData();
-					$url = $file['basename'];
-				}else if(in_array($extension,FileExtensionsHelper::allowedExtensionsForBox())){
-					$url = UploadToBox::exportFile($file);
-				}else{
-					return response( [
-						'status' => 'error',
-						'msg'    => trans('messages.error_file')
-					] );
-				}
 
+		$url='';
+		$is_url = false;
 
-				$url;
+		switch ($request->input('content_type')) {
+			case 'url':
+			case 'video_url':
+			case 'audio_url':
+				$url = $request->input('file_path');
+				$is_url = true;
+				break;
+			case 'file' :
+			case 'video' :
+			case 'audio' :
+				$data = UploadHelper::uploadAndGetUrl($request);
+				$url = $data['url'];
+				$is_url = $data['is_url'];
+				break;
 
-				try{
-					$document->save();
-					$document->categories()->attach($request->input('category'));
-					return response( [
-						'status' => 'success',
-						'msg'    => trans('messages.success')
-					] );
-				}catch(\Exception $exception){
-					logger($exception->getMessage());
-					return response( [
-						'status' => 'error',
-						'msg'    => trans('messages.error')
-					] );
-				}
-
-			}
 		}
-		return response( [
-			'status' => 'error',
-			'msg'    => trans('messages.error_file')
-		] );
+		try{
+			$lms_content->file_path = empty($url) ? $lms_content->file_path : $url;
+			$lms_content->is_url = $is_url;
+			$lms_content->fill( $request->fillFormData() );
+			$lms_content->save();
+			return response( [
+				'status' => 'success',
+				'msg'    => trans('messages.success')
+			] );
+
+		}catch(\Exception $exception){
+			logger($exception->getMessage());
+			return response( [
+				'status' => 'error',
+				'msg'    => trans('messages.error')
+			] );
+		}
+
 	}
 
 	/**

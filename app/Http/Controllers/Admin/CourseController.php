@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Expiry;
 use App\Models\VatRate;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
 class CourseController extends Controller
@@ -70,17 +71,20 @@ class CourseController extends Controller
 	public function store(CourseRequest $request)
 	{
 		$this->authorize('create', Course::class);
-
+    DB::beginTransaction();
 		try {
 			$course = new Course();
 			$course->fill($request->fillFormData());
 			$course->save();
+			$course->settings()->create($request->fillCourseSettingsData());
+			DB::commit();
 			return response([
 				'status' => 'success',
 				'msg' => trans('messages.success'),
 				'redirect'=>route('admin.courses.list')
 			]);
 		} catch (\Exception $exception) {
+			DB::rollback();
 			logger($exception->getMessage());
 			return response([
 				'status' => 'error',
@@ -115,6 +119,13 @@ class CourseController extends Controller
 		return view('course.edit', [
 			'categories' => $categories,
 			'course' => $course,
+			'settings'=>[
+				'student_nr'=>$course->settings->student_nr??null,
+				'pause'=>$course->settings->pause??null,
+				'pause_time'=>$course->settings->pause_time??null,
+				'pause_frequency'=>$course->settings->pause_frequency??null,
+				'total_hours'=>$course->settings->total_hours??null,
+			],
 			'expirations' => $expirations,
 			'vatrates' => $vatrates,
 		]);
@@ -130,11 +141,16 @@ class CourseController extends Controller
 	public function update(CourseRequest $request, Course $course)
 	{
 		$this->authorize('update', $course);
-
-		$course->fill($request->fillFormData());
-
 		try {
+			$course->fill($request->fillFormData());
 			$course->update();
+			if ($course->settings()->exists()){
+				$settings = $course->settings()->first();
+				$settings->update($request->fillCourseSettingsData());
+			}else{
+				$course->settings()->create($request->fillCourseSettingsData());
+			}
+
 			return response([
 				'status' => 'success',
 				'msg' => trans('messages.success')

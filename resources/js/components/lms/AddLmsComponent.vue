@@ -72,7 +72,7 @@
 										:error-messages="errors.content_type ? errors.content_type[0] : []"
 									></v-select>
 								</v-col>
-								<v-col cols="12" md="6" class="gel">
+								<v-col :cols="isEdit  && showFile ? 10 : 12" :md="isEdit  && showFile ? 5 : 6" class="gel">
 									<v-text-field
 										v-if="showFile"
 										:label="trans('form.choose_file')"
@@ -97,6 +97,11 @@
 										dense
 										:error-messages="errors.file_path ? errors.file_path[0] : []"
 									></v-text-field>
+								</v-col>
+								<v-col cols="12" md="1"  v-if="isEdit && showFile && content.file_path" class="text-md-right">
+									<v-btn class="icon-space" :href="content.content_path+content.file_path" color="primary" target="_blank" dark>
+										<v-icon dark>mdi-eye</v-icon>
+									</v-btn>
 								</v-col>
 								<v-col cols="6">
 									<v-text-field dense outlined
@@ -146,22 +151,14 @@
         Blockquote,
         HardBreak,
         HorizontalRule,
-        History
+        History,
+			  Image,
     } from "tiptap-vuetify";
     export default {
         props: ['isEdit', 'editContent', 'prevCourse', 'selModule'],
         data() {
             return {
-                content: {
-                    title: null,
-                    code: null,
-                    course: null,
-                    module: null,
-                    content_type: null,
-                    lms_file: null,
-                    file_path: null,
-                    description: null
-                },
+                content: {},
                 courses: [],
                 modules: [],
                 content_types: [
@@ -199,7 +196,8 @@
                     Code,
                     HorizontalRule,
                     Paragraph,
-                    HardBreak
+                    HardBreak,
+									Image,
                 ],
                 initModule: true,
             };
@@ -214,7 +212,9 @@
             handleEdit() {
                 if (this.isEdit == true) {
                     this.content = this.editContent[0];
+						   			console.log( this.editContent[0])
                     this.$set(this.content, 'course', this.editContent[1]);
+
                 }
             },
             handlePrevCourse(courseid) {
@@ -364,8 +364,7 @@
                 }
             },
             selType(val) {
-                this.content.lms_file = null;
-                this.content.file_path = null;
+
                 if (["file", "video", "audio"].indexOf(val) > -1) {
                     this.showFile = true;
                     this.showUrl = false;

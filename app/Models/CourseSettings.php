@@ -10,10 +10,17 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class CourseSettings extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships;
 
 	protected $table = 'course_settings';
 	protected $guarded = [];
 	protected $appends = ['hashid'];
 
+	protected static function boot()
+	{
+		parent::boot();
+		static::creating(function($module){
+			$module->created_by = auth()->id();
+		});
+	}
 }

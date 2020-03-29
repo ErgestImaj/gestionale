@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\UploadHelper;
 use App\Models\Category;
 use App\Models\Expiry;
 use App\Models\VatRate;
@@ -58,6 +59,12 @@ class CourseRequest extends FormRequest
             'min_order_master'=>'required|numeric',
             'min_order_affiliate'=>'required|numeric',
             'vat_rate'=>'required|exists:vat_rates,id',
+					  'face_id'=>'nullable|numeric',
+					  'pause'=>'nullable|boolean',
+					  'pause_frequency'=>'required_if:pause,1|nullable|numeric',
+					  'pause_time'=>'required_if:pause,1|nullable|numeric',
+					  'total_hours'=>'required_if:pause,1|nullable|numeric',
+					  'student_nr'=>'nullable|numeric',
         ];
     }
 
@@ -77,25 +84,42 @@ class CourseRequest extends FormRequest
             'min_order_master'=>mb_strtolower(trans('form.min_order_master'),'UTF-8'),
             'min_order_affiliate'=>mb_strtolower(trans('form.min_order_affiliate'),'UTF-8'),
             'vat_rate'=>mb_strtolower(trans('form.vat_rate'),'UTF-8'),
+					  'face_id'=>'riconoscimento facciale',
+					  'pause'=>'pauza del corso',
+					  'pause_frequency'=>'frequenca di pausa',
+					  'pause_time'=>'tempo di pausa',
+					  'total_hours'=>'massimo ore',
+					  'student_nr'=>'numero di studenti per corso',
         ];
     }
 
     public function fillFormData()
     {
         return [
-            'name'=>$this->course_name,
+            'name'=>$this->name,
             'category_id'=>$this->category,
-            'code'=>$this->course_code,
+            'code'=>$this->code,
             'duration'=>$this->duration,
             'expiry'=>$this->expiry,
-            'description'=>$this->course_description,
-            'skills'=>$this->skills,
-            'program_description'=>$this->program_description,
+            'description'=>UploadHelper::storeImagesFromEditor($this->description),
+            'skills'=>UploadHelper::storeImagesFromEditor($this->skills),
+            'program_description'=>UploadHelper::storeImagesFromEditor($this->program_description),
             'price'=>$this->price,
             'min_order_partner'=>$this->min_order_partner,
             'min_order_master'=>$this->min_order_master,
             'min_order_affiliate'=>$this->min_order_affiliate,
             'vat_rate'=>$this->vat_rate,
+            'face_id'=>$this->face_id,
         ];
     }
+    public function fillCourseSettingsData(){
+    	return [
+				'pause'=>$this->pause ? true : false,
+				'pause_frequency'=>$this->pause_frequency,
+				'pause_time'=>$this->pause_time,
+				'total_hours'=>$this->total_hours,
+				'student_nr'=>$this->student_nr,
+				'updated_by'=>auth()->id()
+			];
+		}
 }

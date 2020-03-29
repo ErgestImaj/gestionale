@@ -22,6 +22,7 @@ class FileExtensionsHelper {
     public static function allowedExtensionsForBox(){
         return [
             'xlsx',
+            'xls',
             'doc',
             'docx',
             'txt',

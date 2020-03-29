@@ -12,6 +12,7 @@
 				:expirations="{{$expirations}}"
 				:vatrates="{{$vatrates}}"
 				:old-course="{{$course}}"
+				:settings="{{json_encode($settings)}}"
 			></add-course>
 		</v-app>
 @endsection
