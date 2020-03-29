@@ -139,8 +139,9 @@
                         this.submiting = false
                         if (response.data.status == 'success') {
                             swal("Good job!", response.data.msg, "success");
-                            this.doc = {};
-                            this.doc_file = null;
+													setTimeout(function () {
+														window.location.href = response.data.redirect;
+													}, 1500)
                         }
                         else if (response.data.status === 'error') {
                             swal({

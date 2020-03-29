@@ -9,7 +9,7 @@ return [
     'success'                     => 'I dati sono stati salvati correttamente!',
     'delete'                      => 'I dati sono stati cancelati correttamente!',
     'error'                       => 'Si è verificato un errore, riprova più tardi.',
-    'error_file'                  => 'Il contenuto che stai caricando non e correto.',
+    'error_file'                  => 'Abbiamo avuto un problema durante caricamento del file.',
     'change_status'               => 'Lo stato è cambiato con successo',
     'delete_msg'                  => ':record eliminato con successo',
     'delete_confirm'              => 'Sei sicuro di voler eliminare questo :record?',

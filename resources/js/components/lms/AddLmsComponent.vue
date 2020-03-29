@@ -263,7 +263,14 @@
                             .then(response => {
                                 if (response.data.status == "success") {
                                     swal("Good job!", response.data.msg, "success");
-                                }
+                                } else if (response.data.status === 'error') {
+																	swal({
+																		title: "Whoops!",
+																		text: response.data.msg,
+																		icon: "warning",
+																		dangerMode: true,
+																	});
+																}
                             })
                             .catch(error => {
                                 this.errors = error.response.data.errors;
@@ -299,7 +306,14 @@
                                 if (response.data.status == "success") {
                                     swal("Good job!", response.data.msg, "success");
                                     this.content = {};
-                                }
+                                }else if (response.data.status === 'error') {
+																	swal({
+																		title: "Whoops!",
+																		text: response.data.msg,
+																		icon: "warning",
+																		dangerMode: true,
+																	});
+																}
                             })
                             .catch(error => {
                                 this.errors = error.response.data.errors;

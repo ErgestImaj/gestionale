@@ -11,22 +11,26 @@ class UploadToBox {
 
     public static function exportFile($file){
         $url = '';
-        $api = new BoxAppUser( config( 'boxapi' ) );
+				try {
+					$api = new BoxAppUser( config( 'boxapi' ) );
 
-        $name = $file->getClientOriginalName();
-        $name = microtime() . '_' . $name;
+					$name = $file->getClientOriginalName();
+					$name = microtime() . '_' . $name;
 
-       $uploadedFile = $api->uploadFile( $file, 0, $name, false );
+					$uploadedFile = $api->uploadFile( $file, 0, $name, false );
 
-       $fileID = $uploadedFile['entries'][0]['id'];
+					$fileID = $uploadedFile['entries'][0]['id'];
 
-       $sharedLink = $api->createShareLink( $fileID, 'open' );
+					$sharedLink = $api->createShareLink( $fileID, 'open' );
 
-       if (isset($sharedLink['shared_link']['url'] )){
-           $linkData   = explode( '/', $sharedLink['shared_link']['url'] )[4];
-           $url = 'https://app.box.com/embed_widget/s/' . $linkData;
-       }
-       return $url;
+					if (isset($sharedLink['shared_link']['url'] )){
+						$linkData   = explode( '/', $sharedLink['shared_link']['url'] )[4];
+						$url = 'https://app.box.com/embed_widget/s/' . $linkData;
+					}
+				}catch (\Exception $exception){
+					logger('cant uplad file to box: '.$exception->getMessage());
+				}
+			return $url;
 
    }
 }

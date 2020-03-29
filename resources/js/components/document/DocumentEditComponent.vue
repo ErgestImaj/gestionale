@@ -114,7 +114,7 @@
                 doc: {},
                 images:['jpg', 'jpeg', 'png',],
                 videos:['mp4', 'mpeg', 'x-flv', 'avi',],
-                box:[ 'xlsx', 'doc', 'docx', 'txt', 'pptx', 'csv'],
+                box:[ 'xlsx', 'doc', 'docx', 'txt', 'pptx', 'csv','xls'],
                 doc_file: null,
                 errors: {},
                 submiting: false,
@@ -127,6 +127,7 @@
             this.getDocument()
             this.getCategories()
             this.getRoles()
+
         },
         methods: {
             getDocument() {
@@ -134,6 +135,7 @@
                     .then(response => {
                         if (response.data) {
                             this.doc = response.data.document;
+													console.log(this.doc)
                             this.doc.category = this.convertObjectToArray(response.data.categories);
                             this.doc.role = this.convertObjectToArray(response.data.roles);
                         }
@@ -191,8 +193,9 @@
                         this.submiting = false
                         if (response.data.status == 'success') {
                             swal("Good job!", response.data.msg, "success");
-                            this.doc_file = null;
-                            location.reload()
+													setTimeout(function () {
+														window.location.href = response.data.redirect;
+													}, 1500)
                         }
                         else if (response.data.status === 'error') {
                             swal({
