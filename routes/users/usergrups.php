@@ -32,5 +32,6 @@ Route::group([
 
 	  Route::resource('/api/tracking','TrackingController');
 	  Route::view('/tracking', 'tracking.index')->name('tracking.list');
+	  Route::view('/tracking/create', 'tracking.create')->name('tracking.create');
 
 });

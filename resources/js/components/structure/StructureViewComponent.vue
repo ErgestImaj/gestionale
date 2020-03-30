@@ -297,7 +297,7 @@
 	.gactions .v-list-item {
 		min-height: 33px;
 	}
-	button.gadd {
+	.gadd {
 		position: relative;
 		display: block;
 		float: right;

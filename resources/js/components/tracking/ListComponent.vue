@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<v-btn :href="createUrl" class="gadd">{{ trans('form.add_content') }}</v-btn>
 		<v-card>
 			<v-card-title>
 				Lista Tracking
@@ -27,6 +28,7 @@
 
 <script>
     export default {
+        props: ['createUrl'],
         dependencies: 'globalService',
         data() {
             return {
@@ -55,6 +57,7 @@
         mounted() {
             this.footerProps = this.globalService.tableConfig().footerProps;
             this.getTrackings();
+            console.log(this.createUrl);
         },
         methods: {
             getTrackings() {
@@ -78,5 +81,9 @@
 	}
 	span.gstatus.ricevuto {
 		background: #81C784;
+	}
+	a.gadd span {
+		display: block;
+		line-height: 36px;
 	}
 </style>

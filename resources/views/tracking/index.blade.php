@@ -9,7 +9,7 @@
 		</h3>
 	</div>
 	<v-app>
-		<tracking-list></tracking-list>
+		<tracking-list create-url="{{route('tracking.create')}}"></tracking-list>
 	</v-app>
 @endsection
 
