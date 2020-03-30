@@ -156,6 +156,23 @@
 				</a>
 			</li>
 			<!--.Tracking-->
+			<!--StoreHouse-->
+			<li class="nav-item @if(Request::is('amministrazione/storehouse*'))active @endif">
+				<a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
+					<i class="fas fa-box  menu-icon"></i>
+					<span class="menu-title">Magazzino</span>
+					<i class="menu-arrow"></i>
+				</a>
+				<div class="collapse" id="settings">
+					<ul class="nav flex-column sub-menu">
+						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.index')}}">Personale</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.partner')}}">Partner</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.master')}}">Master</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.affiliate')}}">Affiliati</a></li>
+					</ul>
+				</div>
+			</li>
+			<!--.StoreHouse-->
         <li class="nav-item @if(Request::is('amministrazione/settings*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
                 <i class="fas fa-tools  menu-icon"></i>

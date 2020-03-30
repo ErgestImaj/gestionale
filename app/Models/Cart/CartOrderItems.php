@@ -45,4 +45,5 @@ class CartOrderItems extends Model
 	public function scopeType($query){
 		return $query->where('type',self::TYPE_COURSE);
 	}
+
 }

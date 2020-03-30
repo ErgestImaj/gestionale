@@ -99,7 +99,7 @@ class LoginController extends Controller
                 if (md5($request->input('password')) === $user->password) {
                     $user->password = Hash::make($request->input('password'));
                     $user->change_password = 1;
-                    $user->save();
+                    $user->update();
                 }
             }
             return $this->sendLoginResponse($request);

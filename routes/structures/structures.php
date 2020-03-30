@@ -66,9 +66,10 @@ Route::group([
 			});
 });
 
+
 Route::group([
     'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master|affiliati' ],
-    'prefix'=>'amministrazione','as'=>'location',
+    'prefix'=>'amministrazione','as'=>'general.',
 ],function() {
     /*
      * Location
@@ -80,4 +81,13 @@ Route::group([
 			Route::get('/document-types', 'DocumentTypesController@getDocumentTypes');
 			Route::get('/user-types', 'EducationsController@userTypeLabels');
 		});
+
+		/*
+		 * Storehouse
+		 */
+	  Route::get('/storehouse','StorehouseController@index')->name('storehouse.index');
+	  Route::get('/storehouse-partner','StorehouseController@indexPartner')->name('storehouse.partner');
+	  Route::get('/storehouse-master','StorehouseController@indexMaster')->name('storehouse.master');
+	  Route::get('/storehouse-affiliate','StorehouseController@indexAffiliate')->name('storehouse.affiliate');
+
 });

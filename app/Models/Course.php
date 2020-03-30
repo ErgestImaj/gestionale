@@ -4,6 +4,7 @@ namespace App\Models;
 
 
 use App\Models\Cart\CartCourseTransactions;
+use App\Models\Cart\CartOrderItems;
 use App\Models\Cart\CourseRequestItems;
 use App\Models\Exams\LrnExamSession;
 use App\Models\Exams\MediaformExamSession;
@@ -71,5 +72,8 @@ class Course extends Model
 		}
 		public function settings(){
     	return $this->hasOne(CourseSettings::class,'course_id');
+		}
+		public function ordersItems(){
+    	return $this->hasMany(CartOrderItems::class,'item_id','id');
 		}
 }
