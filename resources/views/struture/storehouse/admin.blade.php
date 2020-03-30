@@ -32,7 +32,7 @@
 
 											<div class="ml-auto">
                                             <span class="mt-2 ml-2 badge badge-info">
-                                                Quantità: {{$course->ordersItems()->type()->sum('qty') ?? 0}}
+                                                Quantità: {{$course->aquisti}}
                                             </span>
 											</div>
 										</div>
@@ -50,17 +50,7 @@
 											</div>
 
 											<div class="ml-auto">
-                                            <span class="mt-2 ml-2 badge badge-info ">
-																								@php
-																									$total = 0;
-																								@endphp
-																							@foreach($course->ordersItems()->type()->get() as $order)
-																								@php
-																									$total += $order->qty*$order->price;
-																								@endphp
-																							@endforeach
-																							{{price_formater($total)}}
-                                            </span>
+                                            <span class="mt-2 ml-2 badge badge-info ">{{$course->total}} </span>
 											</div>
 										</div>
 									</div>
@@ -78,7 +68,7 @@
 											</div>
 											<div class="ml-auto">
                                             <span class="mt-2 ml-2 badge badge-info ">
-                                                {{$course->cartCourseTransactions()->type(App\Models\Cart\CartCourseTransactions::TYPE_ADMIN_ADDED)->sum('qty') ?? 0}}
+                                                {{$course->admin}}
                                             </span>
 											</div>
 										</div>
