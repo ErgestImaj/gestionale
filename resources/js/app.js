@@ -78,6 +78,7 @@ Vue.component('user-details', require('./components/users/UserDetailsComponent')
 Vue.component('sessione-essame-create', require('./components/sessione-esame/CreateComponent').default);
 Vue.component('sessione-essame-list', require('./components/sessione-esame/ListComponent').default);
 Vue.component('tracking-list', require('./components/tracking/ListComponent').default);
+Vue.component('tracking-create', require('./components/tracking/CreateComponent').default);
 Vue.component('certificate-list', require('./components/certificate/ListComponent').default);
 Vue.component('elenco-ordini', require('./components/orders/ElencoOrdiniComponent').default);
 
