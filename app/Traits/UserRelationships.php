@@ -39,6 +39,7 @@ trait UserRelationships{
     public function userCourses(){
     	return $this->belongsToMany(Course::class,'course_user','user_id','course_id');
 		}
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
