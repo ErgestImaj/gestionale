@@ -19,7 +19,24 @@
 					<span :class="'gstatus ' + item.status_name.toLowerCase()">{{ item.status_name }}</span>
 				</template>
 				<template v-slot:item.actions="{ item }">
+					<v-menu bottom left content-class="gactions">
+						<template v-slot:activator="{ on }">
+							<v-btn icon v-on="on">
+								<v-icon>mdi-dots-vertical</v-icon>
+							</v-btn>
+						</template>
 
+						<v-list dense>
+							<template v-for="(m, i) in menuItems">
+								<v-list-item :key="i" @click="menuClick(m.id, item)">
+									<v-list-item-icon>
+										<v-icon v-text="m.icon"></v-icon>
+									</v-list-item-icon>
+									<v-list-item-title>{{ m.title }}</v-list-item-title>
+								</v-list-item>
+							</template>
+						</v-list>
+					</v-menu>
 				</template>
 			</v-data-table>
 		</v-card>
@@ -27,6 +44,7 @@
 </template>
 
 <script>
+	import moment from 'moment';
     export default {
         props: ['createUrl'],
         dependencies: 'globalService',
@@ -39,6 +57,7 @@
                     { text: 'Codice', value: "code" },
                     { text: 'Data stimata', value: "estimate_date" },
                     { text: 'Struttura', value: "structure.firstname" },
+                    { text: 'Sessione d\'esame', value: "exam" },
                     { text: 'Data di invio', value: "send_date" },
                     { text: 'Data di scadenza', value: "expiry_date" },
                     { text: 'Stato', value: "status_name" },
@@ -48,6 +67,12 @@
                         sortable: false,
                         align: "right"
                     }
+                ],
+                menuItems: [
+                    { id: 1, title: "Edit", icon: "mdi-pencil-outline" },
+                    { id: 2, title: "Confim order recieved", icon: "" },
+                    { id: 3, title: "Order not recieved", icon: "" },
+                    { id: 4, title: "Delete", icon: "mdi-trash-can-outline" }
                 ],
                 trackings: [],
                 editData: null,
@@ -62,10 +87,35 @@
         methods: {
             getTrackings() {
                 axios.get(`/api/tracking`).then(response => {
-                    this.trackings = response.data;
+                    let trackings = response.data;
+
+                    trackings.forEach(t => {
+                        t.exam = t.lrnexam.course.name + ' -- ' + moment(t.lrnexam.date, 'YYYY-MM-DD').format('DD-MM-YYYY').toString();
+										});
+
+                    this.trackings = trackings;
                     this.loading = false;
                 });
             },
+						menuClick(id, item) {
+                switch (id) {
+                    case 1:
+                        // edit
+                        break;
+                    case 2:
+                        // confirm received
+                        break;
+                    case 3:
+                        // not received
+                        break;
+                    case 4:
+                        // delete
+                        break;
+                }
+            },
+						moment() {
+                return moment;
+						}
         }
     }
 </script>
