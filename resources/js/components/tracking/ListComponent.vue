@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<v-btn :href="createUrl" class="gadd">{{ trans('form.add_content') }}</v-btn>
+		<v-btn :href="createUrl" class="gadd">Crea Nuovo</v-btn>
 		<v-card>
 			<v-card-title>
-				Lista Tracking
+				Sistema - Tracciabilità
 				<v-spacer></v-spacer>
 				<v-text-field v-model="search" label="Cerca" single-line hide-details></v-text-field>
 			</v-card-title>
@@ -16,10 +16,10 @@
 				class="pa-4"
 			>
 				<template v-slot:item.status_name="{ item }">
-					<span :class="'gstatus ' + item.status_name.toLowerCase()">{{ item.status_name }}</span>
+					<span :class="'gstatus ' + item.status_name.split(' ').join('_').toLowerCase()">{{ item.status_name }}</span>
 				</template>
 				<template v-slot:item.actions="{ item }">
-					<v-menu bottom left content-class="gactions">
+					<v-menu  bottom left content-class="gactions">
 						<template v-slot:activator="{ on }">
 							<v-btn icon v-on="on">
 								<v-icon>mdi-dots-vertical</v-icon>
@@ -27,8 +27,8 @@
 						</template>
 
 						<v-list dense>
-							<template v-for="(m, i) in menuItems">
-								<v-list-item :key="i" @click="menuClick(m.id, item)">
+							<template  v-for="(m, i) in showActions(item.status)">
+								<v-list-item  :key="i" @click="menuClick(m.id, item)">
 									<v-list-item-icon>
 										<v-icon v-text="m.icon"></v-icon>
 									</v-list-item-icon>
@@ -70,8 +70,8 @@
                 ],
                 menuItems: [
                     { id: 1, title: "Edit", icon: "mdi-pencil-outline" },
-                    { id: 2, title: "Confim order recieved", icon: "" },
-                    { id: 3, title: "Order not recieved", icon: "" },
+                    { id: 2, title: "Confim order recieved", icon: "mdi-gift-outline" },
+                    { id: 3, title: "Order not recieved", icon: "mdi-gift" },
                     { id: 4, title: "Delete", icon: "mdi-trash-can-outline" }
                 ],
                 trackings: [],
@@ -82,9 +82,22 @@
         mounted() {
             this.footerProps = this.globalService.tableConfig().footerProps;
             this.getTrackings();
-            console.log(this.createUrl);
         },
         methods: {
+					showActions($status){
+						let actions = {};
+						for (let k in this.menuItems) {
+
+							if (this.menuItems[k].id == 2 && $status == 2)
+								continue;
+              else if (this.menuItems[k].id == 3 && $status == 4)
+								continue;
+							else if (this.menuItems[k].id != 4 && $status == 3)
+								continue;
+							actions[k]= this.menuItems[k];
+						}
+						return actions;
+					},
             getTrackings() {
                 axios.get(`/api/tracking`).then(response => {
                     let trackings = response.data;
@@ -100,19 +113,37 @@
 						menuClick(id, item) {
                 switch (id) {
                     case 1:
-                        // edit
+                        this.edit(item)
                         break;
                     case 2:
-                        // confirm received
-                        break;
                     case 3:
-                        // not received
-                        break;
                     case 4:
-                        // delete
-                        break;
+											this.updateTrackingStatus(id,item)
+											break;
                 }
             },
+					  edit(item){
+							let nUrl = window.location.origin + "/tracking/"+item.hashid+"/edit";
+							window.location.href = nUrl;
+						},
+				  	updateTrackingStatus(id,item){
+							axios.patch(`/tracking/${item.hashid}/${id}/received`)
+								.then(response => {
+									if (response.data.status == "success") {
+										swal("Good job!", response.data.msg, "success");
+											this.getTrackings();
+									} else if (response.data.status === "error") {
+										swal({
+											title: "Whoops!",
+											text: response.data.msg,
+											icon: "warning",
+											dangerMode: true
+										});
+									}
+								})
+								.catch(error => {
+								})
+						},
 						moment() {
                 return moment;
 						}
@@ -131,6 +162,14 @@
 	}
 	span.gstatus.ricevuto {
 		background: #81C784;
+	}
+	span.gstatus.expired {
+		background: #E53935;
+	}
+	span.gstatus.da_spedire {
+		background: #42A5F5;
+	}span.gstatus.non_ricevuto {
+		background: #4DD0E1;
 	}
 	a.gadd span {
 		display: block;

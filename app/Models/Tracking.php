@@ -23,8 +23,9 @@ class Tracking extends Model
 
 	const STATUS_TO_SEND = 0;
 	const STATUS_DELIVERING = 1;
-	const STATUS_RECEIVD = 2;
+	const STATUS_RECEIVED = 2;
 	const STATUS_EXPIERD = 3;
+	const STATUS_NOT_RECEIVED = 4;
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
 
@@ -67,8 +68,9 @@ class Tracking extends Model
 		return [
 			self::STATUS_TO_SEND =>'Da spedire',
 			self::STATUS_DELIVERING =>'In consegna',
-			self::STATUS_RECEIVD =>'Ricevuto',
+			self::STATUS_RECEIVED =>'Ricevuto',
 			self::STATUS_EXPIERD =>'Expired',
+			self::STATUS_NOT_RECEIVED =>'Non Ricevuto',
 		];
 	}
 	public static function statusName($type){

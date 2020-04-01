@@ -9,7 +9,7 @@
 							<v-row>
 								<v-col cols="12" sm="12" class="gel">
 									<v-text-field dense outlined
-										label="Nome"
+										label="Codice"
 										v-model="content.code"
 										:error-messages="getError('code')"
 									></v-text-field>
@@ -32,48 +32,48 @@
 											<v-text-field readonly outlined dense v-on="on"
 												v-model="receivedDate"
 												label="Data ricevuta"
-												:error-messages="getError('received_date')"
+												:error-messages="getError('estimate_date')"
 											></v-text-field>
 										</template>
-										<v-date-picker v-model="content.received_date" @input="datePicker2 = false"></v-date-picker>
+										<v-date-picker v-model="content.estimate_date" @input="datePicker2 = false"></v-date-picker>
 									</v-menu>
 
 									<v-text-field dense outlined disabled
-										label="Expiry date"
+										label="Data di scadenza"
 										v-model="content.expiry_date"
 										:error-messages="getError('expiry_date')"
 									></v-text-field>
 
 									<v-text-field dense outlined
 										label="Numero certificati"
-										v-model="content.certificate_nr"
-										:error-messages="getError('certificate_nr')"
+										v-model="content.nr_certificates"
+										:error-messages="getError('nr_certificates')"
 									></v-text-field>
 
 									<v-autocomplete
 										dense outlined
 										label="Sessione d'esame"
-										v-model="content.exam"
+										v-model="content.lrn_exam_session_id"
 										:items="exams"
 										item-text="displayValue"
-										item-value="hashid"
-										:error-messages="getError('exam')"
+										item-value="id"
+										:error-messages="getError('lrn_exam_session_id')"
 									></v-autocomplete>
 
 									<v-text-field dense outlined disabled
-										label="Structura"
-										v-model="content.structure"
-										:error-messages="getError('strutura')"
+																label="Structura"
+																v-model="content.structure"
 									></v-text-field>
 
 									<span class="mr-3">Stato:</span>
 
 									<v-btn-toggle v-model="content.status" group mandatory color="primary">
-										<v-btn value="0">Non spedito</v-btn>
-										<v-btn value="1">Spedito</v-btn>
-										<v-btn value="2">In consegna</v-btn>
-										<v-btn value="3">Consegnato</v-btn>
+										<v-btn value="0">Da spedire</v-btn>
+										<v-btn value="1">In consegna</v-btn>
+										<v-btn value="2">Ricevuto</v-btn>
+										<v-btn value="3">Expired</v-btn>
 									</v-btn-toggle>
+
 								</v-col>
 							</v-row>
 						</v-card-text>
@@ -101,9 +101,6 @@
         data() {
             return {
                 submiting: false,
-                user: {
-                    type: this.userType,
-                },
 								content: {},
                 errors: {},
                 datePicker1: false,
@@ -116,7 +113,31 @@
         },
         methods: {
             save() {
-							//
+							if (!this.submiting){
+								this.submiting = true;
+								axios.post(`/tracking/store`,this.content)
+									.then(response => {
+										if (response.data.status == "success") {
+											swal("Good job!", response.data.msg, "success");
+											setTimeout(function () {
+												window.location.href = response.data.redirect;
+											}, 1500)
+										} else if (response.data.status === "error") {
+											swal({
+												title: "Whoops!",
+												text: response.data.msg,
+												icon: "warning",
+												dangerMode: true
+											});
+										}
+									})
+									.catch(error => {
+										this.errors = error.response.data.errors
+									})
+									.finally(() => {
+										this.submiting = false;
+									})
+							}
             },
 						getExams() {
                 axios.get(`/exams/api/lrn-exams`).then(response => {
@@ -136,15 +157,15 @@
         },
 				computed: {
             receivedDate() {
-                if (!this.content.received_date) { return  '' }
-                return moment(this.content.received_date, 'YYYY-MM-DD').format('DD-MM-YYYY').toString();
+                if (!this.content.estimate_date) { return  '' }
+                return moment(this.content.estimate_date, 'YYYY-MM-DD').format('DD-MM-YYYY').toString();
             },
             sendDate() {
                 if (!this.content.send_date) { return  '' }
                 return moment(this.content.send_date, 'YYYY-MM-DD').format('DD-MM-YYYY').toString();
             },
 						selExam() {
-                return this.content.exam;
+                return this.content.lrn_exam_session_id;
 						}
         },
 				watch: {
@@ -155,10 +176,10 @@
 								}
 						},
 						selExam(val) {
-                console.log(val);
                 this.exams.forEach(e => {
-                    if (e.hashid == val) {
+                    if (e.id == val) {
                         this.$set(this.content, 'structure', e.owner.firstname.toString());
+                        this.$set(this.content, 'user_id', e.owner.id);
 										}
 								})
 						}

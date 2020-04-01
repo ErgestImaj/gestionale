@@ -30,8 +30,13 @@ Route::group([
 
     //Tracking Orders
 
-	  Route::resource('/api/tracking','TrackingController');
+	  Route::get('/api/tracking','TrackingController@index');
 	  Route::view('/tracking', 'tracking.index')->name('tracking.list');
 	  Route::view('/tracking/create', 'tracking.create')->name('tracking.create');
+	  Route::post('/tracking/store', 'TrackingController@store')->name('tracking.store');
+	  Route::view('/tracking/{tracking}/edit', 'tracking.edit')->name('tracking.edit');
+	  Route::get('/tracking/{tracking}', 'TrackingController@edit')->name('tracking.edittracking');
+	  Route::post('/tracking/{tracking}/update', 'TrackingController@update')->name('tracking.update');
+	  Route::patch('/tracking/{tracking}/{status}/received', 'TrackingController@updateStatus')->name('tracking.updatestatus');
 
 });
