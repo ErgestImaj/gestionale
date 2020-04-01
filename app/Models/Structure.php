@@ -39,6 +39,20 @@ class Structure extends Model
 		'hashid','content_path'
 	];
 
+	public function isPartner()
+	{
+		return $this->type == self::TYPE_PARTNER;
+	}
+
+	public function isMaster()
+	{
+		return $this->type == self::TYPE_MASTER;
+	}
+
+	public function isAffiliate()
+	{
+		return $this->type == self::TYPE_AFFILIATE;
+	}
 	/**
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */

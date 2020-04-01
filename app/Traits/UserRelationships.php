@@ -113,5 +113,4 @@ trait UserRelationships{
 	public function certificate(){
 			return $this->hasMany(Certificate::class,'user_id');
 	}
-
 }

@@ -167,7 +167,7 @@
 					<ul class="nav flex-column sub-menu">
 						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.index')}}">Personale</a></li>
 						<!--Kjo do jete vetem per structure-->
-						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.personal')}}">Personale</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.personal')}}">Personale Structura</a></li>
 						<!--Kjo do jete vetem per structure-->
 						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.partner')}}">Partner</a></li>
 						<li class="nav-item"> <a class="nav-link" href="{{route('general.storehouse.master')}}">Master</a></li>
