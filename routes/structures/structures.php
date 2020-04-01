@@ -28,6 +28,9 @@ Route::group([
 			Route::delete('/sconto/{discount}/', 'DiscountController@destroy')->name('struture.sconto.destroy');
 			Route::post('/structure/{structure}/update', 'StructureController@update')->name('struture.update');
 			Route::patch('/{structure}/hirearcy/','StructureController@updateHierarchy')->name('struture.hierarchy');
+			Route::get('/{structure}/coursetransactions','CourseTransactionController@index');
+			Route::post('/{structure}/transaction/store','CourseTransactionController@store');
+			Route::delete('/transaction/{transaction}/destroy','CourseTransactionController@destroy');
 		});
 });
 

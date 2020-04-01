@@ -146,7 +146,7 @@
                 menuItems: [
                     { id: 1, title: "Edit", icon: "mdi-pencil-outline" },
                     { id: 2, title: "View", icon: "mdi-eye-outline" },
-                    { id: 3, title: "Add Discount", icon: "mdi-tag-plus" },
+                    { id: 3, title: "Assegna corsi e sconti", icon: "mdi-tag-plus" },
                     { id: 4, title: "Switch Account", icon: "mdi-account-convert" },
                     { id: 5, title: "Enable", title2: "Disable", icon: "" },
                     { id: 6, title: "Invia link di accesso", icon: "mdi-account-key-outline" },

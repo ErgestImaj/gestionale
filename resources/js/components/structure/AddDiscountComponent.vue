@@ -78,6 +78,79 @@
         </v-col>
       </v-row>
     </v-container>
+		<v-container>
+			<v-row>
+				<v-col cols="12" md="12">
+					<v-card outlined flat>
+						<v-card-title class="addd">
+							<span>Assegna corsi</span>
+						</v-card-title>
+						<v-card-text>
+							<v-row class="justify-space-between">
+								<v-col cols="12" md="5" class="gel">
+									<v-select
+										dense outlined label="Corsi"
+										v-model="trasaction.course"
+										:items="courses"
+										item-text="name"
+										item-value="id"
+										:error-messages="corsiErrors.course ?corsiErrors.course[0] : []"
+									></v-select>
+								</v-col>
+								<v-col cols="12" md="5" class="gel">
+									<v-text-field label="Numero corsi" outlined dense
+																v-model="trasaction.qty"
+																:error-messages="corsiErrors.qty ? corsiErrors.qty[0] : []"
+																 type="number"
+									></v-text-field>
+								</v-col>
+							</v-row>
+						</v-card-text>
+					</v-card>
+				</v-col>
+			</v-row>
+
+			<v-row>
+				<v-col cols="12" sm="12">
+					<v-btn
+						:loading="submitingCourse"
+						:disabled="submitingCourse"
+						color="primary"
+						class="ma-0 white--text"
+						@click="addCourse"
+					>Salva</v-btn>
+				</v-col>
+			</v-row>
+
+			<v-row>
+				<v-col cols="12" md="12">
+					<v-card>
+						<v-card-title>
+							Corsi Assegnati
+							<v-spacer></v-spacer>
+							<v-text-field
+								v-model="searchcourses"
+								label="Cerca"
+								single-line
+								hide-details
+							></v-text-field>
+						</v-card-title>
+						<v-data-table
+							:headers="headersCourses"
+							:items="prevAssignedCourses"
+							:search="searchcourses"
+							:loading="loadingcourses"
+						>
+							<template v-slot:item.actions="{ item }">
+								<a icon class="delete-btn" :data-content="trans('messages.delete_record')" :data-action="`/amministrazione/api/transaction/${item.hashid}/destroy`" href="#">
+									<v-icon>mdi-delete</v-icon>
+								</a>
+							</template>
+						</v-data-table>
+					</v-card>
+				</v-col>
+			</v-row>
+		</v-container>
   </v-form>
 </template>
 <script>
@@ -86,10 +159,16 @@ export default {
   data() {
     return {
         submiting: false,
+        submitingCourse: false,
         sconti: [],
+		  	trasaction: {},
+			  courses:[],
         prevSconti: [],
+        prevAssignedCourses: [],
         search: '',
+        searchcourses: '',
 	  		errors: {},
+		  	corsiErrors: {},
         headers: [
             {text: '#', value: 'id'},
             {text: 'Nr Corsi', value: 'corsi'},
@@ -98,12 +177,23 @@ export default {
             {text: 'Creato da', value: 'user.display_name'},
             {text: 'Azioni', value: 'actions', sortable: false, align: 'right'},
         ],
+			   headersCourses: [
+            {text: '#', value: 'id'},
+            {text: 'Corso', value: 'course.name'},
+            {text: 'Quantità', value: 'qty'},
+            {text: 'Creato a', value: 'created'},
+            {text: 'Creato da', value: 'user.display_name'},
+            {text: 'Azioni', value: 'actions', sortable: false, align: 'right'},
+        ],
         loading: true,
+        loadingcourses: true,
     };
   },
   mounted() {
     this.addNew();
     this.getSconti();
+    this.getCourses();
+    this.getAssignedCourses();
   },
   methods: {
     addNew() {
@@ -123,7 +213,7 @@ export default {
 					this.submiting = false
 					if (response.data.status == 'success') {
 						swal("Good job!", response.data.msg, "success");
-						location.reload()
+						this.getSconti()
 					} else if (response.data.status === 'error') {
 						swal({
 							title: "Whoops!",
@@ -139,6 +229,30 @@ export default {
 				})
 			}
     },
+		addCourse() {
+			if (!this.submitingCourse) {
+				this.submitingCourse = true;
+				axios.post(`/amministrazione/api/${this.stuctureId}/transaction/store`, this.trasaction)
+					.then(response => {
+					this.submitingCourse = false
+					if (response.data.status == 'success') {
+						swal("Good job!", response.data.msg, "success");
+						this.getAssignedCourses()
+					} else if (response.data.status === 'error') {
+						swal({
+							title: "Whoops!",
+							text: response.data.msg,
+							icon: "warning",
+							dangerMode: true,
+						});
+						this.submitingCourse = false
+					}
+				}).catch(error => {
+					this.submitingCourse = false
+					this.corsiErrors = error.response.data.errors
+				})
+			}
+    },
     getSconti() {
 			axios.get(`/amministrazione/api/${this.stuctureId}/sconto/`)
 				.then(response => {
@@ -150,7 +264,30 @@ export default {
 				});
 
 
-    }
+    },
+		getAssignedCourses() {
+			axios.get(`/amministrazione/api/${this.stuctureId}/coursetransactions/`)
+				.then(response => {
+					this.loadingcourses = false;
+				  this.prevAssignedCourses = response.data
+				})
+				.catch(error => {
+					this.loadingcourses = false;
+				});
+
+
+    },
+		getCourses(){
+			axios.get(`/filter-courses`)
+				.then(response => {
+					if (response.data) {
+						this.courses = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		}
   }
 };
 </script>
