@@ -28,7 +28,9 @@
 				<template v-slot:item.price="{ item }">
 					<span>{{item.price | price}}</span>
 				</template>
-
+				<template v-slot:item.status_name="{ item }">
+					<span :class="'gstatus ' + item.status_name.split(' ').join('_').toLowerCase()">{{ item.status_name }}</span>
+				</template>
 				<template v-slot:item.actions="{ item }">
 					<v-menu bottom left content-class="gactions">
 						<template v-slot:activator="{ on }">
@@ -38,8 +40,8 @@
 						</template>
 
 						<v-list dense>
-							<template v-for="(m, i) in menuItems">
-								<v-list-item :key="i" @click="menuClick(m.id, item)">
+							<template v-for="(m, i) in showActions(item)">
+								<v-list-item v-if="item.status != 3 " :key="i" @click="menuClick(m.id, item)">
 									<v-list-item-icon>
 										<v-icon v-text="m.icon"></v-icon>
 									</v-list-item-icon>
@@ -69,9 +71,9 @@
                     { text: 'Acquisto', value: "order_items" },
                     { text: 'Totale', value: "price" },
                     { text: 'Tipologia ordine', value: "type_name" },
-                    { text: 'Metodo pagamento', value: "payment_type" },
+                    { text: 'Metodo pagamento', value: "payment_name" },
                     { text: 'Data', value: "order_date" },
-                    { text: 'Stato', value: "status" },
+                    { text: 'Stato', value: "status_name" },
                     {
                         text: this.trans("form.actions"),
                         value: "actions",
@@ -80,9 +82,12 @@
                     }
                 ],
                 menuItems: [
-                    { id: 1, title: "Inoltra nuovamente fattura", icon: "mdi-receipt" },
+                    { id: 1, title: "Inoltra nuovamente fattura", icon: "mdi-email-send-outline" },
                     { id: 2, title: "Scarica fattura", icon: "mdi-download" },
-                    { id: 2, title: "Scarica ricevuta", icon: "mdi-download" },
+                    { id: 3, title: "Scarica ricevuta", icon: "mdi-download" },
+                    { id: 4, title: "Carica ricevuta di pagamento", icon: "mdi-upload" },
+                    { id: 5, title: "Conferma pagamento", icon: "mdi-timer-sand" },
+                    { id: 6, title: "Fattura elettronica", icon: "mdi-receipt" },
                 ],
                 orders: [],
             }
@@ -92,10 +97,30 @@
             this.getTrackings();
         },
         methods: {
+						showActions(item){
+							let actions = {};
+							for (let k in this.menuItems) {
+
+								if ((this.menuItems[k].id == 4 && item.status == 2) || this.menuItems[k].id == 5 && item.status == 2)
+									continue;
+								else if (this.menuItems[k].id == 3 && item.status == 2 && item.receipt=='')
+									continue;
+								else if (this.menuItems[k].id == 1 && item.status != 2)
+									continue;
+								else if (this.menuItems[k].id == 3 && item.status == 1 && item.payment_type==1)
+									continue;
+								else if (this.menuItems[k].id == 3 &&  item.payment_type==0)
+									continue;
+								else if (this.menuItems[k].id == 6 &&  item.status != 2)
+									continue;
+								actions[k]= this.menuItems[k];
+							}
+							return actions;
+						},
             getTrackings() {
                 axios.get(`/cart/api/orders`).then(response => {
                     this.orders = response.data;
-                    this.loading = false;
+                    this.loading = false;c
                 });
             },
         },
@@ -112,12 +137,22 @@
 	span.gstatus {
 		background: #dedede;
 		display: block;
-		height: 47px;
-		text-align: center;
-		line-height: 47px;
+		min-height: 100%;
 		font-size: 14px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
-	span.gstatus.ricevuto {
+	span.gstatus.completato {
 		background: #81C784;
+	}
+	span.gstatus.aperto {
+		background: #40C4FF;
+	}
+	span.gstatus.in_attesa {
+		background: #D4E157;
+	}
+	span.gstatus.non_completato {
+		background: #F50057;
 	}
 </style>

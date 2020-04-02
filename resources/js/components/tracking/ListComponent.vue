@@ -84,15 +84,15 @@
             this.getTrackings();
         },
         methods: {
-					showActions($status){
+					showActions(status){
 						let actions = {};
 						for (let k in this.menuItems) {
 
-							if (this.menuItems[k].id == 2 && $status == 2)
+							if (this.menuItems[k].id == 2 && status == 2)
 								continue;
-              else if (this.menuItems[k].id == 3 && $status == 4)
+              else if (this.menuItems[k].id == 3 && status == 4)
 								continue;
-							else if (this.menuItems[k].id != 4 && $status == 3)
+							else if (this.menuItems[k].id != 4 && status == 3)
 								continue;
 							actions[k]= this.menuItems[k];
 						}

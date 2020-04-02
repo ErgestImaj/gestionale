@@ -46,7 +46,8 @@ class CartOrders extends Model
 		'state' => 'boolean',
 
 	];
-	protected $appends = ['hashid','type_name'];
+
+	protected $appends = ['hashid','type_name','payment_name','status_name'];
 
 	public function cartCourseTransaction(){
 		return $this->hasMany(CartCourseTransactions::class,'order_id','id');
@@ -81,5 +82,48 @@ class CartOrders extends Model
 	}
 	public function getTypeNameAttribute(){
 		return static::typeName($this->type);
+	}
+	public function getPaymentNameAttribute()
+	{
+		return static::paymentTypeName($this->payment_type);
+	}
+
+	public static function paymentTypeName($payment_type)
+	{
+		$paymentTypeNames = static::paymentTypeNames();
+		if (isset($paymentTypeNames[$payment_type])) return $paymentTypeNames[$payment_type];
+
+		return '';
+	}
+
+	public static function paymentTypeNames()
+	{
+		return array(
+			self::BANK_TRANSFER => 'Bonifico/Bollettino',
+			self::PAYPAL => 'Paypal',
+		);
+	}
+
+	public function getStatusNameAttribute()
+	{
+		return static::statusName($this->status);
+	}
+
+	public static function statusName($status)
+	{
+		$statusNames = static::statusNames();
+		if (isset($statusNames[$status])) return $statusNames[$status];
+
+		return '';
+	}
+
+	public static function statusNames()
+	{
+		return array(
+			self::STATUS_OPEN =>'Aperto',
+			self::STATUS_PENDING =>'In attesa',
+			self::STATUS_COMPLETE => 'Completato',
+			self::STATUS_ERROR => 'Non completato',
+		);
 	}
 }
