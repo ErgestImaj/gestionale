@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\DatabaseDateFomat;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
+use App\Traits\OrderTypeNameAttribute;
 use App\Traits\PaymentNameAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,7 +16,8 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class CartOrders extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat;
+	use HashIdAttribute,HasHashid,HashidRouting,
+		HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat,OrderTypeNameAttribute;
 
 	protected $table = 'cart_orders';
 	protected $guarded = [];
@@ -28,6 +30,7 @@ class CartOrders extends Model
 	const TYPE_PURCHASE = 2;
 	const TYPE_CERTIFICATE_DUPLICATE_REQUEST = 3;
 	const TYPE_CREDIT_PACK_PURCHASE = 4;
+	const TYPE_FAST_TRACK = 5;
 
 	const STATUS_OPEN = 0;
 	const STATUS_PENDING = 1;
@@ -66,25 +69,7 @@ class CartOrders extends Model
 	public function invoice(){
 		return $this->hasOne(CartInvoices::class,'order_id','id');
 	}
-	public static function typeNames()
-	{
-		return [
-			self::TYPE_SUBSCRIPTION => 'Accreditamento struttura',
-			self::TYPE_USER_VALIDATION=> 'Accreditamento utente',
-			self::TYPE_PURCHASE=> 'Acquisto corsi',
-			self::TYPE_CERTIFICATE_DUPLICATE_REQUEST=> 'Acquisto duplicato',
-			self::TYPE_CREDIT_PACK_PURCHASE=> 'Acquisto Credit Pack',
-		];
-	}
 
-	public static function typeName($type){
-		$typeNames = static::typeNames();
-		if (isset($typeNames[$type])) return $typeNames[$type];
-		return '';
-	}
-	public function getTypeNameAttribute(){
-		return static::typeName($this->type);
-	}
 
 
 	public function getStatusNameAttribute()

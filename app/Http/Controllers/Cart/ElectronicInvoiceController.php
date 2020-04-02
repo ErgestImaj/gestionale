@@ -10,6 +10,8 @@ class ElectronicInvoiceController extends Controller
 {
 	public function index(){
 
-		return ElectronicInvoice::with('user')->get();
+		return ElectronicInvoice::with(['user'=>function($query){
+			$query->select('id','firstname');
+		}])->latest()->get();
 	}
 }

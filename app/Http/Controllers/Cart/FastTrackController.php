@@ -10,6 +10,6 @@ class FastTrackController extends Controller
     public function index(){
          return FastTrack::with(['user'=>function($query){
          	 $query->select('id','firstname');
-				 }])->get();
+				 }])->latest()->get();
 		}
 }

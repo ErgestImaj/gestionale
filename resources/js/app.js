@@ -84,6 +84,7 @@ Vue.component('certificate-list', require('./components/certificate/ListComponen
 Vue.component('elenco-ordini', require('./components/orders/ElencoOrdiniComponent').default);
 Vue.component('ordini-fast-track', require('./components/orders/OrdiniFastTrackComponent').default);
 Vue.component('ordini-structure', require('./components/orders/OrdiniStructureComponent').default);
+Vue.component('electronic-invoice', require('./components/orders/ElectronicInvoiceComponent').default);
 
 
 /**

@@ -143,7 +143,7 @@
 							<li class="nav-item"> <a class="nav-link" href="{{route('cart.orders.list')}}">Elenco Ordini</a></li>
 							<li class="nav-item"> <a class="nav-link" href="{{route('cart.structure.orders.list')}}">Ordini Strutture</a></li>
 							<li class="nav-item"> <a class="nav-link" href="{{route('cart.fasttrack.list')}}">Fast Track</a></li>
-							<li class="nav-item"> <a class="nav-link" href="#">Electronic Invoice</a></li>
+							<li class="nav-item"> <a class="nav-link" href="{{route('cart.electronic.invoice.list')}}">Fattura Elettronica</a></li>
 						</ul>
 					</div>
 				</li>
