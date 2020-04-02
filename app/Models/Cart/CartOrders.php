@@ -4,6 +4,7 @@ namespace App\Models\Cart;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Traits\DatabaseDateFomat;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use App\Traits\PaymentNameAttribute;
@@ -14,7 +15,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class CartOrders extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,PaymentNameAttribute;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat;
 
 	protected $table = 'cart_orders';
 	protected $guarded = [];
@@ -107,5 +108,8 @@ class CartOrders extends Model
 			self::STATUS_COMPLETE => 'Completato',
 			self::STATUS_ERROR => 'Non completato',
 		);
+	}
+	public function getOrderDateAttribute($value){
+		return $this->databaseDateFormat($value);
 	}
 }

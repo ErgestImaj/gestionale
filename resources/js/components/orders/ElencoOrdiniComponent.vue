@@ -2,7 +2,7 @@
 	<div>
 		<v-card>
 			<v-card-title>
-				Elenco Ordini
+				Storico degli ordini
 				<v-spacer></v-spacer>
 				<v-text-field v-model="search" label="Cerca" single-line hide-details></v-text-field>
 			</v-card-title>

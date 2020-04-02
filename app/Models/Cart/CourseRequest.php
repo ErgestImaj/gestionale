@@ -3,6 +3,7 @@
 namespace App\Models\Cart;
 
 use App\Models\Structure;
+use App\Traits\DatabaseDateFomat;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class CourseRequest extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,DatabaseDateFomat;
 
 	protected $table = 'courses_courses_requests';
 	protected $guarded = [];
@@ -30,8 +31,33 @@ class CourseRequest extends Model
 		'created' => 'datetime',
 
 	];
-	protected $appends = ['hashid'];
+	protected $appends = ['hashid','status_name'];
 
+	public function getStatusNameAttribute()
+	{
+		return static::statusName($this->status);
+	}
+
+	public static function statusName($status)
+	{
+		$statusNames = static::statusNames();
+		if (isset($statusNames[$status])) return $statusNames[$status];
+
+		return '';
+	}
+
+	public static function statusNames()
+	{
+		return array(
+			self::STATUS_OPEN =>'Aperto',
+			self::STATUS_PENDING =>'In attesa',
+			self::STATUS_CLOSED => 'Completato',
+			self::STATUS_BLOCKED => 'Bloccata',
+		);
+	}
+	public function getDateAttribute($value){
+		return $this->databaseDateFormat($value);
+	}
 	public function structure(){
 		return $this->belongsTo(Structure::class,'structure_id','id');
 	}

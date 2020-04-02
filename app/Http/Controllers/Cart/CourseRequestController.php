@@ -10,7 +10,7 @@ class CourseRequestController extends Controller
 {
     public function index(){
 
-    	$courserequests = CourseRequest::with([
+    	$courserequests = CourseRequest::latest()->with([
     																	'items'=>function($query){
     		                               $query->type()->get(['courses_request_id','courses_request_id','type','qty','price','status']);
 																			},
