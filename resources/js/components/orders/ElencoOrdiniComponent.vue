@@ -15,7 +15,10 @@
 				class="pa-4"
 			>
 				<template v-slot:item.order_items="{ item }">
-					<div v-for="order in item.order_items" :key="order.id"
+					<div v-if="item.type == 1 && item.paypal_transactions">
+						<span content="gnam">{{item.paypal_transactions.user_full_name}}</span>
+					</div>
+					<div v-else v-for="order in item.order_items" :key="order.id"
 							 style="display: flex; justify-content: space-between; align-items: center;"
 					>
 						<span class="gnam">{{ order && order.course && order.course.name ? order.course.name : ''}}</span>
@@ -94,7 +97,7 @@
         },
         mounted() {
             this.footerProps = this.globalService.tableConfig().footerProps;
-            this.getTrackings();
+            this.getOrders();
         },
         methods: {
 						showActions(item){
@@ -117,10 +120,10 @@
 							}
 							return actions;
 						},
-            getTrackings() {
+            getOrders() {
                 axios.get(`/cart/api/orders`).then(response => {
                     this.orders = response.data;
-                    this.loading = false;c
+                    this.loading = false;
                 });
             },
         },

@@ -20,9 +20,13 @@ class OrdersController extends Controller
 			'structure' => function ($query) {
 				$query->select(['id', 'firstname']);
 			},
+			'paypalTransactions' => function ($query) {
+				$query->select(['id','order_id', 'params']);
+			},
 		])->get(['id', 'type', 'user_id', 'price', 'order_number', 'order_date', 'payment_type', 'status', 'receipt']);
 		$filtered_collection = $orders->filter(function ($order) {
-			if ($order->payment_type == CartOrders::PAYPAL && $order->status == CartOrders::STATUS_PENDING){}else{
+			if ($order->payment_type == CartOrders::PAYPAL && $order->status == CartOrders::STATUS_PENDING){}
+			else{
 				return $order;
 			};
 		});

@@ -2,6 +2,7 @@
 
 namespace App\Models\Cart;
 
+use App\Models\User;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -30,9 +31,18 @@ class CartPaypalTransactions extends Model
 		'params' => 'json',
 
 	];
-	protected $appends = ['hashid'];
+	protected $appends = ['hashid','user_full_name'];
 
 	public function order(){
 		return $this->belongsTo(CartOrders::class,'order_id','id');
+	}
+	public function getUserFullNameAttribute(){
+		if (isset($this->params['validate_user_id']) && is_array($this->params)){
+			$user = User::find($this->params['validate_user_id']);
+			if ($user){
+				return $user->full_name;
+			}
+		}
+		return '';
 	}
 }
