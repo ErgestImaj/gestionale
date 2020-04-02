@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\User;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
+use App\Traits\PaymentNameAttribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
@@ -13,7 +14,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class CartOrders extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,PaymentNameAttribute;
 
 	protected $table = 'cart_orders';
 	protected $guarded = [];
@@ -83,26 +84,7 @@ class CartOrders extends Model
 	public function getTypeNameAttribute(){
 		return static::typeName($this->type);
 	}
-	public function getPaymentNameAttribute()
-	{
-		return static::paymentTypeName($this->payment_type);
-	}
 
-	public static function paymentTypeName($payment_type)
-	{
-		$paymentTypeNames = static::paymentTypeNames();
-		if (isset($paymentTypeNames[$payment_type])) return $paymentTypeNames[$payment_type];
-
-		return '';
-	}
-
-	public static function paymentTypeNames()
-	{
-		return array(
-			self::BANK_TRANSFER => 'Bonifico/Bollettino',
-			self::PAYPAL => 'Paypal',
-		);
-	}
 
 	public function getStatusNameAttribute()
 	{

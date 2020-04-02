@@ -4,6 +4,7 @@ namespace App\Models\Exams;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Traits\DatabaseDateFomat;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class LrnExamSession extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,DatabaseDateFomat;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
@@ -47,6 +48,9 @@ class LrnExamSession extends Model
 
 	protected $appends = ['hashid'];
 
+	public function getDateAttribute($value){
+		return $this->databaseDateFormat($value);
+	}
 	/**
 	 * Relationships
 	 */

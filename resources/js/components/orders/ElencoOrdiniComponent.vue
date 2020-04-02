@@ -34,8 +34,8 @@
 				<template v-slot:item.status_name="{ item }">
 					<span :class="'gstatus ' + item.status_name.split(' ').join('_').toLowerCase()">{{ item.status_name }}</span>
 				</template>
-				<template v-slot:item.actions="{ item }">
-					<v-menu bottom left content-class="gactions">
+				<template  v-slot:item.actions="{ item }">
+					<v-menu v-if="item.status != 3 && item.status != 0 " bottom left content-class="gactions">
 						<template v-slot:activator="{ on }">
 							<v-btn icon v-on="on">
 								<v-icon>mdi-dots-vertical</v-icon>
@@ -44,7 +44,7 @@
 
 						<v-list dense>
 							<template v-for="(m, i) in showActions(item)">
-								<v-list-item v-if="item.status != 3 " :key="i" @click="menuClick(m.id, item)">
+								<v-list-item  :key="i" @click="menuClick(m.id, item)">
 									<v-list-item-icon>
 										<v-icon v-text="m.icon"></v-icon>
 									</v-list-item-icon>

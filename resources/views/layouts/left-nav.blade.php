@@ -142,7 +142,7 @@
 						<ul class="nav flex-column sub-menu">
 							<li class="nav-item"> <a class="nav-link" href="{{route('cart.orders.list')}}">Elenco Ordini</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Ordini Strutture</a></li>
-							<li class="nav-item"> <a class="nav-link" href="#">Fast Track</a></li>
+							<li class="nav-item"> <a class="nav-link" href="{{route('cart.fasttrack.list')}}">Fast Track</a></li>
 							<li class="nav-item"> <a class="nav-link" href="#">Electronic Invoice</a></li>
 						</ul>
 					</div>

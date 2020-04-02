@@ -82,6 +82,7 @@ Vue.component('tracking-create', require('./components/tracking/CreateComponent'
 Vue.component('tracking-edit', require('./components/tracking/EditComponent').default);
 Vue.component('certificate-list', require('./components/certificate/ListComponent').default);
 Vue.component('elenco-ordini', require('./components/orders/ElencoOrdiniComponent').default);
+Vue.component('ordini-fast-track', require('./components/orders/OrdiniFastTrackComponent').default);
 
 
 /**

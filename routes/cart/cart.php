@@ -8,6 +8,7 @@ Route::group([
 
 
 		Route::view('/orders','orders.index')->name('orders.list');
+		Route::view('/fast-track','orders.fast-track')->name('fasttrack.list');
 
 		Route::group( ['prefix' => 'api'], function ()
 		{
