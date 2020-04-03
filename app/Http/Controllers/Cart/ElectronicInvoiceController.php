@@ -14,4 +14,21 @@ class ElectronicInvoiceController extends Controller
 			$query->select('id','firstname');
 		}])->latest()->get();
 	}
+
+	public function destroy(ElectronicInvoice $invoice){
+		try {
+			unlink(storage_path('app/public/'.ElectronicInvoice::CONTENT_PATH.DIRECTORY_SEPARATOR.$invoice->receipt));
+			$invoice->delete();
+			return response( [
+				'status' => 'success',
+				'msg'    => trans( 'messages.delete' )
+			] );
+		}catch (\Exception $exception){
+			logger($exception->getMessage());
+			return response([
+				'status' => 'warning',
+				'msg' => trans('messages.error')
+			]);
+		}
+	}
 }

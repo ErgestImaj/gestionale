@@ -27,7 +27,18 @@
 
 						<v-list dense>
 							<template v-for="(m, i) in menuItems">
-								<v-list-item  :key="i" @click="menuClick(m.id, item)">
+								<v-list-item v-if="m.id ==2" :key="i"
+														 class="delete-btn"
+														 :data-content="trans('messages.delete_record')"
+														 :data-action="`/cart/api/electronic-invoice/${item.hashid}`"
+														 link
+								>
+									<v-list-item-icon>
+										<v-icon v-text="m.icon"></v-icon>
+									</v-list-item-icon>
+									<v-list-item-title>{{ m.title }}</v-list-item-title>
+								</v-list-item>
+								<v-list-item v-else :key="i" @click="menuClick(m.id, item)">
 									<v-list-item-icon>
 										<v-icon v-text="m.icon"></v-icon>
 									</v-list-item-icon>
@@ -44,56 +55,66 @@
 </template>
 
 <script>
-    export default {
-        dependencies: 'globalService',
-        data() {
-            return {
-                footerProps: null,
-                search: '',
-                loading: true,
-                headers: [
-                    { text: 'Numero progressivo', value: "invoice_number" },
-                    { text: 'Identificativo Ordine', value: "invoice_oldnr" },
-                    { text: 'Struttura', value: "user.firstname" },
-                    { text: 'Tipologia ordine', value: "type_name" },
-                    { text: 'Data', value: "created" },
-                    {
-                        text: this.trans("form.actions"),
-                        value: "actions",
-                        sortable: false,
-                        align: "right"
-                    }
-                ],
-                menuItems: [
-                    { id: 1, title: "Download", icon: "mdi-download" },
-                    { id: 2, title: "Cancella", icon: "mdi-delete" },
+	export default {
+		dependencies: 'globalService',
+		data() {
+			return {
+				footerProps: null,
+				search: '',
+				loading: true,
+				headers: [
+					{text: 'Numero progressivo', value: "invoice_number"},
+					{text: 'Identificativo Ordine', value: "invoice_oldnr"},
+					{text: 'Struttura', value: "user.firstname"},
+					{text: 'Tipologia ordine', value: "type_name"},
+					{text: 'Data', value: "created"},
+					{
+						text: this.trans("form.actions"),
+						value: "actions",
+						sortable: false,
+						align: "right"
+					}
+				],
+				menuItems: [
+					{id: 1, title: "Download", icon: "mdi-download"},
+					{id: 2, title: "Elimina", icon: "mdi-trash-can-outline"},
 
-                ],
-							  invoices: [],
-            }
-        },
-        mounted() {
-            this.footerProps = this.globalService.tableConfig().footerProps;
-            this.getInvoices();
-        },
-        methods: {
-            getInvoices() {
-                axios.get(`/cart/api/electronic-invoice`).then(response => {
-                    this.invoices = response.data;
-                    this.loading = false;
-                });
-            },
-					menuClick(id, item) {
-						switch (id) {
-							case 1:
-								//download
-								break;
-							case 2:
-								//delete
-								break;
-						}
-					},
-        },
-    }
+				],
+				invoices: [],
+			}
+		},
+		mounted() {
+			this.footerProps = this.globalService.tableConfig().footerProps;
+			this.getInvoices();
+		},
+		methods: {
+			getInvoices() {
+				axios.get(`/cart/api/electronic-invoice`).then(response => {
+					this.invoices = response.data;
+					this.loading = false;
+				});
+			},
+			menuClick(id, item) {
+				switch (id) {
+					case 1:
+						this.downloadItem(item)
+						break;
+				}
+			},
+			downloadItem(item) {
+				let url =
+					window.location.origin + item.content_path + item.receipt;
+				axios.get(url, {responseType: 'blob'})
+					.then(response => {
+						const blob = new Blob([response.data], {type: 'application/xml'})
+						const link = document.createElement('a')
+						link.href = URL.createObjectURL(blob)
+						link.download = item.receipt
+						link.click()
+						URL.revokeObjectURL(link.href)
+					}).catch(console.error)
+			}
+		},
+	}
 </script>
 

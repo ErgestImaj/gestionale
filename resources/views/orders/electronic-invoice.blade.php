@@ -12,4 +12,6 @@
 		<electronic-invoice></electronic-invoice>
 	</v-app>
 @endsection
-
+@push('scripts')
+	<script src="{{asset('js/actions.js')}}"></script>
+@endpush

@@ -18,6 +18,7 @@ Route::group([
 			Route::get('/courses-requests','CourseRequestController@index');
 			Route::get('/fast-track','FastTrackController@index');
 			Route::get('/electronic-invoice','ElectronicInvoiceController@index');
+			Route::delete('/electronic-invoice/{invoice}','ElectronicInvoiceController@destroy');
 
 		});
 

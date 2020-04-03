@@ -4,6 +4,7 @@ namespace App\Models\Cart;
 
 use App\Models\User;
 use App\Traits\DatabaseDateFomat;
+use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
 use App\Traits\OrderTypeNameAttribute;
 use Illuminate\Database\Eloquent\Model;
@@ -12,11 +13,11 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class ElectronicInvoice extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,OrderTypeNameAttribute,DatabaseDateFomat;
+	use HashIdAttribute,HasHashid,HashidRouting,OrderTypeNameAttribute,DatabaseDateFomat,HasContentPath;
 
 	protected $table = 'electronic_invoice';
 	protected $guarded = [];
-
+  const CONTENT_PATH = 'electronic_invoice';
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 
@@ -32,7 +33,7 @@ class ElectronicInvoice extends Model
 		'updated' => 'datetime',
 	];
 
-	protected $appends = ['hashid','type_name'];
+	protected $appends = ['hashid','type_name','content_path'];
 
 	public function user(){
 		return $this->belongsTo(User::class,'user_id');
