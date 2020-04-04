@@ -107,7 +107,64 @@
 								actions[k]= this.menuItems[k];
 							}
 							return actions;
-						},
+						},	menuClick(id, item) {
+						switch (id) {
+							case 1:
+								this.confirmCoursesRequest(item.hashid)
+								break;
+							case 2:
+								this.blockCoursesRequest(item.hashid)
+								break;
+							case 3:
+								this.unBlockCoursesRequest(item.hashid)
+								break;
+
+						}
+					},
+					blockCoursesRequest(record) {
+						axios.patch(`/cart/api/courses-requests/${record}/block`).then(response => {
+							if (response.data.status == "success") {
+								swal("Good job!", response.data.msg, "success");
+								this.getOrders()
+							} else if (response.data.status === "error") {
+								swal({
+									title: "Whoops!",
+									text: response.data.msg,
+									icon: "warning",
+									dangerMode: true
+								});
+							}
+						});
+					},confirmCoursesRequest(record) {
+						axios.patch(`/cart/api/courses-requests/${record}/confirm`).then(response => {
+							if (response.data.status == "success") {
+								swal("Good job!", response.data.msg, "success");
+								this.getOrders()
+							} else if (response.data.status === "error") {
+								swal({
+									title: "Whoops!",
+									text: response.data.msg,
+									icon: "warning",
+									dangerMode: true
+								});
+							}
+						});
+					},
+					unBlockCoursesRequest(record) {
+						axios.patch(`/cart/api/courses-requests/${record}/unblock`).then(response => {
+							if (response.data.status == "success") {
+								swal("Good job!", response.data.msg, "success");
+								this.getOrders()
+							} else if (response.data.status === "error") {
+								swal({
+									title: "Whoops!",
+									text: response.data.msg,
+									icon: "warning",
+									dangerMode: true
+								});
+							}
+						});
+					},
             getOrders() {
                 axios.get(`/cart/api/courses-requests`).then(response => {
                     this.orders = response.data;

@@ -29,6 +29,11 @@ class LrnExamSession extends Model
 
 	CONST VOUCHER_DISABLED = true;
 
+	const FAST_TRACK = 0;
+	const FAST_TRACK_WAIT = 1;
+	const FAST_TRACK_OK = 2;
+	const FAST_TRACK_SELECTED = 3;
+
 	const CM_NO = 0;
 	const CM_YES = 1;
 	const CM_USED = 2;

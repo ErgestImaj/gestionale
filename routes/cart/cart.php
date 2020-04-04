@@ -15,8 +15,18 @@ Route::group([
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			Route::get('/orders','OrdersController@index');
+
 			Route::get('/courses-requests','CourseRequestController@index');
+			Route::patch('/courses-requests/{courseRequest}/block','CourseRequestController@blockCoursesRequest');
+			Route::patch('/courses-requests/{courseRequest}/unblock','CourseRequestController@unBlockCoursesRequest');
+			Route::patch('/courses-requests/{courseRequest}/confirm','CourseRequestController@confirmCoursesRequest');
+
 			Route::get('/fast-track','FastTrackController@index');
+			Route::post('/fast-track/{fastTrack}/upload','FastTrackController@uploadInvoice');
+			Route::get('/fast-track/{fastTrack}/download','FastTrackController@downloadInvoice');
+			Route::get('/fast-track/{fastTrack}/send','FastTrackController@sendInvoice');
+			Route::patch('/fast-track/{fastTrack}/confirm','FastTrackController@manualOrderConfirm');
+
 			Route::get('/electronic-invoice','ElectronicInvoiceController@index');
 			Route::delete('/electronic-invoice/{invoice}','ElectronicInvoiceController@destroy');
 

@@ -44,7 +44,21 @@ Vue.filter('capitalize', function (s) {
         if (typeof s !== 'string') return '';
         return s.charAt(0).toUpperCase() + s.slice(1)
 });
-
+Vue.mixin({
+	methods: {
+		downloadItem(url,lablel) {
+			axios.get(url, {responseType: 'blob'})
+				.then(response => {
+					const blob = new Blob([response.data])
+					const link = document.createElement('a')
+					link.href = URL.createObjectURL(blob)
+					link.download = lablel
+					link.click()
+					URL.revokeObjectURL(link.href)
+				}).catch(console.error)
+		}
+	}
+});
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 

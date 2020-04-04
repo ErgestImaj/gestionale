@@ -6,6 +6,7 @@ use App\Models\Config;
 use App\Models\Exams\LrnExamSession;
 use App\Models\User;
 use App\Traits\DatabaseDateFomat;
+use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
 use App\Traits\PaymentNameAttribute;
 use Illuminate\Database\Eloquent\Model;
@@ -14,10 +15,12 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class FastTrack extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,PaymentNameAttribute,DatabaseDateFomat;
+	use HashIdAttribute,HasHashid,HashidRouting,PaymentNameAttribute,DatabaseDateFomat,HasContentPath;
 
 	protected $table = 'fast_track';
 	protected $guarded = [];
+
+	const CONTENT_PATH ='utilities';
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
@@ -36,7 +39,7 @@ class FastTrack extends Model
 		'exam_sessions' => 'array',
 	];
 
-	protected $appends = ['hashid','state_name','order_items','payment_name','general_price'];
+	protected $appends = ['hashid','state_name','order_items','payment_name','content_path','general_price'];
 
 	public function user(){
 		return $this->belongsTo(User::class,'user_id');

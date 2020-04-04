@@ -87,7 +87,7 @@
                 menuItems: [
                     { id: 1, title: "Inoltra nuovamente fattura", icon: "mdi-email-send-outline" },
                     { id: 2, title: "Scarica fattura", icon: "mdi-download" },
-                    { id: 3, title: "Scarica ricevuta", icon: "mdi-download" },
+                    { id: 3, title: "Scarica ricevuta", icon: "mdi-file-download-outline" },
                     { id: 4, title: "Carica ricevuta di pagamento", icon: "mdi-upload" },
                     { id: 5, title: "Conferma pagamento", icon: "mdi-timer-sand" },
                     { id: 6, title: "Fattura elettronica", icon: "mdi-receipt" },
@@ -108,7 +108,7 @@
 									continue;
 								else if (this.menuItems[k].id == 3 && item.status == 2 && item.receipt=='')
 									continue;
-								else if (this.menuItems[k].id == 1 && item.status != 2)
+								else if ((this.menuItems[k].id == 2 || this.menuItems[k].id == 1) && item.status != 2)
 									continue;
 								else if (this.menuItems[k].id == 3 && item.status == 1 && item.payment_type==1)
 									continue;

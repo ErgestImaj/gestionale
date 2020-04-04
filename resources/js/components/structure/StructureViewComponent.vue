@@ -201,7 +201,7 @@
             },
             closeEdit() {
                 this.editDialog = false
-                this.structur = null
+                this.structur = {}
             },
             updateStructure(record) {
                 axios.patch(`/amministrazione/api/${record}/hirearcy/`, this.structur)
@@ -209,9 +209,7 @@
                         this.editDialog = false
                         if (response.data.status === 'success') {
                             swal("Good job!", response.data.msg, "success");
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1500)
+                          this.getStructures();
                         } else if (response.data.status === 'error') {
                             swal({
                                 title: "Whoops!",

@@ -76,7 +76,7 @@
 					}
 				],
 				menuItems: [
-					{id: 1, title: "Download", icon: "mdi-download"},
+					{id: 1, title: "Download", icon: "mdi-file-download-outline"},
 					{id: 2, title: "Elimina", icon: "mdi-trash-can-outline"},
 
 				],
@@ -97,23 +97,12 @@
 			menuClick(id, item) {
 				switch (id) {
 					case 1:
-						this.downloadItem(item)
+						let url =
+							window.location.origin + item.content_path + item.receipt;
+						this.downloadItem(url,item.receipt)
 						break;
 				}
 			},
-			downloadItem(item) {
-				let url =
-					window.location.origin + item.content_path + item.receipt;
-				axios.get(url, {responseType: 'blob'})
-					.then(response => {
-						const blob = new Blob([response.data], {type: 'application/xml'})
-						const link = document.createElement('a')
-						link.href = URL.createObjectURL(blob)
-						link.download = item.receipt
-						link.click()
-						URL.revokeObjectURL(link.href)
-					}).catch(console.error)
-			}
 		},
 	}
 </script>
