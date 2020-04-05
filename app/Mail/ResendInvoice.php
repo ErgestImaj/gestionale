@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Helpers\ConfigHelper;
 use App\Models\Config;
 use PDF;
 use Illuminate\Bus\Queueable;
@@ -34,7 +35,7 @@ class ResendInvoice extends Mailable
      */
     public function build()
     {
-			$config = Config::where('name', 'cart')->pluck('config_values')->first();
+			$config = ConfigHelper::getConfigValuesByName('cart');
 			$fastTrack = $this->fastTrackOrder;
 			$pdf=  PDF::loadView('orders.invoice-fast-track',compact('fastTrack','config'));
 			return $this->view('emails.orders.resend-invoice')

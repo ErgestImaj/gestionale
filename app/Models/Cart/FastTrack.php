@@ -2,6 +2,7 @@
 
 namespace App\Models\Cart;
 
+use App\Helpers\ConfigHelper;
 use App\Models\Config;
 use App\Models\Exams\LrnExamSession;
 use App\Models\User;
@@ -45,8 +46,7 @@ class FastTrack extends Model
 		return $this->belongsTo(User::class,'user_id');
 	}
 	public function getGeneralPriceAttribute(){
-		$config = Config::where('name', 'cart')->pluck('config_values')->first();
-		return $config['fast_track_price'] ?? 0;
+		return ConfigHelper::getConfigValue('fast_track_price',0,'cart');
 	}
   public function getOrderItemsAttribute(){
 

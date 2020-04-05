@@ -7,6 +7,7 @@ use App\Traits\DatabaseDateFomat;
 use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
 use App\Traits\OrderTypeNameAttribute;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
@@ -21,12 +22,15 @@ class ElectronicInvoice extends Model
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 
-	const TYPE_SUBSCRIPTION = 0;
-	const TYPE_USER_VALIDATION = 1;
-	const TYPE_PURCHASE = 2;
-	const TYPE_CERTIFICATE_DUPLICATE_REQUEST = 3;
-	const TYPE_CREDIT_PACK_PURCHASE = 4;
-	const TYPE_FAST_TRACK = 5;
+	const SUBSCRIPTION = 0;
+	const USER_VALIDATION = 1;
+	const PURCHASE = 2;
+	const CERTIFICATE_DUPLICATE_REQUEST = 3;
+	const CREDIT_PACK_PURCHASE = 4;
+	const FAST_TRACK = 5;
+
+	const NORMAL_ORDER=1;
+	const FAST_TRACK_ORDER=2;
 
 	protected $casts = [
 		'created' => 'datetime',
@@ -40,5 +44,9 @@ class ElectronicInvoice extends Model
 	}
 	public function getCreatedAttribute($date){
 		return $this->databaseDateFormat($date);
+	}
+	public static function getMaxProgresNumber(){
+		$max_nr = static::whereYear('created',Carbon::now()->year)->max('invoice_number');
+		return $max_nr ? ($max_nr + 1).'_G' : '1_G';
 	}
 }

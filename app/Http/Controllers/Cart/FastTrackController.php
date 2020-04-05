@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Cart;
 
+use App\Helpers\ConfigHelper;
 use App\Helpers\UploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceUploadRequest;
 use App\Mail\FastTrackOrderShipped;
 use App\Mail\ResendInvoice;
+use App\Models\Cart\ElectronicInvoice;
 use App\Models\Cart\FastTrack;
-use App\Models\Config;
 use App\Models\Exams\LrnExamSession;
+use App\Services\ElectronicInvoiceServices;
+use http\Env\Response;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class FastTrackController extends Controller
@@ -79,8 +83,8 @@ class FastTrackController extends Controller
 			}
 		}
 		public function downloadInvoice(FastTrack $fastTrack){
-			$config = Config::where('name', 'cart')->pluck('config_values')->first();
-			$pdf=  PDF::loadView('orders.invoice-fast-track',compact('fastTrack','config'));
+			$config = ConfigHelper::getConfigValuesByName('cart');
+			$pdf =  PDF::loadView('orders.invoice-fast-track',compact('fastTrack','config'));
 			return $pdf->download('invoice.pdf');
 		}
 		public function sendInvoice(FastTrack $fastTrack){
@@ -99,5 +103,23 @@ class FastTrackController extends Controller
 					'msg' => trans('messages.error')
 				]);
 			}
+		}
+
+	/**
+	 * @param FastTrack $fastTrack
+	 * TO DO: code refactor
+	 */
+		public function generateInvoice(FastTrack $fastTrack){
+			if (empty(@$fastTrack->user->structure->pec))
+				return toastr()->success(' il pec email e un campo obbligatorio per fattura elettronica');
+			if ((empty(@$fastTrack->user->structure->piva))&& empty(@$fastTrack->user->structure->tax_code))
+				return toastr()->success(' il PIVA e un campo obbligatorio per fattura elettronica');
+
+			$response = ElectronicInvoiceServices::generateXMLInvoice($fastTrack,$fastTrack->user->structure);
+			if ($response['status']){
+				$electronic_invoice = $response['electronic_invoice'];
+        return response()->download($electronic_invoice->content_path.$electronic_invoice->receipt);
+			}
+			return toastr()->error(trans('messages.error'));
 		}
 }

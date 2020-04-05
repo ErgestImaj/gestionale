@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ConfigHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BillsRequest;
 use App\Http\Requests\EmailSettingsRequest;
@@ -61,10 +62,9 @@ class SettingsController extends Controller
 
     public function emailSettings(){
 
-        $config = Config::where('name', 'utilities')->pluck('config_values')->first();
 
         return view('superadmin.settings.emails',[
-            'config'=>$config,
+            'config'=>ConfigHelper::getConfigValuesByName('utilities'),
             'host'=>config('mail.host'),
             'port'=>config('mail.port'),
             'address'=>config('mail.from.address'),
@@ -115,10 +115,9 @@ class SettingsController extends Controller
     }
 
     public function PaymentSettings(){
-        $config = Config::where('name', 'cart')->pluck('config_values')->first();
 
         return view('superadmin.settings.payment',[
-            'config'=>$config
+            'config'=>ConfigHelper::getConfigValuesByName('cart')
         ]);
     }
     public function updateIBANSettings(IBANRequest $request,$key){

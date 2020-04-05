@@ -222,7 +222,8 @@
 									this.sendInvoice(item.hashid)
 									break;
 								case 2:
-									this.downloadInvoice(item.hashid)
+									let nurl =	window.location.origin + `/cart/api/fast-track/${item.hashid}/download`;
+									window.location.href = nurl;
 									break;
 								case 3:
 									let url =
@@ -234,6 +235,10 @@
 									break;
 								case 5:
 										this.confirmOrder(item.hashid)
+									break;
+								case 6:
+									let durl =	window.location.origin + `/cart/generate-electronic-invoice/fast-track/${item.hashid}`;
+									window.location.href = durl;
 									break;
 							}
 						},
@@ -257,11 +262,6 @@
 										});
 									}
                 });
-            },
-
-					downloadInvoice(record) {
-						let url =	window.location.origin + `/cart/api/fast-track/${record}/download`;
-              window.location.href = url;
             },
         },
         filters: {

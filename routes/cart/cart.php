@@ -12,6 +12,7 @@ Route::group([
 		Route::view('/courses-requests','orders.structure-orders')->name('structure.orders.list');
 		Route::view('/electronic-invoice','orders.electronic-invoice')->name('electronic.invoice.list');
 
+		Route::get('/generate-electronic-invoice/fast-track/{fastTrack}','FastTrackController@generateInvoice');
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			Route::get('/orders','OrdersController@index');
