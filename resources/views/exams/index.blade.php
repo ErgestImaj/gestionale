@@ -10,6 +10,7 @@
 		<v-app class="exams">
 			<sessione-essame-list
 				:category="'lrn'"
+				create-url="{{route('exams.lrn.create')}}"
 			></sessione-essame-list>
 		</v-app>
 
