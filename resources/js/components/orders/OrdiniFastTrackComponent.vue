@@ -165,6 +165,7 @@
 									 }
 								 )
 									 .then(response => {
+										 this.closeEdit();
 										 if (response.data.status == "success") {
 											 swal("Good job!", response.data.msg, "success");
 											 this.getOrders()
@@ -180,7 +181,6 @@
 									 .catch(error => {
 										 this.errors = error.response.data.errors;
 									 }).finally(()=>{
-									 this.closeEdit();
 								 });
 					 },confirmOrder(record){
 								 axios.patch(`/cart/api/fast-track/${record}/confirm`)

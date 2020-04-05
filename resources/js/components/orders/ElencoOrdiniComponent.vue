@@ -169,6 +169,7 @@
 							}
 						)
 							.then(response => {
+								this.closeEdit();
 								if (response.data.status == "success") {
 									swal("Good job!", response.data.msg, "success");
 									this.getOrders()
@@ -184,7 +185,6 @@
 							.catch(error => {
 								this.errors = error.response.data.errors;
 							}).finally(()=>{
-							this.closeEdit();
 						});
 					},confirmOrder(record){
 						axios.patch(`/cart/api/orders/${record}/confirm`)
@@ -240,7 +240,7 @@
 									this.confirmOrder(item.hashid)
 									break;
 								case 6:
-									let durl =	window.location.origin + `/cart/generate-electronic-invoice/orders/${item.hashid}`;
+									let durl =	window.location.origin + `/cart/generate-electronic-invoice/order/${item.hashid}`;
 									window.location.href = durl;
 									break;
 							}

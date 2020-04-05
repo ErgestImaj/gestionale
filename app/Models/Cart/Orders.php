@@ -5,6 +5,7 @@ namespace App\Models\Cart;
 use App\Models\Course;
 use App\Models\User;
 use App\Traits\DatabaseDateFomat;
+use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;
 use App\Traits\HasUserRelationships;
 use App\Traits\OrderTypeNameAttribute;
@@ -16,8 +17,9 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class Orders extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,
-		HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat,OrderTypeNameAttribute;
+	use HashIdAttribute,HasHashid,HashidRouting, HasContentPath,
+		HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat,
+		OrderTypeNameAttribute;
 
 	protected $table = 'cart_orders';
 	protected $guarded = [];
@@ -25,7 +27,7 @@ class Orders extends Model
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 
-	const CONTENT_PATH   = 'orders';
+	const CONTENT_PATH   = 'utilities';
 
 	const TYPE_SUBSCRIPTION = 0;
 	const TYPE_USER_VALIDATION = 1;

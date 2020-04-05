@@ -12,6 +12,7 @@ Route::group([
 		Route::view('/courses-requests','orders.structure-orders')->name('structure.orders.list');
 		Route::view('/electronic-invoice','orders.electronic-invoice')->name('electronic.invoice.list');
 		Route::get('/generate-electronic-invoice/fast-track/{fastTrack}','FastTrackController@generateInvoice');
+		Route::get('/generate-electronic-invoice/order/{order}','OrdersController@generateInvoice');
 
 		Route::group( ['prefix' => 'api'], function ()
 		{
@@ -30,6 +31,7 @@ Route::group([
 
 			Route::post('/orders/{order}/upload','OrdersController@uploadInvoice');
 			Route::get('/orders/{order}/download','OrdersController@downloadInvoice');
+			Route::patch('/orders/{order}/confirm','OrdersController@manualOrderConfirm');
 
 			Route::get('/electronic-invoice','ElectronicInvoiceController@index');
 			Route::delete('/electronic-invoice/{invoice}','ElectronicInvoiceController@destroy');
