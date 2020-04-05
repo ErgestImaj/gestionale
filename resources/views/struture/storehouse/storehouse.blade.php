@@ -10,14 +10,14 @@
 		<div class="col-12">
 					<div class="row">
 						@forelse ($structures as $structure)
-								<div class="col-xl-6">
+								<div class="col-md-12">
 											<div class="card card-default" style="border-top-color: lightskyblue">
 												<div class="card-header">
 													<div class="card-title">
 														{{$structure_type}} - {{ $structure->legal_name }}
 													</div>
 												</div>
-												<div class="card-body pt-0 mt-0">
+												<div class="card-body pl-0 pr-0 pt-0 mt-0">
 													@if(count($structure->courses))
 													<table class="table table-hover">
 														<thead>
@@ -39,17 +39,17 @@
 														<tbody>
 																		@foreach($structure->courses as $course)
 																			<tr>
-																				<td>{{$course->name}}</td>
+																				<td class="td-coursename">{{$course->name}}</td>
 																				@if ($type != App\Models\Structure::TYPE_AFFILIATE)
-																				<td class="text-center">{{$course->purchased_qty}}</td>
+																				<td class="text-center {{$course->purchased_qty > 0 ? 'gnr' : ''}}">{{$course->purchased_qty}}</td>
 																				@endif
 																				@if ($type == App\Models\Structure::TYPE_MASTER || $type == App\Models\Structure::TYPE_PARTNER || $type == App\Models\Structure::TYPE_AFFILIATE)
-																				<td class="text-center">{{$course->assigned_qty}}</td>
+																				<td class="text-center {{$course->assigned_qty > 0 ? 'gnr' : ''}}">{{$course->assigned_qty}}</td>
 																				@endif
-																				<td class="text-center">{{$course->distributed_qty}}</td>
-																				<td class="text-center">{{$course->available_qty}}</td>
+																				<td class="text-center {{$course->distributed_qty > 0 ? 'gnr' : ''}}">{{$course->distributed_qty}}</td>
+																				<td class="text-center {{$course->available_qty > 0 ? 'gnr' : ''}}">{{$course->available_qty}}</td>
 																				@hasanyrole('superadmin|admin')
-																				<td class="text-center">{{$course->admin_qty}}</td>
+																				<td class="text-center {{$course->admin_qty > 0 ? 'gnr' : ''}}">{{$course->admin_qty}}</td>
 																				@endhasanyrole
 																			</tr>
 
