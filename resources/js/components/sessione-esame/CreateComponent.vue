@@ -55,6 +55,8 @@
 													v-if="timePicker1"
 													v-model="content.start_hour"
 													full-width format="24hr"
+													min="7:00"
+													max="21:45"
 													@click:minute="$refs.menu.save(content.start_hour)"
 												></v-time-picker>
 											</v-menu>
@@ -77,6 +79,8 @@
 													v-if="timePicker2"
 													v-model="content.end_hour"
 													full-width format="24hr"
+													min="7:00"
+													max="21:45"
 													@click:minute="$refs.menu2.save(content.end_hour)"
 												></v-time-picker>
 											</v-menu>
