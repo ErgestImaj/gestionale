@@ -10,8 +10,8 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.sourceMaps(false, 'source-map')
-    .js('resources/js/app.js', 'public/js')
+//mix.sourceMaps(false, 'source-map')
+    mix.js('resources/js/app.js', 'public/js')
     .copy('resources/js/actions/','public/js')
     .copy('resources/js/datatables/','public/js')
     .copy('resources/js/summernote/config.js','public/js')

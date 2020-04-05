@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-btn :href="createUrl" class="gadd">{{ trans('form.add_content') }}</v-btn>
+		<v-btn :href="createUrl" class="gadd">Nuovo Sessione</v-btn>
 		<v-card>
 			<v-card-title>
 				Lista Lrn
