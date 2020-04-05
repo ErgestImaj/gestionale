@@ -11,4 +11,5 @@ Route::group([
     Route::get('mf-exams/{type}','MediaformExamsController@index');
 
 		Route::view('/lrn-exams', 'exams.index')->name('lrn.index');
+		Route::view('/lrn-exams/create', 'exams.create')->name('lrn.create');
 });
