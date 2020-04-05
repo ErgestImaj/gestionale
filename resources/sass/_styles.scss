@@ -348,3 +348,64 @@ span.gcc {
 	line-height: 16px;
 	color: #6b6b6b;
 }
+span.badge.badge-info {
+	background: white;
+	color: black;
+	border: 1px solid #e0e0e0;
+	border-radius: 18px;
+}
+span.gicon em {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: linear-gradient(45deg, #388E3C, #81C784);
+	color: white;
+	border-radius: 50% 50% 0 50%;
+	font-size: 16px;
+}
+.media-body p span {
+	color: black !important;
+}
+.media-body p {
+	margin: 0 !important;
+	line-height: 30px;
+}
+.card-header div {
+	margin: 0 !important;
+}
+.card-header {
+	padding: 7px 15px;
+	border: none;
+	background: #C8E6C9;
+}
+.card.card-default {
+	border: 5px solid white !important;
+	border-radius: 3px !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+.card .card-title {
+	font-size: 15px;
+	line-height: 20px;
+	color: #28362a;
+}
+span.badge.badge-success {
+	border-radius: 15px;
+	color: #1B5E20;
+	background: white;
+	border-color: #1b5e20;
+}
+span.badge.badge-warning {
+	border-radius: 15px;
+	color: #EF6C00;
+	background: white;
+	border-color: #EF6C00;
+}
+.td-coursename {
+	line-height: 22px !important;
+}
+td.gnr {
+	font-weight: bold;
+	background: #efefef;
+}
