@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class CartPaypalTransactions extends Model
+class PaypalTransactions extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
 
@@ -34,7 +34,7 @@ class CartPaypalTransactions extends Model
 	protected $appends = ['hashid','user_full_name'];
 
 	public function order(){
-		return $this->belongsTo(CartOrders::class,'order_id','id');
+		return $this->belongsTo(Orders::class,'order_id','id');
 	}
 	public function getUserFullNameAttribute(){
 		if (isset($this->params['validate_user_id']) && is_array($this->params)){

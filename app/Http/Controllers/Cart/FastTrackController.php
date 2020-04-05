@@ -12,8 +12,8 @@ use App\Models\Cart\ElectronicInvoice;
 use App\Models\Cart\FastTrack;
 use App\Models\Exams\LrnExamSession;
 use App\Services\ElectronicInvoiceServices;
-use http\Env\Response;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use PDF;
 
@@ -110,16 +110,23 @@ class FastTrackController extends Controller
 	 * TO DO: code refactor
 	 */
 		public function generateInvoice(FastTrack $fastTrack){
-			if (empty(@$fastTrack->user->structure->pec))
-				return toastr()->success(' il pec email e un campo obbligatorio per fattura elettronica');
-			if ((empty(@$fastTrack->user->structure->piva))&& empty(@$fastTrack->user->structure->tax_code))
-				return toastr()->success(' il PIVA e un campo obbligatorio per fattura elettronica');
-
-			$response = ElectronicInvoiceServices::generateXMLInvoice($fastTrack,$fastTrack->user->structure);
-			if ($response['status']){
-				$electronic_invoice = $response['electronic_invoice'];
-        return response()->download($electronic_invoice->content_path.$electronic_invoice->receipt);
+			if (empty(@$fastTrack->user->structure->pec)){
+				toastr()->error('il pec email e un campo obbligatorio per fattura elettronica');
+				return back();
 			}
-			return toastr()->error(trans('messages.error'));
+
+			if ((empty(@$fastTrack->user->structure->piva))&& empty(@$fastTrack->user->structure->tax_code)){
+				toastr()->error('il PIVA e un campo obbligatorio per fattura elettronica');
+				return back();
+			}
+
+
+			$electronic_invoice = ElectronicInvoiceServices::generateXMLInvoice($fastTrack,$fastTrack->user->structure);
+			if ($electronic_invoice){
+				toastr()->success('Fattura elettronica generato con successo!');
+        return view('orders.electronic-invoice');
+			}
+			toastr()->error(trans('messages.error'));
+			return back();
 		}
 }

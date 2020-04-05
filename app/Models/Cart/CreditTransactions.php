@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class CartCreditTransactions extends Model
+class CreditTransactions extends Model
 {
     use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
 

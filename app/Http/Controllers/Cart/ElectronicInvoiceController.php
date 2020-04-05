@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cart;
 use App\Http\Controllers\Controller;
 use App\Models\Cart\ElectronicInvoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ElectronicInvoiceController extends Controller
 {

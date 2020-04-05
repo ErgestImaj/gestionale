@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart\CartCourseTransactions;
+use App\Models\Cart\CourseTransactions;
 use App\Models\Course;
 use App\Models\Structure;
 use App\Models\User;
@@ -21,7 +21,7 @@ class StorehouseController extends Controller
 
 			endforeach;
 			$course->total = price_formater($total);
-			$course->admin = $course->cartCourseTransactions()->type(CartCourseTransactions::TYPE_ADMIN_ADDED)->sum('qty') ?? 0;
+			$course->admin = $course->cartCourseTransactions()->type(CourseTransactions::TYPE_ADMIN_ADDED)->sum('qty') ?? 0;
 		}
 		return view('struture.storehouse.admin', compact('courses'));
 	}
@@ -43,11 +43,11 @@ class StorehouseController extends Controller
 		)->get(['id', 'name']);
 		foreach ($courses as $course):
 			$course->available_qty = $course->cartCourseTransactions->where('user_id', $user_id)->sum('qty');
-			$course->purchased_qty = $course->cartCourseTransactions()->where('user_id', $user_id)->type(CartCourseTransactions::TYPE_COURSE_PURCHASE)->where('order_id', '<>', 0)->sum('qty');
-			$course->refunded_qty = $course->cartCourseTransactions()->where('user_id', $user_id)->type(CartCourseTransactions::TYPE_COURSE_REFUND)->sum('qty');
-			$course->assigned_qty = abs($course->cartCourseTransactions()->where('user_id', $user_id)->type(CartCourseTransactions::TYPE_COURSE_REQUEST)->sum('qty'));
-			$course->admin_qty = $course->cartCourseTransactions()->where('user_id', $user_id)->type(CartCourseTransactions::TYPE_ADMIN_ADDED)->sum('qty');
-			$course->distributed_qty = abs($course->cartCourseTransactions()->where('user_id', $user_id)->type(CartCourseTransactions::TYPE_COURSE_DISTRIBUTE)->sum('qty')) - abs($course->cartCourseTransactions()->where('user_id', $user_id)->type(CartCourseTransactions::TYPE_COURSE_PURCHASE)->where('order_id', 0)->sum('qty'));
+			$course->purchased_qty = $course->cartCourseTransactions()->where('user_id', $user_id)->type(CourseTransactions::TYPE_COURSE_PURCHASE)->where('order_id', '<>', 0)->sum('qty');
+			$course->refunded_qty = $course->cartCourseTransactions()->where('user_id', $user_id)->type(CourseTransactions::TYPE_COURSE_REFUND)->sum('qty');
+			$course->assigned_qty = abs($course->cartCourseTransactions()->where('user_id', $user_id)->type(CourseTransactions::TYPE_COURSE_REQUEST)->sum('qty'));
+			$course->admin_qty = $course->cartCourseTransactions()->where('user_id', $user_id)->type(CourseTransactions::TYPE_ADMIN_ADDED)->sum('qty');
+			$course->distributed_qty = abs($course->cartCourseTransactions()->where('user_id', $user_id)->type(CourseTransactions::TYPE_COURSE_DISTRIBUTE)->sum('qty')) - abs($course->cartCourseTransactions()->where('user_id', $user_id)->type(CourseTransactions::TYPE_COURSE_PURCHASE)->where('order_id', 0)->sum('qty'));
 		endforeach;
 		return $courses;
 	}

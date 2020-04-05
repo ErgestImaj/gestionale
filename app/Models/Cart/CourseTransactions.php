@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class CartCourseTransactions extends Model
+class CourseTransactions extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships;
 
@@ -47,10 +47,10 @@ class CartCourseTransactions extends Model
 	}
 
 	public function parent(){
-		return $this->hasOne(CartCourseTransactions::class,'parent_transaction_id','id');
+		return $this->hasOne(CourseTransactions::class,'parent_transaction_id','id');
 	}
 
 	public function order(){
-		return $this->belongsTo(CartOrders::class,'order_id','id');
+		return $this->belongsTo(Orders::class,'order_id','id');
 	}
 }

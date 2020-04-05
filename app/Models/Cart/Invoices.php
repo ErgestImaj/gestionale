@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class CartInvoices extends Model
+class Invoices extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships;
 
@@ -31,6 +31,6 @@ class CartInvoices extends Model
 	protected $appends = ['hashid'];
 
 	public function order(){
-		return $this->belongsTo(CartOrders::class,'order_id','id');
+		return $this->belongsTo(Orders::class,'order_id','id');
 	}
 }

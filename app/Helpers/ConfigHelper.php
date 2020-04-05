@@ -17,7 +17,7 @@ class ConfigHelper
 	 */
 	public static function  getConfig($name = 'system')
 	{
-		if(!isset(self::$_config[$name]))
+		if(!isset(static::$_config[$name]))
 			self::$_config[$name] = Config::loadConfig($name);
 
 		return self::$_config[$name];

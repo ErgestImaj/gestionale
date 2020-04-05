@@ -22,12 +22,12 @@ class ElectronicInvoice extends Model
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 
-	const SUBSCRIPTION = 0;
-	const USER_VALIDATION = 1;
-	const PURCHASE = 2;
-	const CERTIFICATE_DUPLICATE_REQUEST = 3;
-	const CREDIT_PACK_PURCHASE = 4;
-	const FAST_TRACK = 5;
+	const TYPE_SUBSCRIPTION = 0;
+	const TYPE_USER_VALIDATION = 1;
+	const TYPE_PURCHASE = 2;
+	const TYPE_CERTIFICATE_DUPLICATE_REQUEST = 3;
+	const TYPE_CREDIT_PACK_PURCHASE = 4;
+	const TYPE_FAST_TRACK = 5;
 
 	const NORMAL_ORDER=1;
 	const FAST_TRACK_ORDER=2;

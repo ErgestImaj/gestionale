@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Cart\CartOrders;
+use App\Models\Cart\Orders;
 use App\Models\Cart\CourseRequest;
 use App\Traits\HasContentPath;
 use App\Traits\HashIdAttribute;

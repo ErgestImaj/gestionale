@@ -18,7 +18,7 @@ class Config extends Model
 
 	public static function loadConfig($name)
 	{
-		return self::where('name', $name)->first();
+		return static::where('name', $name)->first();
 	}
 
 	public function getValue($field = null, $default = null)

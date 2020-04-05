@@ -3,8 +3,8 @@
 namespace App\Models;
 
 
-use App\Models\Cart\CartCourseTransactions;
-use App\Models\Cart\CartOrderItems;
+use App\Models\Cart\CourseTransactions;
+use App\Models\Cart\OrderItems;
 use App\Models\Cart\CourseRequestItems;
 use App\Models\Exams\LrnExamSession;
 use App\Models\Exams\MediaformExamSession;
@@ -65,7 +65,7 @@ class Course extends Model
 		}
 
 		public function cartCourseTransactions(){
-			return $this->hasMany(CartCourseTransactions::class,'course_id','id');
+			return $this->hasMany(CourseTransactions::class,'course_id','id');
 		}
 		public function requestItems(){
     	return $this->hasMany(CourseRequestItems::class,'item_id','id');
@@ -74,6 +74,6 @@ class Course extends Model
     	return $this->hasOne(CourseSettings::class,'course_id');
 		}
 		public function ordersItems(){
-    	return $this->hasMany(CartOrderItems::class,'item_id','id');
+    	return $this->hasMany(OrderItems::class,'item_id','id');
 		}
 }

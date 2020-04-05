@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class CartOrders extends Model
+class Orders extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting,
 		HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat,OrderTypeNameAttribute;
@@ -24,6 +24,8 @@ class CartOrders extends Model
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
+
+	const CONTENT_PATH   = 'orders';
 
 	const TYPE_SUBSCRIPTION = 0;
 	const TYPE_USER_VALIDATION = 1;
@@ -52,22 +54,22 @@ class CartOrders extends Model
 
 	];
 
-	protected $appends = ['hashid','type_name','payment_name','status_name'];
+	protected $appends = ['hashid','type_name','payment_name','status_name','content_path'];
 
 	public function cartCourseTransaction(){
-		return $this->hasMany(CartCourseTransactions::class,'order_id','id');
+		return $this->hasMany(CourseTransactions::class,'order_id','id');
 	}
 	public function orderItems(){
-		return $this->hasMany(CartOrderItems::class,'order_id','id');
+		return $this->hasMany(OrderItems::class,'order_id','id');
 	}
 	public function structure(){
 		return $this->belongsTo(User::class,'user_id','id');
 	}
 	public function paypalTransactions(){
-		return $this->hasOne(CartPaypalTransactions::class,'order_id','id');
+		return $this->hasOne(PaypalTransactions::class,'order_id','id');
 	}
 	public function invoice(){
-		return $this->hasOne(CartInvoices::class,'order_id','id');
+		return $this->hasOne(Invoices::class,'order_id','id');
 	}
 
 

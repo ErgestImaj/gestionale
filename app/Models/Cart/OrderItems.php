@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Mtvs\EloquentHashids\HasHashid;
 use Mtvs\EloquentHashids\HashidRouting;
 
-class CartOrderItems extends Model
+class OrderItems extends Model
 {
 	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
 
@@ -35,7 +35,7 @@ class CartOrderItems extends Model
 	protected $appends = ['hashid'];
 
 	public function order(){
-		return $this->belongsTo(CartOrders::class,'order_id','id');
+		return $this->belongsTo(Orders::class,'order_id','id');
 	}
 
 	public function course(){

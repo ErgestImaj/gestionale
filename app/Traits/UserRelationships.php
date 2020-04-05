@@ -1,8 +1,8 @@
 <?php
 namespace App\Traits;
 
-use App\Models\Cart\CartCourseTransactions;
-use App\Models\Cart\CartOrders;
+use App\Models\Cart\CourseTransactions;
+use App\Models\Cart\Orders;
 use App\Models\Cart\FastTrack;
 use App\Models\Category;
 use App\Models\Certificate;
@@ -102,10 +102,10 @@ trait UserRelationships{
 		}
 
 		public function cartCourseTransactions(){
-			return $this->hasMany(CartCourseTransactions::class,'user_id','id');
+			return $this->hasMany(CourseTransactions::class,'user_id','id');
 		}
 	public function orders(){
-		return $this->hasMany(CartOrders::class,'user_id','id');
+		return $this->hasMany(Orders::class,'user_id','id');
 	}
 	public function tracking(){
 			return $this->hasMany(Tracking::class,'user_id','id');

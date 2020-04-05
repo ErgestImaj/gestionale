@@ -20,7 +20,7 @@ class ElectronicInvoiceServices
 		$class = get_class($invoice);
 		$price = $bolo2 = $p_without_iva1 = $iva1 = $imp1 = $impon1 = $p_without_iva2 = $iva2 = $impon2 = $imp2 = $p_without_iva3 = $iva3 = $tatal_order = 0;
 		$invoice_date = $invoice->order_date;
-		if ($class != 'App\Models\Cart\CartOrders') {
+		if ($class != 'App\Models\Cart\Orders') {
 			$p_no_iva = 0;
 			foreach ($invoice->order_items as $orderItem):
 				$prezo_unico = CurrencyHelper::renderValue(ConfigHelper::getConfigValue('fast_track_price', 0, 'cart') / (1 + 22 / 100));
@@ -247,13 +247,13 @@ class ElectronicInvoiceServices
 		$DatiGeneraliDocumento->appendChild($Data);
 		$Numero = $xml->createElement("Numero", ElectronicInvoice::getMaxProgresNumber() . Carbon::now()->year);
 		$DatiGeneraliDocumento->appendChild($Numero);
-		$ImportoTotaleDocumento = $xml->createElement("ImportoTotaleDocumento", $class == 'App\Models\Cart\CartOrders' ? $tatal_order : $price);
+		$ImportoTotaleDocumento = $xml->createElement("ImportoTotaleDocumento", $class == 'App\Models\Cart\Orders' ? $tatal_order : $price);
 		$DatiGeneraliDocumento->appendChild($ImportoTotaleDocumento);
 		$DatiGenerali->appendChild($DatiGeneraliDocumento);
 		$FatturaElettronicaBody->appendChild($DatiGenerali);
 		//end DatiGenerali============================
 
-		if ($class == 'App\Models\Cart\CartOrders'):
+		if ($class == 'App\Models\Cart\Orders'):
 			//creating DatiBeniServizi=========================
 			$DatiBeniServizi = $xml->createElement("DatiBeniServizi");
 
@@ -443,7 +443,7 @@ class ElectronicInvoiceServices
 		$DettaglioPagamento->appendChild($ModalitaPagamento);
 		$DataScadenzaPagamento = $xml->createElement("DataScadenzaPagamento", $invoice_date);
 		$DettaglioPagamento->appendChild($DataScadenzaPagamento);
-		$ImportoPagamento = $xml->createElement("ImportoPagamento", $class == 'App\Models\Cart\CartOrders' ? $tatal_order : $price);
+		$ImportoPagamento = $xml->createElement("ImportoPagamento", $class == 'App\Models\Cart\Orders' ? $tatal_order : $price);
 		$DettaglioPagamento->appendChild($ImportoPagamento);
 		$IstitutoFinanziario = $xml->createElement("IstitutoFinanziario", "Poste Italiane Spa");
 		$DettaglioPagamento->appendChild($IstitutoFinanziario);
@@ -464,28 +464,23 @@ class ElectronicInvoiceServices
 		$xml->appendChild($fatturaElettronica);
 		//Save XML as a file
 		$file_name = 'IT10209790152_' . substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTVWXYZ"), 0, 5) . '.xml';
-		$type = isset($invoice->type) ? $invoice->type : ElectronicInvoice::FAST_TRACK;
+		$type = isset($invoice->type) ? $invoice->type : ElectronicInvoice::TYPE_FAST_TRACK;
 
 		try {
-			$xml->save(storage_path('public/'.ElectronicInvoice::CONTENT_PATH.DIRECTORY_SEPARATOR).  $file_name);
+			$xml->save(storage_path('app/public/'.ElectronicInvoice::CONTENT_PATH.DIRECTORY_SEPARATOR).  $file_name);
 
          $electronic_invoice = ElectronicInvoice::create([
          	'user_id'=>$invoice->user_id,
-					 'order_type'=>$type,
+					 'type'=>$type,
 					 'invoice_number'=>(int)filter_var(ElectronicInvoice::getMaxProgresNumber(),FILTER_SANITIZE_NUMBER_INT),
 					 'invoice_oldnr'=>$invoice->order_number,
 					 'receipt'=>$file_name,
 				 ]);
-				return [
-					'status'=>true,
-					'electronic_invoice'=>$electronic_invoice
-				];
+				return $electronic_invoice;
 
 		}catch (\Exception $exception){
 			logger($exception->getMessage());
-			return [
-				'status'=>false,
-			];
+		  return false;
 		}
 
 	}

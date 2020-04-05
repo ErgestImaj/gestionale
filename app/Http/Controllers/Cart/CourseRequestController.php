@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cart\CartCourseTransactions;
+use App\Models\Cart\CourseTransactions;
 use App\Models\Cart\CourseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +34,7 @@ class CourseRequestController extends Controller
 
 				foreach ($courseRequest->items as $item):
 
-					$parent_transaction = CartCourseTransactions::create(
+					$parent_transaction = CourseTransactions::create(
 						[
 							'user_id'=>$courseRequest->parent_structure_id,
 							'course_id'=>$item->item_id,
@@ -42,13 +42,13 @@ class CourseRequestController extends Controller
 							'order_id'=>0,
 							'paypal_transaction_id'=>0,
 							'parent_transaction_id'=>0,
-							'type'=>CartCourseTransactions::TYPE_COURSE_REQUEST,
+							'type'=>CourseTransactions::TYPE_COURSE_REQUEST,
 							'state'=>1,
 							'created_by'=>auth()->id(),
 							'updated_by'=>auth()->id(),
 						]
 					);
-				 CartCourseTransactions::create(
+				 CourseTransactions::create(
 						[
 							'user_id'=>$courseRequest->structure_id,
 							'course_id'=>$item->item_id,
@@ -56,7 +56,7 @@ class CourseRequestController extends Controller
 							'order_id'=>0,
 							'paypal_transaction_id'=>0,
 							'parent_transaction_id'=>$parent_transaction->id,
-							'type'=>CartCourseTransactions::TYPE_COURSE_REQUEST,
+							'type'=>CourseTransactions::TYPE_COURSE_REQUEST,
 							'state'=>1,
 							'created_by'=>auth()->id(),
 							'updated_by'=>auth()->id(),

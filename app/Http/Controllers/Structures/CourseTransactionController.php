@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Structures;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseTransactionRequest;
-use App\Models\Cart\CartCourseTransactions;
+use App\Models\Cart\CourseTransactions;
 use App\Models\Structure;
 use Illuminate\Http\Request;
 
@@ -17,9 +17,9 @@ class CourseTransactionController extends Controller
      */
     public function index(Structure $structure)
 		{
-			return CartCourseTransactions::whereHas('owner',function ($query) use ($structure){
+			return CourseTransactions::whereHas('owner',function ($query) use ($structure){
 				 $query->where('user_id', $structure->user_id);
-			})->type(CartCourseTransactions::TYPE_ADMIN_ADDED)->with([
+			})->type(CourseTransactions::TYPE_ADMIN_ADDED)->with([
 				'course'=>function($query){
 				$query->select(['id','name']);
 				},
@@ -38,7 +38,7 @@ class CourseTransactionController extends Controller
     {
 
 			try {
-				$transaction = new CartCourseTransactions;
+				$transaction = new CourseTransactions;
 				$transaction->user_id = $structure->user_id;
 				$transaction->fill($request->fillFormFileds());
 				$transaction->save();
@@ -62,7 +62,7 @@ class CourseTransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CartCourseTransactions $transaction)
+    public function destroy(CourseTransactions $transaction)
     {
 			try {
 				$transaction->delete();

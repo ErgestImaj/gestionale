@@ -11,8 +11,8 @@ Route::group([
 		Route::view('/fast-track','orders.fast-track')->name('fasttrack.list');
 		Route::view('/courses-requests','orders.structure-orders')->name('structure.orders.list');
 		Route::view('/electronic-invoice','orders.electronic-invoice')->name('electronic.invoice.list');
-
 		Route::get('/generate-electronic-invoice/fast-track/{fastTrack}','FastTrackController@generateInvoice');
+
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			Route::get('/orders','OrdersController@index');
@@ -27,6 +27,9 @@ Route::group([
 			Route::get('/fast-track/{fastTrack}/download','FastTrackController@downloadInvoice');
 			Route::get('/fast-track/{fastTrack}/send','FastTrackController@sendInvoice');
 			Route::patch('/fast-track/{fastTrack}/confirm','FastTrackController@manualOrderConfirm');
+
+			Route::post('/orders/{order}/upload','OrdersController@uploadInvoice');
+			Route::get('/orders/{order}/download','OrdersController@downloadInvoice');
 
 			Route::get('/electronic-invoice','ElectronicInvoiceController@index');
 			Route::delete('/electronic-invoice/{invoice}','ElectronicInvoiceController@destroy');
