@@ -162,17 +162,6 @@
 										})
 								;
 						},
-					getUserTypes(){
-						axios.get(`/amministrazione/api/user-types`)
-							.then(response => {
-								if (typeof(response.data) != "undefined") {
-									this.types = response.data;
-								}
-							})
-							.catch(error => {
-
-							})
-					},
             create() {
                 if (!this.submiting) {
                     this.submiting = true;

@@ -128,7 +128,6 @@
             <a class="nav-link" href="{{route('admin.workshops.index')}}" >
                 <i class="fas fa-briefcase menu-icon"></i>
                 <span class="menu-title">{{trans('menu.workshop')}}</span>
-                <i class="menu-arrow"></i>
             </a>
         </li>
         <!--.Messages-->

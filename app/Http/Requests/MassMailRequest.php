@@ -27,6 +27,7 @@ class MassMailRequest extends FormRequest
             'subject'=>'required|string|min:3',
             'description'=>'required|string|min:15',
             'target'=>'required|array|min:1',
+            'types'=>'required|array',
             'exclude'=>'nullable|array',
         ];
     }
@@ -35,6 +36,7 @@ class MassMailRequest extends FormRequest
             'subject'=>trans('form.subject'),
             'description'=>trans('form.description'),
             'exclude'=>trans('form.exclude'),
+            'types'=>'tipo',
         ];
     }
     public function fillFormData(){
@@ -43,8 +45,9 @@ class MassMailRequest extends FormRequest
            'subject'=>$this->subject,
            'created_by'=>auth()->id(),
            'description'=>$this->description,
+				   'types'=>$this->types,
            'send_to'=>implode(', ',array_pluck($this->target, 'name')),
-           'exclude'=>($this->exists('exclude') && is_array($this->exclude)) ? implode(', ',array_pluck($this->exclude, 'email')) : null
+           'exclude'=>$this->exists('exclude') ? $this->exclude : null
        ];
     }
 }

@@ -21,6 +21,7 @@ class Document extends Model
     protected $guarded = [];
     protected $casts = [
         'share_with'=>'array',
+        'types'=>'array',
     ];
     public function categories(){
         return $this->belongsToMany(DocumentCategories::class,'document_category','document_id','category_id');

@@ -9,13 +9,10 @@ use App\Mail\SendEmailToSingleUser;
 use App\Models\MassMailHistory;
 use App\Models\User;
 use App\Models\UserGroups;
-use App\Notifications\InvitationEmailNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\DocBlock\Tags\Uses;
-use Yajra\DataTables\DataTables;
 
 class EmailsController extends Controller
 {
@@ -80,45 +77,20 @@ class EmailsController extends Controller
 
      }
     public function massEmailApi(){
+
         $logs = MassMailHistory::latest()->get();
+		  	$logs_filtred = $logs->filter(function ( $log) {
+				$log->description =Str::limit($log->description,20,'...');
+				$log->target =ucwords( $log->send_to);
+				$log->types = implode(', ', array_pluck($log->types, 'name'));
+				$log->created =format_date($log->created_at);
+				$log->created_by =optional($log->user)->displayName();
+				$log->remlink = route('admin.deletemassemail',$log->hashid());
+				$log->remMessage = trans('messages.delete_confirm', ['record' => 'email']);
+				return $log;
+			});
 
-        $datatable = DataTables::of(  $logs  )
-                               ->addIndexColumn()
-                               ->addColumn( 'subject', function ($row )
-                               {
-                                   return $row->subject;
-                               } )
-                               ->addColumn( 'description', function ( $row )
-                               {
-                                   return  Str::limit($row->description,20,'...');
-                               } )
-                               ->addColumn( 'target', function ( $row )
-                               {
-                                   return ucwords( $row->send_to );
-                               } )
-                               ->addColumn( 'exclude', function ( $row )
-                               {
-                                   return $row->exclude;
-                               } )
-                               ->addColumn( 'created', function ( $row )
-                               {
-                                   return format_date($row->created_at);
-                               } )
-                                ->addColumn( 'created_by', function ( $row )
-                                {
-                                    return optional($row->user)->displayName();
-                                } )
-                               ->addColumn( 'actions', function ( $row )
-                               {
-                                   $html ='<a class="delete-btn py-2 px-3 btn block-btn btn-danger" data-content="'.trans('messages.delete_confirm',['record'=>'email']).'" data-action="'.route('admin.deletemassemail',['log'=>$row->hashid()]).'" href="#">
-                                                       <i class="fas fa-trash-alt"></i> </a>';
-
-                                   return $html;
-                               } )
-                               ->rawColumns( ['actions','description'] )
-                               ->make( true );
-
-        return  $datatable;
+        return $logs_filtred->values()->toJson();
     }
 
     /*

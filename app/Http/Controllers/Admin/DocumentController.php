@@ -88,6 +88,7 @@ class DocumentController extends Controller
 			$document->name = $request->input('name');
 			$document->share_with = $request->input('role');
 			$document->type = $file['extension'];
+			$document->types = $request->input('types');
 			$document->created_by = auth()->id();
 			$document->doc_file = $file['url'];
 
@@ -139,6 +140,7 @@ class DocumentController extends Controller
 
 			$document->name = $request->input('name');
 			$document->share_with = $request->input('role');
+			$document->types = $request->input('types');
 			$document->type = $request->hasFile('doc_file') ? 	$file['extension'] : $document->type;
 			$document->updated_by = auth()->id();
 			$document->doc_file = $request->hasFile('doc_file') ? 	$file['url'] : $document->doc_file;

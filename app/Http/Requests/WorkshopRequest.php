@@ -27,6 +27,7 @@ class WorkshopRequest extends FormRequest
             'when'=>'required|in:0,1',
             'date'=>'required|date',
             'partecipants'=>'required|array',
+            'types'=>'required|array',
             'note'=>'required|string|min:20'
 
         ];
@@ -37,6 +38,7 @@ class WorkshopRequest extends FormRequest
             'date'=>strtolower(trans('form.data')),
             'note'=>strtolower(trans('form.description')),
             'partecipants'=>strtolower(trans('form.target')),
+            'types'=>'tipo',
         ];
     }
     public function fillFormData(){
@@ -46,6 +48,7 @@ class WorkshopRequest extends FormRequest
             'created_by'=>auth()->id(),
             'note'=>$this->note,
             'partecipants'=>$this->partecipants,
+            'types'=>$this->types,
             'when'=>$this->when
         ];
     }

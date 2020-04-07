@@ -42,12 +42,26 @@
 						<v-combobox
 							chips
 							:deletable-chips="true"
+							outlined label="Tipo"
+							v-model="workshop.types"
+							:items="types"
+							multiple
+							item-text="name"
+							item-value="id"
+							attach
+							:error-messages="errors.types ? errors.types[0] : []"
+						></v-combobox>
+					</v-col>
+					<v-col cols="12" >
+						<v-combobox
+							chips
+							:deletable-chips="true"
 							v-model="workshop.partecipants"
 							:items="roles"
 							outlined
 							multiple
 							item-text="name"
-							item-value="target"
+							item-value="id"
 							:error-messages="errors.partecipants ? errors.partecipants[0] : []"
 							attach
 							:label="trans('form.target')"
@@ -141,12 +155,10 @@
                     date: "",
                     note: `<p></p>`
                 },
+							  types:[],
                 datePicker1: false,
                 errors: {},
                 submiting: false,
-                config: {
-                    height: 100
-                },
                 extensions: [
                     History,
                     Blockquote,
@@ -174,9 +186,10 @@
                 search: "",
                 headers: [
                     { text: "#", value: "id" },
-                    { text: this.trans("form.data"), value: "data" },
+                    { text: this.trans("form.data"), value: "date" },
                     { text: this.trans("form.description"), value: "description" },
                     { text: this.trans("form.participants"), value: "participants" },
+                    { text: 'Tipo', value: "types" },
                     { text: this.trans("form.created_by"), value: "created_by" },
                     { text: this.trans("form.updated_by"), value: "updated_by" },
                     {
@@ -197,11 +210,12 @@
             this.loading = true;
             this.getRoles();
             this.getWorkshops();
+			     	this.getUserTypes();
         },
         methods: {
             getWorkshops() {
-                axios.get(`/amministrazione/api/getworkshops`).then(res => {
-                    this.workshops = res.data.data;
+                axios.get(`/amministrazione/api/getworkshops`).then(response => {
+                    this.workshops = response.data;
                     this.loading = false;
                 });
             },
@@ -223,9 +237,7 @@
                             this.submiting = false;
                             if (response.data.status == "success") {
                                 swal("Good job!", response.data.msg, "success");
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 1500)
+                               this.getWorkshops()
                             } else if (response.data.status == "error") {
                                 swal("Woops!", response.data.msg, "error");
                                 this.workshop = {};

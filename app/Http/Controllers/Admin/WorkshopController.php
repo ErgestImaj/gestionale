@@ -5,167 +5,136 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkshopRequest;
 use App\Models\Workshop;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Yajra\DataTables\DataTables;
 
 class WorkshopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getWorkshops()
-    {
-        $workshops  = Workshop::latest()->get();
-        $datatable = DataTables::of(   $workshops )
-                               ->addIndexColumn()
-                               ->addColumn( 'data', function ($row )
-                               {
-                                   $html = '<p>';
-                                   $html.=$row->when == 1 ? trans('form.afternoon') : trans('form.morning');
-                                   $html.=' | '.format_date($row->date);
-                                   $html.= '</p>' ;
-                                   return $html;
-                               } )
-                               ->addColumn( 'description', function ( $row )
-                               {
-                                   return   Str::limit($row->note,20,'...');
-                               } )
-                               ->addColumn( 'participants', function ( $row )
-                               {
-                                   return  implode(', ',array_pluck($row->partecipants,'name'));
-                               } )
-                               ->addColumn( 'created_by', function ( $row )
-                               {
-                                   return optional($row->user)->displayName();
-                               } )
-                                ->addColumn( 'updated_by', function ( $row )
-                                {
-                                    return optional($row->updatedByUser)->displayName();
-                                } )
-                               ->addColumn( 'hashid', function ( $row )
-                               {
-                                   return $row->hashid();
-                               } )
-                               ->addColumn( 'editlink', function ( $row )
-                               {
-                                   return route('admin.workshop.edit',$row->hashid());
-                               } )
-                               ->addColumn( 'remlink', function ( $row )
-                               {
-                                   return route('admin.workshop.destroy',$row->hashid());
-                               } )
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getWorkshops()
+	{
+		$workshops = Workshop::latest()->get();
+		$workshops_filtred = $workshops->filter(function ($workshop) {
 
-                               ->addColumn( 'remMessage', function ( $row )
-                               {
-                                   return trans('messages.delete_confirm', ['record'=>'workshop']);
-                               } )
-                               ->rawColumns( ['actions','description','data'] )
-                               ->make( true );
+			$html = $workshop->when == 1 ? trans('form.afternoon') : trans('form.morning');
+			$html .= ' | ' . format_date($workshop->date);
+			$workshop->date = $html;
+			$workshop->description = Str::limit($workshop->note, 20, '...');
+			$workshop->participants = implode(', ', array_pluck($workshop->partecipants, 'name'));
+			$workshop->types = implode(', ', array_pluck($workshop->types, 'name'));
+			$workshop->created_by = optional($workshop->user)->displayName();
+			$workshop->updated_by = optional($workshop->updatedByUser)->displayName();
+			$workshop->editlink = route('admin.workshop.edit', $workshop->hashid());
+			$workshop->remlink = route('admin.workshop.destroy', $workshop->hashid());
+			$workshop->remMessage = trans('messages.delete_confirm', ['record' => 'workshop']);
+			$workshop->hashid = $workshop->hashid();
+			return $workshop;
+		});
 
-        return  $datatable;
-    }
+		return $workshops_filtred->values()->toJson();
+	}
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(WorkshopRequest $request)
-    {
-          $workshop = new Workshop;
-        try {
-            $workshop->fill($request->fillFormData());
-            $workshop->save();
-            return response( [
-                'status' => 'success',
-                'msg'    => trans('messages.success')
-            ] );
-        }catch (\Exception $exception){
-            logger($exception->getMessage());
-            return response( [
-                'status' => 'error',
-                'msg'    => trans('messages.error')
-            ] );
-        }
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(WorkshopRequest $request)
+	{
+		$workshop = new Workshop;
+		try {
+			$workshop->fill($request->fillFormData());
+			$workshop->save();
+			return response([
+				'status' => 'success',
+				'msg' => trans('messages.success')
+			]);
+		} catch (\Exception $exception) {
+			logger($exception->getMessage());
+			return response([
+				'status' => 'error',
+				'msg' => trans('messages.error')
+			]);
+		}
+	}
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Workshop  $workshop
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Workshop $workshop)
-    {
-        return view('workshops.edit',compact('workshop'));
-    }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param \App\Models\Workshop $workshop
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Workshop $workshop)
+	{
+		return view('workshops.edit', compact('workshop'));
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Workshop  $workshop
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Workshop $workshop)
-    {
-        return $workshop;
-    }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param \App\Models\Workshop $workshop
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(Workshop $workshop)
+	{
+		return $workshop;
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Workshop  $workshop
-     * @return \Illuminate\Http\Response
-     */
-    public function update(WorkshopRequest $request, Workshop $workshop)
-    {
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param \Illuminate\Http\Request $request
+	 * @param \App\Models\Workshop $workshop
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(WorkshopRequest $request, Workshop $workshop)
+	{
 
-        try {
-            $workshop->fill($request->fillFormData());
-            $workshop->updated_by = auth()->id();
-            $workshop->update();
-            return response( [
-                'status' => 'success',
-                'msg'    => trans('messages.success')
-            ] );
-        }catch (\Exception $exception){
-            logger($exception->getMessage());
-            return response( [
-                'status' => 'error',
-                'msg'    => trans('messages.error')
-            ] );
-        }
-    }
+		try {
+			$workshop->fill($request->fillFormData());
+			$workshop->updated_by = auth()->id();
+			$workshop->update();
+			return response([
+				'status' => 'success',
+				'msg' => trans('messages.success')
+			]);
+		} catch (\Exception $exception) {
+			logger($exception->getMessage());
+			return response([
+				'status' => 'error',
+				'msg' => trans('messages.error')
+			]);
+		}
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Workshop  $workshop
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Workshop $workshop)
-    {
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param \App\Models\Workshop $workshop
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(Workshop $workshop)
+	{
 
-        try {
-            $workshop->delete();
-            return response( [
-                'status' => 'success',
-                'msg'    => trans('messages.delete_msg',['record'=>'workshop'])
-            ] );
-        }catch (\Exception $exception){
-            return response( [
-                'status' => 'error',
-                'msg'    => trans('messages.error')
-            ] );
-        }
+		try {
+			$workshop->delete();
+			return response([
+				'status' => 'success',
+				'msg' => trans('messages.delete_msg', ['record' => 'workshop'])
+			]);
+		} catch (\Exception $exception) {
+			return response([
+				'status' => 'error',
+				'msg' => trans('messages.error')
+			]);
+		}
 
 
-    }
+	}
 }

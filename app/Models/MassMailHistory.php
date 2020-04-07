@@ -13,5 +13,8 @@ class MassMailHistory extends Model
     use Notifiable, HasHashid, HashidRouting, HasUserRelationships;
 
     protected $guarded = [];
-
+		protected $casts = [
+			'types'=>'array',
+			'exclude'=>'array',
+		];
 }

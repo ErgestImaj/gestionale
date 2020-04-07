@@ -38,7 +38,21 @@
               <v-radio :label="trans('form.afternoon')" :value="1"></v-radio>
             </v-radio-group>
           </v-col>
-          <v-col cols="12" md="8">
+					<v-col cols="12" md="8">
+						<v-combobox
+							chips
+							:deletable-chips="true"
+							outlined label="Tipo"
+							v-model="workshop.types"
+							:items="types"
+							multiple
+							item-text="name"
+							item-value="id"
+							attach
+							:error-messages="errors.types ? errors.types[0] : []"
+						></v-combobox>
+					</v-col>
+          <v-col cols="12">
             <v-combobox
               chips
               :deletable-chips="true"
@@ -104,6 +118,7 @@ import moment from "moment";
                 roles:[],
                 workshop: {},
                 errors: {},
+				  			types:[],
                 submiting: false,
                 datePicker1: false,
                 config: {
@@ -137,13 +152,12 @@ import moment from "moment";
             }
         },
         components: {
-            'summernote' : require('../Summernote'),
             'datepicker':  Datepicker,
             TiptapVuetify
         },
         mounted() {
             this.getWorkshop();
-            // this.$refs.description.run('code',this.note);
+           this.getUserTypes();
             this.getRoles();
         },
 

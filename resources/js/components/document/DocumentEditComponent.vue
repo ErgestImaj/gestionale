@@ -2,15 +2,13 @@
     <v-form class="p-4">
         <v-container>
             <v-row>
-                <v-col cols="12" sm="12">
+                <v-col cols="12" sm="6">
                     <v-text-field
                         :label="trans('form.name')"
                         :error-messages="errors.name ? errors.name[0] : []"
                         outlined v-model="doc.name"
                     ></v-text-field>
                 </v-col>
-            </v-row>
-            <v-row>
                 <v-col cols="12" sm="6">
                     <v-select
                         v-model="doc.category"
@@ -37,6 +35,19 @@
                         outlined
                     ></v-select>
                 </v-col>
+							<v-col cols="12" sm="6">
+								<v-select
+									v-model="doc.types"
+									:items="types"
+									:error-messages="errors.types ? errors.types[0] : []"
+									item-text="name"
+									item-value="id"
+									:menu-props="{ maxHeight: '400' }"
+									label="Tipo"
+									multiple
+									outlined
+								></v-select>
+							</v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" sm="12">
@@ -71,7 +82,7 @@
             <v-row>
                 <v-col cols="12" sm="12" class="text-center">
                     <div v-if="images.includes(doc.type)">
-                        <img :src="doc.content_path+doc.doc_file" >
+                        <img width="100%" :src="doc.content_path+doc.doc_file" >
                     </div>
                     <div v-else-if="doc.type == 'mp3' ">
                         <audio controls>
@@ -120,6 +131,8 @@
                 submiting: false,
                 categories: [],
                 roles: [],
+                types: [],
+
             }
         },
 
@@ -127,6 +140,7 @@
             this.getDocument()
             this.getCategories()
             this.getRoles()
+				  	this.getUserTypes()
 
         },
         methods: {
@@ -135,7 +149,6 @@
                     .then(response => {
                         if (response.data) {
                             this.doc = response.data.document;
-													console.log(this.doc)
                             this.doc.category = this.convertObjectToArray(response.data.categories);
                             this.doc.role = this.convertObjectToArray(response.data.roles);
                         }

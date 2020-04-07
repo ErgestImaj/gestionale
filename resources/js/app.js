@@ -56,7 +56,18 @@ Vue.mixin({
 					link.click()
 					URL.revokeObjectURL(link.href)
 				}).catch(console.error)
-		}
+		},
+		getUserTypes(){
+			axios.get(`/amministrazione/api/user-types`)
+				.then(response => {
+					if (typeof(response.data) != "undefined") {
+						this.types = response.data;
+					}
+				})
+				.catch(error => {
+
+				})
+		},
 	}
 });
 // const files = require.context('./', true, /\.vue$/i)

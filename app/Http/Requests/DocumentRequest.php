@@ -26,6 +26,7 @@ class DocumentRequest extends FormRequest
         $this->merge([
             'id' => isset( $doc['id']) ? $doc['id'] : '',
             'role' => isset( $doc['role']) ? $doc['role'] : '',
+            'types' => isset( $doc['types']) ? $doc['types'] : '',
             'category'=> isset($doc['category']) ? $doc['category'] : '',
             'name'=>isset($doc['name']) ? $doc['name'] : '',
         ]);
@@ -40,6 +41,7 @@ class DocumentRequest extends FormRequest
     {
         $roles =  [
             'role'=>'required|array',
+				  	'types'=>'required|array',
             'role.*'=>'numeric',
             'category'=>'required|array',
             'category.*'=>'numeric',
