@@ -69,6 +69,25 @@ Route::group([
 			});
 });
 
+Route::group([
+	'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master|affiliati'],
+	'prefix'=>'amministrazione','as'=>'structure.',
+	'namespace'=>'Structures'
+],function() {
+
+	/*
+	* Users
+	*/
+	Route::group( ['prefix' => 'api'], function ()
+	{
+		Route::get('/structure/get-examiners/{type}', 'StructureController@getExaminers');
+		Route::get('/structure/get-invigilators/{type}', 'StructureController@getInvigilators');
+		Route::get('/get-structure-available-course/{type}','StructureController@getAvailableCourses');
+
+	});
+
+});
+
 
 Route::group([
     'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master|affiliati' ],
@@ -93,5 +112,7 @@ Route::group([
 	  Route::get('/storehouse-partner','StorehouseController@indexPartner')->name('storehouse.partner');
 	  Route::get('/storehouse-master','StorehouseController@indexMaster')->name('storehouse.master');
 	  Route::get('/storehouse-affiliate','StorehouseController@indexAffiliate')->name('storehouse.affiliate');
+
+
 
 });

@@ -121,6 +121,8 @@ export default {
 					case "amministrazione":
 					case "ispettori":
 					case "tutori":
+					case "area lrn":
+					case "area dile":
               this.hideCols = true;
               break;
           default:
@@ -195,7 +197,7 @@ export default {
                 { text: 'Sesso', value: 'user_info.gender' }
 						];
             let p3 = [
-                { text: 'Creato da', value: 'user.display_name' },
+                { text: 'Creato da', value: 'user.firstname' },
                 { text: 'Stato', value: 'state' },
                 { text: "Actions", value: "actions", sortable: false, align: "right" }
 						];

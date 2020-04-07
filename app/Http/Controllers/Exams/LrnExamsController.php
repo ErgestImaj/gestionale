@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Exams;
 
+use App\Events\ExamSectionCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExamSectionRequest;
+use App\Models\Category;
+use App\Models\Course;
 use App\Models\Exams\LrnExamSession;
+use App\Providers\NewExamSectionNotification;
 use Illuminate\Http\Request;
 
 class LrnExamsController extends Controller
@@ -13,9 +18,12 @@ class LrnExamsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type){
+    	return view('exams.index',compact('type'));
+		}
+    public function filter()
     {
-       $lrnexams =  LrnExamSession::with([
+       $lrnexams =  LrnExamSession::latest()->with([
         	'owner'=>function($query){
         	 $query->select(['id','firstname']);
 					},
@@ -31,7 +39,7 @@ class LrnExamsController extends Controller
 					'participants'=>function($query){
 						$query->select();
 					},
-				])->get(['id','user_id','course_id','invigilator_id','examiner_id','date','start_hour','start_minute','state','location']);
+				])->get(['id','user_id','course_id','invigilator_id','examiner_id','fast_track','date','start_hour','start_minute','state','location']);
 
        return $lrnexams;
     }
@@ -41,9 +49,9 @@ class LrnExamsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type)
     {
-        //
+        return view('exams.create',compact('type'));
     }
 
     /**
@@ -52,9 +60,26 @@ class LrnExamsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExamSectionRequest $request)
     {
-        //
+
+			try {
+				$exam = new  LrnExamSession;
+				$exam->fill($request->fillFormFields());
+				$exam->save();
+				event(new ExamSectionCreated($exam,auth()->user(),$exam->examiner,$exam->invigilator));
+				return response([
+					'status' => 'success',
+					'msg' => trans('messages.success'),
+					'redirect'=>route('exams.lrn.index',Category::LRN)
+				]);
+			} catch (\Exception $exception) {
+				logger('Exam section error: '.$exception->getMessage());
+				return response([
+					'status' => 'error',
+					'msg' => trans('messages.error')
+				]);
+			}
     }
 
     /**
@@ -101,4 +126,6 @@ class LrnExamsController extends Controller
     {
         //
     }
+
+
 }

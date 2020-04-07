@@ -7,7 +7,13 @@
         </h3>
     </div>
 		<v-app>
-            @if ($type == User::$roles[User::ADMIN] || $type == User::$roles[User::SEGRETERIA] || $type == User::$roles[User::TUTOR] || $type == User::$roles[User::ISPETTORI])
+						@if (
+							$type == User::$roles[User::ADMIN] ||
+							$type == User::$roles[User::SEGRETERIA] ||
+							$type == User::$roles[User::TUTOR] ||
+							$type == User::$roles[User::AREA_LRN] ||
+							$type == User::$roles[User::AREA_DILE]
+							)
                 <utenti-basic-edit user-type="{{$type}}"></utenti-basic-edit>
             @else
                 <utenti-edit user-type="{{$type ?? ''}}"></utenti-edit>

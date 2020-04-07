@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Listeners\NewExamSectionCreated;
 use Illuminate\Auth\Events\Registered;
+use App\Events\ExamSectionCreated;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -18,6 +20,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+			  ExamSectionCreated::class => [
+			  	NewExamSectionCreated::class
+				],
+
     ];
 
     /**

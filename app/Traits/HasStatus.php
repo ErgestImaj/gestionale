@@ -35,4 +35,8 @@ trait HasStatus {
         return $this->update();
     }
 
+    public function scopeActive($query,$state = self::IS_ACTIVE){
+    	return $query->where('state',$state);
+		}
+
 }

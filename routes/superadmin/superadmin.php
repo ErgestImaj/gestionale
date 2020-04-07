@@ -54,7 +54,7 @@ Route::group([
     Route::patch('/admin/status/{user}','AdminController@updateStatus')->name('users.status');
 
     /*
-     * Course and categorie routes
+     * Course,promo pack and categorie routes
      */
 
     Route::get('/categories','CategoryController@index')->name('categories');
@@ -69,6 +69,9 @@ Route::group([
     Route::get('/courses-list','CourseController@filter')->name('courses.list');
     Route::resource('/courses','CourseController');
     Route::patch('/course/status/{course}','CourseController@updateStatus')->name('course.status');
+
+  	Route::view('/promo-pack', 'course.promo.create')->name('promo.pack');
+	  Route::get('/api/promo-pack','PromoPackController@index')->name('promo.pack.list');
 
     /*
      * Area Download

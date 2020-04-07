@@ -14,6 +14,7 @@ use App\Models\MassMailHistory;
 use App\Models\Structure;
 use App\Models\Tracking;
 use App\Models\UsersInfo;
+use App\Models\UserStatus;
 
 trait UserRelationships{
 
@@ -112,5 +113,8 @@ trait UserRelationships{
 	}
 	public function certificate(){
 			return $this->hasMany(Certificate::class,'user_id');
+	}
+	public function userStatus(){
+			return $this->hasOne(UserStatus::class,'user_id','id');
 	}
 }

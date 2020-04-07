@@ -161,5 +161,8 @@ class UsersInfo extends Model
     public function getTypesAttribute(){
          return self::$typeLabels[$this->lrn_user];
 		}
+		public function scopeType($query,$type){
+			return $query->where('lrn_user',$type);
+		}
 
 }

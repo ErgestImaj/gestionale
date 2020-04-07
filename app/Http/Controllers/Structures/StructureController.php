@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Structures;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StructureRequest;
+use App\Models\Category;
+use App\Models\Course;
 use App\Models\StructureStatus;
 use App\Models\User;
 use App\Models\UserGroups;
+use App\Models\UsersInfo;
+use App\Models\UserStatus;
 use App\Services\StructureServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -235,6 +239,55 @@ class StructureController extends Controller {
 			'status' => 'success',
 			'msg'    => trans( 'messages.delete' )
 		] );
+	}
+	public function getAvailableCourses($type){
+
+		if (!in_array($type,Category::getTypes()))  [];
+
+		$user_id = 168; //to be replaced with auth()->id();
+
+		$courses = Course::active()->whereHas('cartCourseTransactions', function ($query) use ($user_id) {
+			$query->whereHas('owner', function ($query) use ($user_id) {
+				$query->where('user_id', $user_id);
+			});
+		}
+		)->get(['id', 'name','category_id']);
+
+		$filtered_course = $courses->filter(function ($course) use ($user_id,$type){
+			if ($course->category->type == $type){
+				$course->qty = $course->cartCourseTransactions->where('user_id', $user_id)->sum('qty');
+				if ($course->qty > 0) return $course;
+			}
+
+		});
+
+		return $filtered_course->values()->toJson();
+
+	}
+	public function getExaminers($type){
+		$user_id = 168; //to be replaced with auth()->id();
+		$examiners =  User::active()->whereHas('roles', function ($query)  {
+			$query->where('name', User::ESAMINATORE);
+		})->where('created_by',$user_id)->get(['id','firstname','lastname', 'created_by']);
+	  $filtered_examiners = $examiners->filter(function ($examiner) use ($type){
+	  	 if ($examiner->userStatus->status == UserStatus::PAYMENT_OK && $examiner->userInfo->lrn_user == $type) return $examiner;
+
+		});
+
+	  return $filtered_examiners->values()->toJson();
+	}
+	public function getInvigilators($type){
+		$user_id = 168; //to be replaced with auth()->id();
+		$invigilators =  User::active()->whereHas('roles', function ($query)  {
+			$query->where('name', User::INVIGILATOR);
+		})->where('created_by',$user_id)->get(['id',  'firstname', 'lastname', 'created_by']);
+
+		$filtered_invigilators = $invigilators->filter(function ($invigilator) use ($type){
+			if ($invigilator->userStatus->status == UserStatus::PAYMENT_OK && $invigilator->userInfo->lrn_user == $type) return $invigilator;
+
+		});
+
+		return $filtered_invigilators->values()->toJson();
 	}
 
 }

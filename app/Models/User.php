@@ -40,6 +40,8 @@ class User extends Authenticatable
 	const INVIGILATOR = 'invigilator';
 	const ISPETTORI = 'inspettore';
 	const TUTOR = 'tutor';
+	const AREA_LRN = 'area lrn';
+	const AREA_DILE = 'area dile';
 
 	public static $roles = [
 		self::SUPERADMIN => 'superadmin',
@@ -56,6 +58,8 @@ class User extends Authenticatable
 		self::INVIGILATOR => 'invigilatori',
 		self::ISPETTORI => 'ispettori',
 		self::TUTOR => 'tutori',
+		self::AREA_DILE => 'area dile',
+		self::AREA_LRN => 'area lrn',
 	];
 	/**
 	 * The attributes that are mass assignable.

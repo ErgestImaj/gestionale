@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\User;
 use App\Traits\DatabaseDateFomat;
 use App\Traits\HashIdAttribute;
+use App\Traits\HasStatus;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,7 +15,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class LrnExamSession extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,DatabaseDateFomat;
+	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes,DatabaseDateFomat,HasStatus;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
@@ -37,6 +38,9 @@ class LrnExamSession extends Model
 	const CM_NO = 0;
 	const CM_YES = 1;
 	const CM_USED = 2;
+
+	const  IS_ACTIVE = 1;
+	const  NOT_ACTIVE = 0;
 
 	protected $table = 'utilities_lrn_exam_sessions';
 	protected $guarded = [];
@@ -70,6 +74,9 @@ class LrnExamSession extends Model
 		return $this->belongsTo(User::class,'examiner_id','id');
 	}
 	public function invigilator(){
+		return $this->belongsTo(User::class,'invigilator_id','id');
+	}
+	public function investigator(){
 		return $this->belongsTo(User::class,'invigilator_id','id');
 	}
 	public function lrnExamSessionCms(){

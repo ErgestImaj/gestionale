@@ -7,6 +7,8 @@
         </h3>
     </div>
 		<v-app>
-			<sessione-essame-create></sessione-essame-create>
+			<sessione-essame-create
+				type="{{$type}}"
+			></sessione-essame-create>
 		</v-app>
 @endsection

@@ -33,6 +33,18 @@ class UtentiController extends Controller
 			'type' => User::$roles[User::ADMIN]
 		]);
 	}
+	public function viewAreaLrn()
+	{
+		return view('utenti.index', [
+			'type' => User::$roles[User::AREA_LRN]
+		]);
+	}
+	public function viewAreaDile()
+	{
+		return view('utenti.index', [
+			'type' => User::$roles[User::AREA_DILE]
+		]);
+	}
 
 	public function viewSegreteria()
 	{
@@ -117,6 +129,11 @@ class UtentiController extends Controller
 		} elseif (auth()->user()->hasRole(User::PARTNER)) {
 			# to do
 		}
+	}
+	public function getInspettori(){
+		return User::active()->whereHas('roles', function ($query) {
+			$query->where('name',User::ISPETTORI);
+		})->get(['id', 'firstname', 'lastname']);
 	}
 
 	/**

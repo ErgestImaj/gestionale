@@ -35,6 +35,19 @@
 				<template v-slot:item.state="{ item }">
 					<v-icon>{{ item.state == '1' ? 'mdi-checkbox-marked-circle-outline' : 'mdi-minus-circle-outline'}}</v-icon>
 				</template>
+				<template v-slot:item.course.name="{ item }">
+					<v-chip
+						v-if="item.fast_track"
+						color="lighten-4"
+						:color="getColor(item.fast_track)"
+						class="ml-0 mr-2 black--text"
+						label
+						small
+					>
+						Fast Track
+					</v-chip>
+					<strong>{{item.course.name}}</strong>
+				</template>
 				<template v-slot:item.actions="{ item }">
 					<v-menu bottom left content-class="gactions">
 						<template v-slot:activator="{ on }">
@@ -196,6 +209,15 @@
 								}
                 return '';
             },
+						getColor(fastTrack){
+								if (fastTrack == 2){
+									return 'green'
+								}else if(fastTrack ==3){
+									return 'red'
+								}else if (fastTrack==1){
+									return 'yellow'
+								}
+						},
 						orario(start_hour, start_minute) {
                 if (start_hour && start_minute) {
                     return start_hour + ':' + start_minute;

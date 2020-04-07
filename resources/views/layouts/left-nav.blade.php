@@ -41,6 +41,8 @@
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.invigilatori.view')}}">Invigilatori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.inspector.view')}}">Ispettori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.tutor.view')}}">Tutori</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.lrn.view')}}">Area LRN</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('utenti.dile.view')}}">Area DILE</a></li>
                 </ul>
             </div>
         </li>
@@ -78,7 +80,7 @@
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MF</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame IIQ</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MIUR</a></li>
-						<li class="nav-item"> <a class="nav-link" href="{{route('exams.lrn.index')}}">Sessione d'esame LRN</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('exams.lrn.index',\App\Models\Category::LRN)}}">Sessione d'esame LRN</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame DILE</a></li>
 					</ul>
 				</div>
@@ -110,6 +112,7 @@
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.courses.list')}}">{{trans('menu.course')}}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('lms_content')}}">{{trans('menu.lms_content')}}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('admin.categories')}}">{{trans('menu.category')}}</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('admin.promo.pack')}}">Gestione Promo Pack</a></li>
                 </ul>
             </div>
         </li>

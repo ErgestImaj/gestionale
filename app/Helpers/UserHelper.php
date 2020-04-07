@@ -41,6 +41,12 @@ class UserHelper
 			case User::$roles[User::SEGRETERIA]:
 				$type = User::SEGRETERIA;
 				break;
+			case User::$roles[User::AREA_DILE]:
+				$type = User::AREA_DILE;
+				break;
+			case User::$roles[User::AREA_LRN]:
+				$type = User::AREA_LRN;
+				break;
 		}
 		return $type;
 	}
@@ -76,6 +82,12 @@ class UserHelper
 				break;
 			case User::$roles[User::SEGRETERIA]:
 				$label = User::$roles[User::SEGRETERIA];
+				break;
+			case User::$roles[User::AREA_LRN]:
+				$label = User::$roles[User::AREA_LRN];
+				break;
+			case User::$roles[User::AREA_DILE]:
+				$label = User::$roles[User::AREA_DILE];
 				break;
 		}
 		return $label;

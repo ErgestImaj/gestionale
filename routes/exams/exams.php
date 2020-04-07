@@ -7,9 +7,14 @@ Route::group([
 	'namespace'=>'Exams'
 ],function() {
 
-    Route::resource('api/lrn-exams','LrnExamsController');
     Route::get('mf-exams/{type}','MediaformExamsController@index');
 
-		Route::view('/lrn-exams', 'exams.index')->name('lrn.index');
-		Route::view('/lrn-exams/create', 'exams.create')->name('lrn.create');
+		Route::get('/lrn-exams/{type}', 'LrnExamsController@index')->name('lrn.index');
+		Route::get('/lrn-exams/{type}/create', 'LrnExamsController@create')->name('lrn.create');
+
+	Route::group( ['prefix' => 'api'], function ()
+	{
+		Route::get('/lrn-exams','LrnExamsController@filter')->name('lrn.filter');
+		Route::post('/lrn-exams/store','LrnExamsController@store')->name('lrn.store');
+	});
 });

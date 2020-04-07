@@ -11,11 +11,11 @@
 									<v-autocomplete
 										dense outlined
 										label="Corso"
-										v-model="content.course"
+										v-model="content.course_id"
 										:items="courses"
 										item-text="name"
-										item-value="hashid"
-										:error-messages="getError('course')"
+										item-value="id"
+										:error-messages="getError('course_id')"
 									></v-autocomplete>
 
 									<v-menu content-class="gdate" v-model="datePicker1" :close-on-content-click="false"
@@ -32,11 +32,11 @@
 
 									<v-text-field dense outlined disabled
 																label="Chiusura prenotazioni"
-																v-model="content.chiusura"
-																:error-messages="getError('chiusura')"
+																v-model="content.end_date"
+																:error-messages="getError('end_date')"
 									></v-text-field>
 
-									<v-row>
+									<v-row v-if="show">
 										<v-col  cols="12" md="6">
 											<v-menu ref="menu" :close-on-content-click="false" transition="scale-transition"
 												offset-y max-width="290px" min-width="290px" content-class="gdate"
@@ -89,43 +89,43 @@
 
 									<span class="mr-3">Sede:</span>
 
-									<v-btn-toggle v-model="content.sede" group mandatory color="primary">
+									<v-btn-toggle v-model="content.location_id" group mandatory color="primary">
 										<v-btn value="0">Sede Operativa</v-btn>
 										<v-btn value="1">Altra Sede</v-btn>
 									</v-btn-toggle>
 
-									<v-text-field dense outlined disabled
+									<v-text-field dense outlined v-if="content.location_id == 1"
 																label="Sede"
-																v-model="content.sede2"
-																:error-messages="getError('sede')"
+																v-model="content.location"
+																:error-messages="getError('location')"
 									></v-text-field>
 
 									<v-autocomplete
 										dense outlined
 										label="Esaminatore"
-										v-model="content.esaminatore"
+										v-model="content.examiner_id"
 										:items="esaminators"
-										item-text="name"
-										item-value="hashid"
-										:error-messages="getError('esaminatore')"
+										item-text="display_name"
+										item-value="id"
+										:error-messages="getError('examiner_id')"
 									></v-autocomplete>
 									<v-autocomplete
 										dense outlined
 										label="Invigilator"
-										v-model="content.invigilator"
+										v-model="content.invigilator_id"
 										:items="invigilators"
-										item-text="name"
-										item-value="hashid"
-										:error-messages="getError('invigilator')"
+										item-text="display_name"
+										item-value="id"
+										:error-messages="getError('invigilator_id')"
 									></v-autocomplete>
 									<v-autocomplete
 										dense outlined
 										label="Investigatore"
-										v-model="content.investigator"
+										v-model="content.investigator_id"
 										:items="investigators"
-										item-text="name"
-										item-value="hashid"
-										:error-messages="getError('investigator')"
+										item-text="display_name"
+										item-value="id"
+										:error-messages="getError('investigator_id')"
 									></v-autocomplete>
 								</v-col>
 							</v-row>
@@ -151,8 +151,10 @@
 <script>
     import moment from 'moment'
     export default {
+    	props:['type'],
         data() {
             return {
+              	show:false,
                 submiting: false,
                 content: {},
                 errors: {},
@@ -166,11 +168,59 @@
             };
         },
         mounted() {
+        	this.getAvailableCourses();
+        	this.getEsaminators();
+        	this.getInvigilators();
+        	this.getInvestigators();
         },
         methods: {
             save() {
-                //
+							if (!this.submiting){
+								this.submiting = true;
+								axios.post(`/exams/api/lrn-exams/store`,this.content)
+									.then(response => {
+										if (response.data.status == "success") {
+											swal("Good job!", response.data.msg, "success");
+											// setTimeout(function () {
+											// 	window.location.href = response.data.redirect;
+											// }, 1500)
+										} else if (response.data.status === "error") {
+											swal({
+												title: "Whoops!",
+												text: response.data.msg,
+												icon: "warning",
+												dangerMode: true
+											});
+										}
+									})
+									.catch(error => {
+										this.errors = error.response.data.errors
+									})
+									.finally(() => {
+										this.submiting = false;
+									})
+							}
             },
+					  getAvailableCourses(){
+							axios.get(`/amministrazione/api/get-structure-available-course/${this.type}`).then(response => {
+								this.courses = response.data;
+							});
+						},
+				  	getEsaminators(){
+							axios.get(`/amministrazione/api/structure/get-examiners/${this.type}`).then(response => {
+								this.esaminators = response.data;
+							});
+						},
+				  	getInvigilators(){
+							axios.get(`/amministrazione/api/structure/get-invigilators/${this.type}`).then(response => {
+								this.invigilators = response.data;
+							});
+						},
+					  getInvestigators(){
+							axios.get(`/utenti/api/ispettori`).then(response => {
+								this.investigators = response.data;
+							});
+						},
             getError(field) {
                 return this.errors[field] ? this.errors[field][0] : []
             },
@@ -188,7 +238,7 @@
             date(val) {
                 if (!!val) {
                     let expiry = moment(val, 'DD-MM-YYYY').add(-7, 'days').format('DD-MM-YYYY');
-                    this.$set(this.content, 'chiusura', expiry.toString());
+                    this.$set(this.content, 'end_date', expiry.toString());
                 }
             }
         }
