@@ -82,12 +82,16 @@
 						<v-card-text>
 							<v-row>
 								<v-col cols="12" md="6">
-									<v-text-field
-										v-model="searchAll"
-										label="Cerca"
-										single-line
-										hide-details
-									></v-text-field>
+									<v-row>
+										<v-col>
+											<v-text-field
+												v-model="searchAll"
+												label="Cerca"
+												dense outlined
+											></v-text-field>
+										</v-col>
+									</v-row>
+
 									<v-data-table
 										v-model="selectedStudents"
 										:headers="studentsHeaders"
@@ -99,20 +103,41 @@
 									</v-data-table>
 								</v-col>
 								<v-col cols="12" md="6">
-									<v-text-field
-										v-model="searchActive"
-										label="Cerca"
-										single-line
-										hide-details
-									></v-text-field>
+									<v-row flex justify="space-between">
+										<v-col md="4">
+											<v-text-field
+												v-model="searchActive"
+												label="Cerca"
+												dense outlined
+											></v-text-field>
+										</v-col>
+										<v-col md="2">
+											<v-text-field class="sml-input" dense outlined v-model="allOraInizio" label="Ora Inizio"></v-text-field>
+										</v-col>
+										<v-col md="2">
+											<v-text-field class="sml-input" dense outlined v-model="allOraFine" label="Ora fine"></v-text-field>
+										</v-col>
+										<v-col md="4">
+											<v-btn color="primary" @click="setTimeForAll()">Set for all students</v-btn>
+										</v-col>
+									</v-row>
+
 									<v-data-table
 										v-model="selectedActiveStudents"
-										:headers="studentsHeaders"
+										:headers="activeStudentHeaders"
 										:items="activeStudents"
 										:search="searchActive"
 										item-key="hashid"
 										show-select
 									>
+										<template v-slot:item.orainizio="{ item }">
+											<v-text-field class="sml-input" dense outlined v-model="item.orainizio"
+											></v-text-field>
+										</template>
+										<template v-slot:item.orafine="{ item }">
+											<v-text-field class="sml-input" dense outlined v-model="item.orafine"
+											></v-text-field>
+										</template>
 									</v-data-table>
 								</v-col>
 							</v-row>
@@ -166,8 +191,17 @@
                     { text: "Nome", value: "firstname" },
                     { text: "Cognome", value: "lastname" },
 								],
+								activeStudentHeaders: [
+                    { text: "#", value: "id" },
+                    { text: "Nome", value: "firstname" },
+                    { text: "Cognome", value: "lastname" },
+                    { text: "Ora Inizio", value: "orainizio" },
+                    { text: "Ora Fine", value: "orafine" },
+								],
 								activeStudents: [],
-								selectedActiveStudents: []
+								selectedActiveStudents: [],
+								allOraInizio: '',
+								allOraFine: '',
             }
         },
         mounted() {
@@ -305,6 +339,14 @@
 										})
                 });
                 this.selectedActiveStudents = [];
+						},
+            setTimeForAll () {
+                let ccStudents = JSON.parse(JSON.stringify(this.activeStudents));
+                ccStudents.forEach(st => {
+                    st.orainizio = this.allOraInizio;
+                    st.orafine = this.allOraFine;
+								});
+                this.activeStudents = ccStudents;
 						},
             moment: function () {
                 return moment();
