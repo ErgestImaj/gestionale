@@ -6,6 +6,10 @@ Route::group([
 	'prefix'=>'exams','as'=>'exams.',
 	'namespace'=>'Exams'
 ],function() {
+	/*
+	 * Export
+	 */
+	  Route::get('/exams-lrn/export/{type}/{from?}/{to?}', 'LrnExamsController@export')->name('lrn.export');
 
     Route::get('mf-exams/{type}','MediaformExamsController@index');
 

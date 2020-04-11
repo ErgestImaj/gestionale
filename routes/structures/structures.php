@@ -6,7 +6,13 @@ Route::group([
 	'namespace'=>'Structures'
 ],function() {
 
-	    /*
+		/*
+		 * Export
+		 */
+
+		Route::get('/structures/export/{type}/{from?}/{to?}', 'StructureController@export')->name('export');
+
+		/*
 		 * Partner Routes
 		 */
 

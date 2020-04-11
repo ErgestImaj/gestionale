@@ -1,6 +1,10 @@
 <template>
 	<div>
 		<v-btn :href="createUrl" class="gadd">Nuovo Sessione</v-btn>
+		<basic-export
+			:type="examType"
+			model="lrnexamsession"
+		></basic-export>
 		<v-card>
 			<v-card-title>
 				Lista Lrn
@@ -162,7 +166,7 @@
 <script>
     import moment from 'moment'
     export default {
-        props: ['category', 'createUrl'],
+        props: ['category', 'createUrl','examType'],
         dependencies: 'globalService',
         data() {
             return {

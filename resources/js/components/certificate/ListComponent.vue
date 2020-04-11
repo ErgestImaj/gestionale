@@ -39,7 +39,7 @@
                 headers: [
                     { text: 'Centro', value: "exam_session.owner.firstname" },
                     { text: 'Nominativo', value: "nominativo" },
-                    { text: 'Codice utente', value: "user.hashid" },
+                    { text: 'Codice utente', value: "user.username" },
                     { text: 'Corso', value: "exam_session.course.name" },
                     { text: 'Tipo', value: "type_name" },
                     { text: 'Data', value: "exam_session.date" },

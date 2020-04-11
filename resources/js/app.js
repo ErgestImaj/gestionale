@@ -46,13 +46,13 @@ Vue.filter('capitalize', function (s) {
 });
 Vue.mixin({
 	methods: {
-		downloadItem(url,lablel) {
+		downloadItem(url,label) {
 			axios.get(url, {responseType: 'blob'})
 				.then(response => {
 					const blob = new Blob([response.data])
 					const link = document.createElement('a')
 					link.href = URL.createObjectURL(blob)
-					link.download = lablel
+					link.download = label
 					link.click()
 					URL.revokeObjectURL(link.href)
 				}).catch(console.error)
@@ -110,6 +110,7 @@ Vue.component('elenco-ordini', require('./components/orders/ElencoOrdiniComponen
 Vue.component('ordini-fast-track', require('./components/orders/OrdiniFastTrackComponent').default);
 Vue.component('ordini-structure', require('./components/orders/OrdiniStructureComponent').default);
 Vue.component('electronic-invoice', require('./components/orders/ElectronicInvoiceComponent').default);
+Vue.component('basic-export', require('./components/global/basicExportComponent').default);
 
 
 /**

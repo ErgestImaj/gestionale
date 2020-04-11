@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Structures;
 
+use App\Exports\StructuresExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StructureRequest;
 use App\Models\Category;
@@ -17,11 +18,17 @@ use Illuminate\Http\Request;
 use App\Models\Structure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
+use Maatwebsite\Excel\Facades\Excel;
 use mysql_xdevapi\Exception;
 use Psy\Util\Str;
 
 
 class StructureController extends Controller {
+
+	public function export()
+	{
+		return Excel::download(new StructuresExport(request()->type,request()->from,request()->to),'structure.xlsx');
+	}
 
 	public function partnerIndex() {
 		return view( 'struture.index', [
@@ -53,7 +60,7 @@ class StructureController extends Controller {
 
 		if ( empty( $request->type ) ) return[];
 
-		return Structure::where( 'type', $request->type )
+		return Structure::type($request->type )
 			      ->with( [
 			      	'province'=>function($query){
 							$query->select('id','title');
@@ -67,10 +74,10 @@ class StructureController extends Controller {
 	public function getStructureParent($type){
     if(empty($type)) return [];
     if(auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)){
-	      return Structure::where( 'type', (int)$type - 1 )->latest()->get(['id','legal_name']);
+	      return Structure::type(  (int)$type - 1 )->latest()->get(['id','legal_name']);
     }
     elseif (auth()->user()->hasRole(User::PARTNER)){
-	    return Structure::where( 'type', (int)$type - 1 )->where('created_by',auth()->id())->latest()->get(['id','legal_name']);
+	    return Structure::type((int)$type - 1 )->where('created_by',auth()->id())->latest()->get(['id','legal_name']);
     }
 	}
 

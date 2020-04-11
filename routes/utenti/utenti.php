@@ -8,6 +8,11 @@ Route::group([
 	'namespace'=>'Utenti'
 ],function() {
 
+	  /*
+		 * Export
+		 */
+	Route::get('/utenti/export/{type}/{from?}/{to?}', 'UtentiController@export')->name('export');
+
 	Route::get('/{type}/create', 'UtentiController@createUtente')->name('utenti.create');
 	Route::get('/admins', 'UtentiController@viewAdmins')->name('admins.view');
 	Route::get('/segreteria', 'UtentiController@viewSegreteria')->name('segreteria.view');

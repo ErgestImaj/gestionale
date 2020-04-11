@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Exams;
 
 use App\Events\ExamSectionCreated;
+use App\Exports\LrnExamsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamSectionRequest;
 use App\Models\Category;
@@ -10,9 +11,15 @@ use App\Models\Course;
 use App\Models\Exams\LrnExamSession;
 use App\Providers\NewExamSectionNotification;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LrnExamsController extends Controller
 {
+
+	public function export()
+	{
+		return Excel::download(new LrnExamsExport(request()->type,request()->from,request()->to),'exams.xlsx');
+	}
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +30,7 @@ class LrnExamsController extends Controller
 		}
     public function filter()
     {
-       $lrnexams =  LrnExamSession::latest()->with([
+       $lrnexams =  LrnExamSession::latest()->type(LrnExamSession::TYPE_LRN)->with([
         	'owner'=>function($query){
         	 $query->select(['id','firstname']);
 					},

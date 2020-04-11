@@ -12,7 +12,9 @@
 		</h3>
 	</div>
 	<v-app>
-		<structure-view structure-type="{{$type}}"></structure-view>
+		<structure-view
+			structure-type="{{$type}}"
+		></structure-view>
 	</v-app>
 @endsection
 @push('scripts')

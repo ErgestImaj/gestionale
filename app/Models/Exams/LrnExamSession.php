@@ -19,7 +19,7 @@ class LrnExamSession extends Model
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
-
+  const MODEL ='lrnexamsession';
 	CONST ATTENDANCE_SHEET = 'attendance_sheet';
 	CONST ASSESSMENT_SESSION_COVER_SHEET = 'assessment_session_cover_sheet';
 	CONST MARK_SHEET = 'mark_sheet';
@@ -41,6 +41,9 @@ class LrnExamSession extends Model
 
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
+
+	const TYPE_LRN = 0;
+	const TYPE_DILE = 1;
 
 	protected $table = 'utilities_lrn_exam_sessions';
 	protected $guarded = [];
@@ -87,5 +90,8 @@ class LrnExamSession extends Model
 	}
 	public function participants(){
 		return $this->belongsToMany(User::class,'utilities_lrn_exam_session_partecipants','lrn_exam_session_id','user_id')->withPivot('cm','voucher_id');
+	}
+	public function scopeType($query,$type){
+		$query->where('type',$type);
 	}
 }

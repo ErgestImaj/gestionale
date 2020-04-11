@@ -44,6 +44,8 @@ Route::group([
     'namespace'=>'Admin'
 ],function() {
 
+	  Route::post('/export','ExportController@index');
+
     Route::get('/dashboard', 'DashboardController@index')->name('home');
 
     Route::post('/send-invitation-link/{user}','EmailsController@sendInvitationLink')->name('invitation');

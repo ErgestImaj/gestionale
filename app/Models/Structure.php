@@ -30,13 +30,14 @@ class Structure extends Model
 	const TYPE_AFFILIATE = 3;
 
 	const CONTENT_PATH = 'structure';
+	const MODEL = 'structure';
 
 	protected $table = 'structures_structures';
 
 	protected $guarded = [];
 
 	protected $appends = [
-		'hashid','content_path'
+		'hashid','content_path','type_name'
 	];
 
 	public function isPartner()
@@ -94,5 +95,24 @@ class Structure extends Model
 	public function scopeActive($query,$value = 1){
 
 		return $query->where('state',$value);
+	}
+	public function scopeType($query,$type){
+		return $query->where('type',$type);
+	}
+
+	public function getTypeNameAttribute(){
+		return static::typeName($this->type);
+	}
+	public static function typeNames(){
+		return [
+			self::TYPE_PARTNER =>'Partner',
+			self::TYPE_MASTER =>'Master',
+			self::TYPE_AFFILIATE =>'Affiliate',
+		];
+	}
+	public static function typeName($type){
+		$typeNames = static::typeNames();
+		if (isset($typeNames[$type])) return $typeNames[$type];
+		return '';
 	}
 }

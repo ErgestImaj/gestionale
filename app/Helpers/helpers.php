@@ -88,3 +88,4 @@ if (!function_exists('json_validate')){
 		return false;
 	}
 }
+

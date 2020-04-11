@@ -1,6 +1,10 @@
 <template>
   <div>
     <v-btn @click="addUtente()" class="gadd">Aggiungi {{userType}}</v-btn>
+		<basic-export
+			:type="userType"
+			model="users"
+		></basic-export>
     <v-card>
       <v-card-title>
          {{userType | capitalize}}

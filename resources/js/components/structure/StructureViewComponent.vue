@@ -1,6 +1,10 @@
 <template>
 	<div>
 		<v-btn @click="addStrutura()" class="gadd">Add Strutura</v-btn>
+		 <basic-export
+			 :type="structureType"
+			 model="structure"
+		 ></basic-export>
 		<v-card>
 			<v-card-title>
 				Struture - {{structureType | filterStructureType}}
@@ -123,7 +127,7 @@
 <script>
     export default {
         dependencies: 'globalService',
-        props: ["structureType"],
+        props: ["structureType","exportPath"],
         data() {
             return {
                 footerProps: null,

@@ -24,7 +24,7 @@ class User extends Authenticatable
 
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
-
+  const MODEL = 'users';
 	#user roles
 	const SUPERADMIN = 'superadmin';
 	const ADMIN = 'amministrazione';

@@ -11,6 +11,7 @@
 			<sessione-essame-list
 				:category="'lrn'"
 				create-url="{{route('exams.lrn.create',$type)}}"
+				exam-type="{{\App\Models\Exams\LrnExamSession::TYPE_LRN}}"
 			></sessione-essame-list>
 		</v-app>
 
