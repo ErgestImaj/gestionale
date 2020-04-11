@@ -22,7 +22,7 @@ Vue.use(TiptapVuetifyPlugin, {
   });
 
 Vue.prototype.trans = string => _.get(window.i18n, string);
-import Multiselect from 'vue-multiselect'
+
 
 import swal from 'sweetalert';
 import summernote from './summernote/summernote-bs4.min.js';
@@ -73,7 +73,6 @@ Vue.mixin({
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('multiselect',Multiselect);
 Vue.component('course-module', require('./components/course/CourseModuleComponent.vue').default);
 Vue.component('add-course', require('./components/course/CourseCreateComponent.vue').default);
 Vue.component('course-categories', require('./components/course/CourseCategoryComponent.vue').default);
@@ -111,6 +110,8 @@ Vue.component('ordini-fast-track', require('./components/orders/OrdiniFastTrackC
 Vue.component('ordini-structure', require('./components/orders/OrdiniStructureComponent').default);
 Vue.component('electronic-invoice', require('./components/orders/ElectronicInvoiceComponent').default);
 Vue.component('basic-export', require('./components/global/basicExportComponent').default);
+Vue.component('promo-list', require('./components/course/promo/ListComponent').default);
+Vue.component('promo-create', require('./components/course/promo/CreateComponent').default);
 
 
 /**

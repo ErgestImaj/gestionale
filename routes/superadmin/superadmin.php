@@ -72,7 +72,8 @@ Route::group([
     Route::resource('/courses','CourseController');
     Route::patch('/course/status/{course}','CourseController@updateStatus')->name('course.status');
 
-  	Route::view('/promo-pack', 'course.promo.create')->name('promo.pack');
+  	Route::view('/promo-pack', 'course.promo.index')->name('promo.pack');
+  	Route::view('/promo-pack/create', 'course.promo.create')->name('promo.pack.create');
 	  Route::get('/api/promo-pack','PromoPackController@index')->name('promo.pack.list');
 
     /*
