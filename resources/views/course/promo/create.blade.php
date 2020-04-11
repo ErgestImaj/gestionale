@@ -7,6 +7,6 @@
         </h3>
     </div>
 		<v-app>
-
+			<promo-create></promo-create>
 		</v-app>
 @endsection

@@ -110,6 +110,8 @@ Vue.component('elenco-ordini', require('./components/orders/ElencoOrdiniComponen
 Vue.component('ordini-fast-track', require('./components/orders/OrdiniFastTrackComponent').default);
 Vue.component('ordini-structure', require('./components/orders/OrdiniStructureComponent').default);
 Vue.component('electronic-invoice', require('./components/orders/ElectronicInvoiceComponent').default);
+Vue.component('promo-list', require('./components/course/promo/ListComponent').default);
+Vue.component('promo-create', require('./components/course/promo/CreateComponent').default);
 
 
 /**
