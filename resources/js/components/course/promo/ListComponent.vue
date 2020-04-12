@@ -35,6 +35,33 @@
 				<template v-slot:item.created="{ item }">
 					{{ item.created | moment }}
 				</template>
+				<template v-slot:item.actions="{ item }">
+					<v-menu bottom left content-class="gactions">
+						<template v-slot:activator="{ on }">
+							<v-btn icon v-on="on">
+								<v-icon>mdi-dots-vertical</v-icon>
+							</v-btn>
+						</template>
+
+						<v-list dense>
+							<template v-for="(m, i) in menuItems">
+								<v-list-item
+									class="update-btn" v-if="m.id == 2" :key="i" link>
+									<v-list-item-icon>
+										<v-icon>{{ item.state == 1 ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
+									</v-list-item-icon>
+									<v-list-item-title>{{ !!item.state ? m.title2 : m.title }}</v-list-item-title>
+								</v-list-item>
+								<v-list-item v-else :key="i" @click="menuClick(m.id, item)">
+									<v-list-item-icon>
+										<v-icon v-text="m.icon"></v-icon>
+									</v-list-item-icon>
+									<v-list-item-title>{{ m.title }}</v-list-item-title>
+								</v-list-item>
+							</template>
+						</v-list>
+					</v-menu>
+				</template>
 			</v-data-table>
 		</v-card>
 	</div>
@@ -55,7 +82,8 @@
                 loading: true,
                 menuItems: [
                     { id: 1, title: "Edit", icon: "mdi-pencil-outline" },
-                    { id: 2, title: "View", icon: "mdi-eye-outline" },
+                    { id: 2, title: "Enable", title2: "Disable", icon: "" },
+                    { id: 3, title: "Delete", icon: "mdi-trash-can-outline" },
                 ],
                 items: [],
             }
@@ -99,20 +127,10 @@
             menuClick(id, item) {
                 switch (id) {
                     case 1:
-                        this.edit(item);
                         break;
-                    case 2:
-                        this.view(item);
+                    case 3:
                         break;
                 }
-            },
-            edit(item) {
-                // let nUrl = window.location.origin + "/lms-content/" + item.hashid+"/edit";
-                // window.location.href = nUrl;
-            },
-            view(item) {
-                // let nUrl = window.location.origin + "/lms-content/" + item.hashid;
-                // window.location.href = nUrl;
             },
             moment: function () {
                 return moment();
