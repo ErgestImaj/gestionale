@@ -114,6 +114,7 @@ Route::group([
 		 * Storehouse
 		 */
 	  Route::get('/storehouse','StorehouseController@index')->name('storehouse.index');
+	  Route::get('/storehouse/export','StorehouseController@exportIndex')->name('storehouse.export.index');
 	  Route::get('/storehouse/personale','StorehouseController@personal')->name('storehouse.personal');
 	  Route::get('/storehouse-partner','StorehouseController@indexPartner')->name('storehouse.partner');
 	  Route::get('/storehouse-master','StorehouseController@indexMaster')->name('storehouse.master');

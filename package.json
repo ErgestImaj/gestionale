@@ -19,7 +19,6 @@
 		"tiptap": "^1.26.6",
 		"tiptap-extensions": "^1.28.6",
 		"tiptap-vuetify": "^2.13.2",
-		"vue-multiselect": "^2.1.6",
 		"vuejs-datepicker": "^1.6.2",
 		"vuetify": "^2.2.15"
 	},

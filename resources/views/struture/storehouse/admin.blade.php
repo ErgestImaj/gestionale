@@ -5,6 +5,7 @@
 		<h3 class="page-title">
 			<span class="text-semibold"><i class="fas fa-list"></i>Magazzino</span>
 		</h3>
+		<a class="btn btn-vue" href="{{route('general.storehouse.export.index')}}">Esporta</a>
 	</div>
 	<div class="row">
 		<div class="col-12">

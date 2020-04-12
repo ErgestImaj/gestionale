@@ -250,7 +250,6 @@ class StructureController extends Controller {
 	public function getAvailableCourses($type){
 
 		if (!in_array($type,Category::getTypes()))  [];
-
 		$user_id = 168; //to be replaced with auth()->id();
 
 		$courses = Course::active()->whereHas('cartCourseTransactions', function ($query) use ($user_id) {
@@ -261,10 +260,11 @@ class StructureController extends Controller {
 		)->get(['id', 'name','category_id']);
 
 		$filtered_course = $courses->filter(function ($course) use ($user_id,$type){
-			if ($course->category->type == $type){
-				$course->qty = $course->cartCourseTransactions->where('user_id', $user_id)->sum('qty');
-				if ($course->qty > 0) return $course;
-			}
+//			if ($course->category->type == $type){
+//				$course->qty = $course->cartCourseTransactions->where('user_id', $user_id)->sum('qty');
+//				if ($course->qty > 0) return $course->modules;
+		//	}
+			return $course->modules;
 
 		});
 

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StorehouseAdminExport;
 use App\Models\Cart\CourseTransactions;
 use App\Models\Course;
 use App\Models\Structure;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StorehouseController extends Controller
 {
-	public function index()
-	{
+	public function adminCourses(){
 		$courses = Course::active()->get();
 		foreach ($courses as $course) {
 			$course->aquisti = $course->ordersItems()->type()->sum('qty') ?? 0;
@@ -23,7 +24,16 @@ class StorehouseController extends Controller
 			$course->total = price_formater($total);
 			$course->admin = $course->cartCourseTransactions()->type(CourseTransactions::TYPE_ADMIN_ADDED)->sum('qty') ?? 0;
 		}
+		return $courses;
+	}
+	public function index()
+	{
+		$courses = $this->adminCourses();
 		return view('struture.storehouse.admin', compact('courses'));
+	}
+
+	public function exportIndex(){
+		return Excel::download(new StorehouseAdminExport($this->adminCourses()),'personale.xlsx');
 	}
 
 	public function personal()
@@ -54,53 +64,46 @@ class StorehouseController extends Controller
 
 	public function indexPartner()
 	{
-
-		$structures = Structure::where('type', Structure::TYPE_PARTNER)->get(['user_id', 'legal_name']);
-		foreach ($structures as $structure):
-			$structure->courses = $this->getAvailableCourses($structure->user_id);
-		endforeach;
-
 		return view('struture.storehouse.storehouse')->with([
 			'type' => Structure::TYPE_PARTNER,
 			'structure_type' => 'Partner',
-			'structures' => $structures
+			'structures' => $this->getStructureCourses(Structure::TYPE_PARTNER)
 		]);
 	}
 
 	public function indexMaster()
 	{
-		if (auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)) {
-			$structures = Structure::where('type', Structure::TYPE_MASTER)->get(['user_id', 'legal_name']);
-		} else {
-			$structures = Structure::where('type', Structure::TYPE_MASTER)->where('parent_structure_id', auth()->user()->structure->id)->get(['user_id', 'legal_name']);
-		}
-
-		foreach ($structures as $structure):
-			$structure->courses = $this->getAvailableCourses($structure->user_id);
-		endforeach;
 
 		return view('struture.storehouse.storehouse')->with([
 			'type' => Structure::TYPE_PARTNER,
 			'structure_type' => 'Master',
-			'structures' => $structures
+			'structures' => $this->getStructureCourses(Structure::TYPE_MASTER)
 		]);
 	}
 
 	public function indexAffiliate()
 	{
+		return view('struture.storehouse.storehouse')->with([
+			'type' => Structure::TYPE_PARTNER,
+			'structure_type' => 'Affiliate',
+			'structures' => $this->getStructureCourses(Structure::TYPE_AFFILIATE)
+		]);
+
+	}
+
+	/**
+	 * @param $type
+	 * @return mixed
+	 */
+	public function getStructureCourses($type){
 		if (auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)) {
-			$structures = Structure::where('type', Structure::TYPE_AFFILIATE)->get(['user_id', 'legal_name']);
+			$structures = Structure::where('type', $type)->get(['user_id', 'legal_name']);
 		} else {
-			$structures = Structure::where('type', Structure::TYPE_AFFILIATE)->where('parent_structure_id', auth()->user()->structure->id)->get(['user_id', 'legal_name']);
+			$structures = Structure::where('type', $type)->where('parent_structure_id', auth()->user()->structure->id)->get(['user_id', 'legal_name']);
 		}
 		foreach ($structures as $structure):
 			$structure->courses = $this->getAvailableCourses($structure->user_id);
 		endforeach;
-		return view('struture.storehouse.storehouse')->with([
-			'type' => Structure::TYPE_PARTNER,
-			'structure_type' => 'Affiliate',
-			'structures' => $structures
-		]);
-
+		return $structures;
 	}
 }

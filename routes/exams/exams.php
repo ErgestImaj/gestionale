@@ -20,5 +20,7 @@ Route::group([
 	{
 		Route::get('/lrn-exams','LrnExamsController@filter')->name('lrn.filter');
 		Route::post('/lrn-exams/store','LrnExamsController@store')->name('lrn.store');
+
+		Route::get('/getCourseModulesAndStudents','MediaformExamsController@getCourseModulesAndStudents');
 	});
 });
