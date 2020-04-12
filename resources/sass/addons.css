@@ -1751,7 +1751,7 @@ a.editable-click.editable-disabled:hover {
 /* BASICS */
 
 .CodeMirror {
-    /* Set height, width, borders, and global font properties here */
+    /* Set height, width, borders, and export font properties here */
     font-family: monospace;
     height: 300px;
     color: black;

@@ -11,6 +11,7 @@ Route::group([
 		 */
 
 		Route::get('/structures/export/{type}/{from?}/{to?}', 'StructureController@export')->name('export');
+		Route::get('/structures/get-list-of-structures/{type}', 'StructureController@getStructures')->name('export');
 
 		/*
 		 * Partner Routes
@@ -114,6 +115,7 @@ Route::group([
 		 * Storehouse
 		 */
 	  Route::get('/storehouse','StorehouseController@index')->name('storehouse.index');
+   	Route::get('/structures/export/{type}/{from?}/{to?}/{structure?}', 'StructureController@exportStructureStorehouse')->name('storehouse.structures.export');
 	  Route::get('/storehouse/export','StorehouseController@exportIndex')->name('storehouse.export.index');
 	  Route::get('/storehouse/personale','StorehouseController@personal')->name('storehouse.personal');
 	  Route::get('/storehouse-partner','StorehouseController@indexPartner')->name('storehouse.partner');

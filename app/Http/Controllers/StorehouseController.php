@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\StorehouseAdminExport;
+use App\Exports\StructureStoreHouseExport;
 use App\Models\Cart\CourseTransactions;
 use App\Models\Course;
 use App\Models\Structure;
@@ -105,5 +106,9 @@ class StorehouseController extends Controller
 			$structure->courses = $this->getAvailableCourses($structure->user_id);
 		endforeach;
 		return $structures;
+	}
+
+	public function exportStructureStorehouse(){
+		return Excel::download(new StructureStoreHouseExport(request()->type,request()->from,request()->to,request()->structure),'storehouse.xlsx');
 	}
 }

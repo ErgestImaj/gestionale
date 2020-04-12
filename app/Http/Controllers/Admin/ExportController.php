@@ -22,6 +22,9 @@ class ExportController extends Controller
 				case User::MODEL:
 					$redirect = route('utenti.export',[$request->input('type'),$request->input('from_date')??'',$request->input('to_date')??'']);
 					break;
+				case 'storehouse':
+					$redirect = route('general.storehouse.structures.export',[$request->input('type'),$request->input('from_date')??'',$request->input('to_date')??'',$request->input('structure')??'']);
+					break;
 			}
 
     	return response([

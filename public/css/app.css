@@ -6166,3 +6166,7 @@ td.gnr {
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.26);
 }
 
+.storehose .v-application--wrap {
+  min-height: 0 !important;
+}
+

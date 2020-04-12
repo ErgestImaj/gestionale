@@ -6,6 +6,17 @@
 			<span class="text-semibold"><i class="fas fa-list"></i>Magazzino - {{$structure_type}}</span>
 		</h3>
 	</div>
+
+	 <div class="storehose">
+		 <v-app>
+			 <storehouse-export
+				 type="{{$type ?? ''}}"
+				 model="storehouse"
+			 >
+			 </storehouse-export>
+		 </v-app>
+	 </div>
+
 	<div class="row">
 		<div class="col-12">
 					<div class="row">
@@ -65,6 +76,8 @@
 							@empty
 								<div class="alert alert-info text-center">Nessun struttura da visualizzare</div>
 						@endforelse
+					</div>
+		</div>
 	</div>
 @endsection
 
