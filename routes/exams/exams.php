@@ -11,7 +11,9 @@ Route::group([
 	 */
 	  Route::get('/exams-lrn/export/{type}/{from_date?}/{to_date?}', 'LrnExamsController@export')->name('lrn.export');
 
-    Route::get('mf-exams/{type}','MediaformExamsController@index');
+    Route::get('/api/mf-exams/{type}','MediaformExamsController@index');
+		Route::view('/mf-exams/create', 'exams.createMediaForm')->name('mediaform.create');
+		Route::view('/mf-exams', 'exams.indexMF')->name('mediaform.list');
 
 		Route::get('/lrn-exams/{type}', 'LrnExamsController@index')->name('lrn.index');
 		Route::get('/lrn-exams/{type}/create', 'LrnExamsController@create')->name('lrn.create');

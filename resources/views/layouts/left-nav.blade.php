@@ -77,7 +77,7 @@
 				</a>
 				<div class="collapse" id="sessione_di_esame">
 					<ul class="nav flex-column sub-menu">
-						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MF</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{route('exams.mediaform.list')}}">Sessione d'esame MF</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame IIQ</a></li>
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MIUR</a></li>
 						<li class="nav-item"> <a class="nav-link" href="{{route('exams.lrn.index',\App\Models\Category::LRN)}}">Sessione d'esame LRN</a></li>

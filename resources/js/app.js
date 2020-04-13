@@ -100,6 +100,8 @@ Vue.component('add-discount', require('./components/structure/AddDiscountCompone
 Vue.component('structure-details', require('./components/structure/StructureDetailsComponent').default);
 Vue.component('user-details', require('./components/users/UserDetailsComponent').default);
 Vue.component('sessione-essame-create', require('./components/sessione-esame/CreateComponent').default);
+Vue.component('mediaform-create', require('./components/sessione-esame/CreateMFComponent').default);
+Vue.component('mediaform-list', require('./components/sessione-esame/ListMFComponent').default);
 Vue.component('sessione-essame-list', require('./components/sessione-esame/ListComponent').default);
 Vue.component('tracking-list', require('./components/tracking/ListComponent').default);
 Vue.component('tracking-create', require('./components/tracking/CreateComponent').default);
