@@ -19,7 +19,7 @@ class Certificate extends Model
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
-
+  const MODEL='certificate';
 	const ATTESTATO_TMPL = 'certificate_tmpl_attestato';
 	const CERTIFICATE_TMPL = 'certificate_tmpl_certificate';
 

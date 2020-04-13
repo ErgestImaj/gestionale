@@ -12,15 +12,14 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class PaypalTransactions extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting,HasUserRelationships,SoftDeletes;
-
-	protected $table = 'cart_paypal_transactions';
-	protected $guarded = [];
+	use HashIdAttribute, HasHashid, HashidRouting, HasUserRelationships, SoftDeletes;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
+	protected $table = 'cart_paypal_transactions';
+	protected $guarded = [];
 	protected $casts = [
 		'locked' => 'datetime',
 		'deleted_at' => 'datetime',
@@ -31,15 +30,18 @@ class PaypalTransactions extends Model
 		'params' => 'json',
 
 	];
-	protected $appends = ['hashid','user_full_name'];
+	protected $appends = ['hashid', 'user_full_name'];
 
-	public function order(){
-		return $this->belongsTo(Orders::class,'order_id','id');
+	public function order()
+	{
+		return $this->belongsTo(Orders::class, 'order_id', 'id');
 	}
-	public function getUserFullNameAttribute(){
-		if (isset($this->params['validate_user_id']) && is_array($this->params)){
+
+	public function getUserFullNameAttribute()
+	{
+		if (isset($this->params['validate_user_id']) && is_array($this->params)) {
 			$user = User::find($this->params['validate_user_id']);
-			if ($user){
+			if ($user) {
 				return $user->full_name;
 			}
 		}

@@ -1,5 +1,11 @@
 <template>
 	<div>
+		<storehouse-export
+			type="2,3"
+			model="course-request"
+			:show="true"
+		>
+		</storehouse-export>
 		<v-card>
 			<v-card-title>
 				Gestione richieste assegnazione corsi

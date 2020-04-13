@@ -20,7 +20,7 @@ class Tracking extends Model
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
-
+  const MODEL ='tracking';
 	const STATUS_TO_SEND = 0;
 	const STATUS_DELIVERING = 1;
 	const STATUS_RECEIVED = 2;

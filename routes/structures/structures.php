@@ -10,7 +10,7 @@ Route::group([
 		 * Export
 		 */
 
-		Route::get('/structures/export/{type}/{from?}/{to?}', 'StructureController@export')->name('export');
+		Route::get('/structures/export/{type}/{from_date?}/{to_date?}', 'StructureController@export')->name('export');
 		Route::get('/structures/get-list-of-structures/{type}', 'StructureController@getStructures')->name('export');
 
 		/*
@@ -29,6 +29,7 @@ Route::group([
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			Route::get('/struture/{type}', 'StructureController@getStructure')->name('struture.all');
+			Route::get('/lrn_dile', 'StructureController@getStructureLrnDile')->name('struture.lrn.dile');
 			Route::get('/struture/{structure}/edit/', 'StructureController@edit');
 			Route::post('/{structure}/sconto/store','DiscountController@store')->name('struture.sconto.store');
 			Route::get('/{structure}/sconto/', 'DiscountController@index')->name('struture.sconto.index');
@@ -115,7 +116,7 @@ Route::group([
 		 * Storehouse
 		 */
 	  Route::get('/storehouse','StorehouseController@index')->name('storehouse.index');
-   	Route::get('/structures/export/{type}/{from?}/{to?}/{structure?}', 'StructureController@exportStructureStorehouse')->name('storehouse.structures.export');
+   	Route::get('/structures-storehouse/export/{type}/{structure?}', 'StorehouseController@exportStructureStorehouse')->name('storehouse.structures.export');
 	  Route::get('/storehouse/export','StorehouseController@exportIndex')->name('storehouse.export.index');
 	  Route::get('/storehouse/personale','StorehouseController@personal')->name('storehouse.personal');
 	  Route::get('/storehouse-partner','StorehouseController@indexPartner')->name('storehouse.partner');

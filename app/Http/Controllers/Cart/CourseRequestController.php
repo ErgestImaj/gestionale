@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers\Cart;
 
+use App\Exports\CourseRequestExport;
 use App\Http\Controllers\Controller;
 use App\Models\Cart\CourseTransactions;
 use App\Models\Cart\CourseRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseRequestController extends Controller
 {
+	public function export()
+	{
+		return Excel::download(new CourseRequestExport(request()->from_date, request()->to_date, request()->structure), 'course_requests.xlsx');
+	}
     public function index(){
 
     	$courserequests = CourseRequest::latest()->with([

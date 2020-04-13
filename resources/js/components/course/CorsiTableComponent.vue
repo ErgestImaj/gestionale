@@ -1,6 +1,11 @@
 <template>
 	<div>
 		<v-btn @click="addCourse()" class="gadd">{{ trans('form.add_course') }}</v-btn>
+		<basic-export
+			model="courses"
+			:show="true"
+			:categories="true"
+		></basic-export>
 		<v-card>
 		<v-card-title>
 			Corsi

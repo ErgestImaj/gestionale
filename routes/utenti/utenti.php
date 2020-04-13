@@ -11,7 +11,7 @@ Route::group([
 	  /*
 		 * Export
 		 */
-	Route::get('/utenti/export/{type}/{from?}/{to?}', 'UtentiController@export')->name('export');
+	Route::get('/utenti/export/{type}/{from_date?}/{to_date?}', 'UtentiController@export')->name('export');
 
 	Route::get('/{type}/create', 'UtentiController@createUtente')->name('utenti.create');
 	Route::get('/admins', 'UtentiController@viewAdmins')->name('admins.view');

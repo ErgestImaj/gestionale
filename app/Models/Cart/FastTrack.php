@@ -22,7 +22,7 @@ class FastTrack extends Model
 	protected $guarded = [];
 
 	const CONTENT_PATH ='utilities';
-
+  const MODEL = 'fasttrack';
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 

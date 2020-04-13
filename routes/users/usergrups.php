@@ -29,7 +29,7 @@ Route::group([
     Route::get('/course/{course}/modules','ModuleContentController@filterCourseModules');
 
     //Tracking Orders
-
+  	Route::get('tracking/export/{from_date?}/{to_date?}/{structure?}', 'TrackingController@export')->name('tracking.export');
 	  Route::get('/api/tracking','TrackingController@index');
 	  Route::view('/tracking', 'tracking.index')->name('tracking.list');
 	  Route::view('/tracking/create', 'tracking.create')->name('tracking.create');

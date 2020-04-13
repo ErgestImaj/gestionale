@@ -28,7 +28,7 @@ class UsersExport implements FromView
 		} elseif (!is_null($this->from)) {
 			$query->whereDate('created', '>', $this->from);
 		} elseif (!is_null($this->to)) {
-			$query->whereDate('created', '<=', $this->from);
+			$query->whereDate('created', '<=', $this->to);
 		}
 		$users = $query->whereHas('roles', function ($query) {
 			$query->where('name', array_search($this->type, User::$roles));

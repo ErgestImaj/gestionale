@@ -76,7 +76,7 @@ class StorehouseController extends Controller
 	{
 
 		return view('struture.storehouse.storehouse')->with([
-			'type' => Structure::TYPE_PARTNER,
+			'type' => Structure::TYPE_MASTER,
 			'structure_type' => 'Master',
 			'structures' => $this->getStructureCourses(Structure::TYPE_MASTER)
 		]);
@@ -85,7 +85,7 @@ class StorehouseController extends Controller
 	public function indexAffiliate()
 	{
 		return view('struture.storehouse.storehouse')->with([
-			'type' => Structure::TYPE_PARTNER,
+			'type' => Structure::TYPE_AFFILIATE,
 			'structure_type' => 'Affiliate',
 			'structures' => $this->getStructureCourses(Structure::TYPE_AFFILIATE)
 		]);
@@ -109,6 +109,12 @@ class StorehouseController extends Controller
 	}
 
 	public function exportStructureStorehouse(){
-		return Excel::download(new StructureStoreHouseExport(request()->type,request()->from,request()->to,request()->structure),'storehouse.xlsx');
+		if (request()->structure){
+			$structure =	Structure::findByHashid(request()->structure);
+			$structure->courses = $this->getAvailableCourses($structure->user_id);
+			return Excel::download(new StructureStoreHouseExport($structure,true),'storehouse.xlsx');
+		}
+		return Excel::download(new StructureStoreHouseExport($this->getStructureCourses(request()->type)),'storehouse.xlsx');
+
 	}
 }

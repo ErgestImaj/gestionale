@@ -22,7 +22,7 @@ class Course extends Model
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
-
+    const MODEL = 'courses';
     const  IS_ACTIVE = 1;
     const  NOT_ACTIVE = 0;
 

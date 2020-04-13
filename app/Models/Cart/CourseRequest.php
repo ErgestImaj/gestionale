@@ -21,7 +21,7 @@ class CourseRequest extends Model
 	const STATUS_PENDING = 1;
 	const STATUS_CLOSED = 2;
 	const STATUS_BLOCKED = 3;
-
+  const MODEL ='course-request';
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
 

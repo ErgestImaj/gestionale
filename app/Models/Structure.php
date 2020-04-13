@@ -97,7 +97,7 @@ class Structure extends Model
 		return $query->where('state',$value);
 	}
 	public function scopeType($query,$type){
-		return $query->where('type',$type);
+		return $query->whereIn('type',explode(',',$type));
 	}
 
 	public function getTypeNameAttribute(){

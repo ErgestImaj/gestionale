@@ -1,6 +1,12 @@
 <template>
 	<div>
 		<v-btn :href="createUrl" class="gadd">Crea Nuovo</v-btn>
+		<storehouse-export
+			type="all"
+			model="tracking"
+			:show="true"
+		>
+		</storehouse-export>
 		<v-card>
 			<v-card-title>
 				Sistema - Tracciabilità
@@ -58,6 +64,7 @@
                     { text: 'Data stimata', value: "estimate_date" },
                     { text: 'Struttura', value: "structure.firstname" },
                     { text: 'Sessione d\'esame', value: "exam" },
+                    { text: 'Certificati', value: "nr_certificates" },
                     { text: 'Data di invio', value: "send_date" },
                     { text: 'Data di scadenza', value: "expiry_date" },
                     { text: 'Stato', value: "status_name" },

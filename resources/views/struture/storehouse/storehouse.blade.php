@@ -12,6 +12,7 @@
 			 <storehouse-export
 				 type="{{$type ?? ''}}"
 				 model="storehouse"
+				 show="{{false}}"
 			 >
 			 </storehouse-export>
 		 </v-app>

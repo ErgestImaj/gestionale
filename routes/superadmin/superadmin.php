@@ -68,6 +68,7 @@ Route::group([
     Route::patch('/categories/{category}','CategoryController@update')->name('category.update');
     Route::delete('/categories/{category}','CategoryController@destroy')->name('category.destroy');
 
+	  Route::get('courses/export/{course?}/{category?}','CourseController@export')->name('courses.export');
     Route::get('/courses-list','CourseController@filter')->name('courses.list');
     Route::resource('/courses','CourseController');
     Route::patch('/course/status/{course}','CourseController@updateStatus')->name('course.status');
@@ -109,6 +110,7 @@ Route::group([
     /*
      * Report formazione
      */
+	  Route::get('certificates/export/{from_date?}/{to_date?}/{course?}','CertificateController@export')->name('certificates.export');
 	  Route::get('/api/certificates','CertificateController@index')->name('certificates.index');
 	  Route::view('certificates','certificate.index')->name('certificates.list');
 

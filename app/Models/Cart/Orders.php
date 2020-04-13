@@ -2,7 +2,6 @@
 
 namespace App\Models\Cart;
 
-use App\Models\Course;
 use App\Models\User;
 use App\Traits\DatabaseDateFomat;
 use App\Traits\HasContentPath;
@@ -17,36 +16,30 @@ use Mtvs\EloquentHashids\HashidRouting;
 
 class Orders extends Model
 {
-	use HashIdAttribute,HasHashid,HashidRouting, HasContentPath,
-		HasUserRelationships,SoftDeletes,PaymentNameAttribute,DatabaseDateFomat,
+	use HashIdAttribute, HasHashid, HashidRouting, HasContentPath,
+		HasUserRelationships, SoftDeletes, PaymentNameAttribute, DatabaseDateFomat,
 		OrderTypeNameAttribute;
-
-	protected $table = 'cart_orders';
-	protected $guarded = [];
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
-
-	const CONTENT_PATH   = 'utilities';
-
+	const MODEL = 'orders';
+	const CONTENT_PATH = 'utilities';
 	const TYPE_SUBSCRIPTION = 0;
 	const TYPE_USER_VALIDATION = 1;
 	const TYPE_PURCHASE = 2;
 	const TYPE_CERTIFICATE_DUPLICATE_REQUEST = 3;
 	const TYPE_CREDIT_PACK_PURCHASE = 4;
 	const TYPE_FAST_TRACK = 5;
-
 	const STATUS_OPEN = 0;
 	const STATUS_PENDING = 1;
 	const STATUS_COMPLETE = 2;
 	const STATUS_ERROR = 3;
-
 	const PAYPAL = 0;
 	const BANK_TRANSFER = 1;
-
 	const  IS_ACTIVE = 1;
 	const  NOT_ACTIVE = 0;
-
+	protected $table = 'cart_orders';
+	protected $guarded = [];
 	protected $casts = [
 		'locked' => 'datetime',
 		'deleted_at' => 'datetime',
@@ -56,24 +49,32 @@ class Orders extends Model
 
 	];
 
-	protected $appends = ['hashid','type_name','payment_name','status_name','content_path'];
+	protected $appends = ['hashid', 'type_name', 'payment_name', 'status_name', 'content_path'];
 
-	public function cartCourseTransaction(){
-		return $this->hasMany(CourseTransactions::class,'order_id','id');
-	}
-	public function orderItems(){
-		return $this->hasMany(OrderItems::class,'order_id','id');
-	}
-	public function structure(){
-		return $this->belongsTo(User::class,'user_id','id');
-	}
-	public function paypalTransactions(){
-		return $this->hasOne(PaypalTransactions::class,'order_id','id');
-	}
-	public function invoice(){
-		return $this->hasOne(Invoices::class,'order_id','id');
+	public function cartCourseTransaction()
+	{
+		return $this->hasMany(CourseTransactions::class, 'order_id', 'id');
 	}
 
+	public function orderItems()
+	{
+		return $this->hasMany(OrderItems::class, 'order_id', 'id');
+	}
+
+	public function structure()
+	{
+		return $this->belongsTo(User::class, 'user_id', 'id');
+	}
+
+	public function paypalTransactions()
+	{
+		return $this->hasOne(PaypalTransactions::class, 'order_id', 'id');
+	}
+
+	public function invoice()
+	{
+		return $this->hasOne(Invoices::class, 'order_id', 'id');
+	}
 
 
 	public function getStatusNameAttribute()
@@ -92,13 +93,15 @@ class Orders extends Model
 	public static function statusNames()
 	{
 		return array(
-			self::STATUS_OPEN =>'Aperto',
-			self::STATUS_PENDING =>'In attesa',
+			self::STATUS_OPEN => 'Aperto',
+			self::STATUS_PENDING => 'In attesa',
 			self::STATUS_COMPLETE => 'Completato',
 			self::STATUS_ERROR => 'Non completato',
 		);
 	}
-	public function getOrderDateAttribute($value){
+
+	public function getOrderDateAttribute($value)
+	{
 		return $this->databaseDateFormat($value);
 	}
 }

@@ -9,7 +9,7 @@ Route::group([
 	/*
 	 * Export
 	 */
-	  Route::get('/exams-lrn/export/{type}/{from?}/{to?}', 'LrnExamsController@export')->name('lrn.export');
+	  Route::get('/exams-lrn/export/{type}/{from_date?}/{to_date?}', 'LrnExamsController@export')->name('lrn.export');
 
     Route::get('mf-exams/{type}','MediaformExamsController@index');
 

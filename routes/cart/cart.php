@@ -17,12 +17,15 @@ Route::group([
 		Route::group( ['prefix' => 'api'], function ()
 		{
 			Route::get('/orders','OrdersController@index');
+			Route::get('/orders/export/{from_date?}/{to_date?}/{structure?}', 'OrdersController@export')->name('orders.export');
 
+			Route::get('/courses-requests/export/{from_date?}/{to_date?}/{structure?}', 'CourseRequestController@export')->name('course.requests.export');
 			Route::get('/courses-requests','CourseRequestController@index');
 			Route::patch('/courses-requests/{courseRequest}/block','CourseRequestController@blockCoursesRequest');
 			Route::patch('/courses-requests/{courseRequest}/unblock','CourseRequestController@unBlockCoursesRequest');
 			Route::patch('/courses-requests/{courseRequest}/confirm','CourseRequestController@confirmCoursesRequest');
 
+			Route::get('/fast-track/export/{from_date?}/{to_date?}/{structure?}', 'FastTrackController@export')->name('fasttrack.export');
 			Route::get('/fast-track','FastTrackController@index');
 			Route::post('/fast-track/{fastTrack}/upload','FastTrackController@uploadInvoice');
 			Route::get('/fast-track/{fastTrack}/download','FastTrackController@downloadInvoice');

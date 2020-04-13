@@ -1,5 +1,9 @@
 <template>
 	<div>
+		<basic-export
+			model="certificate"
+			:show="true"
+		></basic-export>
 		<v-card>
 			<v-card-title>
 				Report formazione

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CoursesExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\Models\Category;
@@ -9,11 +10,14 @@ use App\Models\Course;
 use App\Models\Expiry;
 use App\Models\VatRate;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseController extends Controller
 {
-
+	public function export()
+	{
+		return Excel::download(new CoursesExport(request()->course, request()->category), 'courses.xlsx');
+	}
 	public function filter()
 	{
 		return view('course.index');

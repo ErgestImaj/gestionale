@@ -1,5 +1,11 @@
 <template>
 	<div>
+		<storehouse-export
+			type="all"
+			model="fasttrack"
+			:show="true"
+		>
+		</storehouse-export>
 		<v-card>
 			<v-card-title>
 				Fast Track
@@ -28,7 +34,7 @@
 				<template v-slot:item.price="{ item }">
 					<span>{{item.price | price}}</span>
 				</template>
-				<template v-slot:item.status_name="{ item }">
+				<template v-slot:item.state_name="{ item }">
 					<span :class="'gstatus ' + item.state_name.split(' ').join('_').toLowerCase()">{{ item.state_name }}</span>
 				</template>
 				<template v-slot:item.actions="{ item }">
@@ -113,7 +119,7 @@
                     { text: 'Totale', value: "price" },
                     { text: 'Metodo pagamento', value: "payment_name" },
                     { text: 'Data', value: "order_date" },
-                    { text: 'Stato', value: "status_name" },
+                    { text: 'Stato', value: "state_name" },
                     {
                         text: this.trans("form.actions"),
                         value: "actions",

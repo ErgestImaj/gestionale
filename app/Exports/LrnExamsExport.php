@@ -28,7 +28,7 @@ class LrnExamsExport implements FromView
 		}elseif (!is_null($this->from)){
 			$query->whereDate('created','>',$this->from);
 		}elseif (!is_null($this->to)){
-			$query->whereDate('created','<=',$this->from);
+			$query->whereDate('created','<=',$this->to);
 		}
 		$exams = $query->type($this->type)->cursor();
 
