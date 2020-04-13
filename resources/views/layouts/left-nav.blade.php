@@ -192,6 +192,7 @@
                     <li class="nav-item"> <a class="nav-link" href="{{route('superadmin.iva')}}">{{trans('menu.iva')}}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('superadmin.maintenance')}}">{{trans('menu.maintenance')}}</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('superadmin.scadenza_contrato')}}">Scadenza contratto</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('general.invoice.settings')}}">Dati Fattura Elettronica</a></li>
                 </ul>
             </div>
         </li>

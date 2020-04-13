@@ -141,6 +141,10 @@ class OrdersController extends Controller
 			toastr()->error('il PIVA e un campo obbligatorio per fattura elettronica');
 			return back();
 		}
+		if (!auth()->user()->electroniceInvoiceSettings()->exists()) {
+			toastr()->error('Compila i dati per fattura elettronica');
+			return redirect()->route('general.invoice.settings');
+		}
 
 
 		$electronic_invoice = ElectronicInvoiceServices::generateXMLInvoice($order, $order->structure->structure);

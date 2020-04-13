@@ -80,10 +80,10 @@ class ElectronicInvoiceServices
 		// creating IdTrasmittente
 		$IdTrasmittente = $xml->createElement("IdTrasmittente");
 
-		$IdPaese = $xml->createElement("IdPaese", "IT");
+		$IdPaese = $xml->createElement("IdPaese", auth()->user()->electroniceInvoiceSettings->dati_trasmissione_id_paese);
 		$IdTrasmittente->appendChild($IdPaese);
 
-		$IdCodice = $xml->createElement("IdCodice", "10209790152");
+		$IdCodice = $xml->createElement("IdCodice", auth()->user()->electroniceInvoiceSettings->dati_trasmissione_id_codice);
 		$IdTrasmittente->appendChild($IdCodice);
 
 		$datiTrasmissione->appendChild($IdTrasmittente);
@@ -115,22 +115,22 @@ class ElectronicInvoiceServices
 
 		$IdFiscaleIVA = $xml->createElement("IdFiscaleIVA");
 
-		$IdPaese = $xml->createElement("IdPaese", "IT");
+		$IdPaese = $xml->createElement("IdPaese", auth()->user()->electroniceInvoiceSettings->dati_anagrafici_id_paese);
 		$IdFiscaleIVA->appendChild($IdPaese);
-		$IdCodice = $xml->createElement("IdCodice", "07240111216");
+		$IdCodice = $xml->createElement("IdCodice", auth()->user()->electroniceInvoiceSettings->dati_anagrafici_id_codice);
 		$IdFiscaleIVA->appendChild($IdCodice);
 
 		$DatiAnagrafici->appendChild($IdFiscaleIVA);
 
-		$CodiceFiscale = $xml->createElement("CodiceFiscale", "07240111216");
+		$CodiceFiscale = $xml->createElement("CodiceFiscale", auth()->user()->electroniceInvoiceSettings->codice_fiscale);
 		$DatiAnagrafici->appendChild($CodiceFiscale);
 
 		$Anagrafica = $xml->createElement("Anagrafica");
-		$Denominazione = $xml->createElement("Denominazione", "MEDIAFORM EDUCATIONAL QUALIFICATIONS AND INTERNATIONAL");
+		$Denominazione = $xml->createElement("Denominazione", auth()->user()->electroniceInvoiceSettings->denominazione);
 		$Anagrafica->appendChild($Denominazione);
 		$DatiAnagrafici->appendChild($Anagrafica);
 
-		$RegimeFiscale = $xml->createElement("RegimeFiscale", "RF01");
+		$RegimeFiscale = $xml->createElement("RegimeFiscale", auth()->user()->electroniceInvoiceSettings->regime_fiscale);
 		$DatiAnagrafici->appendChild($RegimeFiscale);
 
 		$CedentePrestatore->appendChild($DatiAnagrafici);
@@ -138,17 +138,17 @@ class ElectronicInvoiceServices
 
 		//create sede
 		$Sede = $xml->createElement("Sede");
-		$Indirizzo = $xml->createElement("Indirizzo", "CORSO ITALIA");
+		$Indirizzo = $xml->createElement("Indirizzo",  auth()->user()->electroniceInvoiceSettings->indirizzo);
 		$Sede->appendChild($Indirizzo);
-		$NumeroCivico = $xml->createElement("NumeroCivico", "125/127");
+		$NumeroCivico = $xml->createElement("NumeroCivico",  auth()->user()->electroniceInvoiceSettings->numero_civico);
 		$Sede->appendChild($NumeroCivico);
-		$CAP = $xml->createElement("CAP", "80011");
+		$CAP = $xml->createElement("CAP",  auth()->user()->electroniceInvoiceSettings->cap);
 		$Sede->appendChild($CAP);
-		$Comune = $xml->createElement("Comune", "Acerra");
+		$Comune = $xml->createElement("Comune",  auth()->user()->electroniceInvoiceSettings->comune);
 		$Sede->appendChild($Comune);
-		$Provincia = $xml->createElement("Provincia", "NA");
+		$Provincia = $xml->createElement("Provincia",  auth()->user()->electroniceInvoiceSettings->provincia);
 		$Sede->appendChild($Provincia);
-		$Nazione = $xml->createElement("Nazione", "IT");
+		$Nazione = $xml->createElement("Nazione",  auth()->user()->electroniceInvoiceSettings->nazione);
 		$Sede->appendChild($Nazione);
 		$CedentePrestatore->appendChild($Sede);
 		//end sede
@@ -157,22 +157,22 @@ class ElectronicInvoiceServices
 		$IscrizioneREA = $xml->createElement("IscrizioneREA");
 		$Ufficio = $xml->createElement("Ufficio", "NA");
 		$IscrizioneREA->appendChild($Ufficio);
-		$NumeroREA = $xml->createElement("NumeroREA", "0870875");
+		$NumeroREA = $xml->createElement("NumeroREA",  auth()->user()->electroniceInvoiceSettings->numero_rea);
 		$IscrizioneREA->appendChild($NumeroREA);
-		$CapitaleSociale = $xml->createElement("CapitaleSociale", "1250.00");
+		$CapitaleSociale = $xml->createElement("CapitaleSociale",  auth()->user()->electroniceInvoiceSettings->capitale_sociale);
 		$IscrizioneREA->appendChild($CapitaleSociale);
-		$SocioUnico = $xml->createElement("SocioUnico", "SM");
+		$SocioUnico = $xml->createElement("SocioUnico",  auth()->user()->electroniceInvoiceSettings->socio_unico);
 		$IscrizioneREA->appendChild($SocioUnico);
-		$StatoLiquidazione = $xml->createElement("StatoLiquidazione", "LN");
+		$StatoLiquidazione = $xml->createElement("StatoLiquidazione",  auth()->user()->electroniceInvoiceSettings->stato_liquidazione);
 		$IscrizioneREA->appendChild($StatoLiquidazione);
 		$CedentePrestatore->appendChild($IscrizioneREA);
 		// end IscrizioneREA
 
 		// creating Contatti
 		$Contatti = $xml->createElement("Contatti");
-		$Telefono = $xml->createElement("Telefono", "0813198141");
+		$Telefono = $xml->createElement("Telefono", auth()->user()->electroniceInvoiceSettings->telefono);
 		$Contatti->appendChild($Telefono);
-		$Email = $xml->createElement("Email", "amministrazione@mediaform.it");
+		$Email = $xml->createElement("Email", auth()->user()->electroniceInvoiceSettings->email);
 		$Contatti->appendChild($Email);
 		$CedentePrestatore->appendChild($Contatti);
 		// end Contatti
@@ -445,9 +445,9 @@ class ElectronicInvoiceServices
 		$DettaglioPagamento->appendChild($DataScadenzaPagamento);
 		$ImportoPagamento = $xml->createElement("ImportoPagamento", $class == 'App\Models\Cart\Orders' ? $tatal_order : $price);
 		$DettaglioPagamento->appendChild($ImportoPagamento);
-		$IstitutoFinanziario = $xml->createElement("IstitutoFinanziario", "Poste Italiane Spa");
+		$IstitutoFinanziario = $xml->createElement("IstitutoFinanziario", auth()->user()->electroniceInvoiceSettings->istituto_finanziario);
 		$DettaglioPagamento->appendChild($IstitutoFinanziario);
-		$IBAN = $xml->createElement("IBAN", "IT15G0760103400001024439968");
+		$IBAN = $xml->createElement("IBAN", auth()->user()->electroniceInvoiceSettings->iban);
 		$DettaglioPagamento->appendChild($IBAN);
 
 		$DatiPagamento->appendChild($DettaglioPagamento);
@@ -470,11 +470,12 @@ class ElectronicInvoiceServices
 			$xml->save(storage_path('app/public/'.ElectronicInvoice::CONTENT_PATH.DIRECTORY_SEPARATOR).  $file_name);
 
          $electronic_invoice = ElectronicInvoice::create([
-         	'user_id'=>$invoice->user_id,
+         		'user_id'=>$invoice->user_id,
 					 'type'=>$type,
 					 'invoice_number'=>(int)filter_var(ElectronicInvoice::getMaxProgresNumber(),FILTER_SANITIZE_NUMBER_INT),
 					 'invoice_oldnr'=>$invoice->order_number,
 					 'receipt'=>$file_name,
+					 'created_by'=>auth()->id()
 				 ]);
 				return $electronic_invoice;
 

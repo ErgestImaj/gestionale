@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Certificate;
 use App\Models\Course;
 use App\Models\DocumentCategories;
+use App\Models\ElectronicInvoiceSettings;
 use App\Models\Exams\LrnExamSession;
 use App\Models\Exams\MediaformExamSession;
 use App\Models\MassMailHistory;
@@ -116,5 +117,8 @@ trait UserRelationships{
 	}
 	public function userStatus(){
 			return $this->hasOne(UserStatus::class,'user_id','id');
+	}
+	public function electroniceInvoiceSettings(){
+			return $this->hasOne(ElectronicInvoiceSettings::class,'user_id','id');
 	}
 }
