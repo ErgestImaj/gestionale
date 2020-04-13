@@ -16,7 +16,7 @@
 
 									<label>{{trans('form.description')}}</label>
 									<tiptap-vuetify v-model="content.description" :extensions="extensions" />
-
+									<div class="invalid-feedback d-block" v-if="errors.description">{{errors.description[0]}}</div>
 									<v-text-field dense outlined
 																label="Prezzo"
 																v-model="content.price"
@@ -29,7 +29,7 @@
 											<v-text-field readonly outlined dense v-on="on"
 																		v-model="content.expiry_date"
 																		label="Data scadenza"
-																		:error-messages="getError('date')"
+																		:error-messages="getError('expiry_date')"
 											></v-text-field>
 										</template>
 										<v-date-picker v-model="content.expiry_date" @input="datePicker1 = false"></v-date-picker>
@@ -37,7 +37,7 @@
 
 									<span class="mr-3">Stato:</span>
 
-									<v-btn-toggle v-model="content.satus" group mandatory color="primary">
+									<v-btn-toggle v-model="content.status" group mandatory color="primary">
 										<v-btn value="0">Sospeso</v-btn>
 										<v-btn value="1">Attivo</v-btn>
 									</v-btn-toggle>
@@ -76,7 +76,7 @@
 												show-select
 											>
 												<template v-slot:item.quantity="{ item }">
-													<v-text-field class="sml-input" dense outlined v-model="item.quantity"></v-text-field>
+													<v-text-field class="sml-input" dense outlined :error-messages="getError('corsi.0.quantity')" v-model="item.quantity"></v-text-field>
 												</template>
 											</v-data-table>
 										</v-col>
@@ -141,16 +141,46 @@
             TiptapVuetify
         },
         mounted() {
-        	this.getAvailableCourses();
+        	 this.getCourses()
         },
         methods: {
-            save() {
-							//
-            },
-					  getAvailableCourses(){
-							axios.get(`/amministrazione/courses`).then(response => {
-								this.courses = response.data;
+					save() {
+						if (!this.submiting) {
+							this.content.corsi = this.activeCourses
+							this.submiting = true;
+							axios.post(`/amministrazione/api/promo-pack/store`,this.content)
+								.then(response => {
+									if (response.data.status == "success") {
+										swal("Good job!", response.data.msg, "success");
+										setTimeout(function () {
+											window.location.href = response.data.redirect;
+										}, 1500)
+									} else if (response.data.status === "error") {
+										swal({
+											title: "Whoops!",
+											text: response.data.msg,
+											icon: "warning",
+											dangerMode: true
+										});
+									}
+								})
+								.catch(error => {
+									this.errors = error.response.data.errors;
+								}).finally(()=>{
+								this.submiting = false;
 							});
+						}
+					},
+					 getCourses(){
+						 axios.get(`/filter-courses`)
+							 .then(response => {
+								 if (response.data) {
+									 this.courses = response.data;
+								 }
+							 })
+							 .catch(error => {
+
+							 })
 						},
             getError(field) {
                 return this.errors[field] ? this.errors[field][0] : []

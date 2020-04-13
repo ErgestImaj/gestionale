@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HashIdAttribute;
 use App\Traits\HasStatus;
 use App\Traits\HasUserRelationships;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Mtvs\EloquentHashids\HashidRouting;
 class PromoPack extends Model
 {
 	use HasUserRelationships, HasHashid, HashidRouting,
-		SoftDeletes,HasStatus;
+		SoftDeletes,HasStatus,HashIdAttribute;
 
 	const CREATED_AT = 'created';
 	const UPDATED_AT = 'updated';
@@ -24,6 +25,7 @@ class PromoPack extends Model
 	protected $casts = [
 		'expiry_date'=>'datetime',
 	];
+	protected $appends= ['hashid'];
 
 	protected $table='courses_promo_packs';
 

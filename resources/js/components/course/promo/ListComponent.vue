@@ -3,7 +3,6 @@
 		<v-btn :href="createUrl" class="gadd">Nuovo Promo Pack</v-btn>
 		<v-card>
 			<v-card-title>
-				Lista Promo Pack
 				<v-spacer></v-spacer>
 				<v-text-field v-model="search" label="Cerca" single-line hide-details></v-text-field>
 			</v-card-title>
@@ -46,11 +45,22 @@
 						<v-list dense>
 							<template v-for="(m, i) in menuItems">
 								<v-list-item
-									class="update-btn" v-if="m.id == 2" :key="i" link>
+									class="update-btn" v-if="m.id == 2" :key="i" link :data-action="`/amministrazione/promo-pack/status/${item.hashid}`">
 									<v-list-item-icon>
 										<v-icon>{{ item.state == 1 ? 'mdi-minus-circle-outline' : 'mdi-checkbox-marked-circle-outline' }}</v-icon>
 									</v-list-item-icon>
 									<v-list-item-title>{{ !!item.state ? m.title2 : m.title }}</v-list-item-title>
+								</v-list-item>
+								<v-list-item v-else-if="m.id ==3" :key="i"
+														 class="delete-btn"
+														 :data-content="trans('messages.delete_record')"
+														 :data-action="`/amministrazione/promo-pack/${item.hashid}`"
+														 link
+								>
+									<v-list-item-icon>
+										<v-icon v-text="m.icon"></v-icon>
+									</v-list-item-icon>
+									<v-list-item-title>{{ m.title }}</v-list-item-title>
 								</v-list-item>
 								<v-list-item v-else :key="i" @click="menuClick(m.id, item)">
 									<v-list-item-icon>
@@ -106,7 +116,7 @@
                     { text: "Corsi", value: "courses" },
                     { text: "Stato", value: "state" },
                     { text: "Creato il", value: "created" },
-                    { text: "Creato da", value: "created_by" },
+                    { text: "Creato da", value: "user.display_name" },
                     {
                         text: '',
                         value: "actions",

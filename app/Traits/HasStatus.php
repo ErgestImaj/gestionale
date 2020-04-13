@@ -20,8 +20,8 @@ trait HasStatus {
      * @return int
      */
     public function disable(){
-        $this->locked = Carbon::now()->toDateTimeString();
-        $this->locked_by = Auth::id();
+//        $this->locked = Carbon::now()->toDateTimeString();
+//        $this->locked_by = Auth::id();
         $this->state = self::NOT_ACTIVE;
         return $this->update();
     }
