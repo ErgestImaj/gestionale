@@ -76,7 +76,10 @@
 												show-select
 											>
 												<template v-slot:item.quantity="{ item }">
-													<v-text-field class="sml-input" dense outlined :error-messages="getError('corsi.0.quantity')" v-model="item.quantity"></v-text-field>
+													<v-text-field dense outlined
+																				:error-messages="getError('corsi.' + activeCourses.map(function(x) {return x.hashid; }).indexOf(item.hashid) +'.quantity')"
+																				v-model="item.quantity"
+													></v-text-field>
 												</template>
 											</v-data-table>
 										</v-col>
@@ -109,6 +112,7 @@
     import { TiptapVuetify, Heading, Bold, Italic, Strike, Underline, Code, Paragraph, BulletList, OrderedList,
         ListItem, Link, Blockquote, HardBreak, HorizontalRule, History} from "tiptap-vuetify";
     export default {
+        props: ['isEdit', 'data'],
         data() {
             return {
               	show:false,
@@ -141,9 +145,23 @@
             TiptapVuetify
         },
         mounted() {
-        	 this.getCourses()
+        	 this.getCourses();
+        	 console.log(this.isEdit);
+        	 if (!!this.isEdit) {
+        	     this.handleIfEdit();
+					 }
         },
         methods: {
+            handleIfEdit() {
+                if (this.data) {
+                    this.content = this.data;
+                    // this.content.expiry_date = this.moment(this.data.expiry_date, 'YYYY-MM-DD').format('DD-MM-YYYY');
+                    this.activeCourses = this.data.courses;
+                    this.activeCourses.forEach(c => {
+                        c.quantity = c.pivot.qty;
+										});
+								}
+						},
 					save() {
 						if (!this.submiting) {
 							this.content.corsi = this.activeCourses

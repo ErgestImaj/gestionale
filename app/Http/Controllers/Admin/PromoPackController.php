@@ -60,6 +60,13 @@ class PromoPackController extends Controller
 	public function edit(PromoPack $promoPack){
 		return $promoPack->load('courses');
 	}
+
+
+	public function editPage(PromoPack $promoPack){
+		return view('course.promo.edit', [
+			'promo' => $promoPack->load('courses'),
+		]);
+	}
 	/**
 	 * Update the specified resource in storage.
 	 *
