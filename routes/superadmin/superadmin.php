@@ -75,6 +75,8 @@ Route::group([
 
   	Route::view('/promo-pack', 'course.promo.index')->name('promo.pack');
   	Route::view('/promo-pack/create', 'course.promo.create')->name('promo.pack.create');
+  	Route::view('/promo-pack/edit', 'course.promo.edit')->name('promo.pack.edit');
+		Route::get('promo-pack/{promoPack}/edit','PromoPackController@editPage')->name('promo.pack.editpage');
 	  Route::get('/api/promo-pack','PromoPackController@index')->name('promo.pack.list');
 	  Route::post('/api/promo-pack/store','PromoPackController@store')->name('promo.pack.store');
 	  Route::get('/api/promo-pack/{promoPack}/edit','PromoPackController@edit')->name('promo.pack.edit');

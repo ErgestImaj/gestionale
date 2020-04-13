@@ -137,11 +137,16 @@
             menuClick(id, item) {
                 switch (id) {
                     case 1:
+                        this.edit(item);
                         break;
                     case 3:
                         break;
                 }
             },
+						edit(item) {
+                let nUrl = window.location.origin + "/amministrazione/promo-pack/" + item.hashid + "/edit";
+                window.location.href = nUrl;
+						},
             moment: function () {
                 return moment();
             },
