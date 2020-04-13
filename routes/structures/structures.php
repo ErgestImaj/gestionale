@@ -27,7 +27,6 @@ Route::group([
 
 
 	Route::group(['prefix' => 'api'], function () {
-		Route::get('/struture/{type}', 'StructureController@getStructure')->name('struture.all');
 		Route::get('/lrn_dile', 'StructureController@getStructureLrnDile')->name('struture.lrn.dile');
 		Route::get('/struture/{structure}/edit/', 'StructureController@edit');
 		Route::post('/{structure}/sconto/store', 'DiscountController@store')->name('struture.sconto.store');
@@ -57,10 +56,11 @@ Route::group([
 });
 
 Route::group([
-	'middleware' => ['auth', 'check_user_role:superadmin|amministrazione|partner|master', 'can:create,App\Models\Structure'],
+	'middleware' => ['auth', 'check_user_role:superadmin|amministrazione|partner|master'],
 	'prefix' => 'amministrazione', 'as' => 'structure.',
 	'namespace' => 'Structures'
 ], function () {
+
 	/*
 	 * Affiliati Routes
 	 */
@@ -69,6 +69,7 @@ Route::group([
 
 
 	Route::group(['prefix' => 'api'], function () {
+		Route::get('/struture/{type}', 'StructureController@getStructure')->name('struture.all');
 		Route::get('/active-structures', 'StructureController@listActiveStructures');
 		Route::post('/structure/{type}/store', 'StructureController@store')->name('struture.store');
 	});
@@ -97,6 +98,8 @@ Route::group([
 	'middleware' => ['auth', 'check_user_role:superadmin|amministrazione|partner|master|affiliati'],
 	'prefix' => 'amministrazione', 'as' => 'general.',
 ], function () {
+
+
 	/*
 	 * Location
 	 */
@@ -123,4 +126,14 @@ Route::group([
 		*/
 	 Route::get('/dati-fattura-elettronica', 'ElectronicInvoiceSettingsController@index')->name('invoice.settings');
 	 Route::post('/dati-fattura-elettronica', 'ElectronicInvoiceSettingsController@store')->name('invoice.store');
+});
+Route::group([
+	'middleware' => ['auth', 'check_user_role:partner|master|affiliati'],
+	'prefix' => 'strutture', 'as' => 'strutture.','namespace' => 'Structures'
+], function () {
+	   /*
+			* Dashboard Structures
+			*/
+	  Route::get('/dashboard','DashboardController@index');
+
 });

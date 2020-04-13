@@ -15,22 +15,16 @@ trait  RedirectUsersToDashboard{
 
         switch (strtolower($role)) {
             case User::SUPERADMIN:
-                return 'amministrazione/dashboard';
-                break;
-            case User::ADMIN:
+				  	case User::ADMIN:
                 return 'amministrazione/dashboard';
                 break;
             case User::SEGRETERIA:
                 return 'segreteria/dashboard';
                 break;
-            case 'partner':
-                return 'partner/dashboard';
-                break;
-            case 'master':
-                return 'master/dashboard';
-                break;
-            case 'affiliati':
-                return 'affiliati/dashboard';
+            case User::PARTNER:
+            case User::MASTER:
+            case User::AFFILIATI:
+                return 'strutture/dashboard';
                 break;
             case 'partecipante':
                 return 'partecipante/dashboard';

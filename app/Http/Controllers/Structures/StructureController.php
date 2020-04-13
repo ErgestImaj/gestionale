@@ -62,15 +62,22 @@ class StructureController extends Controller
 	public function getStructure(Request $request)
 	{
 		if (empty($request->type)) return [];
-		return Structure::type($request->type)
-			->with([
-				'province' => function ($query) {
-					$query->select('id', 'title');
-				},
-				'owner' => function ($query) {
-					$query->select('id', 'state');
-				},
-			])->latest()->get(['id', 'user_id', 'legal_prov', 'piva', 'type', 'legal_name', 'code', 'email', 'phone', 'state']);
+
+		 $query = Structure::type($request->type)
+			 ->with([
+				 'province' => function ($query) {
+					 $query->select('id', 'title');
+				 },
+				 'owner' => function ($query) {
+					 $query->select('id', 'state');
+				 },
+			 ]);
+		if (auth()->user()->isSuperAdmin() || auth()->user()->hasRole(User::ADMIN)) {
+		  	return $query->latest()->get(['id', 'user_id', 'legal_prov', 'piva', 'type', 'legal_name', 'code', 'email', 'phone', 'state']);
+		} elseif (auth()->user()->hasRole(User::PARTNER) || auth()->user()->hasRole(User::MASTER)) {
+			 return	$query->where('created_by',auth()->id())->latest()->get(['id', 'user_id', 'legal_prov', 'piva', 'type', 'legal_name', 'code', 'email','created_by', 'phone', 'state']);
+		}
+     return  [];
 	}
 
 	public function getStructureLrnDile()
@@ -201,10 +208,13 @@ class StructureController extends Controller
 	{
 		try {
 			$user = User::findOrFail($structure->user_id);
-
-			$user->isActive() ? $user->disable() : $user->enable();
-
-			$structure->isActive() ? $structure->disable() : $structure->enable();
+      if ($user->isActive() ){
+				$user->disable();
+				$structure->disable();
+			}else{
+				$user->enable();
+				$structure->enable();
+			}
 			return response([
 				'status' => 'success',
 				'msg' => trans('messages.change_status')

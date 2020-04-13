@@ -15,12 +15,22 @@
                 </div>
             </div>
         </li>
+	  		@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN)
         <li class="nav-item @if(Request::is('amministrazione/dashboard'))active @endif">
             <a class="nav-link" href="{{route('admin.home')}}">
                 <i class="fa fa-home menu-icon"></i>
                 <span class="menu-title">{{trans('menu.dashboard')}}</span>
             </a>
         </li>
+		  	@endhasanyrole
+				@hasanyrole(User::PARTNER.'|'.User::MASTER)
+        <li class="nav-item @if(Request::is('amministrazione/dashboard'))active @endif">
+            <a class="nav-link" href="{{route('admin.home')}}">
+                <i class="fa fa-home menu-icon"></i>
+                <span class="menu-title">{{trans('menu.dashboard')}}</span>
+            </a>
+        </li>
+		  	@endhasanyrole
         <li class="nav-item @if(Request::is('amministrazione/admins*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#employers" aria-expanded="false" aria-controls="employers">
                 <i class="fas fa-user-tie menu-icon"></i>
@@ -29,7 +39,7 @@
             </a>
             <div class="collapse" id="employers">
                 <ul class="nav flex-column sub-menu">
-                    @hasrole('superadmin')
+                    @hasrole(User::SUPERADMIN)
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.admins.view')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.segreteria.view')}}">{{trans('menu.segreteria')}}</a></li>
@@ -46,7 +56,7 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item @if(Request::is('amministrazione/admins*'))active @endif">
+        <li class="nav-item @if(Request::is('amministrazione/struture*'))active @endif">
             <a class="nav-link" data-toggle="collapse" data-target="#strutture" href="#strutture" aria-expanded="false" aria-controls="strutture">
                 <i class="fas fa-list-alt menu-icon"></i>
                 <span class="menu-title">{{trans('menu.strutture')}}</span>
@@ -54,9 +64,15 @@
             </a>
             <div class="collapse" id="strutture">
                 <ul class="nav flex-column sub-menu">
+									  @hasanyrole(User::SUPERADMIN.'|'.User::ADMIN)
                     <li class="nav-item"> <a class="nav-link" href="{{route('structure.struture.partner')}}">Partner</a></li>
+								  	@endhasanyrole
+								  	@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN.'|'.User::PARTNER)
                     <li class="nav-item"> <a class="nav-link" href="{{route('structure.struture.master')}}">Master</a></li>
+							  		@endhasanyrole
+							  		@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN.'|'.User::PARTNER.'|'.User::MASTER)
                     <li class="nav-item"> <a class="nav-link" href="{{route('structure.struture.affiliati')}}">Affiliati</a></li>
+								  	@endhasanyrole
                 </ul>
             </div>
         </li>
