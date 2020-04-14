@@ -59,7 +59,7 @@ class StructureController extends Controller
 	}
 
 	// TODO: check user permission
-	public function getStructure(Request $request)
+	public function getStructures(Request $request)
 	{
 		if (empty($request->type)) return [];
 
