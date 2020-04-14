@@ -11,7 +11,6 @@ Route::group([
 	 */
 
 	Route::get('/structures/export/{type}/{from_date?}/{to_date?}', 'StructureController@export')->name('export');
-	Route::get('/structures/get-list-of-structures/{type}', 'StructureController@getStructures')->name('export');
 
 	/*
 	 * Partner Routes
@@ -69,7 +68,7 @@ Route::group([
 
 
 	Route::group(['prefix' => 'api'], function () {
-		Route::get('/struture/{type}', 'StructureController@getStructure')->name('struture.all');
+		Route::get('/struture/{type}', 'StructureController@getStructures')->name('struture.all');
 		Route::get('/active-structures', 'StructureController@listActiveStructures');
 		Route::post('/structure/{type}/store', 'StructureController@store')->name('struture.store');
 	});

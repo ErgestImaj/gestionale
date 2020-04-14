@@ -23,11 +23,11 @@ class StructuresExport implements FromView
 
 		$query = Structure::query();
 
-		if (!is_null($this->from) && !is_null($this->to)){
+		if ($this->from && $this->to){
 			$query->whereBetween('created',[$this->from,$this->to]);
-		}elseif (!is_null($this->from)){
+		}elseif ($this->from){
 			$query->whereDate('created','>',$this->from);
-		}elseif (!is_null($this->to)){
+		}elseif ($this->to){
 			$query->whereDate('created','<=',$this->to);
 		}
 		$structures = $query->type($this->type)->cursor();

@@ -22,7 +22,7 @@ class UtentiController extends Controller
 
 	public function export()
 	{
-		return Excel::download(new UsersExport(request()->type, request()->from, request()->to), request()->type . '.xlsx');
+		return Excel::download(new UsersExport(request()->type, request()->from_date, request()->to_date), request()->type . '.xlsx');
 	}
 
 	public function createUtente($type)

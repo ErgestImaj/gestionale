@@ -26,7 +26,7 @@ class StructureController extends Controller
 
 	public function export()
 	{
-		return Excel::download(new StructuresExport(request()->type, request()->from, request()->to), 'structure.xlsx');
+		return Excel::download(new StructuresExport(request()->type, request()->from_date, request()->to_date), 'structure.xlsx');
 	}
 
 	public function partnerIndex()

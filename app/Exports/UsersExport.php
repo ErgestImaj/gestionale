@@ -11,7 +11,7 @@ class UsersExport implements FromView
 {
 	use Exportable;
 
-	public function __construct($type = 'superadmin', $from = null, $to = null)
+	public function __construct($type = 'superadmin', $from = 0, $to = 0)
 	{
 		$this->type = $type;
 		$this->from = $from;
@@ -22,12 +22,11 @@ class UsersExport implements FromView
 	public function view(): View
 	{
 		$query = User::query();
-
-		if (!is_null($this->from) && !is_null($this->to)) {
+		if ($this->from && $this->to) {
 			$query->whereBetween('created', [$this->from, $this->to]);
-		} elseif (!is_null($this->from)) {
+		} elseif ($this->from) {
 			$query->whereDate('created', '>', $this->from);
-		} elseif (!is_null($this->to)) {
+		} elseif ($this->to) {
 			$query->whereDate('created', '<=', $this->to);
 		}
 		$users = $query->whereHas('roles', function ($query) {
