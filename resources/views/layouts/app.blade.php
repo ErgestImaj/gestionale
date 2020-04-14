@@ -3,13 +3,13 @@
 @include('layouts.head')
 <body>
 
-    @if (session()->has('superadmin_user'))
-            <div class="relogin alert alert-fill-danger" role="alert">
-                <i class="fa fa-exclamation-triangle"></i>
-                <a class="alert-link" href="{{ route('admin.relogin') }}">Ritorna al pannello
-                    di amministrazione</a>
-            </div>
-    @endif
+{{--    @if (session()->has('superadmin_user'))--}}
+{{--            <div class="relogin alert alert-fill-danger" role="alert">--}}
+{{--                <i class="fa fa-exclamation-triangle"></i>--}}
+{{--                <a class="alert-link" href="{{ route('admin.relogin') }}">Ritorna al pannello--}}
+{{--                    di amministrazione</a>--}}
+{{--            </div>--}}
+{{--    @endif--}}
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         @include('layouts.top-nav')

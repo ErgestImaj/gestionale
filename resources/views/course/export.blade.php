@@ -28,7 +28,7 @@
 			<td>{{$course->min_order_partner}}</td>
 			<td>{{$course->min_order_master}}</td>
 			<td>{{$course->min_order_affiliate}}</td>
-			<td>{{$course->vatRate->name ?? ''}}- {{$course->vatRate->value ?? ''}}</td>
+			<td>{{@$course->vatRate->name ?? ''}}- {{@$course->vatRate->value ?? ''}}</td>
 			<td>{{ format_date($course->created)}}</td>
 		</tr>
 	@empty

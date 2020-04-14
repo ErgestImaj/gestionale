@@ -50,7 +50,7 @@ Route::group([
 
     Route::post('/send-invitation-link/{user}','EmailsController@sendInvitationLink')->name('invitation');
     Route::post('/send-email-to-single-user/{user}','EmailsController@sendEmailToUser')->name('emailtosingleuser');
-    Route::get('/login-as-user/{user}','LoginController@loginAsUser')->name('loginasuser');
+
     Route::get('/re-login-as-admin','LoginController@reLoginAsAdmin')->name('relogin');
 
     Route::patch('/admin/status/{user}','AdminController@updateStatus')->name('users.status');

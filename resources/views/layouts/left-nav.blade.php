@@ -42,17 +42,21 @@
                     @hasrole(User::SUPERADMIN)
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.admins.view')}}">{{trans('menu.admin')}}</a></li>
                     @endhasrole
+								  	@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN)
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.segreteria.view')}}">{{trans('menu.segreteria')}}</a></li>
+									  @endhasrole
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.studenti.view')}}">Studenti</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.docente.view')}}">Docenti</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.fomatori.view')}}">Formatori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.supervisore.view')}}">Supervisori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.esaminatore.view')}}">Esaminatori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.invigilatori.view')}}">Invigilatori</a></li>
+								  	@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN)
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.inspector.view')}}">Ispettori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.tutor.view')}}">Tutori</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.lrn.view')}}">Area LRN</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('utenti.dile.view')}}">Area DILE</a></li>
+									  @endhasrole
                 </ul>
             </div>
         </li>
@@ -76,6 +80,7 @@
                 </ul>
             </div>
         </li>
+			@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN)
 			<!--Certificates-->
 			<li class="nav-item @if(Request::is('amministrazione/certificates*'))active @endif">
 				<a class="nav-link" href="{{route('admin.certificates.list')}}">
@@ -84,8 +89,10 @@
 				</a>
 			</li>
 			<!--.Certificates-->
+			@endhasanyrole
+			@hasanyrole(User::SUPERADMIN.'|'.User::ADMIN.'|'.User::PARTNER.'|'.User::MASTER.'|'.User::AFFILIATI)
 			<!--Sessioni desame-->
-			<li class="nav-item @if(Request::is('orders/*'))active @endif">
+			<li class="nav-item @if(Request::is('exams/*'))active @endif">
 				<a class="nav-link" data-toggle="collapse" href="#sessione_di_esame" aria-expanded="false" aria-controls="sessione_di_esame">
 					<i class="fas fa-pen-alt menu-icon"></i>
 					<span class="menu-title">Sessione d'esame</span>
@@ -93,14 +100,26 @@
 				</a>
 				<div class="collapse" id="sessione_di_esame">
 					<ul class="nav flex-column sub-menu">
+						@exam(\App\Models\Category::MEDIAFORM)
 						<li class="nav-item"> <a class="nav-link" href="{{route('exams.mediaform.list')}}">Sessione d'esame MF</a></li>
+						@endexam
+						@exam(\App\Models\Category::IIQ)
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame IIQ</a></li>
+						@endexam
+						@exam(\App\Models\Category::MIUR)
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame MIUR</a></li>
+						@endexam
+						@exam(\App\Models\Category::LRN)
 						<li class="nav-item"> <a class="nav-link" href="{{route('exams.lrn.index',\App\Models\Category::LRN)}}">Sessione d'esame LRN</a></li>
+						@endexam
+						@exam(\App\Models\Category::DILE)
 						<li class="nav-item"> <a class="nav-link" href="#">Sessione d'esame DILE</a></li>
+						@endexam
 					</ul>
 				</div>
 			</li>
+			<!--.Sessioni desame-->
+			@endhasanyrole
         <li class="nav-item @if(Request::is('amministrazione/download*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#download" aria-expanded="false" aria-controls="download">
                 <i class="fas fa-download menu-icon"></i>

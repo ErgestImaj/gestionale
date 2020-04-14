@@ -2,7 +2,7 @@
 //Exams routes
 
 Route::group([
-	'middleware' => ['auth','check_user_role:superadmin' ],
+	'middleware' => ['auth','check_user_role:superadmin|amministrazione|partner|master|affiliati' ],
 	'prefix'=>'exams','as'=>'exams.',
 	'namespace'=>'Exams'
 ],function() {

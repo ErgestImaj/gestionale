@@ -18,7 +18,7 @@
 			<td>{{$fast->user->firstname ?? '' }}</td>
 			<td>
 				@foreach($fast->order_items as $order)
-					{{$order->course->name ?? ''}} - {{$order->date}} ({{$order->participants_count}}X{{price_formater($fast->general_price)}})<br>
+					{{@$order->course->name ?? ''}} - {{@$order->date}} ({{@$order->participants_count}}X{{price_formater($fast->general_price)}})<br>
 				@endforeach
 			</td>
 			<td>{{ price_formater($fast->price)}}</td>

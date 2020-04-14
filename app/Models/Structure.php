@@ -115,4 +115,13 @@ class Structure extends Model
 		if (isset($typeNames[$type])) return $typeNames[$type];
 		return '';
 	}
+	public function checkExamAccess($type){
+		if ($type == Category::MEDIAFORM) return $this->status->status === self::IS_ACTIVE;
+		if ($type == Category::LRN) return $this->status->status_lrn === self::IS_ACTIVE;
+		if ($type == Category::IIQ) return $this->status->status_iiq === self::IS_ACTIVE;
+		if ($type == Category::DILE) return $this->status->status_dile === self::IS_ACTIVE;
+		if ($type == Category::MIUR) return $this->status->status_miur === self::IS_ACTIVE;
+
+	   return false;
+	}
 }
