@@ -46,7 +46,7 @@ class MassMailRequest extends FormRequest
            'created_by'=>auth()->id(),
            'description'=>$this->description,
 				   'types'=>$this->types,
-           'send_to'=>implode(', ',array_pluck($this->target, 'name')),
+           'send_to'=>$this->target,
            'exclude'=>$this->exists('exclude') ? $this->exclude : null
        ];
     }

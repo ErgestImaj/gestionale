@@ -39,7 +39,7 @@
             </v-radio-group>
           </v-col>
 					<v-col cols="12" md="8">
-						<v-combobox
+						<v-autocomplete
 							chips
 							:deletable-chips="true"
 							outlined label="Tipo"
@@ -50,10 +50,10 @@
 							item-value="id"
 							attach
 							:error-messages="errors.types ? errors.types[0] : []"
-						></v-combobox>
+						></v-autocomplete>
 					</v-col>
           <v-col cols="12">
-            <v-combobox
+						<v-autocomplete
               chips
               :deletable-chips="true"
               v-model="workshop.partecipants"
@@ -65,7 +65,7 @@
               :error-messages="errors.partecipants ? errors.partecipants[0] : []"
               attach
               :label="trans('form.target')"
-            ></v-combobox>
+						></v-autocomplete>
             <div
               class="invalid-feedback d-block"
               v-if="errors.partecipants"

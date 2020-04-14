@@ -17,7 +17,7 @@
 						<div class="invalid-feedback d-block" v-if="errors.description">{{errors.description[0]}}</div>
 					</v-col>
 					<v-col cols="12" md="6">
-						<v-combobox
+						<v-autocomplete
 							chips
 						 outlined
 							:label="trans('form.target')"
@@ -26,13 +26,13 @@
 							v-model="massemails.target"
 							:items="roles"
 							item-text="name"
-							item-value="id"
+							item-value="name"
 							attach
 							:error-messages="errors.target ? errors.target[0] : []"
-						></v-combobox>
+						></v-autocomplete>
 					</v-col>
 					<v-col cols="12" md="6">
-						<v-combobox
+						<v-autocomplete
 							chips
 							:deletable-chips="true"
 							outlined label="Tipo"
@@ -43,7 +43,7 @@
 							item-value="id"
 							attach
 							:error-messages="errors.types ? errors.types[0] : []"
-						></v-combobox>
+						></v-autocomplete>
 					</v-col>
 					<v-col cols="12">
 						<v-autocomplete

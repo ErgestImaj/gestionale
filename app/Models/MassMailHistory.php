@@ -16,5 +16,6 @@ class MassMailHistory extends Model
 		protected $casts = [
 			'types'=>'array',
 			'exclude'=>'array',
+			'send_to'=>'array',
 		];
 }

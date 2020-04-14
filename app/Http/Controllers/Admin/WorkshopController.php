@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkshopRequest;
+use App\Models\Category;
 use App\Models\Workshop;
 use Illuminate\Support\Str;
 
@@ -23,8 +24,23 @@ class WorkshopController extends Controller
 			$html .= ' | ' . format_date($workshop->date);
 			$workshop->date = $html;
 			$workshop->description = Str::limit($workshop->note, 20, '...');
-			$workshop->participants = implode(', ', array_pluck($workshop->partecipants, 'name'));
-			$workshop->types = implode(', ', array_pluck($workshop->types, 'name'));
+			$workshop->participants = implode(', ',$workshop->partecipants);
+			$names = '';
+			foreach ($workshop->types as $type) {
+				if ($type == Category::MEDIAFORM){
+					$names .= 'MF, ';
+				}	elseif ($type == Category::LRN){
+					$names .= 'LRN, ';
+				}elseif ($type == Category::MIUR){
+					$names .= 'MIUR, ';
+				}elseif ($type == Category::IIQ){
+					$names .= 'IIQ, ';
+				}elseif ($type == Category::DILE){
+					$names .= 'DILE, ';
+				}
+
+			}
+			$workshop->types = Str::replaceLast(',', '', $names);
 			$workshop->created_by = optional($workshop->user)->displayName();
 			$workshop->updated_by = optional($workshop->updatedByUser)->displayName();
 			$workshop->editlink = route('admin.workshop.edit', $workshop->hashid());

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MailToSingleUserRequest;
 use App\Http\Requests\MassMailRequest;
 use App\Mail\SendEmailToSingleUser;
+use App\Models\Category;
 use App\Models\MassMailHistory;
 use App\Models\User;
 use App\Models\UserGroups;
@@ -81,8 +82,23 @@ class EmailsController extends Controller
         $logs = MassMailHistory::latest()->get();
 		  	$logs_filtred = $logs->filter(function ( $log) {
 				$log->description =Str::limit($log->description,20,'...');
-				$log->target =ucwords( $log->send_to);
-				$log->types = implode(', ', array_pluck($log->types, 'name'));
+					$names = '';
+					foreach ($log->types as $type) {
+						if ($type == Category::MEDIAFORM){
+							$names .= 'MF, ';
+						}	elseif ($type == Category::LRN){
+							$names .= 'LRN, ';
+						}elseif ($type == Category::MIUR){
+							$names .= 'MIUR, ';
+						}elseif ($type == Category::IIQ){
+							$names .= 'IIQ, ';
+						}elseif ($type == Category::DILE){
+							$names .= 'DILE, ';
+						}
+
+					}
+					$log->target = implode(', ',$log->send_to);
+				$log->types = Str::replaceLast(',', '', $names);
 				$log->created =format_date($log->created_at);
 				$log->created_by =optional($log->user)->displayName();
 				$log->remlink = route('admin.deletemassemail',$log->hashid());
@@ -95,12 +111,13 @@ class EmailsController extends Controller
 
     /*
      * Save and Send Mass Emails
+     *  TO DO: MODIFY if user belogs to type
      */
     public function sendMassEmail(MassMailRequest $request){
-        $roles = array_pluck($request->input('target'), 'name');
+        $roles =$request->input('target');
         $emails = [];
         if ($request->exists('exclude')){
-            $emails = array_pluck($request->input('exclude'), 'email');
+            $emails =$request->input('exclude');
         }
 
         //get users by role
