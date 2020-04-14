@@ -87,6 +87,7 @@
 									<v-btn color="primary" text :disabled="selectedCourses.length === 0" @click="addSelected()">Add Selected</v-btn>
 									<v-btn color="warning" text :disabled="selectedActiveCourses.length === 0" @click="removeSelected()">Remove Selected</v-btn>
 								</v-col>
+								<v-col cols="12"><div class="invalid-feedback d-block" v-if="errors.corsi">{{errors.corsi[0]}}</div></v-col>
 							</v-row>
 						</v-card-text>
 					</v-card>
@@ -133,7 +134,7 @@
                 activeCoursesHeaders: [
                     { text: "#", value: "id" },
                     { text: "Nome", value: "name" },
-                    { text: "Quantita", value: "quantity" },
+                    { text: "Quantità", value: "quantity" },
                 ],
                 extensions: [ History, Blockquote, Link, Underline, Strike, Italic, ListItem, BulletList, OrderedList,
                     [ Heading, { options: { levels: [1, 2, 3] } } ],
@@ -146,7 +147,6 @@
         },
         mounted() {
         	 this.getCourses();
-        	 console.log(this.isEdit);
         	 if (!!this.isEdit) {
         	     this.handleIfEdit();
 					 }
@@ -166,7 +166,11 @@
 						if (!this.submiting) {
 							this.content.corsi = this.activeCourses
 							this.submiting = true;
-							axios.post(`/amministrazione/api/promo-pack/store`,this.content)
+              let path = '/amministrazione/api/promo-pack/store';
+              if (!!this.isEdit){
+								path = '/amministrazione/api/promo-pack/'+this.content.hashid+'/update';
+							}
+							axios.post(`${path}`,this.content)
 								.then(response => {
 									if (response.data.status == "success") {
 										swal("Good job!", response.data.msg, "success");

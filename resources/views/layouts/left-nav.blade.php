@@ -116,7 +116,7 @@
             </div>
         </li>
 
-        <li class="nav-item @if(Request::is('amministrazione/course*'))active @endif">
+        <li class="nav-item @if(Request::is('amministrazione/course*')||Request::is('amministrazione/promo-pack*')||Request::is('amministrazione/categories*')||Request::is('lms-contents*'))active @endif">
             <a class="nav-link" data-toggle="collapse" href="#course" aria-expanded="false" aria-controls="course">
                 <i class="fas fa-book-open menu-icon"></i>
                 <span class="menu-title">{{trans('menu.course')}}</span>

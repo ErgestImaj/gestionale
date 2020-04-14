@@ -57,16 +57,51 @@ class PromoPackController extends Controller
 			]);
 		}
 	}
+
 	public function edit(PromoPack $promoPack){
-		return $promoPack->load('courses');
-	}
-
-
-	public function editPage(PromoPack $promoPack){
 		return view('course.promo.edit', [
 			'promo' => $promoPack->load('courses'),
 		]);
 	}
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param Structure $structure
+	 *
+	 * @return void
+	 */
+	public function update(PromoPackRequest $request, PromoPack $promoPack)
+	{
+		DB::beginTransaction();
+		try {
+			$promoPack->fill($request->fillFormFields());
+			$promoPack->save();
+			$extra = array_map(function($course){
+				return ['course_id'=>$course['id'],'qty'=>$course['quantity']];
+			}, $request->input('corsi'));
+			$course_ids = array_pluck( $extra, 'course_id');
+			$qtys = array_pluck( $extra, 'qty');
+			foreach ($course_ids as $key=>$val){
+				$store[$val] = ['qty'=>$qtys[$key]];
+			}
+			$promoPack->courses()->sync($store);
+    DB::commit();
+			return response([
+				'status' => 'success',
+				'msg' => trans('messages.success'),
+				'redirect'=>route('admin.promo.pack')
+			]);
+		} catch (\Exception $exception) {
+			DB::rollback();
+			logger($exception->getMessage());
+			return response([
+				'status' => 'error',
+				'msg' => trans('messages.error')
+			]);
+		}
+
+	}
+
 	/**
 	 * Update the specified resource in storage.
 	 *
