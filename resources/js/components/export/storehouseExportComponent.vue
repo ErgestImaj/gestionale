@@ -95,8 +95,7 @@
 				},
 				getStructures() {
         		if (this.type == 'all'){
-
-							axios.get(`/amministrazione/api/lrn_dile/`).then(response => {
+							axios.get(`/amministrazione/api/structures_by_category/`).then(response => {
 								this.structures = response.data
 							})
 							return;

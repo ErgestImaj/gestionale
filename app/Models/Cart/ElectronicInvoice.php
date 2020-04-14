@@ -45,8 +45,8 @@ class ElectronicInvoice extends Model
 	public function getCreatedAttribute($date){
 		return $this->databaseDateFormat($date);
 	}
-	public static function getMaxProgresNumber(){
-		$max_nr = static::whereYear('created',Carbon::now()->year)->where('created_by',auth()->id())->max('invoice_number');
+	public static function getMaxProgresNumber($fatture_type){
+		$max_nr = static::whereYear('created',Carbon::now()->year)->where('fatture_type',$fatture_type)->max('invoice_number');
 		return $max_nr ? ($max_nr + 1).'_G' : '1_G';
 	}
 }

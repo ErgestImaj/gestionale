@@ -119,6 +119,6 @@ trait UserRelationships{
 			return $this->hasOne(UserStatus::class,'user_id','id');
 	}
 	public function electroniceInvoiceSettings(){
-			return $this->hasOne(ElectronicInvoiceSettings::class,'user_id','id');
+			return $this->hasMany(ElectronicInvoiceSettings::class,'user_id','id');
 	}
 }

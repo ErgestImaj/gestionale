@@ -80,11 +80,25 @@ class StructureController extends Controller
      return  [];
 	}
 
-	public function getStructureLrnDile()
+	public function getStructureByCategory($type = 'all')
 	{
-		return Structure::whereHas('status', function ($query) {
-			$query->where('status_lrn', 1)->orWhere('status_dile', 1);
-		})->latest()->get(['id', 'legal_name']);
+		if ($type == 'all'){
+			return Structure::whereHas('status', function ($query) {
+				$query->where('status_lrn', 1)->orWhere('status_dile', 1);
+			})->latest()->get(['id', 'legal_name']);
+		}
+		if ($type == 'lrn'){
+			return Structure::whereHas('status', function ($query) {
+				$query->where('status_lrn', 1);
+			})->latest()->get(['id', 'legal_name']);
+		}
+		if ($type == 'dile'){
+			return Structure::whereHas('status', function ($query) {
+				$query->where('status_dile', 1);
+			})->latest()->get(['id', 'legal_name']);
+		}
+
+
 	}
 
 	public function getStructureParent($type)

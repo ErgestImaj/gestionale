@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceUploadRequest;
 use App\Models\Cart\CourseTransactions;
 use App\Models\Cart\Orders;
+use App\Models\ElectronicInvoiceSettings;
 use App\Services\ElectronicInvoiceServices;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -145,9 +146,9 @@ class OrdersController extends Controller
 			toastr()->error('Compila i dati per fattura elettronica');
 			return redirect()->route('general.invoice.settings');
 		}
+		$setting = ElectronicInvoiceSettings::where('type',$order->type_order)->first();
 
-
-		$electronic_invoice = ElectronicInvoiceServices::generateXMLInvoice($order, $order->structure->structure);
+		$electronic_invoice = ElectronicInvoiceServices::generateXMLInvoice($order, $order->structure->structure,$setting);
 		if ($electronic_invoice) {
 			toastr()->success('Fattura elettronica generato con successo!');
 			return view('orders.electronic-invoice');

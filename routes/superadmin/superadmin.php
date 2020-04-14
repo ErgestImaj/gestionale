@@ -32,7 +32,18 @@ Route::group([
 	     Route::get('/settings/scadenza-contrato/','SettingsController@scadenzaContrato')->name('scadenza_contrato');
 	     Route::post('/settings/scadenza-contrato/','SettingsController@addScadenzaContrato')->name('scadenza_contrato.add');
 
+});
 
+Route::group([
+              'middleware' => ['auth','check_user_role:superadmin' ],
+              'prefix'=>'amministrazione','as'=>'superadmin.',
+             ],function() {
+
+			/*
+	  	 * Dati Fattura Elettronica
+		   */
+			Route::get('/dati-fattura-elettronica', 'ElectronicInvoiceSettingsController@index')->name('invoice.settings');
+			Route::patch('/dati-fattura-elettronica/{settings}', 'ElectronicInvoiceSettingsController@update')->name('invoice.update');
 
 });
 

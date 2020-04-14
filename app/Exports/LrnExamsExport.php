@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Exams\LrnExamSession;
+use App\Models\Structure;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -11,11 +12,12 @@ class LrnExamsExport implements FromView
 {
 	  use Exportable;
 
-	public function __construct($type=1, $from = null, $to = null)
+	public function __construct($type=1, $from = 0, $to = 0,$structure=0)
 	{
 		$this->type = $type;
 		$this->from = $from;
 		$this->to = $to;
+		$this->structure = $structure;
 
 	}
 
@@ -23,12 +25,16 @@ class LrnExamsExport implements FromView
 	{
 		$query = LrnExamSession::query();
 
-		if (!is_null($this->from) && !is_null($this->to)){
+		if ($this->from && $this->to){
 			$query->whereBetween('created',[$this->from,$this->to]);
-		}elseif (!is_null($this->from)){
+		}elseif ($this->from){
 			$query->whereDate('created','>',$this->from);
-		}elseif (!is_null($this->to)){
+		}elseif ($this->to){
 			$query->whereDate('created','<=',$this->to);
+		}
+		if ($this->structure) {
+			$structure = Structure::findByHashid($this->structure);
+			$query->where('created_by', $structure->user_id);
 		}
 		$exams = $query->type($this->type)->cursor();
 

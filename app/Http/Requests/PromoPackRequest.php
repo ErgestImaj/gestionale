@@ -28,6 +28,7 @@ class PromoPackRequest extends FormRequest
 			'name' => 'required|string',
 			'description' => 'required|string',
 			'price' => 'required|numeric',
+			'type' => 'required|numeric',
 			'expiry_date' => 'required|date',
 			'corsi' => 'required|array',
 			'corsi.*.quantity' => 'required|numeric|min:1',
@@ -38,6 +39,7 @@ class PromoPackRequest extends FormRequest
 	{
 		return [
 			'name' => 'nome',
+			'type' => 'tipo',
 			'description' => 'descrizione',
 			'price' => 'prezzo',
 			'expiry_date' => 'data scadenza',
@@ -47,6 +49,7 @@ class PromoPackRequest extends FormRequest
 	public function fillFormFields(){
 		return [
 			'name'=>$this->input('name'),
+			'type'=>$this->input('type'),
 			'description'=>$this->input('description'),
 			'price'=>$this->input('price'),
 			'expiry_date'=>$this->input('expiry_date'),

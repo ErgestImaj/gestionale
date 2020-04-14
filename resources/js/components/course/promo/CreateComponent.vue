@@ -22,7 +22,17 @@
 																v-model="content.price"
 																:error-messages="getError('price')"
 									></v-text-field>
-
+										<v-select
+											v-model="content.type"
+											:items="types"
+											dense
+											:error-messages="errors.type ? errors.type[0] : []"
+											item-text="name"
+											item-value="id"
+											:menu-props="{ maxHeight: '400' }"
+											label="Tipo"
+											outlined
+										></v-select>
 									<v-menu content-class="gdate" v-model="datePicker1" :close-on-content-click="false"
 													transition="scale-transition" offset-y min-width="290px">
 										<template v-slot:activator="{ on }">
@@ -125,6 +135,7 @@
                 selectedCourses: [],
                 searchAll: '',
                 searchActive: '',
+							  types:[],
                 selectedActiveCourses: [],
                 activeCourses: [],
                 coursesHeaders: [
@@ -147,6 +158,7 @@
         },
         mounted() {
         	 this.getCourses();
+        	 this.getUserTypes();
         	 if (!!this.isEdit) {
         	     this.handleIfEdit();
 					 }

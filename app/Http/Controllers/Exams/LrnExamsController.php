@@ -18,7 +18,7 @@ class LrnExamsController extends Controller
 
 	public function export()
 	{
-		return Excel::download(new LrnExamsExport(request()->type,request()->from,request()->to),'exams.xlsx');
+		return Excel::download(new LrnExamsExport(request()->type,request()->from_date,request()->to_date,request()->structure),'exams.xlsx');
 	}
     /**
      * Display a listing of the resource.

@@ -4,6 +4,7 @@
 		<basic-export
 			:type="userType"
 			model="users"
+			:strutture="(userType == 'amministrazione'||userType == 'segreteria'||userType == 'area dile'||userType == 'area lrn'||userType == 'tutori'||userType == 'ispettori') ? null :'1,2,3'"
 		></basic-export>
     <v-card>
       <v-card-title>

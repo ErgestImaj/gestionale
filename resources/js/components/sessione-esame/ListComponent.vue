@@ -4,6 +4,8 @@
 		<basic-export
 			:type="examType"
 			model="lrnexamsession"
+			strutture="1,2,3"
+			type-structura="lrn"
 		></basic-export>
 		<v-card>
 			<v-card-title>

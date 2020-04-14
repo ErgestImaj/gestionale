@@ -10,6 +10,7 @@ use App\Http\Requests\InvoiceUploadRequest;
 use App\Mail\FastTrackOrderShipped;
 use App\Mail\ResendInvoice;
 use App\Models\Cart\FastTrack;
+use App\Models\ElectronicInvoiceSettings;
 use App\Models\Exams\LrnExamSession;
 use App\Services\ElectronicInvoiceServices;
 use Illuminate\Support\Facades\Mail;
@@ -134,8 +135,8 @@ class FastTrackController extends Controller
 			return back();
 		}
 
-
-		$electronic_invoice = ElectronicInvoiceServices::generateXMLInvoice($fastTrack, $fastTrack->user->structure);
+		$setting = ElectronicInvoiceSettings::where('type',$fastTrack->type)->first();
+		$electronic_invoice = ElectronicInvoiceServices::generateXMLInvoice($fastTrack, $fastTrack->user->structure,$setting);
 		if ($electronic_invoice) {
 			toastr()->success('Fattura elettronica generato con successo!');
 			return view('orders.electronic-invoice');

@@ -23,10 +23,10 @@ class ExportController extends Controller
 					$redirect = route('structure.export',[$request->input('type'),$request->input('from_date')??0,$request->input('to_date')??0]);
 					break;
 				case LrnExamSession::MODEL:
-					$redirect = route('exams.lrn.export',[$request->input('type'),$request->input('from_date')??0,$request->input('to_date')??0]);
+					$redirect = route('exams.lrn.export',[$request->input('type'),$request->input('from_date')??0,$request->input('to_date')??0,$request->input('structure')??0]);
 					break;
 				case User::MODEL:
-					$redirect = route('utenti.export',[$request->input('type'),$request->input('from_date')??0,$request->input('to_date')??0]);
+					$redirect = route('utenti.export',[$request->input('type'),$request->input('from_date')??0,$request->input('to_date')??0,$request->input('structure')??0]);
 					break;
 				case 'storehouse':
 					$redirect = route('general.storehouse.structures.export',[$request->input('type'),$request->input('structure')??'']);

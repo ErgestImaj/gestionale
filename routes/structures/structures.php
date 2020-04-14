@@ -26,7 +26,7 @@ Route::group([
 
 
 	Route::group(['prefix' => 'api'], function () {
-		Route::get('/lrn_dile', 'StructureController@getStructureLrnDile')->name('struture.lrn.dile');
+		Route::get('/structures_by_category/{type?}', 'StructureController@getStructureByCategory')->name('struture.lrn.dile');
 		Route::get('/struture/{structure}/edit/', 'StructureController@edit');
 		Route::post('/{structure}/sconto/store', 'DiscountController@store')->name('struture.sconto.store');
 		Route::get('/{structure}/sconto/', 'DiscountController@index')->name('struture.sconto.index');
@@ -120,11 +120,6 @@ Route::group([
 	Route::get('/storehouse-master', 'StorehouseController@indexMaster')->name('storehouse.master');
 	Route::get('/storehouse-affiliate', 'StorehouseController@indexAffiliate')->name('storehouse.affiliate');
 
-	 /*
-		* Dati Fattura Elettronica
-		*/
-	 Route::get('/dati-fattura-elettronica', 'ElectronicInvoiceSettingsController@index')->name('invoice.settings');
-	 Route::post('/dati-fattura-elettronica', 'ElectronicInvoiceSettingsController@store')->name('invoice.store');
 });
 Route::group([
 	'middleware' => ['auth', 'check_user_role:partner|master|affiliati'],

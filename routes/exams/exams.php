@@ -9,7 +9,7 @@ Route::group([
 	/*
 	 * Export
 	 */
-	  Route::get('/exams-lrn/export/{type}/{from_date?}/{to_date?}', 'LrnExamsController@export')->name('lrn.export');
+	  Route::get('/exams-lrn/export/{type}/{from_date?}/{to_date?}/{structure?}', 'LrnExamsController@export')->name('lrn.export');
 
     Route::get('/api/mf-exams/{type}','MediaformExamsController@index');
 		Route::view('/mf-exams/create', 'exams.createMediaForm')->name('mediaform.create');
